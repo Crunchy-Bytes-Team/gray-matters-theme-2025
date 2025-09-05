@@ -1,0 +1,284 @@
+/* Product Cards & Grid Styling - Tailwind Enhanced */
+
+/* Product Grid Container */
+.product-grid {
+  @apply gap-6;
+}
+
+@media (min-width: 768px) {
+  .product-grid {
+    @apply gap-8;
+  }
+}
+
+/* Collection Grid Layout */
+.collection {
+  @apply space-y-8;
+}
+
+.collection-list {
+  @apply gap-6;
+}
+
+@media (min-width: 768px) {
+  .collection-list {
+    @apply gap-8;
+  }
+}
+
+/* Product Card Wrapper */
+.card-wrapper,
+.product-card-wrapper {
+  @apply h-full;
+}
+
+/* Card Base Styling */
+.card {
+  @apply bg-white rounded-lg border border-gray-200 transition-all duration-300 ease-in-out h-full;
+}
+
+.card:hover {
+  @apply shadow-lg border-gray-300 transform -translate-y-1;
+}
+
+/* Card Variants */
+.card--card {
+  @apply shadow-sm;
+}
+
+.card--standard {
+  @apply border-0 bg-transparent;
+}
+
+.card--media {
+  @apply overflow-hidden;
+}
+
+.card--text {
+  @apply p-6;
+}
+
+.card--horizontal {
+  @apply flex-row items-start space-x-4;
+}
+
+/* Card Inner Content */
+.card__inner {
+  @apply h-full flex flex-col;
+}
+
+.card--horizontal .card__inner {
+  @apply flex-row;
+}
+
+/* Card Media */
+.card__media {
+  @apply relative overflow-hidden bg-gray-100;
+}
+
+.card--card .card__media {
+  @apply rounded-t-lg;
+}
+
+.media {
+  @apply block w-full h-full;
+}
+
+.media img {
+  @apply w-full h-full object-cover transition-transform duration-300 ease-in-out;
+}
+
+.card:hover .media img {
+  @apply transform scale-105;
+}
+
+/* Media Aspect Ratios */
+.ratio {
+  @apply relative;
+}
+
+.ratio::before {
+  content: '';
+  @apply block;
+  padding-bottom: var(--ratio-percent, 100%);
+}
+
+.ratio > * {
+  @apply absolute inset-0 w-full h-full object-cover;
+}
+
+/* Card Content */
+.card__content {
+  @apply flex-1 p-4 flex flex-col;
+}
+
+.card--horizontal .card__content {
+  @apply p-0 pl-4;
+}
+
+.card__information {
+  @apply flex-1;
+}
+
+/* Card Heading */
+.card__heading {
+  @apply font-medium text-gray-900 leading-tight mb-2;
+}
+
+.card__heading h3,
+.card__heading h4,
+.card__heading h5 {
+  @apply m-0;
+}
+
+.card__heading a {
+  @apply no-underline text-gray-900 hover:text-blue-600 transition-colors duration-200;
+}
+
+/* Card Information */
+.card-information {
+  @apply space-y-2;
+}
+
+/* Vendor Information */
+.caption-with-letter-spacing {
+  @apply text-xs uppercase tracking-wide text-gray-500 font-medium;
+}
+
+/* Card Badges */
+.card__badge {
+  @apply absolute z-10;
+}
+
+.badge {
+  @apply px-2 py-1 text-xs font-semibold rounded;
+}
+
+.badge--bottom-left {
+  @apply bottom-3 left-3;
+}
+
+.badge--top-left {
+  @apply top-3 left-3;
+}
+
+.badge--top-right {
+  @apply top-3 right-3;
+}
+
+.badge--bottom-right {
+  @apply bottom-3 right-3;
+}
+
+/* Badge Color Schemes */
+.badge.color-scheme-1 {
+  @apply bg-red-100 text-red-800;
+}
+
+.badge.color-scheme-2 {
+  @apply bg-blue-100 text-blue-800;
+}
+
+.badge.color-scheme-3 {
+  @apply bg-green-100 text-green-800;
+}
+
+/* Quick Add Functionality */
+.quick-add {
+  @apply mt-3;
+}
+
+.quick-add__submit {
+  @apply w-full opacity-0 transform translate-y-2 transition-all duration-300 ease-in-out;
+}
+
+.card:hover .quick-add__submit {
+  @apply opacity-100 translate-y-0;
+}
+
+/* Rating Display */
+.rating {
+  @apply flex items-center space-x-1 mb-2;
+}
+
+.rating-star {
+  @apply text-yellow-400;
+}
+
+.rating-text,
+.rating-count {
+  @apply text-sm text-gray-600;
+}
+
+/* Price Display */
+.price {
+  @apply font-semibold text-gray-900;
+}
+
+.price--on-sale {
+  @apply text-red-600;
+}
+
+.price--sold-out {
+  @apply text-gray-500;
+}
+
+.price--compare-at {
+  @apply text-sm text-gray-500 line-through;
+}
+
+/* Volume Pricing Note */
+.card__information-volume-pricing-note {
+  @apply text-xs text-blue-600 mt-1;
+}
+
+/* Animation Classes */
+.scroll-trigger {
+  @apply opacity-0 translate-y-8 transition-all duration-700 ease-out;
+}
+
+.scroll-trigger.animate--slide-in {
+  @apply opacity-100 translate-y-0;
+}
+
+/* Grid Item Spacing */
+.grid__item {
+  @apply h-full;
+}
+
+/* Collection List Specific */
+.collection-list__item {
+  @apply h-full;
+}
+
+.collection-list__item--no-media {
+  @apply flex items-center justify-center min-h-48 bg-gray-100 rounded-lg;
+}
+
+/* Card Shapes */
+.card--shape {
+  @apply overflow-hidden;
+}
+
+.shape--round .card__media {
+  @apply rounded-full;
+}
+
+.shape--arch .card__media {
+  @apply rounded-t-full;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 767px) {
+  .card__content {
+    @apply p-3;
+  }
+
+  .card__heading {
+    @apply text-sm;
+  }
+
+  .quick-add__submit {
+    @apply opacity-100 translate-y-0;
+  }
+}

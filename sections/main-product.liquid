@@ -74,7 +74,7 @@
 
   {% assign variant_images = product.images | where: 'attached_to_variant?', true | map: 'src' %}
   <div class='max-w-7xl mx-auto px-6 md:px-20'>
-    <div class='product product--{{ section.settings.media_size }} product--{{ section.settings.media_position }} product--{{ section.settings.gallery_layout }} product--mobile-{{ section.settings.mobile_thumbnails }} grid grid-cols-1 {% if product.media.size > 0 %}md:grid-cols-2{% else %}product--no-media{% endif %}'>
+    <div class='product product--{{ section.settings.media_size }} product--{{ section.settings.media_position }} product--{{ section.settings.gallery_layout }} product--mobile-{{ section.settings.mobile_thumbnails }} grid grid-cols-1 {% if product.media.size > 0 %}md:grid-cols-2{% else %}product--no-media{% endif %} gap-8 lg:gap-12'>
       <div class='product__media-wrapper'>
         {% render 'product-media-gallery', variant_images: variant_images %}
       </div>

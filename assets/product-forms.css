@@ -1,0 +1,315 @@
+/* Product Forms & Add to Cart Styling - Tailwind Enhanced */
+
+/* Product Form Container */
+.product-form {
+  @apply space-y-6;
+}
+
+.product-form__buttons {
+  @apply space-y-4;
+}
+
+/* Add to Cart Button */
+.product-form__submit {
+  @apply w-full px-6 py-4 text-lg font-semibold rounded-lg transition-all duration-200;
+}
+
+.product-form__submit:not(:disabled) {
+  @apply bg-blue-600 text-white hover:bg-blue-700 focus:ring-4 focus:ring-blue-200 transform hover:scale-105;
+}
+
+.product-form__submit:disabled {
+  @apply bg-gray-300 text-gray-500 cursor-not-allowed;
+}
+
+/* Button Loading State */
+.product-form__submit .loading-spinner {
+  @apply hidden;
+}
+
+.product-form__submit.loading .loading-spinner {
+  @apply inline-block ml-2;
+}
+
+.product-form__submit.loading span:not(.loading-spinner) {
+  @apply opacity-75;
+}
+
+/* Quantity Selector */
+.product-form__quantity {
+  @apply space-y-3;
+}
+
+.quantity__label {
+  @apply block text-sm font-medium text-gray-900;
+}
+
+.quantity {
+  @apply flex items-center border border-gray-300 rounded-lg overflow-hidden max-w-32;
+}
+
+.quantity__button {
+  @apply w-10 h-10 flex items-center justify-center bg-gray-50 border-0 text-gray-600 hover:text-gray-900 hover:bg-gray-100 transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed;
+}
+
+.quantity__button:first-child {
+  @apply border-r border-gray-300;
+}
+
+.quantity__button:last-child {
+  @apply border-l border-gray-300;
+}
+
+.quantity__input {
+  @apply flex-1 text-center border-0 py-2 px-3 focus:outline-none focus:ring-2 focus:ring-blue-500 min-w-0;
+}
+
+.quantity__button .svg-wrapper {
+  @apply w-4 h-4;
+}
+
+/* Quantity Rules Display */
+.quantity__rules {
+  @apply text-sm text-gray-600 space-x-2;
+}
+
+.quantity__rules .divider {
+  @apply inline-block;
+}
+
+.quantity__rules .divider:not(:last-child)::after {
+  content: ' • ';
+  @apply text-gray-400;
+}
+
+.quantity__rules-cart {
+  @apply text-blue-600 font-medium;
+}
+
+/* Volume Pricing */
+.volume-pricing {
+  @apply mt-4 p-4 bg-gray-50 rounded-lg;
+}
+
+.volume-pricing .caption-large {
+  @apply font-semibold text-gray-900 mb-3;
+}
+
+.volume-pricing ul {
+  @apply space-y-2;
+}
+
+.volume-pricing li {
+  @apply flex justify-between items-center text-sm;
+}
+
+.volume-pricing .show-more-item {
+  @apply hidden;
+}
+
+/* Price Per Item Display */
+.price-per-item {
+  @apply mt-2 text-sm text-gray-600;
+}
+
+.price-per-item--current {
+  @apply font-medium text-gray-900;
+}
+
+/* Gift Card Recipient Form */
+.recipient-form {
+  @apply space-y-4 p-4 border border-gray-200 rounded-lg bg-gray-50;
+}
+
+.recipient-form__field {
+  @apply space-y-2;
+}
+
+.recipient-form__field input,
+.recipient-form__field textarea {
+  @apply w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500;
+}
+
+.recipient-form__field label {
+  @apply block text-sm font-medium text-gray-700;
+}
+
+/* Product Form Error Messages */
+.product-form__error-message-wrapper {
+  @apply p-4 bg-red-50 border border-red-200 rounded-lg;
+}
+
+.product-form__error-message {
+  @apply text-red-700 text-sm flex items-center;
+}
+
+.product-form__error-message .svg-wrapper {
+  @apply w-4 h-4 mr-2 text-red-500;
+}
+
+/* Dynamic Checkout Buttons */
+.shopify-payment-button {
+  @apply mt-4;
+}
+
+.shopify-payment-button__button {
+  @apply w-full rounded-lg font-medium;
+  min-height: 48px;
+}
+
+/* Product Form Sections */
+.product__info-container {
+  @apply space-y-8;
+}
+
+.product__column-sticky {
+  @apply sticky top-8;
+}
+
+/* Form Field Styling */
+.field {
+  @apply space-y-2;
+}
+
+.field input,
+.field select,
+.field textarea {
+  @apply w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-200;
+}
+
+.field label {
+  @apply block text-sm font-medium text-gray-700;
+}
+
+/* Required Field Indicator */
+.field label .required::after {
+  content: ' *';
+  @apply text-red-500;
+}
+
+/* Form Validation States */
+.field--error input,
+.field--error select,
+.field--error textarea {
+  @apply border-red-300 focus:border-red-500 focus:ring-red-200;
+}
+
+.field--success input,
+.field--success select,
+.field--success textarea {
+  @apply border-green-300 focus:border-green-500 focus:ring-green-200;
+}
+
+/* Pickup Availability */
+.product__pickup-availabilities {
+  @apply mt-6 p-4 border border-gray-200 rounded-lg;
+}
+
+.pickup-availability-preview {
+  @apply flex items-center space-x-3;
+}
+
+.pickup-availability-preview .svg-wrapper {
+  @apply w-5 h-5 text-gray-600;
+}
+
+.pickup-availability-info {
+  @apply flex-1;
+}
+
+.pickup-availability-button {
+  @apply text-blue-600 hover:text-blue-800 text-sm font-medium;
+}
+
+/* Product Accordion (Collapsible Content) */
+.product__accordion {
+  @apply border border-gray-200 rounded-lg overflow-hidden;
+}
+
+.product__accordion summary {
+  @apply flex items-center justify-between p-4 cursor-pointer hover:bg-gray-50 transition-colors duration-200;
+}
+
+.summary__title {
+  @apply flex items-center space-x-3 font-medium text-gray-900;
+}
+
+.summary__title .svg-wrapper {
+  @apply w-5 h-5 text-gray-600;
+}
+
+.accordion__title {
+  @apply m-0;
+}
+
+.accordion__content {
+  @apply p-4 border-t border-gray-200 prose prose-sm max-w-none;
+}
+
+/* Product Popup Modal */
+.product-popup-modal {
+  @apply fixed inset-0 z-50 flex items-center justify-center p-4;
+}
+
+.product-popup-modal__content {
+  @apply relative bg-white rounded-lg shadow-xl max-w-2xl w-full max-h-96 overflow-y-auto;
+}
+
+.product-popup-modal__toggle {
+  @apply absolute top-4 right-4 p-2 text-gray-400 hover:text-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500 rounded;
+}
+
+.product-popup-modal__content-info {
+  @apply p-6;
+}
+
+/* Show More Functionality */
+.show-more-item.hidden {
+  @apply hidden;
+}
+
+.button-show-more {
+  @apply text-blue-600 hover:text-blue-800 text-sm font-medium mt-2;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 767px) {
+  .product-form__submit {
+    @apply py-3 text-base;
+  }
+
+  .quantity {
+    @apply max-w-28;
+  }
+
+  .quantity__button {
+    @apply w-8 h-8;
+  }
+
+  .swatch {
+    @apply w-10 h-10;
+  }
+
+  .variant-input__button {
+    @apply px-3 py-2 text-sm;
+  }
+
+  .product__accordion summary {
+    @apply p-3;
+  }
+
+  .accordion__content {
+    @apply p-3;
+  }
+}
+
+/* Touch Device Optimizations */
+@media (hover: none) and (pointer: coarse) {
+  .swatch:hover {
+    @apply scale-100 border-gray-300;
+  }
+
+  .variant-input__button:hover {
+    @apply border-gray-300 bg-white;
+  }
+}

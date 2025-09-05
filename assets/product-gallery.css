@@ -1,0 +1,272 @@
+/* Product Gallery & Media Styling - Tailwind Enhanced */
+
+/* Product Media Gallery */
+.product__media-wrapper {
+  @apply space-y-4;
+}
+
+.product__media-list {
+  @apply space-y-4;
+}
+
+.product__media-item {
+  @apply relative overflow-hidden rounded-lg bg-gray-100;
+}
+
+.product__media-item--single {
+  @apply aspect-square;
+}
+
+.product__media-item--full {
+  @apply aspect-video;
+}
+
+/* Media Gallery Slider */
+.slider-mobile-gutter {
+  @apply px-0;
+}
+
+@media (max-width: 767px) {
+  .slider-mobile-gutter {
+    @apply px-4;
+  }
+}
+
+.slider {
+  @apply relative;
+}
+
+.slider__slide {
+  @apply flex-shrink-0;
+}
+
+/* Gallery Navigation Buttons */
+.slider-buttons {
+  @apply flex items-center justify-center space-x-4 mt-4;
+}
+
+.slider-button {
+  @apply p-3 bg-white border border-gray-300 rounded-full shadow-sm hover:shadow-md transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed;
+}
+
+.slider-button:hover:not(:disabled) {
+  @apply bg-gray-50 border-gray-400;
+}
+
+.slider-button .svg-wrapper {
+  @apply w-5 h-5 text-gray-600;
+}
+
+.slider-button--prev .svg-wrapper {
+  @apply rotate-180;
+}
+
+/* Slider Counter */
+.slider-counter {
+  @apply flex items-center space-x-2 text-sm text-gray-600;
+}
+
+.slider-counter--current {
+  @apply font-semibold text-gray-900;
+}
+
+.slider-counter--total {
+  @apply text-gray-600;
+}
+
+/* Thumbnail Gallery */
+.thumbnail-slider {
+  @apply mt-4;
+}
+
+.thumbnail-list {
+  @apply flex space-x-3 overflow-x-auto pb-2;
+}
+
+.thumbnail-list__item {
+  @apply flex-shrink-0;
+}
+
+.thumbnail {
+  @apply w-20 h-20 border-2 border-transparent rounded-lg overflow-hidden cursor-pointer transition-all duration-200 hover:border-gray-300;
+}
+
+.thumbnail.active,
+.thumbnail[aria-current='true'] {
+  @apply border-blue-500 ring-2 ring-blue-200;
+}
+
+.thumbnail img {
+  @apply w-full h-full object-cover;
+}
+
+/* Media Badges */
+.thumbnail__badge {
+  @apply absolute bottom-1 right-1 bg-black bg-opacity-75 text-white p-1 rounded;
+}
+
+.thumbnail__badge .svg-wrapper {
+  @apply w-3 h-3;
+}
+
+/* Product Media Modal Trigger */
+.product__modal-opener {
+  @apply relative block cursor-pointer;
+}
+
+.product__media-toggle {
+  @apply absolute inset-0 bg-transparent border-0 cursor-pointer;
+}
+
+.product__media-icon {
+  @apply absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-12 h-12 bg-white bg-opacity-90 rounded-full flex items-center justify-center shadow-md opacity-0 transition-opacity duration-300;
+}
+
+.product__modal-opener:hover .product__media-icon {
+  @apply opacity-100;
+}
+
+.product__media-icon .svg-wrapper {
+  @apply w-6 h-6 text-gray-700;
+}
+
+/* Zoom Functionality */
+.product__media-zoom-hover .product__media-icon {
+  @apply opacity-0;
+}
+
+.product__media-zoom-hover:hover .product__media-icon {
+  @apply opacity-100;
+}
+
+/* Deferred Media (Videos/3D Models) */
+.deferred-media {
+  @apply relative bg-gray-100 rounded-lg overflow-hidden;
+}
+
+.deferred-media__poster {
+  @apply absolute inset-0 bg-transparent border-0 cursor-pointer;
+}
+
+.deferred-media__poster-button {
+  @apply absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-16 h-16 bg-white bg-opacity-90 rounded-full flex items-center justify-center shadow-lg transition-all duration-300 hover:bg-opacity-100 hover:scale-110;
+}
+
+.deferred-media__poster-button .svg-wrapper {
+  @apply w-8 h-8 text-gray-700;
+}
+
+/* 3D Model Styling */
+.product__xr-button {
+  @apply mt-4;
+}
+
+/* Loading Spinner */
+.loading-spinner {
+  @apply absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2;
+}
+
+/* Media Settings Integration */
+.global-media-settings {
+  border-radius: var(--media-radius);
+  border: var(--media-border-width) solid
+    rgba(var(--color-foreground), var(--media-border-opacity));
+}
+
+.global-media-settings--no-shadow {
+  box-shadow: none;
+}
+
+.global-media-settings--full-width {
+  @apply w-full;
+}
+
+/* Motion Reduce */
+.motion-reduce img {
+  @apply transition-none;
+}
+
+.motion-reduce .product__media-icon,
+.motion-reduce .deferred-media__poster-button {
+  @apply transition-none;
+}
+
+/* Gallery Peek Effect */
+.grid--peek {
+  @apply overflow-x-auto;
+}
+
+.grid--peek .grid__item {
+  @apply flex-shrink-0;
+}
+
+/* Product Media Container Variants */
+.media-fit-contain {
+  @apply object-contain;
+}
+
+.media-fit-cover {
+  @apply object-cover;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 767px) {
+  .product__media-list {
+    @apply space-y-3;
+  }
+
+  .slider-buttons {
+    @apply mt-3 space-x-3;
+  }
+
+  .slider-button {
+    @apply p-2;
+  }
+
+  .thumbnail {
+    @apply w-16 h-16;
+  }
+
+  .thumbnail-list {
+    @apply space-x-2;
+  }
+}
+
+/* Product Media Item States */
+.product__media-item.is-active {
+  @apply ring-2 ring-blue-500;
+}
+
+/* Slider Mobile Specific */
+.slider--mobile {
+  @apply overflow-x-auto;
+}
+
+@media (min-width: 768px) {
+  .slider--mobile {
+    @apply overflow-visible;
+  }
+}
+
+.slider--tablet {
+  @apply overflow-x-auto;
+}
+
+@media (min-width: 990px) {
+  .slider--tablet {
+    @apply overflow-visible;
+  }
+}
+
+/* Product Media Hover Effects */
+.media--hover-effect {
+  @apply overflow-hidden;
+}
+
+.media--hover-effect img {
+  @apply transition-transform duration-500 ease-out;
+}
+
+.card:hover .media--hover-effect img {
+  @apply scale-110;
+}
