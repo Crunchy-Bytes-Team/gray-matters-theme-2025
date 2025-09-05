@@ -1,0 +1,214 @@
+/* Cart Drawer Styling - Tailwind Enhanced */
+
+/* Cart Drawer Container */
+.drawer {
+  @apply invisible opacity-0 transition-all duration-300 ease-in-out;
+}
+
+.drawer.active {
+  @apply visible opacity-100;
+}
+
+.cart-drawer {
+  @apply fixed inset-0 z-50;
+}
+
+.cart-drawer__overlay {
+  @apply absolute inset-0 bg-black bg-opacity-50;
+}
+
+.drawer__inner {
+  @apply absolute right-0 top-0 h-full w-full max-w-md bg-white shadow-xl transform translate-x-full transition-transform duration-300 ease-in-out;
+}
+
+.drawer.active .drawer__inner {
+  @apply translate-x-0;
+}
+
+/* Cart Drawer Header */
+.drawer__header {
+  @apply flex items-center justify-between p-6 border-b border-gray-200;
+}
+
+.drawer__heading {
+  @apply text-lg font-semibold text-gray-900;
+}
+
+.drawer__close {
+  @apply p-2 text-gray-400 hover:text-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500 rounded transition-colors duration-200;
+}
+
+.drawer__close .svg-wrapper {
+  @apply w-5 h-5;
+}
+
+/* Empty Cart State */
+.drawer__inner-empty {
+  @apply h-full flex flex-col;
+}
+
+.cart-drawer__warnings {
+  @apply flex-1 flex flex-col items-center justify-center p-6 text-center;
+}
+
+.cart-drawer__empty-content {
+  @apply space-y-6;
+}
+
+.cart__empty-text {
+  @apply text-xl text-gray-600;
+}
+
+/* Cart Contents */
+.drawer__contents {
+  @apply flex-1 overflow-y-auto;
+}
+
+.drawer__cart-items-wrapper {
+  @apply p-6;
+}
+
+/* Cart Items Table */
+.cart-items {
+  @apply w-full;
+}
+
+.cart-items thead {
+  @apply sr-only;
+}
+
+.cart-item {
+  @apply flex items-start space-x-4 py-4 border-b border-gray-200 last:border-b-0;
+}
+
+/* Cart Item Image */
+.cart-item__image {
+  @apply w-20 h-20 flex-shrink-0 rounded-md overflow-hidden bg-gray-100;
+}
+
+.cart-item__image img {
+  @apply w-full h-full object-cover;
+}
+
+/* Cart Item Details */
+.cart-item__details {
+  @apply flex-1 min-w-0;
+}
+
+.cart-item__name {
+  @apply font-medium text-gray-900 hover:text-blue-600 no-underline;
+}
+
+.cart-item__price-wrapper {
+  @apply mt-1 flex items-center space-x-2;
+}
+
+.cart-item__old-price {
+  @apply text-sm text-gray-500 line-through;
+}
+
+.cart-item__final-price {
+  @apply text-sm font-medium text-gray-900;
+}
+
+/* Quantity Controls */
+.quantity {
+  @apply flex items-center mt-3;
+}
+
+.quantity__button {
+  @apply w-8 h-8 flex items-center justify-center border border-gray-300 text-gray-600 hover:text-gray-900 hover:border-gray-400 transition-colors duration-200;
+}
+
+.quantity__button:first-child {
+  @apply rounded-l-md;
+}
+
+.quantity__button:last-child {
+  @apply rounded-r-md;
+}
+
+.quantity__input {
+  @apply w-16 h-8 text-center border-t border-b border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500;
+}
+
+/* Cart Item Actions */
+.cart-item__quantity-wrapper {
+  @apply flex items-center justify-between mt-3;
+}
+
+.cart-remove-button {
+  @apply text-red-600 hover:text-red-800 text-sm underline transition-colors duration-200;
+}
+
+/* Cart Footer */
+.cart-drawer__footer {
+  @apply border-t border-gray-200 p-6 bg-gray-50;
+}
+
+/* Cart Totals */
+.totals {
+  @apply space-y-3 mb-6;
+}
+
+.totals__subtotal {
+  @apply flex justify-between items-center text-lg font-semibold;
+}
+
+.totals__tax {
+  @apply flex justify-between items-center text-sm text-gray-600;
+}
+
+.totals__shipping {
+  @apply flex justify-between items-center text-sm text-gray-600;
+}
+
+.totals__total {
+  @apply flex justify-between items-center text-xl font-bold border-t border-gray-300 pt-3;
+}
+
+/* Cart Actions */
+.cart__ctas {
+  @apply space-y-3;
+}
+
+.cart__update-button {
+  @apply w-full px-6 py-3 bg-gray-200 text-gray-900 rounded-md font-medium hover:bg-gray-300 focus:ring-2 focus:ring-gray-500 transition-colors duration-200;
+}
+
+.cart__checkout-button {
+  @apply w-full px-6 py-3 bg-blue-600 text-white rounded-md font-medium hover:bg-blue-700 focus:ring-2 focus:ring-blue-500 transition-colors duration-200;
+}
+
+/* Cart Errors and Messages */
+.cart-errors {
+  @apply bg-red-50 border border-red-200 rounded-md p-4 mb-4;
+}
+
+.cart-errors__title {
+  @apply text-red-800 font-medium;
+}
+
+.cart-errors__list {
+  @apply mt-2 text-sm text-red-700;
+}
+
+/* Loading States */
+.cart-drawer .loading-overlay {
+  @apply absolute inset-0 bg-white bg-opacity-75 flex items-center justify-center;
+}
+
+/* Mobile Adjustments */
+@media (max-width: 767px) {
+  .drawer__inner {
+    @apply max-w-full;
+  }
+
+  .cart-item {
+    @apply space-x-3;
+  }
+
+  .cart-item__image {
+    @apply w-16 h-16;
+  }
+}
