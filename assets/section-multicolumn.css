@@ -1,0 +1,19 @@
+/* Section Multicolumn - Tailwind Enhanced */
+.multicolumn {
+  @apply py-12 md:py-16;
+}
+.multicolumn-list {
+  @apply grid gap-8;
+}
+.multicolumn-card {
+  @apply text-center space-y-4;
+}
+.multicolumn-card__image-wrapper {
+  @apply mb-6;
+}
+.multicolumn-card__info {
+  @apply space-y-4;
+}
+.multicolumn-card__image {
+  @apply w-full h-auto rounded-lg;
+}

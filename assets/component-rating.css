@@ -1,0 +1,55 @@
+/* Component Rating - Tailwind Enhanced */
+
+.rating {
+  @apply flex items-center space-x-1;
+}
+
+.rating-star {
+  @apply relative text-yellow-400 text-lg;
+}
+
+.rating-star::before {
+  content: '★★★★★';
+  @apply text-gray-300;
+}
+
+.rating-star::after {
+  content: '★★★★★';
+  @apply absolute inset-0 text-yellow-400 overflow-hidden;
+  width: calc(
+    var(--rating, 0) / var(--rating-max, 5) * 100% + var(--rating-decimal, 0) *
+      10%
+  );
+}
+
+.rating-text {
+  @apply text-sm text-gray-600 ml-2;
+}
+
+.rating-count {
+  @apply text-sm text-gray-500 ml-1;
+}
+
+/* Rating Wrapper */
+.rating-wrapper {
+  @apply flex items-center space-x-3;
+}
+
+/* Different Rating Sizes */
+.rating--small .rating-star {
+  @apply text-sm;
+}
+
+.rating--large .rating-star {
+  @apply text-xl;
+}
+
+/* Rating in Cards */
+.card .rating {
+  @apply mt-2;
+}
+
+/* Rating in Product Info */
+.product__info .rating {
+  @apply mb-4;
+}

@@ -1,0 +1,53 @@
+/* Component Menu Drawer - Tailwind Enhanced */
+
+header-drawer {
+  @apply block;
+}
+
+.menu-drawer-container {
+  @apply relative;
+}
+
+.menu-drawer {
+  @apply fixed inset-0 z-50 bg-white transform translate-x-full transition-transform duration-300;
+}
+
+.menu-drawer-container[open] .menu-drawer {
+  @apply translate-x-0;
+}
+
+.menu-drawer__inner-container {
+  @apply h-full flex flex-col;
+}
+
+.menu-drawer__navigation-container {
+  @apply flex-1 overflow-y-auto p-6;
+}
+
+.menu-drawer__navigation {
+  @apply space-y-4;
+}
+
+.menu-drawer__menu {
+  @apply space-y-2;
+}
+
+.menu-drawer__menu-item {
+  @apply block py-3 px-4 text-gray-700 hover:text-gray-900 hover:bg-gray-50 rounded-md transition-colors duration-200;
+}
+
+.menu-drawer__menu-item--active {
+  @apply text-blue-600 bg-blue-50 font-semibold;
+}
+
+.menu-drawer__submenu {
+  @apply pl-4 mt-2 space-y-1;
+}
+
+.menu-drawer__close-button {
+  @apply flex items-center py-2 px-4 text-gray-600 hover:text-gray-900;
+}
+
+.menu-drawer__utility-links {
+  @apply border-t border-gray-200 p-6 space-y-4;
+}

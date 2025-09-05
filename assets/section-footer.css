@@ -1,0 +1,22 @@
+/* Section Footer - Tailwind Enhanced */
+.footer {
+  @apply bg-gray-50 border-t border-gray-200;
+}
+.footer__content-top {
+  @apply py-16;
+}
+.footer__blocks-wrapper {
+  @apply grid gap-8;
+}
+.footer-block {
+  @apply space-y-4;
+}
+.footer-block__heading {
+  @apply text-lg font-semibold text-gray-900 mb-4;
+}
+.footer__content-bottom {
+  @apply border-t border-gray-200 py-8;
+}
+.footer__copyright {
+  @apply text-center space-y-2 text-sm text-gray-600;
+}

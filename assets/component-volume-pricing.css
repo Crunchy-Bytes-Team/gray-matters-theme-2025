@@ -1,0 +1,64 @@
+/* Component Volume Pricing - Tailwind Enhanced */
+
+volume-pricing {
+  @apply block;
+}
+
+.volume-pricing {
+  @apply mt-4 p-4 bg-blue-50 border border-blue-200 rounded-lg;
+}
+
+.volume-pricing .caption-large {
+  @apply text-sm font-semibold text-blue-900 mb-3;
+}
+
+.volume-pricing ul {
+  @apply space-y-2 list-none;
+}
+
+.volume-pricing li {
+  @apply flex justify-between items-center text-sm text-blue-800;
+}
+
+.volume-pricing .show-more-item {
+  @apply hidden;
+}
+
+.volume-pricing .show-more-item.visible {
+  @apply block;
+}
+
+/* Volume Pricing in Cards */
+.card__information-volume-pricing-note {
+  @apply text-xs text-blue-600 mt-2;
+}
+
+.card__information-volume-pricing-note--button {
+  @apply cursor-pointer hover:text-blue-800 transition-colors duration-200;
+}
+
+/* Quantity Popover Integration */
+.quantity-popover__info volume-pricing {
+  @apply bg-transparent border-0 p-0;
+}
+
+.quantity-popover__info volume-pricing ul {
+  @apply space-y-1;
+}
+
+.quantity-popover__info volume-pricing li {
+  @apply text-xs text-gray-700;
+}
+
+/* Price Per Item Display */
+.price-per-item__container volume-pricing {
+  @apply mt-2;
+}
+
+.volume-pricing-note {
+  @apply text-sm text-blue-600 mt-2;
+}
+
+.volume-pricing-label {
+  @apply text-sm font-medium text-gray-900;
+}

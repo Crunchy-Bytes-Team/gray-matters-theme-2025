@@ -1,0 +1,57 @@
+/* Component List Social - Tailwind Enhanced */
+
+.list-social {
+  @apply flex items-center space-x-4;
+}
+
+.list-social__item {
+  @apply flex-shrink-0;
+}
+
+.list-social__link {
+  @apply p-2 text-gray-600 hover:text-gray-900 transition-colors duration-200 rounded-full hover:bg-gray-100;
+}
+
+.list-social__link .svg-wrapper {
+  @apply w-5 h-5;
+}
+
+/* Footer Social Links */
+.footer .list-social {
+  @apply justify-center space-x-6;
+}
+
+.footer .list-social__link {
+  @apply text-gray-500 hover:text-gray-700;
+}
+
+/* Header Social Links */
+.header .list-social {
+  @apply space-x-3;
+}
+
+.header .list-social__link .svg-wrapper {
+  @apply w-4 h-4;
+}
+
+/* Mobile Menu Social Links */
+.menu-drawer .list-social {
+  @apply justify-center space-x-8 py-6;
+}
+
+.menu-drawer .list-social__link {
+  @apply p-3;
+}
+
+.menu-drawer .list-social__link .svg-wrapper {
+  @apply w-6 h-6;
+}
+
+/* Social Link Variants */
+.list-social--small .list-social__link .svg-wrapper {
+  @apply w-4 h-4;
+}
+
+.list-social--large .list-social__link .svg-wrapper {
+  @apply w-8 h-8;
+}

@@ -32,6 +32,51 @@
 
     {% render 'meta-tags' %}
 
+    <script>
+      // Immediate sandbox protection - must run before any other scripts
+      (function () {
+        const safeStorage = {
+          getItem: () => null,
+          setItem: () => {},
+          removeItem: () => {},
+          clear: () => {},
+          get length() {
+            return 0;
+          },
+          key: () => null,
+        };
+
+        try {
+          window.localStorage.setItem('test', 'test');
+          window.localStorage.removeItem('test');
+        } catch (e) {
+          Object.defineProperty(window, 'localStorage', { value: safeStorage, writable: false });
+          Object.defineProperty(window, 'sessionStorage', { value: safeStorage, writable: false });
+        }
+
+        // Block problematic scripts during development
+        const observer = new MutationObserver(function (mutations) {
+          mutations.forEach(function (mutation) {
+            mutation.addedNodes.forEach(function (node) {
+              if (
+                node.tagName === 'SCRIPT' &&
+                node.src &&
+                (node.src.includes('content.js') || node.src.includes('shop.app'))
+              ) {
+                console.warn('Blocked development script:', node.src);
+                node.remove();
+              }
+              if (node.tagName === 'IFRAME' && node.src && node.src.includes('shop.app')) {
+                console.warn('Blocked Shop app iframe during development');
+                node.remove();
+              }
+            });
+          });
+        });
+        observer.observe(document.documentElement, { childList: true, subtree: true });
+      })();
+    </script>
+    <script src='{{ 'sandbox-fix.js' | asset_url }}'></script>
     <script src='{{ 'constants.js' | asset_url }}' defer='defer'></script>
     <script src='{{ 'pubsub.js' | asset_url }}' defer='defer'></script>
     <script src='{{ 'global.js' | asset_url }}' defer='defer'></script>

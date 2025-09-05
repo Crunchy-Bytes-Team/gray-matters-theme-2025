@@ -1,0 +1,46 @@
+/* Component List Payment - Tailwind Enhanced */
+
+.list-payment {
+  @apply flex flex-wrap items-center justify-center gap-3;
+}
+
+.list-payment__item {
+  @apply flex-shrink-0;
+}
+
+.list-payment__item .icon {
+  @apply w-10 h-6 object-contain;
+}
+
+.list-payment__item .icon--full-color {
+  @apply w-12 h-8 object-contain;
+}
+
+/* Footer Payment Icons */
+.footer__payment {
+  @apply space-y-3;
+}
+
+.footer__payment .list-payment {
+  @apply justify-center gap-4;
+}
+
+/* Payment Icon Styling */
+.payment-icon {
+  @apply bg-white border border-gray-200 rounded p-2 shadow-sm;
+}
+
+.payment-icon:hover {
+  @apply border-gray-300 shadow-md transition-all duration-200;
+}
+
+/* Mobile Payment Icons */
+@media screen and (max-width: 749px) {
+  .list-payment {
+    @apply gap-2;
+  }
+
+  .list-payment__item .icon {
+    @apply w-8 h-5;
+  }
+}

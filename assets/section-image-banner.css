@@ -1,0 +1,22 @@
+/* Section Image Banner - Tailwind Enhanced */
+.banner {
+  @apply relative overflow-hidden;
+}
+.banner__media {
+  @apply relative;
+}
+.banner__content {
+  @apply absolute inset-0 flex items-center justify-center z-10;
+}
+.banner__box {
+  @apply text-center space-y-6 p-8;
+}
+.banner__heading {
+  @apply text-4xl md:text-5xl lg:text-6xl font-bold text-white;
+}
+.banner__text {
+  @apply text-lg md:text-xl text-white opacity-90;
+}
+.banner__buttons {
+  @apply flex flex-col sm:flex-row gap-4 justify-center;
+}

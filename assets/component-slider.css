@@ -1,0 +1,119 @@
+/* Component Slider - Tailwind Enhanced */
+
+slider-component {
+  @apply relative block;
+  --desktop-margin-left-first-item: max(
+    5rem,
+    calc(
+      (
+          100vw - var(--page-width) + 10rem -
+            var(--grid-desktop-horizontal-spacing)
+        ) / 2
+    )
+  );
+}
+
+slider-component.slider-component-full-width {
+  --desktop-margin-left-first-item: 1.5rem;
+}
+
+@media screen and (max-width: 749px) {
+  slider-component.page-width {
+    @apply px-6;
+  }
+}
+
+@media screen and (min-width: 749px) and (max-width: 990px) {
+  slider-component.page-width {
+    @apply px-20;
+  }
+}
+
+.slider__slide {
+  --focus-outline-padding: 0.5rem;
+  --shadow-padding-top: calc(
+    (var(--shadow-vertical-offset) * -1 + var(--shadow-blur-radius)) *
+      var(--shadow-visible)
+  );
+  --shadow-padding-bottom: calc(
+    (var(--shadow-vertical-offset) + var(--shadow-blur-radius)) *
+      var(--shadow-visible)
+  );
+  @apply flex-shrink-0 pb-0;
+  scroll-snap-align: start;
+}
+
+@media screen and (max-width: 749px) {
+  .slider.slider--mobile {
+    @apply relative overflow-x-auto;
+    flex-wrap: inherit;
+  }
+}
+
+@media screen and (min-width: 750px) {
+  .slider.slider--tablet {
+    @apply relative overflow-x-auto;
+    flex-wrap: inherit;
+  }
+}
+
+.slider.slider--everywhere {
+  @apply relative overflow-x-auto;
+  flex-wrap: inherit;
+}
+
+.slider--mobile,
+.slider--tablet,
+.slider--everywhere {
+  @apply flex;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.slider--mobile::-webkit-scrollbar,
+.slider--tablet::-webkit-scrollbar,
+.slider--everywhere::-webkit-scrollbar {
+  @apply hidden;
+}
+
+/* Slider Navigation */
+.slider-buttons {
+  @apply flex items-center justify-between mt-6;
+}
+
+.slider-button {
+  @apply p-3 bg-white border border-gray-300 rounded-full shadow-sm hover:shadow-md transition-all duration-200 disabled:opacity-50;
+}
+
+.slider-button .svg-wrapper {
+  @apply w-5 h-5 text-gray-600;
+}
+
+.slider-button--prev .svg-wrapper {
+  @apply rotate-180;
+}
+
+/* Slider Counter */
+.slider-counter {
+  @apply flex items-center space-x-2 text-sm text-gray-600;
+}
+
+.slider-counter--current {
+  @apply font-semibold text-gray-900;
+}
+
+.slider-counter--total {
+  @apply text-gray-600;
+}
+
+/* Slider Mobile Gutter */
+.slider-mobile-gutter {
+  @apply overflow-hidden;
+}
+
+@media screen and (max-width: 749px) {
+  .slider-mobile-gutter {
+    @apply px-6;
+  }
+}

@@ -1,0 +1,61 @@
+/* Component Predictive Search - Tailwind Enhanced */
+
+predictive-search {
+  @apply block;
+}
+
+.predictive-search {
+  @apply border-t border-gray-200 bg-white;
+}
+
+.predictive-search--header {
+  @apply absolute top-full left-0 right-0 bg-white border border-gray-200 rounded-b-lg shadow-lg z-20 max-h-96 overflow-y-auto;
+}
+
+.predictive-search__results-groups-wrapper {
+  @apply p-4 space-y-6;
+}
+
+.predictive-search__results-group {
+  @apply space-y-3;
+}
+
+.predictive-search__results-group-title {
+  @apply text-sm font-semibold text-gray-900 uppercase tracking-wide border-b border-gray-200 pb-2;
+}
+
+.predictive-search__results-list {
+  @apply space-y-2;
+}
+
+.predictive-search__item {
+  @apply flex items-center p-3 rounded-lg hover:bg-gray-50 transition-colors duration-200 cursor-pointer;
+}
+
+.predictive-search__item-content {
+  @apply flex-1 min-w-0 ml-3;
+}
+
+.predictive-search__item-heading {
+  @apply font-medium text-gray-900 truncate;
+}
+
+.predictive-search__item-vendor {
+  @apply text-sm text-gray-500 truncate;
+}
+
+.predictive-search__item-price {
+  @apply text-sm font-medium text-gray-900;
+}
+
+.predictive-search__item-image {
+  @apply w-12 h-12 rounded-md object-cover flex-shrink-0;
+}
+
+.predictive-search__loading-state {
+  @apply flex justify-center py-8;
+}
+
+.predictive-search-status {
+  @apply sr-only;
+}

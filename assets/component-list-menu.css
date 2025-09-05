@@ -1,0 +1,77 @@
+/* Component List Menu - Tailwind Enhanced */
+
+.list-menu--right {
+  @apply right-0;
+}
+
+.list-menu--disclosure {
+  @apply absolute min-w-full w-80 border border-gray-200 bg-white rounded-lg shadow-lg z-20;
+}
+
+.list-menu--disclosure:focus {
+  @apply outline-none;
+}
+
+.list-menu__item--active {
+  @apply underline;
+  text-underline-offset: 0.3rem;
+}
+
+.list-menu__item--active:hover {
+  text-decoration-thickness: 0.2rem;
+}
+
+.list-menu--disclosure.localization-selector {
+  @apply max-h-72 overflow-auto w-40 p-2;
+}
+
+/* List Menu Base Styles */
+.list-menu {
+  @apply list-none p-0 m-0;
+}
+
+.list-menu__item {
+  @apply flex items-center;
+}
+
+.list-menu__item--link {
+  @apply no-underline py-3 px-4 text-gray-700 hover:text-gray-900 hover:bg-gray-50 rounded-md transition-colors duration-200 w-full;
+}
+
+/* Dropdown Menu Styling */
+.list-menu--disclosure .list-menu__item--link {
+  @apply py-2 px-3 text-sm;
+}
+
+/* Mega Menu Integration */
+.mega-menu .list-menu {
+  @apply space-y-1;
+}
+
+.mega-menu .list-menu__item--link {
+  @apply py-2 px-3 rounded text-gray-700 hover:text-gray-900 hover:bg-gray-50;
+}
+
+/* Mobile Menu Integration */
+.menu-drawer .list-menu {
+  @apply space-y-1;
+}
+
+.menu-drawer .list-menu__item--link {
+  @apply block py-3 px-4 text-gray-700 hover:text-gray-900 hover:bg-gray-50 rounded-md;
+}
+
+/* Localization Menu */
+.localization-selector .list-menu__item--link {
+  @apply py-2 px-3 text-sm text-gray-700 hover:text-gray-900 hover:bg-gray-50 rounded;
+}
+
+/* Active States */
+.list-menu__item--link.list-menu__item--active {
+  @apply text-blue-600 bg-blue-50 font-medium;
+}
+
+/* Focus States */
+.list-menu__item--link:focus {
+  @apply outline-none ring-2 ring-blue-500 ring-offset-2;
+}

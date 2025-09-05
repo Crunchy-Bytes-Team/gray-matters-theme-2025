@@ -1,0 +1,65 @@
+/* Component Deferred Media - Tailwind Enhanced */
+
+deferred-media {
+  @apply block relative;
+}
+
+.deferred-media {
+  @apply relative bg-gray-100 rounded-lg overflow-hidden;
+}
+
+.deferred-media__poster {
+  @apply absolute inset-0 bg-transparent border-0 cursor-pointer flex items-center justify-center;
+}
+
+.deferred-media__poster-button {
+  @apply w-16 h-16 bg-white bg-opacity-90 rounded-full flex items-center justify-center shadow-lg transition-all duration-300 hover:bg-opacity-100 hover:scale-110;
+}
+
+.deferred-media__poster-button .svg-wrapper {
+  @apply w-8 h-8 text-gray-700;
+}
+
+/* Video Specific */
+.deferred-media--video .deferred-media__poster-button {
+  @apply bg-black bg-opacity-75 text-white;
+}
+
+.deferred-media--video .deferred-media__poster-button:hover {
+  @apply bg-opacity-90;
+}
+
+/* Model Specific */
+.deferred-media--model .deferred-media__poster-button {
+  @apply bg-blue-600 text-white;
+}
+
+.deferred-media--model .deferred-media__poster-button:hover {
+  @apply bg-blue-700;
+}
+
+/* Loading State */
+.deferred-media.loading {
+  @apply opacity-75;
+}
+
+.deferred-media.loading .deferred-media__poster {
+  @apply pointer-events-none;
+}
+
+/* Media Fit */
+.deferred-media video,
+.deferred-media iframe {
+  @apply w-full h-full object-cover;
+}
+
+/* Responsive Adjustments */
+@media screen and (max-width: 749px) {
+  .deferred-media__poster-button {
+    @apply w-12 h-12;
+  }
+
+  .deferred-media__poster-button .svg-wrapper {
+    @apply w-6 h-6;
+  }
+}

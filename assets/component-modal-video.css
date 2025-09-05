@@ -1,0 +1,22 @@
+/* Component Modal Video - Tailwind Enhanced */
+
+.modal-video {
+  @apply fixed inset-0 z-50 flex items-center justify-center p-4 bg-black bg-opacity-75;
+}
+
+.modal-video__content {
+  @apply relative bg-black rounded-lg overflow-hidden max-w-4xl w-full aspect-video;
+}
+
+.modal-video__close {
+  @apply absolute top-4 right-4 z-10 p-2 bg-white bg-opacity-20 text-white rounded-full hover:bg-opacity-30 transition-colors duration-200;
+}
+
+.modal-video__close .svg-wrapper {
+  @apply w-5 h-5;
+}
+
+.modal-video video,
+.modal-video iframe {
+  @apply w-full h-full;
+}

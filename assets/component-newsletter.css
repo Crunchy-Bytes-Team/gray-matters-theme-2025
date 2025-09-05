@@ -1,0 +1,59 @@
+/* Component Newsletter - Tailwind Enhanced */
+
+.newsletter {
+  @apply space-y-6;
+}
+
+.newsletter__heading {
+  @apply text-2xl font-semibold text-gray-900 mb-4;
+}
+
+.newsletter__subheading {
+  @apply text-lg text-gray-600 mb-6;
+}
+
+.newsletter-form {
+  @apply space-y-4;
+}
+
+.newsletter-form__field-wrapper {
+  @apply space-y-3;
+}
+
+.newsletter-form__button {
+  @apply absolute right-2 top-1/2 transform -translate-y-1/2 px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors duration-200;
+}
+
+.newsletter-form__message {
+  @apply flex items-center space-x-2 text-sm;
+}
+
+.newsletter-form__message--success {
+  @apply text-green-600;
+}
+
+.newsletter-form__message--error {
+  @apply text-red-600;
+}
+
+.newsletter-form__message .svg-wrapper {
+  @apply w-4 h-4;
+}
+
+/* Footer Newsletter */
+.footer__newsletter {
+  @apply space-y-4;
+}
+
+.footer-block__newsletter {
+  @apply space-y-4;
+}
+
+/* Newsletter Section */
+.newsletter-section {
+  @apply py-12 md:py-16 text-center;
+}
+
+.newsletter-section__content {
+  @apply max-w-2xl mx-auto space-y-6;
+}
