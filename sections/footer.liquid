@@ -53,15 +53,15 @@
         {%- if section.blocks.size > 0 -%}
           {%- liquid
             if section.blocks.size == 9
-              assign footer_grid_class = 'grid--3-col-tablet'
+              assign footer_grid_class = 'md:grid-cols-3'
             elsif section.blocks.size > 6
-              assign footer_grid_class = 'grid--4-col-desktop'
+              assign footer_grid_class = 'lg:grid-cols-4'
             elsif section.blocks.size > 4
-              assign footer_grid_class = 'grid--3-col-tablet'
+              assign footer_grid_class = 'md:grid-cols-3'
             endif
           -%}
           <div
-            class='footer__blocks-wrapper grid grid--1-col grid--2-col grid--4-col-tablet {{ footer_grid_class }}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}'
+            class='footer__blocks-wrapper grid grid-cols-1 grid--2-col grid--4-col-tablet {{ footer_grid_class }}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}'
             {% if settings.animations_reveal_on_scroll %}
               data-cascade
             {% endif %}
@@ -173,12 +173,12 @@
               {%- form 'customer', id: 'ContactFooter', class: 'footer__newsletter newsletter-form' -%}
                 <input type='hidden' name='contact[tags]' value='newsletter'>
                 <div class='newsletter-form__field-wrapper'>
-                  <div class='field'>
+                  <div class='mb-4'>
                     <input
                       id='NewsletterForm--{{ section.id }}'
                       type='email'
                       name='contact[email]'
-                      class='field__input'
+                      class='w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500'
                       value='{{ form.email }}'
                       aria-required='true'
                       autocorrect='off'
@@ -194,12 +194,12 @@
                       placeholder='{{ 'newsletter.label' | t }}'
                       required
                     >
-                    <label class='field__label' for='NewsletterForm--{{ section.id }}'>
+                    <label class='block text-sm font-medium text-gray-700 mb-1' for='NewsletterForm--{{ section.id }}'>
                       {{ 'newsletter.label' | t }}
                     </label>
                     <button
                       type='submit'
-                      class='newsletter-form__button field__button'
+                      class='px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:ring-2 focus:ring-blue-500 transition-colors'
                       name='commit'
                       id='Subscribe'
                       aria-label='{{ 'newsletter.button_label' | t }}'

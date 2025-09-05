@@ -69,8 +69,8 @@
         --color-soldout-badge: {{ badge_scheme.settings.background.red }},{{ badge_scheme.settings.background.green }},{{ badge_scheme.settings.background.blue }};
         --color-soldout-badge-label: {{ badge_scheme.settings.text.red }},{{ badge_scheme.settings.text.green }},{{ badge_scheme.settings.text.blue }};
 
-        --page-width: {{ settings.page_width | divided_by: 10 }}rem;
-        --page-width-margin: {% if settings.page_width == '1600' %}2{% else %}0{% endif %}rem;
+        --max-w-7xl mx-auto px-6 md:px-20: {{ settings.page_width | divided_by: 10 }}rem;
+        --max-w-7xl mx-auto px-6 md:px-20-margin: {% if settings.page_width == '1600' %}2{% else %}0{% endif %}rem;
 
         --buttons-radius: {{ settings.buttons_radius }}px;
         --buttons-border-width: {% if settings.buttons_border_opacity > 0 %}{{ settings.buttons_border_thickness }}{% else %}0{% endif %}px;
@@ -171,7 +171,7 @@
         <button class="button gift-card__copy-button">{{ 'gift_cards.issued.copy_code' | t }}</button>
         <a
           href="{{ shop.url }}"
-          class="button button--secondary"
+          class="px-6 py-3 bg-gray-200 text-gray-900 rounded-md font-medium hover:bg-gray-300 transition-colors"
           target="_blank"
           rel="noopener"
           aria-describedby="a11y-new-window-message"

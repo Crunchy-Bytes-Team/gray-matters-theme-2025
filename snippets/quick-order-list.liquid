@@ -16,7 +16,7 @@
 {% # theme-check-enable %}
 <div class="quick-order-list-container color-{{ section.settings.color_scheme }}{% unless is_modal %} gradient{% endunless %}">
   <quick-order-list
-    class="page-width section-{{ section.id }}-padding"
+    class="max-w-7xl mx-auto px-6 md:px-20 section-{{ section.id }}-padding"
     id="{{ section.id }}-{{ product.id }}"
     data-section="{{ section.id }}"
     data-product-id="{{ product.id }}"
@@ -132,7 +132,7 @@
             <div class="quick-order-list-buttons">
               <a
                 href="{{ routes.cart_url }} "
-                class="quick-order-list__button button button--secondary small-hide  medium-hide"
+                class="quick-order-list__button px-6 py-3 bg-gray-200 text-gray-900 rounded-md font-medium hover:bg-gray-300 transition-colors small-hide  medium-hide"
               >
                 <span class="quick-order-list__button-text">{{- 'sections.quick_order_list.view_cart' | t -}}</span>
               </a>
@@ -223,7 +223,7 @@
             <div class="quick-order-list-buttons">
               <a
                 href="{{ routes.cart_url }}"
-                class="quick-order-list__button button button--secondary button--full-width"
+                class="quick-order-list__button px-6 py-3 bg-gray-200 text-gray-900 rounded-md font-medium hover:bg-gray-300 transition-colors button--full-width"
               >
                 <span class="quick-order-list__button-text">{{- 'sections.quick_order_list.view_cart' | t -}}</span>
               </a>
@@ -264,7 +264,7 @@
             data-action="remove"
           >
             <button
-              class="quick-order-list__button-confirm button button--secondary"
+              class="quick-order-list__button-confirm px-6 py-3 bg-gray-200 text-gray-900 rounded-md font-medium hover:bg-gray-300 transition-colors"
               type="button"
             >
               {{- 'sections.quick_order_list.remove_all' | t -}}

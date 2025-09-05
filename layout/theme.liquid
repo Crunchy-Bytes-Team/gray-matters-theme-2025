@@ -126,8 +126,8 @@
         --media-shadow-blur-radius: {{ settings.media_shadow_blur }}px;
         --media-shadow-visible: {% if settings.media_shadow_opacity > 0 %}1{% else %}0{% endif %};
 
-        --page-width: {{ settings.page_width | divided_by: 10 }}rem;
-        --page-width-margin: {% if settings.page_width == '1600' %}2{% else %}0{% endif %}rem;
+        --max-w-7xl mx-auto px-6 md:px-20: {{ settings.page_width | divided_by: 10 }}rem;
+        --max-w-7xl mx-auto px-6 md:px-20-margin: {% if settings.page_width == '1600' %}2{% else %}0{% endif %}rem;
 
         --product-card-image-padding: {{ settings.card_image_padding | divided_by: 10.0 }}rem;
         --product-card-corner-radius: {{ settings.card_corner_radius | divided_by: 10.0 }}rem;
@@ -258,8 +258,8 @@
         }
       }
     {% endstyle %}
-    {% comment %}swap the order of the stylesheets to have Tailwind classes take precedence over the base Dawn styles{% endcomment %}
-    {{ 'app.css' | asset_url | stylesheet_tag }}
+    {% comment %}Load Tailwind CSS as primary stylesheet{% endcomment %}
+    {{ 'app-tailwind.css' | asset_url | stylesheet_tag }}
     {{ 'base.css' | asset_url | stylesheet_tag }}
     <link rel='stylesheet' href='{{ 'component-cart-items.css' | asset_url }}' media='print' onload="this.media='all'">
 

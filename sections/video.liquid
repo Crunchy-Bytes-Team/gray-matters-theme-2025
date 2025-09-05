@@ -39,10 +39,10 @@
 {%- endcapture -%}
 
 <div class="color-{{ section.settings.color_scheme }} gradient">
-  <div class="video-section isolate{% unless section.settings.full_width %} page-width{% endunless %} section-{{ section.id }}-padding">
+  <div class="video-section isolate{% unless section.settings.full_width %} max-w-7xl mx-auto px-6 md:px-20{% endunless %} section-{{ section.id }}-padding">
     <div
       {% if section.settings.full_width %}
-        class="page-width"
+        class="max-w-7xl mx-auto px-6 md:px-20"
       {% endif %}
     >
       {%- unless section.settings.heading == blank -%}

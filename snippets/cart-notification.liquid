@@ -39,12 +39,15 @@
         <a
           href='{{ routes.cart_url }}'
           id='cart-notification-button'
-          class='button button--secondary button--full-width'
+          class='px-6 py-3 rounded-md font-medium transition-colors w-full bg-gray-200 text-gray-900 hover:bg-gray-300 focus:ring-2 focus:ring-gray-500'
         >
           {{- 'general.cart.view_empty_cart' | t -}}
         </a>
         <form action='{{ routes.cart_url }}' method='post' id='cart-notification-form'>
-          <button class='button button--primary button--full-width' name='checkout'>
+          <button
+            class='px-6 py-3 rounded-md font-medium transition-colors w-full bg-blue-600 text-white hover:bg-blue-700 focus:ring-2 focus:ring-blue-500'
+            name='checkout'
+          >
             {{ 'sections.cart.checkout' | t }}
           </button>
         </form>
