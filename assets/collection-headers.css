@@ -1,0 +1,204 @@
+/* Collection Headers & Banners Styling - Tailwind Enhanced */
+
+/* Collection Hero Section */
+.collection-hero {
+  @apply py-12 md:py-16 lg:py-20;
+}
+
+.collection-hero--with-image {
+  @apply py-16 md:py-20 lg:py-24;
+}
+
+.collection-hero__inner {
+  @apply grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center;
+}
+
+/* Collection Text Content */
+.collection-hero__text-wrapper {
+  @apply space-y-6 text-center lg:text-left;
+}
+
+.collection-hero__title {
+  @apply text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 leading-tight;
+}
+
+.collection-hero__description {
+  @apply text-lg md:text-xl text-gray-600 leading-relaxed max-w-2xl mx-auto lg:mx-0;
+}
+
+/* Collection Image */
+.collection-hero__image-container {
+  @apply relative rounded-2xl overflow-hidden shadow-xl;
+}
+
+.collection-hero__image-container img {
+  @apply w-full h-full object-cover;
+}
+
+/* Collection Stats */
+.collection-stats {
+  @apply flex items-center justify-center lg:justify-start space-x-6 text-sm text-gray-600 mt-6;
+}
+
+.collection-stat {
+  @apply flex items-center space-x-2;
+}
+
+.collection-stat__number {
+  @apply font-semibold text-gray-900;
+}
+
+/* Collection Navigation Breadcrumbs */
+.breadcrumb {
+  @apply flex items-center space-x-2 text-sm text-gray-600 mb-8;
+}
+
+.breadcrumb__item {
+  @apply hover:text-gray-900 transition-colors duration-200;
+}
+
+.breadcrumb__separator {
+  @apply text-gray-400;
+}
+
+.breadcrumb__current {
+  @apply text-gray-900 font-medium;
+}
+
+/* Collection Title Variants */
+.title--primary {
+  @apply text-3xl md:text-4xl font-bold text-gray-900;
+}
+
+.title--secondary {
+  @apply text-2xl md:text-3xl font-semibold text-gray-800;
+}
+
+.title-wrapper {
+  @apply space-y-4;
+}
+
+.title-wrapper--no-top-margin {
+  @apply mt-0;
+}
+
+.title-wrapper.center {
+  @apply text-center;
+}
+
+/* Collection Description */
+.rte {
+  @apply prose prose-gray max-w-none;
+}
+
+.rte h1,
+.rte h2,
+.rte h3 {
+  @apply mt-8 mb-4 first:mt-0;
+}
+
+.rte p {
+  @apply mb-4;
+}
+
+.rte ul,
+.rte ol {
+  @apply mb-4 pl-6;
+}
+
+/* Collection Empty State */
+.collection--empty .title-wrapper {
+  @apply text-center py-16 space-y-6;
+}
+
+.collection--empty .title {
+  @apply text-2xl font-semibold text-gray-600;
+}
+
+.collection--empty .underlined-link {
+  @apply text-blue-600 hover:text-blue-800 underline font-medium;
+}
+
+/* Collection Actions */
+.collection-actions {
+  @apply flex items-center justify-center space-x-4 mt-8;
+}
+
+.collection-action {
+  @apply px-6 py-3 border border-gray-300 rounded-lg text-gray-700 hover:border-gray-400 hover:bg-gray-50 transition-colors duration-200 font-medium;
+}
+
+/* Collection Image Overlay */
+.collection-hero--with-image .collection-hero__text-wrapper {
+  @apply relative z-10;
+}
+
+.collection-hero--overlay {
+  @apply relative;
+}
+
+.collection-hero--overlay::before {
+  content: '';
+  @apply absolute inset-0 bg-black bg-opacity-40 z-0;
+}
+
+.collection-hero--overlay .collection-hero__text-wrapper {
+  @apply text-white relative z-10;
+}
+
+.collection-hero--overlay .collection-hero__title {
+  @apply text-white;
+}
+
+.collection-hero--overlay .collection-hero__description {
+  @apply text-gray-100;
+}
+
+/* Featured Collection Sections */
+.featured-collection {
+  @apply py-12 md:py-16 lg:py-20;
+}
+
+.featured-collection__header {
+  @apply text-center mb-12 space-y-4;
+}
+
+.featured-collection__title {
+  @apply text-3xl md:text-4xl font-bold text-gray-900;
+}
+
+.featured-collection__description {
+  @apply text-lg text-gray-600 max-w-2xl mx-auto;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 767px) {
+  .collection-hero {
+    @apply py-8;
+  }
+
+  .collection-hero__inner {
+    @apply gap-6;
+  }
+
+  .collection-hero__title {
+    @apply text-3xl;
+  }
+
+  .collection-hero__description {
+    @apply text-base;
+  }
+
+  .collection-stats {
+    @apply flex-col space-x-0 space-y-3;
+  }
+}
+
+/* Animation States */
+.animate--fade-in {
+  @apply opacity-0 transition-opacity duration-700 ease-out;
+}
+
+.animate--fade-in.scroll-trigger {
+  @apply opacity-100;
+}

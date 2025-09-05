@@ -1,0 +1,351 @@
+/* Collection Filters & Facets Styling - Tailwind Enhanced */
+
+/* Facets Container */
+.facets-container {
+  @apply space-y-8;
+}
+
+.facets-container-drawer {
+  @apply space-y-6;
+}
+
+/* Facets Wrapper */
+.facets-wrapper {
+  @apply space-y-6;
+}
+
+.facets-wrapper--no-filters {
+  @apply space-y-0;
+}
+
+/* Vertical Facets Layout */
+.facets-vertical {
+  @apply grid grid-cols-1 lg:grid-cols-4 gap-8;
+}
+
+.facets-vertical-sort {
+  @apply mb-8;
+}
+
+/* Facets Form */
+.facets__form {
+  @apply space-y-6;
+}
+
+.facets__form-vertical {
+  @apply space-y-4;
+}
+
+/* Facets Heading */
+.facets__heading {
+  @apply text-lg font-semibold text-gray-900 mb-4;
+}
+
+.facets__heading--vertical {
+  @apply text-base font-medium text-gray-900 mb-3;
+}
+
+/* Facet Disclosure (Filter Groups) */
+.facets__disclosure {
+  @apply relative;
+}
+
+.facets__disclosure-vertical {
+  @apply border-b border-gray-200 last:border-b-0;
+}
+
+/* Facet Summary (Filter Toggle) */
+.facets__summary {
+  @apply flex items-center justify-between py-4 cursor-pointer hover:text-gray-600 transition-colors duration-200;
+}
+
+.facets__summary-label {
+  @apply font-medium text-gray-900;
+}
+
+.facets__selected {
+  @apply ml-2 text-sm text-blue-600 font-normal;
+}
+
+.facets__and-helptext {
+  @apply text-xs text-gray-500 block mt-1;
+}
+
+.facets__summary .svg-wrapper {
+  @apply w-4 h-4 text-gray-600 transform transition-transform duration-200;
+}
+
+.facets__disclosure[open] .facets__summary .svg-wrapper {
+  @apply rotate-180;
+}
+
+/* Facet Display (Filter Options) */
+.facets__display {
+  @apply pb-6;
+}
+
+.facets__display-vertical {
+  @apply pb-4;
+}
+
+/* Facet List */
+.facets__list {
+  @apply space-y-3;
+}
+
+.facets__list--vertical {
+  @apply space-y-2;
+}
+
+/* Facet Item */
+.facets__item {
+  @apply flex items-center;
+}
+
+.facets__item label {
+  @apply flex items-center cursor-pointer flex-1 text-sm text-gray-700 hover:text-gray-900 transition-colors duration-200;
+}
+
+.facets__item input[type='checkbox'] {
+  @apply w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500 focus:ring-2 mr-3;
+}
+
+/* Facet Count */
+.facets__count {
+  @apply ml-auto text-xs text-gray-500;
+}
+
+/* Active Facets (Selected Filters) */
+.active-facets {
+  @apply space-y-4;
+}
+
+.active-facets-desktop {
+  @apply space-y-4;
+}
+
+.active-facets-vertical-filter {
+  @apply flex items-center justify-between mb-4;
+}
+
+.active-facets__button-wrapper {
+  @apply space-y-2;
+}
+
+.active-facets__button-remove {
+  @apply text-blue-600 hover:text-blue-800 text-sm font-medium underline transition-colors duration-200;
+}
+
+.active-facets__button {
+  @apply inline-block;
+}
+
+.active-facets__button--light {
+  @apply no-underline;
+}
+
+.active-facets__button-inner {
+  @apply inline-flex items-center px-3 py-2 bg-gray-100 text-gray-700 rounded-full text-sm hover:bg-gray-200 transition-colors duration-200;
+}
+
+.active-facets__button-inner .svg-wrapper {
+  @apply w-3 h-3 ml-2 text-gray-500;
+}
+
+/* Price Range Filter */
+.facets__price {
+  @apply space-y-4;
+}
+
+.price-facet {
+  @apply space-y-4;
+}
+
+.price-facet__range {
+  @apply flex items-center space-x-4;
+}
+
+.price-facet__input {
+  @apply w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm;
+}
+
+.price-facet__button {
+  @apply px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:ring-2 focus:ring-blue-500 transition-colors duration-200 text-sm font-medium;
+}
+
+/* Swatch Facets */
+.facets-layout-grid {
+  @apply grid gap-3;
+}
+
+.facets-layout-grid--color {
+  @apply grid-cols-8;
+}
+
+.facets-layout-grid--image {
+  @apply grid-cols-4;
+}
+
+.facets-layout-list {
+  @apply space-y-2;
+}
+
+/* Facet Swatches */
+.facet-checkbox--swatch {
+  @apply relative;
+}
+
+.facet-checkbox--swatch input {
+  @apply sr-only;
+}
+
+.facet-checkbox--swatch .swatch {
+  @apply w-8 h-8 rounded border-2 border-gray-300 cursor-pointer transition-all duration-200 hover:scale-105;
+}
+
+.facet-checkbox--swatch input:checked + .swatch {
+  @apply border-blue-500 ring-2 ring-blue-200;
+}
+
+.facet-checkbox--swatch input:disabled + .swatch {
+  @apply opacity-50 cursor-not-allowed;
+}
+
+/* Show More Functionality */
+.show-more-item.hidden {
+  @apply hidden;
+}
+
+.facets__disclosure .show-more-button {
+  @apply text-blue-600 hover:text-blue-800 text-sm font-medium mt-3;
+}
+
+/* Sorting Controls */
+.facet-filters {
+  @apply flex items-center justify-between mb-6;
+}
+
+.facet-filters__field {
+  @apply space-y-2;
+}
+
+.facet-filters__label {
+  @apply block text-sm font-medium text-gray-900;
+}
+
+.facet-filters__sort {
+  @apply px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white;
+}
+
+.select {
+  @apply relative;
+}
+
+.select__select {
+  @apply appearance-none pr-8;
+}
+
+.select .svg-wrapper {
+  @apply absolute right-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none;
+}
+
+/* Mobile Facets */
+.mobile-facets__wrapper {
+  @apply lg:hidden;
+}
+
+.mobile-facets__disclosure {
+  @apply border-b border-gray-200;
+}
+
+.mobile-facets__summary {
+  @apply flex items-center justify-between py-4 text-gray-900 font-medium;
+}
+
+.mobile-facets__sort {
+  @apply mb-4;
+}
+
+/* Facets Drawer (Mobile) */
+.facets-container-drawer .facets__form {
+  @apply fixed inset-0 z-50 bg-white transform translate-x-full transition-transform duration-300;
+}
+
+.facets-container-drawer .facets__form.active {
+  @apply translate-x-0;
+}
+
+.drawer-facets {
+  @apply h-full flex flex-col;
+}
+
+.drawer-facets__header {
+  @apply flex items-center justify-between p-6 border-b border-gray-200;
+}
+
+.drawer-facets__heading {
+  @apply text-lg font-semibold text-gray-900;
+}
+
+.drawer-facets__close {
+  @apply p-2 text-gray-400 hover:text-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500 rounded;
+}
+
+.drawer-facets__content {
+  @apply flex-1 overflow-y-auto p-6;
+}
+
+.drawer-facets__footer {
+  @apply p-6 border-t border-gray-200 bg-gray-50;
+}
+
+/* Filter Toggle Button */
+.facets__open-wrapper {
+  @apply mb-6;
+}
+
+.facets__open {
+  @apply flex items-center px-4 py-2 border border-gray-300 rounded-md hover:border-gray-400 transition-colors duration-200;
+}
+
+.facets__open .svg-wrapper {
+  @apply w-4 h-4 mr-2 text-gray-600;
+}
+
+/* Product Count */
+.product-count {
+  @apply text-sm text-gray-600;
+}
+
+.product-count__text {
+  @apply font-medium;
+}
+
+/* Loading States */
+.facets .loading-spinner {
+  @apply ml-2;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 767px) {
+  .facets__summary {
+    @apply py-3;
+  }
+
+  .facets__list {
+    @apply space-y-2;
+  }
+
+  .active-facets__button-inner {
+    @apply px-2 py-1 text-xs;
+  }
+}
+
+/* Focus States */
+.facets__summary:focus {
+  @apply outline-none ring-2 ring-blue-500 ring-offset-2 rounded;
+}
+
+.facet-checkbox:focus-within {
+  @apply ring-2 ring-blue-500 ring-offset-2 rounded;
+}

@@ -1,0 +1,208 @@
+/* Pagination & Sorting Controls Styling - Tailwind Enhanced */
+
+/* Pagination Wrapper */
+.pagination-wrapper {
+  @apply mt-12 flex justify-center;
+}
+
+.pagination {
+  @apply inline-flex items-center;
+}
+
+.pagination__list {
+  @apply flex items-center space-x-1;
+}
+
+/* Pagination Items */
+.pagination__item {
+  @apply inline-flex items-center justify-center min-w-10 h-10 px-3 text-sm font-medium text-gray-700 border border-gray-300 hover:bg-gray-50 hover:text-gray-900 transition-colors duration-200 no-underline;
+}
+
+.pagination__item:first-child {
+  @apply rounded-l-md;
+}
+
+.pagination__item:last-child {
+  @apply rounded-r-md;
+}
+
+.pagination__item--current {
+  @apply bg-blue-600 text-white border-blue-600 cursor-default;
+}
+
+.pagination__item--current:hover {
+  @apply bg-blue-600 text-white;
+}
+
+/* Pagination Arrows */
+.pagination__item-arrow {
+  @apply min-w-10;
+}
+
+.pagination__item--prev .svg-wrapper {
+  @apply w-4 h-4;
+}
+
+.pagination__item--next .svg-wrapper {
+  @apply w-4 h-4 rotate-180;
+}
+
+/* Disabled Pagination Items */
+.pagination__item[aria-disabled='true'] {
+  @apply bg-gray-100 text-gray-400 cursor-not-allowed;
+}
+
+.pagination__item[aria-disabled='true']:hover {
+  @apply bg-gray-100 text-gray-400;
+}
+
+/* Sorting Controls */
+.sorting {
+  @apply mb-6;
+}
+
+.sorting .facet-filters__field {
+  @apply flex items-center space-x-4;
+}
+
+.sorting .facet-filters__label {
+  @apply text-sm font-medium text-gray-900 whitespace-nowrap;
+}
+
+.sorting .select {
+  @apply min-w-48;
+}
+
+/* Facets Vertical Sort */
+.facets-vertical-sort {
+  @apply flex items-center justify-between mb-8 pb-6 border-b border-gray-200;
+}
+
+.facets-vertical-form {
+  @apply flex items-center justify-between w-full;
+}
+
+/* Product Count Display */
+.product-count-vertical {
+  @apply flex items-center space-x-2;
+}
+
+.product-count__text {
+  @apply text-sm text-gray-600;
+}
+
+/* Mobile Sorting */
+.mobile-facets__sort {
+  @apply mb-6 pb-6 border-b border-gray-200;
+}
+
+.mobile-facets__sort .select {
+  @apply w-full;
+}
+
+/* Sort Options Styling */
+.facet-filters__sort option {
+  @apply py-2;
+}
+
+/* Collection Toolbar */
+.collection-toolbar {
+  @apply flex items-center justify-between mb-8 pb-6 border-b border-gray-200;
+}
+
+.collection-toolbar__left {
+  @apply flex items-center space-x-4;
+}
+
+.collection-toolbar__right {
+  @apply flex items-center space-x-4;
+}
+
+/* View Toggle (Grid/List) */
+.view-toggle {
+  @apply flex border border-gray-300 rounded-md overflow-hidden;
+}
+
+.view-toggle__button {
+  @apply px-3 py-2 text-gray-600 hover:text-gray-900 hover:bg-gray-50 transition-colors duration-200;
+}
+
+.view-toggle__button.active {
+  @apply bg-blue-600 text-white;
+}
+
+.view-toggle__button:hover.active {
+  @apply bg-blue-600 text-white;
+}
+
+.view-toggle__button .svg-wrapper {
+  @apply w-4 h-4;
+}
+
+/* Results Per Page */
+.results-per-page {
+  @apply flex items-center space-x-2;
+}
+
+.results-per-page__label {
+  @apply text-sm text-gray-600 whitespace-nowrap;
+}
+
+.results-per-page__select {
+  @apply px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm;
+}
+
+/* Collection Info Bar */
+.collection-info {
+  @apply flex items-center justify-between mb-6 text-sm text-gray-600;
+}
+
+.collection-info__count {
+  @apply font-medium;
+}
+
+.collection-info__filters {
+  @apply flex items-center space-x-2;
+}
+
+/* Loading States */
+.pagination .loading-spinner {
+  @apply hidden;
+}
+
+.pagination.loading .loading-spinner {
+  @apply inline-block ml-2;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 767px) {
+  .pagination-wrapper {
+    @apply mt-8;
+  }
+
+  .pagination__item {
+    @apply min-w-8 h-8 px-2 text-xs;
+  }
+
+  .collection-toolbar {
+    @apply flex-col space-y-4 items-stretch;
+  }
+
+  .collection-toolbar__left,
+  .collection-toolbar__right {
+    @apply justify-center;
+  }
+
+  .facets-vertical-sort .facets-vertical-form {
+    @apply flex-col space-y-4 items-stretch;
+  }
+}
+
+/* Accessibility Improvements */
+.pagination__item:focus {
+  @apply outline-none ring-2 ring-blue-500 ring-offset-2;
+}
+
+.facet-filters__sort:focus {
+  @apply outline-none ring-2 ring-blue-500 ring-offset-2;
+}
