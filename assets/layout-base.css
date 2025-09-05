@@ -1,0 +1,154 @@
+/* Layout Base - Tailwind Enhanced */
+/* This file provides base layout classes enhanced with Tailwind */
+
+/* Main Layout Structure */
+body {
+  @apply min-h-screen bg-white text-gray-900;
+  display: grid;
+  grid-template-rows: auto auto 1fr auto;
+  grid-template-columns: 100%;
+}
+
+/* Container System */
+.page-width {
+  @apply max-w-7xl mx-auto px-6;
+}
+
+@media (min-width: 768px) {
+  .page-width {
+    @apply px-8;
+  }
+}
+
+@media (min-width: 1024px) {
+  .page-width {
+    @apply px-12;
+  }
+}
+
+.page-width--narrow {
+  @apply max-w-4xl mx-auto px-6;
+}
+
+@media (min-width: 768px) {
+  .page-width--narrow {
+    @apply px-16;
+  }
+}
+
+/* Section Spacing */
+.section {
+  @apply py-12;
+}
+
+@media (min-width: 768px) {
+  .section {
+    @apply py-16;
+  }
+}
+
+@media (min-width: 1024px) {
+  .section {
+    @apply py-20;
+  }
+}
+
+/* Content Containers */
+.content-container {
+  @apply bg-white rounded-lg;
+  border: var(--border-width) solid
+    rgba(var(--color-foreground), var(--border-opacity));
+  border-radius: var(--border-radius);
+}
+
+.content-container--full-width {
+  @apply w-full;
+}
+
+/* Grid System Enhancements */
+.grid {
+  @apply grid gap-6;
+}
+
+@media (min-width: 768px) {
+  .grid {
+    @apply gap-8;
+  }
+}
+
+/* Utility Classes */
+.isolate {
+  @apply relative;
+  isolation: isolate;
+}
+
+.gradient {
+  background: var(--gradient-background);
+}
+
+/* Focus States */
+.focus-inset:focus {
+  @apply outline-none;
+  outline: var(--focused-base-outline);
+  outline-offset: var(--focused-base-outline-offset);
+  box-shadow: var(--focused-base-box-shadow);
+}
+
+/* Animation Classes */
+.animate--slide-in {
+  @apply opacity-0 translate-y-8 transition-all duration-700 ease-out;
+}
+
+.animate--slide-in.scroll-trigger {
+  @apply opacity-100 translate-y-0;
+}
+
+.animate--fade-in {
+  @apply opacity-0 transition-opacity duration-500 ease-out;
+}
+
+.animate--fade-in.scroll-trigger {
+  @apply opacity-100;
+}
+
+/* Media Queries for Better Responsiveness */
+.small-hide {
+  @apply hidden;
+}
+
+@media (min-width: 750px) {
+  .small-hide {
+    @apply block;
+  }
+}
+
+.medium-hide {
+  @apply block;
+}
+
+@media (min-width: 750px) and (max-width: 989px) {
+  .medium-hide {
+    @apply hidden;
+  }
+}
+
+.large-up-hide {
+  @apply block;
+}
+
+@media (min-width: 990px) {
+  .large-up-hide {
+    @apply hidden;
+  }
+}
+
+/* Color Scheme Integration */
+.color-scheme-1 {
+  background: rgb(var(--color-background));
+  color: rgb(var(--color-foreground));
+}
+
+/* Visually Hidden Utility */
+.visually-hidden {
+  @apply sr-only;
+}
