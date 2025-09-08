@@ -1,31 +1,36 @@
 <header>
-  <{% include 'message-bar' %}
-
-  <div class='w-full flex flex-row justify-between px-4'>
-    <!-- logo -->
-    <div clas='flex flex-row justify-start w-auto'>
-      {%- assign img_url = section.settings.logo | img_url: '1x1' | replace: '_1x1.', '_{width}x.' -%}
-      <a
-        href='{{  routes.root_url }}'
-        class='site-header__logo-image{% if section.settings.align_logo == 'center' %} site-header__logo-image--centered{% endif %}'
-      >
-        <img src='/cdn/shop/files/logo_d372fcc9-f883-42eb-be88-ef6796c08b5b_180x.png?v=1614331262'>
-      </a>
-    </div>
-    <!-- menu + icons -->
-    <div class='flex flex-row items-end'>
-      <!-- menu -->
-      <div></div>
-      <!-- icons -->
-      <div></div>
-    </div>
-  </div>
+  {% include 'message-bar' %}
 
   <div class='wsmenucontainer clearfix'>
     <div id='overlapblackbg'></div>
     <div class='wsmobileheader clearfix'>
       <a id='wsnavtoggle' class='animated-arrow'><span></span></a>
-      <div class='smallogo'></div>
+      <div class='smallogo'>
+        {%- assign img_url = section.settings.logo | img_url: '1x1' | replace: '_1x1.', '_{width}x.' -%}
+        <a
+          href='{{  routes.root_url }}'
+          class='site-header__logo-image{% if section.settings.align_logo == 'center' %} site-header__logo-image--centered{% endif %}'
+        >
+          {% capture logo_alt %}{{ section.settings.logo.alt | default: shop.name }}{% endcapture %}
+          <img
+            class='lazyload js'
+            src='{{ section.settings.logo | img_url: '300x300' }}'
+            data-src='{{ img_url }}'
+            data-widths='[180, 360, 540, 720, 900, 1080, 1296, 1512, 1728, 2048]'
+            data-aspectratio='{{ section.settings.logo.aspect_ratio }}'
+            data-sizes='auto'
+            alt='{{ logo_alt | escape }}'
+          >
+          <noscript>
+            {% capture image_size %}{{ section.settings.logo_max_width | escape }}x{% endcapture %}
+            <img
+              src='{{ section.settings.logo | img_url: image_size }}'
+              srcset='{{ section.settings.logo | img_url: image_size }} 1x, {{ section.settings.logo | img_url: image_size, scale: 2 }} 2x'
+              alt='{{ section.settings.logo.alt | default: shop.name }}'
+            >
+          </noscript>
+        </a>
+      </div>
       {% assign cart_icon_class = 'cart_empty_icon_img_span' %}
       {% if cart.item_count > 0 %}
         {% assign cart_icon_class = 'cart_icon_img_span' %}
@@ -267,6 +272,65 @@
                 {% endfor %}
               </ul>
             </li>
+            <!-- temporary sales menu -->
+            {% if false %}
+              <li class='mobile_menu_top_sapce'>
+                <a href='#' class='navtext'>
+                  <span></span>
+                  <span>
+                    <span>SUMMER SALE | SHOP BY SIZE</span>
+                  </span>
+                </a>
+
+                <ul class='wsmenu-submenu wsmenu-submenu--variant'>
+                  <li>
+                    <a href='https://www.graymattersnyc.com/collections/summer-sale'>ALL SIZES</a>
+                  </li>
+                  <li>
+                    <a href='https://www.graymattersnyc.com/collections/size-35'>SIZE 35</a>
+                  </li>
+                  <li>
+                    <a href='https://www.graymattersnyc.com/collections/size-35-5'>SIZE 35.5</a>
+                  </li>
+                  <li>
+                    <a href='https://www.graymattersnyc.com/collections/size-36'>SIZE 36</a>
+                  </li>
+                  <li>
+                    <a href='https://www.graymattersnyc.com/collections/size-36-5'>SIZE 36.5</a>
+                  </li>
+                  <li>
+                    <a href='https://www.graymattersnyc.com/collections/size-37'>SIZE 37</a>
+                  </li>
+                  <li>
+                    <a href='https://www.graymattersnyc.com/collections/size-37-5'>SIZE 37.5</a>
+                  </li>
+                  <li>
+                    <a href='https://www.graymattersnyc.com/collections/size-38'>SIZE 38</a>
+                  </li>
+                  <li>
+                    <a href='https://www.graymattersnyc.com/collections/size-38-5'>SIZE 38.5</a>
+                  </li>
+                  <li>
+                    <a href='https://www.graymattersnyc.com/collections/size-39'>SIZE 39</a>
+                  </li>
+                  <li>
+                    <a href='https://www.graymattersnyc.com/collections/size-39-5'>SIZE 39.5</a>
+                  </li>
+                  <li>
+                    <a href='https://www.graymattersnyc.com/collections/size-40'>SIZE 40</a>
+                  </li>
+                  <li>
+                    <a href='https://www.graymattersnyc.com/collections/size-40-5'>SIZE 40.5</a>
+                  </li>
+                  <li>
+                    <a href='https://www.graymattersnyc.com/collections/size-41'>SIZE 41</a>
+                  </li>
+                  <li>
+                    <a href='https://www.graymattersnyc.com/collections/size-42'>SIZE 42</a>
+                  </li>
+                </ul>
+              </li>
+            {% endif %}
 
             <li class='second_main_menu_li' id='hide-lang-mobile'>
               {% render 'country_selection' %}

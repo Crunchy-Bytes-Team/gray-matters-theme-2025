@@ -1,70 +1,61 @@
-
-<!-- footer: main footer + copyright -->
-<footer>
-
-  <!-- main footer -->
-  <section id="footer" class="w-full">
-
-    <div class="foter_container w-full flex flex-row">
-
-        <!-- col 01 footer --> 
-        <div class="flex flex-col w-1/3 bg-pink-200">
-          <h4 class="icon_toggle" id="flip"> <i class="fa fa-caret-right" aria-hidden="true"></i>
-            Company</h4>
-          <div class="useful-links" id="panel">
-            <ul>
-              {% for link in linklists.company.links %}
-              <li><a href="{{ link.url }}">{{ link.title }}</a></li>
-              {% endfor %}
-            </ul>
-          </div>
+<section id="footer">
+<!--   <div class="container-fluid"> -->
+  <div class="foter_container">
+    <div class="row">
+      <div class="col-sm-3 col-md-3 footer_first_div">
+        <h4 class="icon_toggle" id="flip"> <i class="fa fa-caret-right" aria-hidden="true"></i>
+          Company</h4>
+        <div class="useful-links" id="panel">
+          <ul>
+            {% for link in linklists.company.links %}
+            <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+            {% endfor %}
+          </ul>
         </div>
+      </div>
 
-        <!-- col 02 footer --> 
-        <div class="flex flex-col w-1/3 bg-pink-200">
-          <h4 class="icon_toggle" id="flip1" ><i class="fa fa-caret-right" aria-hidden="true"></i> Client Services</h4>
-          <div class="useful-links" id="panel1">
-            <ul>
-              {% for link in linklists.client-services.links %}
-              <li><a href="{{ link.url }}">{{ link.title }}</a></li>
-              {% endfor %}
-            </ul>
-          </div>
+      <div class="footer-box col-sm-3 col-md-3 footer_second_div">
+        <h4 class="icon_toggle" id="flip1" ><i class="fa fa-caret-right" aria-hidden="true"></i> Client Services</h4>
+        <div class="useful-links" id="panel1">
+          <ul>
+            {% for link in linklists.client-services.links %}
+            <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+            {% endfor %}
+          </ul>
         </div>
+      </div>
 
-        <!-- col 03 footer --> 
-        <div class="flex flex-col w-1/3 bg-pink-200">
-          <h4 class="icon_toggle" id="flip2"><i class="fa fa-caret-right" aria-hidden="true"></i> Connect</h4>
-          <div class="useful-links" id="panel2">
-            <ul>
-              <li>
-                {% if request.locale.iso_code == 'en' %}
-                  <a href="/pages/brand-stories">Brand Stories</a>
-                {% else %}
-                  <a href="{{ request.locale.root_url }}/pages/brand-stories">Brand Stories</a>
-                {% endif %}
-              </li>
-              <li><a href="https://www.instagram.com/graymattersnyc/?hl=en">Instagram</a></li>
-              <li><a href="https://www.facebook.com/graymattersnyc/">Facebook</a></li>
-              <li><a href="https://www.graymattersnyc.com/pages/ladygray">LadyGray Club</a></li>
-              <!-- <li><a href="https://www.tiktok.com/@graymattersnyc?is_from_webapp=1&sender_device=pc">TikTok</a></li> -->
-            </ul>
-          </div>
+      <div class="footer-box col-sm-2 col-md-2 footer_third_div">
+        <h4 class="icon_toggle" id="flip2"><i class="fa fa-caret-right" aria-hidden="true"></i> Connect</h4>
+        <div class="useful-links" id="panel2">
+          <ul>
+            <li>
+              {% if request.locale.iso_code == 'en' %}
+                <a href="/pages/brand-stories">Brand Stories</a>
+              {% else %}
+                <a href="{{ request.locale.root_url }}/pages/brand-stories">Brand Stories</a>
+              {% endif %}
+            </li>
+            <li><a href="https://www.instagram.com/graymattersnyc/?hl=en">Instagram</a></li>
+            <li><a href="https://www.facebook.com/graymattersnyc/">Facebook</a></li>
+            <li><a href="https://www.graymattersnyc.com/pages/ladygray">LadyGray Club</a></li>
+            <!-- <li><a href="https://www.tiktok.com/@graymattersnyc?is_from_webapp=1&sender_device=pc">TikTok</a></li> -->
+          </ul>
         </div>
+      </div>
 
-        <!-- col 04 footer --> 
-        <div class="flex flex-col w-1/3 bg-pink-200">
-          <div class="contact-footer">
-            <h4>News</h4>
-            <!-- 2023-01-25 - embedded Yotpo SMSBump form -->
-            {% if false %}
-              {% include 'smsbump_subscription_form_embed_161235' %}
-            {% endif %}
-          {% if true %}
-            <div class="about-footer newsletter">
-              <p>Receive 10% off your first order and be the first to know about new products, sales and events.</p>
+      <div class="footer-box col-md-4 col-sm-4 footer_fourth_div">
+        <div class="contact-footer">
+          <h4>News</h4>
+          <!-- 2023-01-25 - embedded Yotpo SMSBump form -->
+          {% if false %}
+            {% include 'smsbump_subscription_form_embed_161235' %}
+          {% endif %}
+         {% if true %}
+          <div class="about-footer newslatter">
+            <p>Receive 10% off your first order and be the first to know about new products, sales and events.</p>
 
-<!—- [Shopify newsletter] -->
+<!—[Shopify newsletter]-->
             {% assign footer_form_id = 'footer_form' %}
             {% form 'customer', id: footer_form_id, novalidate: 'novalidate' %}
             {%- if form.posted_successfully? -%}
@@ -128,24 +119,27 @@
             {% endform %}
             <!--[Shopify newsletter]-->
 
-            </div>
-          {% endif %}
           </div>
-        </div><!-- fine col 04 -->
-  
+        {% endif %}
+        </div>
+      </div>
     </div>
-
-  </section>
-  <!-- main footer end  -->
-
-  <!-- copyright -->
-  <div class="w-full flex flex-row items-start bg-black px-4 py-4">
-    © 2025 Gray Matters
   </div>
+</section>
 
+<footer class="">
+  <div class="wsmain1">
+    <div class="row copy_right_row">
+      <div class="col-md-12">
+        <ul class="list-inline copy_right_uline">
+          <li>
+            <p>© 2025 Gray Matters</p>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
 </footer>
-
-
 {% schema %}
 {
   "name": {
