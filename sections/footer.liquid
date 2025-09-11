@@ -1,443 +1,231 @@
-
 <!-- footer: main footer + copyright -->
-<footer>
-
+<footer class='bg-gray px-6 py-10'>
   <!-- main footer -->
-  <section id="footer" class="w-full">
-
-    <div class="foter_container w-full flex flex-row">
-
-        <!-- col 01 footer --> 
-        <div class="flex flex-col w-1/3 bg-pink-200">
-          <h4 class="icon_toggle" id="flip"> <i class="fa fa-caret-right" aria-hidden="true"></i>
-            Company</h4>
-          <div class="useful-links" id="panel">
-            <ul>
-              {% for link in linklists.company.links %}
-              <li><a href="{{ link.url }}">{{ link.title }}</a></li>
-              {% endfor %}
-            </ul>
-          </div>
-        </div>
-
-        <!-- col 02 footer --> 
-        <div class="flex flex-col w-1/3 bg-pink-200">
-          <h4 class="icon_toggle" id="flip1" ><i class="fa fa-caret-right" aria-hidden="true"></i> Client Services</h4>
-          <div class="useful-links" id="panel1">
-            <ul>
-              {% for link in linklists.client-services.links %}
-              <li><a href="{{ link.url }}">{{ link.title }}</a></li>
-              {% endfor %}
-            </ul>
-          </div>
-        </div>
-
-        <!-- col 03 footer --> 
-        <div class="flex flex-col w-1/3 bg-pink-200">
-          <h4 class="icon_toggle" id="flip2"><i class="fa fa-caret-right" aria-hidden="true"></i> Connect</h4>
-          <div class="useful-links" id="panel2">
-            <ul>
-              <li>
-                {% if request.locale.iso_code == 'en' %}
-                  <a href="/pages/brand-stories">Brand Stories</a>
-                {% else %}
-                  <a href="{{ request.locale.root_url }}/pages/brand-stories">Brand Stories</a>
-                {% endif %}
+  <section id='footer' class='w-full'>
+    <div class='foter_container w-full flex flex-col lg:flex-row'>
+      <!-- col 01 footer -->
+      <div class='flex flex-col w-full lg:w-1/4 mb-6 lg:mb-0 border-b border-gray-300 lg:border-0'>
+        <button
+          class='flex items-center justify-between w-full text-xs text-light-gray uppercase mb-6 lg:cursor-default'
+          type='button'
+          aria-expanded='false'
+          aria-controls='footer-company-links'
+          onclick="toggleFooterAccordion(this, 'footer-company-links')"
+        >
+          <span>
+            <i class='inline lg:hidden fa-solid fa-caret-right text-dark-gray mr-2'></i>
+            {{ 'sections.footer.company' | t }}
+          </span>
+        </button>
+        <div
+          class='useful-links transition-all duration-300 overflow-hidden max-h-0 lg:max-h-none lg:block'
+          id='footer-company-links'
+        >
+          <ul class='mb-6 lg:mb-0'>
+            {% for link in linklists.company.links %}
+              <li class='text-xs text-dark-gray mb-3'>
+                <a href='{{ link.url }}'>{{ link.title }}</a>
               </li>
-              <li><a href="https://www.instagram.com/graymattersnyc/?hl=en">Instagram</a></li>
-              <li><a href="https://www.facebook.com/graymattersnyc/">Facebook</a></li>
-              <li><a href="https://www.graymattersnyc.com/pages/ladygray">LadyGray Club</a></li>
-              <!-- <li><a href="https://www.tiktok.com/@graymattersnyc?is_from_webapp=1&sender_device=pc">TikTok</a></li> -->
-            </ul>
-          </div>
+            {% endfor %}
+          </ul>
         </div>
+      </div>
 
-        <!-- col 04 footer --> 
-        <div class="flex flex-col w-1/3 bg-pink-200">
-          <div class="contact-footer">
-            <h4>News</h4>
-            <!-- 2023-01-25 - embedded Yotpo SMSBump form -->
-            {% if false %}
-              {% include 'smsbump_subscription_form_embed_161235' %}
-            {% endif %}
+      <!-- col 02 footer -->
+      <div class='flex flex-col w-full lg:w-1/4 mb-6 lg:mb-0 border-b border-gray-300 lg:border-0'>
+        <button
+          class='flex items-center justify-between w-full text-xs text-light-gray uppercase mb-6 lg:cursor-default'
+          type='button'
+          aria-expanded='false'
+          aria-controls='footer-client-links'
+          onclick="toggleFooterAccordion(this, 'footer-client-links')"
+        >
+          <span>
+            <i class='inline lg:hidden fa-solid fa-caret-right text-dark-gray mr-2'></i>
+            {{ 'sections.footer.client-service' | t }}
+          </span>
+        </button>
+        <div
+          class='useful-links transition-all duration-300 overflow-hidden max-h-0 lg:max-h-none lg:block'
+          id='footer-client-links'
+        >
+          <ul class='mb-6 lg:mb-0'>
+            {% for link in linklists['client-services'].links %}
+              <li class='text-xs text-dark-gray mb-3'>
+                <a href='{{ link.url }}'>{{ link.title }}</a>
+              </li>
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+
+      <!-- col 03 footer -->
+      <div class='flex flex-col w-full lg:w-1/4 mb-6 lg:mb-0 border-b border-gray-300 lg:border-0'>
+        <button
+          class='flex items-center justify-between w-full text-xs text-light-gray uppercase mb-6 lg:cursor-default'
+          type='button'
+          aria-expanded='false'
+          aria-controls='footer-connect-links'
+          onclick="toggleFooterAccordion(this, 'footer-connect-links')"
+        >
+          <span>
+            <i class='inline lg:hidden fa-solid fa-caret-right text-dark-gray mr-2'></i>
+            {{ 'sections.footer.connect' | t }}
+          </span>
+        </button>
+        <div
+          class='useful-links transition-all duration-300 overflow-hidden max-h-0 lg:max-h-none lg:block'
+          id='footer-connect-links'
+        >
+          <ul class='mb-6 lg:mb-0'>
+            <li class='text-xs text-dark-gray mb-3'>
+              {% if request.locale.iso_code == 'en' %}
+                <a href='/pages/brand-stories'>{{ 'sections.footer.brand-stories' | t }}</a>
+              {% else %}
+                <a href='{{ request.locale.root_url }}/pages/brand-stories'>
+                  {{- 'sections.footer.brand-stories' | t -}}
+                </a>
+              {% endif %}
+            </li>
+            <li class='text-xs text-dark-gray mb-3'>
+              <a href='https://www.instagram.com/graymattersnyc/?hl=en'>Instagram</a>
+            </li>
+            <li class='text-xs text-dark-gray mb-3'><a href='https://www.facebook.com/graymattersnyc/'>Facebook</a></li>
+            <li class='text-xs text-dark-gray mb-3'>
+              <a href='https://www.graymattersnyc.com/pages/ladygray'>LadyGray Club</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- col 04 footer -->
+      <div class='flex flex-col w-full lg:w-1/4 mb-6 lg:mb-0'>
+        <div class='contact-footer'>
+          <h4 class='text-xs text-light-gray uppercase mb-6'>
+            {{ 'sections.footer.news' | t }}
+          </h4>
+          <!-- 2023-01-25 - embedded Yotpo SMSBump form -->
+          {% if false %}
+            {% include 'smsbump_subscription_form_embed_161235' %}
+          {% endif %}
           {% if true %}
-            <div class="about-footer newsletter">
-              <p>Receive 10% off your first order and be the first to know about new products, sales and events.</p>
+            <div class='about-footer newsletter'>
+              <p class='text-xs text-dark-gray mb-3'>
+                Receive 10% off your first order and be the first to know about new products, sales and events.
+              </p>
 
-<!—- [Shopify newsletter] -->
-            {% assign footer_form_id = 'footer_form' %}
-            {% form 'customer', id: footer_form_id, novalidate: 'novalidate' %}
-            {%- if form.posted_successfully? -%}
-            <p class="form-message form-message--success" tabindex="-1" data-form-status>
-              {{ 'general.newsletter_form.confirmation' | t }}
-            </p>
-            {%- endif -%}
+              {% assign footer_form_id = 'footer_form' %}
+              {% form 'customer', id: footer_form_id, novalidate: 'novalidate' %}
+                {%- if form.posted_successfully? -%}
+                  <p class='form-message form-message--success' tabindex='-1' data-form-status>
+                    {{ 'general.newsletter_form.confirmation' | t }}
+                  </p>
+                {%- endif -%}
 
-            <div class="form-group">
-              <label>Name</label>
-              <input type="text" class="form-control" id="{{ footer_form_id }}-name" value="{{ form.name }}" placeholder="" name="contact[name]">
-            </div>
-            {% if false %}
-              <div class="form-group">
-                <label class="footer-label--size">Mobile nr.</label>
-                <input type="text" class="form-control" id="{{ footer_form_id }}-phone" value="" name="contact[phone]">
-              </div>
-            {% endif %}
+                <div class='form-group flex flex-row items-end mb-3'>
+                  <label class='text-xs text-dark-gray mr-4'>Name</label>
+                  <input
+                    type='text'
+                    class='form-control bg-transparent border-b border-gray-300 flex-1'
+                    id='{{ footer_form_id }}-name'
+                    value='{{ form.name }}'
+                    placeholder=''
+                    name='contact[name]'
+                  >
+                </div>
+                {% if false %}
+                  <div class='form-group'>
+                    <label class='footer-label--size'>Mobile nr.</label>
+                    <input
+                      type='text'
+                      class='form-control'
+                      id='{{ footer_form_id }}-phone'
+                      value=''
+                      name='contact[phone]'
+                    >
+                  </div>
+                {% endif %}
 
-            <div class="form-group">
-              <label class="footer-label--size">Shoe Size</label>
-              <input type="text" class="form-control" id="{{ footer_form_id }}-size" value="" name="contact[merge_fields][MMERGE7]">
-            </div>
+                <div class='form-group flex flex-row flex-nowrap items-end mb-3'>
+                  <label class='text-xs text-dark-gray mr-4 '>Shoe Size</label>
+                  <input
+                    type='text'
+                    class='form-control bg-transparent border-b border-gray-300 flex-1'
+                    id='{{ footer_form_id }}-size'
+                    value=''
+                    name='contact[merge_fields][MMERGE7]'
+                  >
+                </div>
 
-            <input type="hidden" name="contact[tags]" value="newsletter">
-            <input type="hidden" name="contact[domain]" id="{{ footer_form_id }}-domain" value="{{ shop.domain }}">
+                <input type='hidden' name='contact[tags]' value='newsletter'>
+                <input type='hidden' name='contact[domain]' id='{{ footer_form_id }}-domain' value='{{ shop.domain }}'>
 
-            <div class="form-group">
-              <label>Email</label>
-              <input type="email"
-                     name="contact[email]"
-                     id="{{ footer_form_id }}-email2343298894032"
-                     class="form-control"
-                     value="{{ form.email }}"
-                     aria-label="{{ 'general.newsletter_form.email_placeholder' | t }}"
-                     aria-required="true"
-                     required
-                     autocorrect="off"
-                     autocapitalize="off"
-                     {% if form.errors %}
-                     aria-invalid="true"
-                     aria-describedby="{{ footer_form_id }}-email-error"
-                     data-form-status
-                     {% endif %}>
-              <label class="tripwire" for="email"></label>
-              <input class="tripwire" autocomplete="off" type="email" id="{{ footer_form_id }}-email" name="email" placeholder="Your e-mail here">
-            </div>
+                <div class='form-group flex flex-row items-end mb-5'>
+                  <label class='text-xs text-dark-gray mr-4'>Email</label>
+                  <input
+                    type='email'
+                    name='contact[email]'
+                    id='{{ footer_form_id }}-email2343298894032'
+                    class='form-control bg-transparent border-b border-gray-300 flex-1'
+                    value='{{ form.email }}'
+                    aria-label='{{ 'general.newsletter_form.email_placeholder' | t }}'
+                    aria-required='true'
+                    required
+                    autocorrect='off'
+                    autocapitalize='off'
+                    {% if form.errors %}
+                      aria-invalid='true'
+                      aria-describedby='{{ footer_form_id }}-email-error'
+                      data-form-status
+                    {% endif %}
+                  >
+                  <label class='tripwire' for='email'></label>
+                  <!--
+                    ho aggiunto la classe hidden, nel tema vecchio questo input veniva nascosto da css con opacity 0
+                  -->
+                  <input
+                    class='tripwire hidden'
+                    autocomplete='off'
+                    type='email'
+                    id='{{ footer_form_id }}-email'
+                    name='email'
+                    placeholder='Your e-mail here'
+                  >
+                </div>
 
+                <span class='input-group__btn'>
+                  <button
+                    type='submit'
+                    class='py-4 text-xs btn btn-dark uppercase w-full newsletter__submit'
+                    name='commit'
+                    id='Subscribe'
+                  >
+                    {{ 'newsletter.submit' | t }}
+                  </button>
+                </span>
 
-            <span class="input-group__btn">
-              <button type="submit" class="dark-btn btn-block newsletter__submit" name="commit" id="Subscribe">
-                {{ 'general.newsletter_form.submit' | t }}
-              </button>
-            </span>
-
-            {% if form.errors contains 'email' %}
-            <span id="{{ footer_form_id }}-email-error" class="input-error-message">
-              {% include 'icon-error' %} {{ form.errors.translated_fields['email'] | capitalize }} {{ form.errors.messages['email'] }}.
-            </span>
-            {% endif %}
-            {% endform %}
-            <!--[Shopify newsletter]-->
-
+                {% if form.errors contains 'email' %}
+                  <span id='{{ footer_form_id }}-email-error' class='input-error-message'>
+                    {% include 'icon-error' %}
+                    {{ form.errors.translated_fields.email | capitalize }}
+                    {{ form.errors.messages.email }}.
+                  </span>
+                {% endif %}
+              {% endform %}
+              <!-- [Shopify newsletter] -->
             </div>
           {% endif %}
-          </div>
-        </div><!-- fine col 04 -->
-  
+        </div>
+      </div>
+      <!-- fine col 04 -->
     </div>
-
   </section>
-  <!-- main footer end  -->
+  <!-- main footer end -->
 
   <!-- copyright -->
-  <div class="w-full flex flex-row items-start bg-black px-4 py-4">
-    © 2025 Gray Matters
-  </div>
-
+  <div class='w-full flex flex-row items-start text-dark-gray text-xs pt-4'>© 2025 Gray Matters</div>
 </footer>
 
-
 {% schema %}
-{
-  "name": {
-    "de": "Fußzeile",
-    "en": "Footer",
-    "es": "Pie de página",
-    "fr": "Pied de page",
-    "it": "Footer",
-    "ja": "フッター",
-    "nl": "Voettekst",
-    "pt-BR": "Rodapé",
-    "zh-CN": "页脚",
-    "zh-TW": "頁尾"
-  },
-  "max_blocks": 4,
-  "settings": [
-    {
-      "type": "header",
-      "content": {
-        "de": "Zahlungsarten",
-        "en": "Payment methods",
-        "es": "Métodos de pago",
-        "fr": "Moyens de paiement",
-        "it": "Metodi di pagamento",
-        "ja": "お支払い方法",
-        "nl": "Betaalmethoden",
-        "pt-BR": "Formas de pagamento",
-        "zh-CN": "支付方式",
-        "zh-TW": "付款方式"
-      }
-    },
-    {
-      "type": "checkbox",
-      "id": "show_payment_icons",
-      "label": {
-        "de": "Zahlungs-Buttons anzeigen",
-        "en": "Show payment icons",
-        "es": "Mostrar iconos de pago",
-        "fr": "Afficher les icônes de paiement",
-        "it": "Mostra le icone di pagamento",
-        "ja": "支払いアイコンを表示する",
-        "nl": "Betalingspictogrammen weergeven",
-        "pt-BR": "Exibir ícones de pagamento",
-        "zh-CN": "显示付款图标",
-        "zh-TW": "顯示付款圖示"
-      },
-      "default": false
-    },
-    {
-      "type": "header",
-      "content": {
-        "de": "Farbe",
-        "en": "Color",
-        "es": "Color",
-        "fr": "Couleur",
-        "it": "Colore",
-        "ja": "色",
-        "nl": "Kleur",
-        "pt-BR": "Cor",
-        "zh-CN": "颜色",
-        "zh-TW": "顏色"
-      }
-    },
-    {
-      "type": "color",
-      "id": "color_footer_bg",
-      "label": {
-        "de": "Hintergrundfarbe",
-        "en": "Background",
-        "es": "Fondo",
-        "fr": "Couleur de fond",
-        "it": "Sfondo",
-        "ja": "背景",
-        "nl": "Achtergrond",
-        "pt-BR": "Plano de fundo",
-        "zh-CN": "背景",
-        "zh-TW": "背景"
-      },
-      "default": "#F5F5F5"
-    },
-    {
-      "type": "color",
-      "id": "color_footer_text",
-      "label": {
-        "de": "Text",
-        "en": "Text",
-        "es": "Texto",
-        "fr": "Texte",
-        "it": "Testo",
-        "ja": "テキスト",
-        "nl": "Tekst",
-        "pt-BR": "Texto",
-        "zh-CN": "文本",
-        "zh-TW": "文字"
-      },
-      "default": "#3d4246"
-    }
-  ],
-  "blocks": [
-    {
-      "type": "link_list",
-      "name": {
-        "de": "Menü",
-        "en": "Menu",
-        "es": "Menú",
-        "fr": "Menu",
-        "it": "Menu",
-        "ja": "メニュー",
-        "nl": "Menu",
-        "pt-BR": "Menu",
-        "zh-CN": "菜单",
-        "zh-TW": "選單"
-      },
-      "settings": [
-        {
-          "type": "text",
-          "id": "title",
-          "label": {
-            "de": "Überschrift",
-            "en": "Heading",
-            "es": "Título",
-            "fr": "Titre",
-            "it": "Heading",
-            "ja": "見出し",
-            "nl": "Kop",
-            "pt-BR": "Título",
-            "zh-CN": "标题",
-            "zh-TW": "標題"
-          },
-          "default": {
-            "de": "Quick-Links",
-            "en": "Quick links",
-            "es": "Enlaces rápidos",
-            "fr": "Liens rapides",
-            "it": "Link rapidi",
-            "ja": "クイックリンク",
-            "nl": "Snelle links",
-            "pt-BR": "Links rápidos",
-            "zh-CN": "快速链接",
-            "zh-TW": "快速連結"
-          }
-        },
-        {
-          "type": "link_list",
-          "id": "menu",
-          "label": {
-            "de": "Menü",
-            "en": "Menu",
-            "es": "Menú",
-            "fr": "Menu",
-            "it": "Menu",
-            "ja": "メニュー",
-            "nl": "Menu",
-            "pt-BR": "Menu",
-            "zh-CN": "菜单",
-            "zh-TW": "選單"
-          },
-          "default": "footer"
-        }
-      ]
-    },
-    {
-      "type": "text",
-      "name": {
-        "de": "Text",
-        "en": "Text",
-        "es": "Texto",
-        "fr": "Texte",
-        "it": "Testo",
-        "ja": "テキスト",
-        "nl": "Tekst",
-        "pt-BR": "Texto",
-        "zh-CN": "文本",
-        "zh-TW": "文字"
-      },
-      "settings": [
-        {
-          "type": "text",
-          "id": "title",
-          "label": {
-            "de": "Überschrift",
-            "en": "Heading",
-            "es": "Título",
-            "fr": "Titre",
-            "it": "Heading",
-            "ja": "見出し",
-            "nl": "Kop",
-            "pt-BR": "Título",
-            "zh-CN": "标题",
-            "zh-TW": "標題"
-          },
-          "default": {
-            "de": "Reden Sie über Ihr Unternehmen",
-            "en": "Talk about your business",
-            "es": "Habla sobre tu negocio",
-            "fr": "Parlez de votre entreprise",
-            "it": "Parla della tua attività commerciale",
-            "ja": "あなたのビジネスについて語る",
-            "nl": "Vertel over uw bedrijf",
-            "pt-BR": "Fale sobre o seu negócio",
-            "zh-CN": "谈论您的业务",
-            "zh-TW": "描述您的商家"
-          }
-        },
-        {
-          "type": "richtext",
-          "id": "text",
-          "label": {
-            "de": "Text",
-            "en": "Text",
-            "es": "Texto",
-            "fr": "Texte",
-            "it": "Testo",
-            "ja": "テキスト",
-            "nl": "Tekst",
-            "pt-BR": "Texto",
-            "zh-CN": "文本",
-            "zh-TW": "文字"
-          },
-          "default": {
-            "de": "<p>Teilen Sie Ihre Shop-Details, Werbeaktionen oder Markeninhalte mit Ihren Kunden.</p>",
-            "en": "<p>Share store details, promotions, or brand content with your customers.</p>",
-            "es": "<p>Comparte detalles de la tienda, promociones o contenido de la marca con tus clientes.</p>",
-            "fr": "<p>Partagez les détails de la boutique, les promotions ou le contenu de la marque avec vos clients.</p>",
-            "it": "<p>Condividi dettagli del negozio, promozioni o contenuti del brand con i clienti.</p>",
-            "ja": "<p>ストア詳細、プロモーション、ブランドのコンテンツをお客様と共有する。</p>",
-            "nl": "<p>Deel winkeldetails, promoties of merkinhoud met uw klanten.</p>",
-            "pt-BR": "<p>Compartilhe detalhes da loja, promoções ou conteúdo da marca com seus clientes.</p>",
-            "zh-CN": "<p>与您的客户共享商店详细信息、促销信息或品牌内容。</p>",
-            "zh-TW": "<p>與客戶分享商店的詳細資訊、宣傳活動或品牌內容。</p>"
-          }
-        }
-      ]
-    },
-    {
-      "type": "newsletter",
-      "limit": 1,
-      "name": {
-        "de": "Newsletter-Anmeldung",
-        "en": "Newsletter signup",
-        "es": "Suscripción al boletín",
-        "fr": "Inscription",
-        "it": "Iscriviti alla Newsletter",
-        "ja": "メールマガジンの登録",
-        "nl": "Nieuwsbriefaanmelding",
-        "pt-BR": "Assinatura da newsletter",
-        "zh-CN": "新闻通讯注册",
-        "zh-TW": "訂閱電子報"
-      },
-      "settings": [
-        {
-          "type": "text",
-          "id": "title",
-          "label": {
-            "de": "Überschrift",
-            "en": "Heading",
-            "es": "Título",
-            "fr": "Titre",
-            "it": "Heading",
-            "ja": "見出し",
-            "nl": "Kop",
-            "pt-BR": "Título",
-            "zh-CN": "标题",
-            "zh-TW": "標題"
-          },
-          "info": {
-            "de": "Abonnenten werden zu Ihrer \"akzeptiert Marketingmaterial\"-Liste hinzugefügt [Kundenliste.](/admin/customers?query=&accepts_marketing=1)",
-            "en": "Subscribers will be added to your “accepts marketing” [customer list.](/admin/customers?query=&accepts_marketing=1)",
-            "es": "Se añadirá los suscriptores a tu lista \"acepta marketing\"[lista de clients.](/admin/customers?query=&accepts_marketing=1)",
-            "fr": "Les abonnés seront ajoutés à votre [liste de clients](/admin/customers?query=&accepts_marketing=1) « Accepte le marketing ».",
-            "it": "Gli iscritti verranno aggiunti al tuo [elenco clienti](/admin/customers?query=&accepts_marketing=1) “Accetta marketing”.",
-            "ja": "購読者は「マーケティングを受け入れる」[顧客リスト](/admin/customers?query=&accepts_marketing=1)に追加されます。",
-            "nl": "Abonnees worden toegevoegd aan uw \"accepteert marketing\" [klantenlijst.](/admin/customers?query=&accepts_marketing=1)",
-            "pt-BR": "Os assinantes serão adicionados à sua lista de pessoas que “aceitam marketing” [lista de clientes.](/admin/customers?query=&accepts_marketing=1)",
-            "zh-CN": "订阅者将被添加到您的“接受营销”部分 [客户列表。](/admin/customers?query=&accepts_marketing=1)",
-            "zh-TW": "系統會將訂閱者新增至您的「接受行銷」[客戶清單。](/admin/customers?query=&accepts_marketing=1)"
-          },
-          "default": {
-            "de": "Newsletter",
-            "en": "Newsletter",
-            "es": "Boletín",
-            "fr": "Newsletter",
-            "it": "Newsletter",
-            "ja": "メールマガジン",
-            "nl": "Nieuwsbrief",
-            "pt-BR": "Newsletter",
-            "zh-CN": "新闻通讯",
-            "zh-TW": "電子報"
-          }
-        }
-      ]
-    }
-  ]
-}
+{}
 {% endschema %}

@@ -60,7 +60,8 @@
   "newsletter": {
     "label": "Email",
     "success": "Thanks for subscribing",
-    "button_label": "Subscribe"
+    "button_label": "Sign Up",
+    "submit": "Sign Up"
   },
   "accessibility": {
     "skip_to_text": "Skip to content",
@@ -314,7 +315,12 @@
       }
     },
     "footer": {
-      "payment": "Payment methods"
+      "payment": "Payment methods",
+      "company": "Company",
+      "client-service": "Client Service",
+      "connect": "Connect",
+      "news": "News",
+      "brand-stories": "Brand Stories"
     },
     "featured_blog": {
       "view_all": "View all",

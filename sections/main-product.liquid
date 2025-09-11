@@ -73,12 +73,15 @@
   {%- endif -%}
 
   {% assign variant_images = product.images | where: 'attached_to_variant?', true | map: 'src' %}
-  <div class='max-w-7xl mx-auto px-6 md:px-20'>
-    <div class='product product--{{ section.settings.media_size }} product--{{ section.settings.media_position }} product--{{ section.settings.gallery_layout }} product--mobile-{{ section.settings.mobile_thumbnails }} grid grid-cols-1 {% if product.media.size > 0 %}md:grid-cols-2{% else %}product--no-media{% endif %} gap-8 lg:gap-12'>
-      <div class='product__media-wrapper'>
+  <div class='w-full px-4 bg-pink-200'>
+    <!--
+      ><div class='product product--{{ section.settings.media_size }} product--{{ section.settings.media_position }} product--{{ section.settings.gallery_layout }} product--mobile-{{ section.settings.mobile_thumbnails }} grid grid-cols-1 {% if product.media.size > 0 %}md:grid-cols-2{% else %}product--no-media{% endif %} gap-8 lg:gap-12'>
+    -->
+    <div class='flex flex-row'>
+      <div class='product__media-wrapper bg-violet-300 w-1/2'>
         {% render 'product-media-gallery', variant_images: variant_images %}
       </div>
-      <div class='product__info-wrapper{% if settings.page_width > 1400 and section.settings.media_size == "small" %} product__info-wrapper--extra-padding{% endif %}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}'>
+      <div class='w-1/2 bg-green-200 product__info-wrapper{% if settings.page_width > 1400 and section.settings.media_size == "small" %} product__info-wrapper--extra-padding{% endif %}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}'>
         <section
           id='ProductInfo-{{ section.id }}'
           class='product__info-container{% if section.settings.enable_sticky_info %} product__column-sticky{% endif %}'
@@ -669,6 +672,8 @@
         </section>
       </div>
     </div>
+
+    <!-- fine product info -->
 
     {% render 'product-media-modal', variant_images: variant_images %}
 

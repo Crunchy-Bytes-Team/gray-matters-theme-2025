@@ -1,0 +1,43 @@
+body {
+  font-family: 'Work Sans', sans-serif;
+  font-optical-sizing: auto;
+  font-weight: <weight>;
+  font-style: normal;
+}
+
+// Stile
+.text-dark-gray {
+  color: #222323;
+}
+.text-light-gray {
+  color: #a5a5a5;
+}
+footer a:hover {
+  opacity: 0.7;
+  transition: all 0.4s ease-in-out;
+}
+.bg-gray {
+  background-color: #e6e6e6;
+}
+.bg-light-gray {
+  background: #f5f3f3;
+}
+
+.btn-dark {
+  background-color: #000;
+  border: solid 1px #000;
+  color: white;
+}
+.btn-dark:hover {
+  background-color: #fff;
+  color: #222323;
+  border: solid 1px #000;
+  transition: all 0.6s ease-in-out;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  outline: none;
+  box-shadow: none;
+}

@@ -53,9 +53,6 @@
 >
   <div id='GalleryStatus-{{ section.id }}' class='visually-hidden' role='status'></div>
   <slider-component id='GalleryViewer-{{ section.id }}' class='slider-mobile-gutter'>
-    <a class='skip-to-content-link button visually-hidden quick-add-hidden' href='#ProductInfo-{{ section.id }}'>
-      {{ 'accessibility.skip_to_product_info' | t }}
-    </a>
     <ul
       id='Slider-Gallery-{{ section.id }}'
       class='product__media-list contains-media grid gap-4 list-unstyled slider slider--mobile'
@@ -330,3 +327,22 @@
     </slider-component>
   {%- endif -%}
 </media-gallery>
+
+{% comment %}
+  SEMPLIFICATO: Mostra solo le immagini del prodotto una sotto l'altra
+{% endcomment %}
+
+<div class="product-media-gallery flex flex-col gap-4">
+  {% for media in product.media %}
+    {% if media.media_type == 'image' %}
+      <div class="product-media-item">
+        <img
+          src="{{ media | image_url: width: 1200 }}"
+          alt="{{ media.alt | escape }}"
+          class="w-full h-auto"
+          loading="lazy"
+        >
+      </div>
+    {% endif %}
+  {% endfor %}
+</div>
