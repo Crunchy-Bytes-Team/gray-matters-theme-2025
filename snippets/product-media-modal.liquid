@@ -8,50 +8,52 @@
   Usage:
   {% render 'product-media-modal' %}
 {% endcomment %}
-
-<product-modal id="ProductModal-{{ section.id }}" class="product-media-modal media-modal">
-  <div
-    class="product-media-modal__dialog color-{{ section.settings.color_scheme }} gradient"
-    role="dialog"
-    aria-label="{{ 'products.modal.label' | t }}"
-    aria-modal="true"
-    tabindex="-1"
+<!--
   >
-    <button
-      id="ModalClose-{{ section.id }}"
-      type="button"
-      class="product-media-modal__toggle"
-      aria-label="{{ 'accessibility.close' | t }}"
-    >
-      {{ 'icon-close.svg' | inline_asset_content }}
-    </button>
-
+  <product-modal id='ProductModal-{{ section.id }}' class='product-media-modal media-modal'>
     <div
-      class="product-media-modal__content color-{{ section.settings.color_scheme }} gradient"
-      role="document"
-      aria-label="{{ 'products.modal.label' | t }}"
-      tabindex="0"
+      class='product-media-modal__dialog color-{{ section.settings.color_scheme }} gradient bg-black'
+      role='dialog'
+      aria-label='{{ 'products.modal.label' | t }}'
+      aria-modal='true'
+      tabindex='-1'
     >
-      {%- liquid
-        if product.selected_or_first_available_variant.featured_media != null
-          assign media = product.selected_or_first_available_variant.featured_media
-          render 'product-media', media: media, loop: section.settings.enable_video_looping, variant_image: section.settings.hide_variants
-        endif
-      -%}
+      <button
+        id='ModalClose-{{ section.id }}'
+        type='button'
+        class='product-media-modal__toggle'
+        aria-label='{{ 'accessibility.close' | t }}'
+      >
+        {{ 'icon-close.svg' | inline_asset_content }}
+      </button>
 
-      {%- for media in product.media -%}
+      <div
+        class='product-media-modal__content color-{{ section.settings.color_scheme }} gradient'
+        role='document'
+        aria-label='{{ 'products.modal.label' | t }}'
+        tabindex='0'
+      >
         {%- liquid
-          if section.settings.hide_variants and variant_images contains media.src or variant_images contains media.id
-            assign variant_image = true
-          else
-            assign variant_image = false
+          if product.selected_or_first_available_variant.featured_media != null
+            assign media = product.selected_or_first_available_variant.featured_media
+            render 'product-media', media: media, loop: section.settings.enable_video_looping, variant_image: section.settings.hide_variants
           endif
-
-          unless media.id == product.selected_or_first_available_variant.featured_media.id
-            render 'product-media', media: media, loop: section.settings.enable_video_looping, variant_image: variant_image
-          endunless
         -%}
-      {%- endfor -%}
+
+        {%- for media in product.media -%}
+          {%- liquid
+            if section.settings.hide_variants and variant_images contains media.src or variant_images contains media.id
+              assign variant_image = true
+            else
+              assign variant_image = false
+            endif
+
+            unless media.id == product.selected_or_first_available_variant.featured_media.id
+              render 'product-media', media: media, loop: section.settings.enable_video_looping, variant_image: variant_image
+            endunless
+          -%}
+        {%- endfor -%}
+      </div>
     </div>
-  </div>
-</product-modal>
+  </product-modal>
+-->
