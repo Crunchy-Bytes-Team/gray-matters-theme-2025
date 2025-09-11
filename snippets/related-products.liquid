@@ -1,37 +1,67 @@
 <div class='px-4 py-10'>
   <h3 class='w-full text-center font-accent font-normal text-xl uppercase mb-10'>You may also like</h3>
-  <div class='w-full grid grid-cols-4 gap-0'>
-    <div class='relative group'>
-      <a href='#'>
-        <img src='https://cdn.shopify.com/s/files/1/0012/4079/3193/files/SQR_Clara_Summer_Pump_Cacao_001.jpg?v=1662646489'>
-        <div
-          class='absolute inset-0 bg-black opacity-0 group-hover:opacity-30 transition-opacity duration-300 ease-in-out'
-        ></div>
-      </a>
+  <div class='relative w-full pb-6' data-relprod>
+    <!-- Viewport -->
+    <div class='overflow-hidden md:overflow-visible w-full' data-viewport>
+      <!-- Track (flex on mobile, grid on md+) -->
+      <div class='flex w-full transition-transform duration-300 ease-in-out md:grid md:grid-cols-4 md:gap-0' data-track>
+        <div class='relative group basis-1/2 md:basis-auto shrink-0' data-item>
+          <a href='#'>
+            <img src='https://cdn.shopify.com/s/files/1/0012/4079/3193/files/SQR_Clara_Summer_Pump_Cacao_001.jpg?v=1662646489'>
+            <div
+              class='absolute inset-0 bg-black opacity-0 group-hover:opacity-30 transition-opacity duration-300 ease-in-out'
+            ></div>
+          </a>
+        </div>
+        <div class='relative group basis-1/2 md:basis-auto shrink-0' data-item>
+          <a href='#'>
+            <img src='https://cdn.shopify.com/s/files/1/0012/4079/3193/files/RSQ_Canvas-Mules_Bruciato_Nero039.jpg?v=1711629527'>
+            <div
+              class='absolute inset-0 bg-black opacity-0 group-hover:opacity-30 transition-opacity duration-300 ease-in-out'
+            ></div>
+          </a>
+        </div>
+        <div class='relative group basis-1/2 md:basis-auto shrink-0' data-item>
+          <a href='#'>
+            <img src='https://cdn.shopify.com/s/files/1/0012/4079/3193/files/RSQ_Gemma_Pumps_Abisso_Choclate_002.jpg?v=1720295919'>
+            <div
+              class='absolute inset-0 bg-black opacity-0 group-hover:opacity-30 transition-opacity duration-300 ease-in-out'
+            ></div>
+          </a>
+        </div>
+        <div class='relative group basis-1/2 md:basis-auto shrink-0' data-item>
+          <a href='#'>
+            <img src='https://cdn.shopify.com/s/files/1/0012/4079/3193/products/SQR_Mildred_Boot_Nero_Cacao_001.jpg?v=1663078047'>
+            <div
+              class='absolute inset-0 bg-black opacity-0 group-hover:opacity-30 transition-opacity duration-300 ease-in-out'
+            ></div>
+          </a>
+        </div>
+      </div>
     </div>
-    <div class='relative group'>
-      <a href='#'>
-        <img src='https://cdn.shopify.com/s/files/1/0012/4079/3193/files/RSQ_Canvas-Mules_Bruciato_Nero039.jpg?v=1711629527'>
-        <div
-          class='absolute inset-0 bg-black opacity-0 group-hover:opacity-30 transition-opacity duration-300 ease-in-out'
-        ></div>
-      </a>
-    </div>
-    <div class='relative group'>
-      <a href='#'>
-        <img src='https://cdn.shopify.com/s/files/1/0012/4079/3193/files/RSQ_Gemma_Pumps_Abisso_Choclate_002.jpg?v=1720295919'>
-        <div
-          class='absolute inset-0 bg-black opacity-0 group-hover:opacity-30 transition-opacity duration-300 ease-in-out'
-        ></div>
-      </a>
-    </div>
-    <div class='relative group'>
-      <a href='#'>
-        <img src='https://cdn.shopify.com/s/files/1/0012/4079/3193/products/SQR_Mildred_Boot_Nero_Cacao_001.jpg?v=1663078047'>
-        <div
-          class='absolute inset-0 bg-black opacity-0 group-hover:opacity-30 transition-opacity duration-300 ease-in-out'
-        ></div>
-      </a>
-    </div>
+
+    <!-- Controls (mobile only) -->
+    <button
+      type='button'
+      class='md:hidden absolute left-2 top-1/2 -translate-y-1/2 bg-black/70 text-white rounded-full w-9 h-9 flex items-center justify-center'
+      aria-label='Previous'
+      data-prev
+    >
+      ‹
+    </button>
+    <button
+      type='button'
+      class='md:hidden absolute right-2 top-1/2 -translate-y-1/2 bg-black/70 text-white rounded-full w-9 h-9 flex items-center justify-center'
+      aria-label='Next'
+      data-next
+    >
+      ›
+    </button>
+
+    <!-- Progress bar (100px, light gray) appears only during interaction on mobile, on hover on desktop) -->
+    <div
+      class='absolute left-2 -bottom-3 h-[2px] w-[100px] bg-gray-300 opacity-0 transition-opacity duration-200'
+      data-progress
+    ></div>
   </div>
 </div>
