@@ -85,7 +85,7 @@
         <div class="absolute inset-0 bg-cover bg-top" style="background-image: url('https://cdn.shopify.com/s/files/1/0012/4079/3193/files/R-Canvas_Sandals_Bruciato027.jpg?v=1754669953');"></div>
         <section
           id='ProductInfo-{{ section.id }}'
-          class='bg-white bg-opacity-90 flex flex-col h-fit fixed bottom-0 right-0 z-10 w-full lg:w-1/2 p-14'
+          class='bg-white bg-opacity-90 flex flex-col h-fit fixed bottom-0 right-0 z-10 w-full lg:w-1/2 p-6 lg:p-14'
         >
           {%- assign product_form_id = 'product-form-' | append: section.id -%}
 
@@ -95,14 +95,26 @@
                 {% render block %}
 
               {%- when 'title' -%}
-                <div id='riga1' class='w-full flex flex-row justify-between items-start'>
-                  <div class='w-auto product__title' {{ block.shopify_attributes }}>
+                <div id='riga1' class='w-full flex flex-row justify-between items-center lg:items-start'>
+                  <div class='mb-0 lg:mb-3 w-auto product__title' {{ block.shopify_attributes }}>
                     <h1 class="uppercase text-sm tracking-wider proxima-semi-bold">{{ product.title | escape }}</h1>
                   </div>
-              {%- when 'price' -%}
-                <div class='flex flex-col items-start w-auto' id='price-{{ section.id }}' role='status' {{ block.shopify_attributes }}>
-                  {%- render 'price', product: product, use_variant: true, show_badges: true, price_class: '' -%}
+                {%- when 'price' -%}
+                <div class='flex items-center w-auto gap-3' id='price-{{ section.id }}' role='status' {{ block.shopify_attributes }}>
+                  <div class='flex flex-col'>
+                    {%- render 'price', product: product, use_variant: true, show_badges: true, price_class: '' -%}
+                  </div>
+                  <button
+                    type='button'
+                    id='MobileDescToggle-{{ section.id }}'
+                    class='lg:hidden leading-none toggle-desc-btn text-5xl'
+                    aria-expanded='false'
+                    aria-controls='MobileProductDesc-{{ section.id }}'
+                  >
+                    +
+                  </button>
                 </div>
+                <!-- end riga1 -->
 
                 {%- if product.quantity_price_breaks_configured? -%}
                   <div class='volume-pricing-note' id='Volume-Note-{{ section.id }}'>
@@ -111,14 +123,13 @@
                 {%- endif -%}
                 </div>
 
-                <div class='product_desc flex flex-col proxima-reg tracking-wide leading-5 text-sm'>
-                    <div class="w-3/4">
+                <div id='MobileProductDesc-{{ section.id }}' class='product_desc flex flex-col proxima-reg tracking-wide leading-5 text-sm hidden lg:flex' style='max-height:0; opacity:0; overflow:hidden; transition:max-height 300ms ease, opacity 300ms ease;' aria-hidden='true'>
+                    <div class="w-full lg:w-3/4 lg:h-auto h-40 overflow-scroll">
                       {{ product.description }}
                     </div>
-                </div>
-
-                <div class='flex py-10'>
-                    {% render 'color-variant' %}
+                    <div class='flex py-10'>
+                      {% render 'color-variant' %}
+                    </div>
                 </div>
 
                 {%- if cart.taxes_included or cart.duties_included or shop.shipping_policy.body != blank -%}
@@ -678,6 +689,16 @@
                 <li><a href="#">SERVIZIO CLIENTI</a></li>
             </ul>
           </div>
+
+        <style>
+        @media (min-width: 1024px){
+          #MobileProductDesc-{{ section.id }}{
+            max-height: none !important;
+            opacity: 1 !important;
+            overflow: visible !important;
+          }
+        }
+        </style>
         </section>
       </div>
     </div>
