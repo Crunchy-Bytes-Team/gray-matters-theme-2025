@@ -77,15 +77,15 @@
     <!--
       ><div class='product product--{{ section.settings.media_size }} product--{{ section.settings.media_position }} product--{{ section.settings.gallery_layout }} product--mobile-{{ section.settings.mobile_thumbnails }} grid grid-cols-1 {% if product.media.size > 0 %}md:grid-cols-2{% else %}product--no-media{% endif %} gap-8 lg:gap-12'>
     -->
-    <div class='flex flex-row'>
-      <div class='product__media-wrapper bg-violet-300 w-1/2'>
+    <div class='flex flex-col lg:flex-row'>
+      <div class='product__media-wrapper bg-violet-300 w-full lg:w-1/2'>
         {% render 'product-media-gallery', variant_images: variant_images %}
       </div>
-      <div class='h-screen container-info-product w-1/2 bg-green-200 flex flex-col justify-end sticky top-0 relative'>
+      <div class='h-screen container-info-product w-full lg:w-1/2 bg-green-200 flex flex-col justify-end sticky top-0 relative'>
         <div class="absolute inset-0 bg-cover bg-top" style="background-image: url('https://cdn.shopify.com/s/files/1/0012/4079/3193/files/R-Canvas_Sandals_Bruciato027.jpg?v=1754669953');"></div>
         <section
           id='ProductInfo-{{ section.id }}'
-          class='bg-white bg-opacity-90 flex flex-col h-fit fixed bottom-0 right-0 z-10 w-1/2 p-14'
+          class='bg-white bg-opacity-90 flex flex-col h-fit fixed bottom-0 right-0 z-10 w-full lg:w-1/2 p-14'
         >
           {%- assign product_form_id = 'product-form-' | append: section.id -%}
 
