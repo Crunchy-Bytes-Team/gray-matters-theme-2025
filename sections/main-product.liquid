@@ -82,9 +82,10 @@
         {% render 'product-media-gallery', variant_images: variant_images %}
       </div>
       <div class='h-screen container-info-product w-1/2 bg-green-200 flex flex-col justify-end sticky top-0 relative'>
+        <div class="absolute inset-0 bg-cover bg-top" style="background-image: url('https://cdn.shopify.com/s/files/1/0012/4079/3193/files/R-Canvas_Sandals_Bruciato027.jpg?v=1754669953');"></div>
         <section
           id='ProductInfo-{{ section.id }}'
-          class='bg-white bg-opacity-90 flex flex-col h-fit fixed bottom-0 right-0 z-10 w-1/2 px-4'
+          class='bg-white bg-opacity-90 flex flex-col h-fit fixed bottom-0 right-0 z-10 w-1/2 p-14'
         >
           {%- assign product_form_id = 'product-form-' | append: section.id -%}
 
@@ -94,12 +95,12 @@
                 {% render block %}
 
               {%- when 'title' -%}
-                <div id='riga1' class='w-full flex flex-row justify-between'>
+                <div id='riga1' class='w-full flex flex-row justify-between items-start'>
                   <div class='w-auto product__title' {{ block.shopify_attributes }}>
-                    <h1>{{ product.title | escape }}</h1>
+                    <h1 class="uppercase text-sm tracking-wider proxima-semi-bold">{{ product.title | escape }}</h1>
                   </div>
               {%- when 'price' -%}
-                <div class='w-auto' id='price-{{ section.id }}' role='status' {{ block.shopify_attributes }}>
+                <div class='flex flex-col items-start w-auto' id='price-{{ section.id }}' role='status' {{ block.shopify_attributes }}>
                   {%- render 'price', product: product, use_variant: true, show_badges: true, price_class: '' -%}
                 </div>
 
@@ -110,11 +111,15 @@
                 {%- endif -%}
                 </div>
 
-                <div class='flex'>
-                  {{ product.description }}
+                <div class='product_desc flex flex-col proxima-reg tracking-wide leading-5 text-sm'>
+                    <div class="w-3/4">
+                      {{ product.description }}
+                    </div>
                 </div>
 
-                <div class='flex'>qui pallini per varianti colore</div>
+                <div class='flex py-10'>
+                    {% render 'color-variant' %}
+                </div>
 
                 {%- if cart.taxes_included or cart.duties_included or shop.shipping_policy.body != blank -%}
                   <div class='product__tax caption rte hidden'>
@@ -660,8 +665,19 @@
           <a href='{{ product.url }}' class='link product__view-details animate-arrow hidden'>
             {{ 'products.product.view_full_details' | t }}
             {{- 'icon-arrow.svg' | inline_asset_content -}}
-          </a>
-          <div>ulteriori link utili</div>
+          </a> 
+          <div class="uppercase text-xs proxima-reg flex flex-col tracking-wide">
+            <ul class="flex flex-row items-center mb-1">
+                <li class="bg-black w-2.5 h-[1px] mr-2"></li>
+                <li><a href="#">SPEDIZIONI E RESI</a></li>
+            </ul>
+            <ul class="flex flex-ro items-center">
+                <li class="bg-black w-2.5 h-[1px] mr-2"></li>
+                <li><a href="#">SGUIDA ALLE TAGLIE</a></li>
+                <li class="mx-2">|</li>
+                <li><a href="#">SERVIZIO CLIENTI</a></li>
+            </ul>
+          </div>
         </section>
       </div>
     </div>

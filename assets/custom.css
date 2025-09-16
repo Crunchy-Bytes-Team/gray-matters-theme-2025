@@ -11,11 +11,69 @@
   font-style: normal;
 }
 
+/* Proxima Font families */
+@font-face {
+  font-family: 'proxima-reg';
+  src: url('https://cdn.shopify.com/s/files/1/0065/1870/2151/files/FontsFree-Net-proxima_nova_reg-webfont.ttf?1688')
+      format('woff'),
+    url('https://cdn.shopify.com/s/files/1/0065/1870/2151/files/FontsFree-Net-proxima_nova_reg-webfont.ttf?1688')
+      format('embedded-opentype');
+}
+
+@font-face {
+  font-family: 'proxima-bold';
+  src: url('https://cdn.shopify.com/s/files/1/0065/1870/2151/files/FontsFree-Net-proxima_nova_bold-webfont.ttf?1688')
+      format('woff'),
+    url('https://cdn.shopify.com/s/files/1/0065/1870/2151/files/FontsFree-Net-proxima_nova_bold-webfont.ttf?1688')
+      format('embedded-opentype');
+}
+
+@font-face {
+  font-family: 'proxima-xbold';
+  src: url('https://cdn.shopify.com/s/files/1/0065/1870/2151/files/FontsFree-Net-Proxima-Nova-Xbold.otf?1688')
+      format('woff'),
+    url('https://cdn.shopify.com/s/files/1/0065/1870/2151/files/FontsFree-Net-Proxima-Nova-Xbold.otf?1688')
+      format('embedded-opentype');
+}
+
+@font-face {
+  font-family: 'proxima-semi-bold';
+  src: url('https://cdn.shopify.com/s/files/1/0065/1870/2151/files/FontsFree-Net-Proxima-Nova-Sbold.otf?1688')
+      format('woff'),
+    url('https://cdn.shopify.com/s/files/1/0065/1870/2151/files/FontsFree-Net-Proxima-Nova-Sbold.otf?1688')
+      format('embedded-opentype');
+}
+
+@font-face {
+  font-family: 'proxima-cond-bold';
+  src: url('https://cdn.shopify.com/s/files/1/0065/1870/2151/files/FontsFree-Net-proxima_nova_cond_bold-webfont.ttf?1688')
+      format('woff'),
+    url('https://cdn.shopify.com/s/files/1/0065/1870/2151/files/FontsFree-Net-proxima_nova_cond_bold-webfont.ttf?1688')
+      format('embedded-opentype');
+}
+/* // Proxima Font families */
+
 body {
-  font-family: 'Work Sans', sans-serif;
+  font-family: 'proxima-reg', sans-serif;
   font-optical-sizing: auto;
   font-weight: <weight>;
   font-style: normal;
+}
+
+.proxima-reg {
+  font-family: 'proxima-reg', sans-serif;
+}
+.proxima-bold {
+  font-family: 'proxima-bold', sans-serif;
+}
+.proxima-xbold {
+  font-family: 'proxima-xbold', sans-serif;
+}
+.proxima-semi-bold {
+  font-family: 'proxima-semi-bold', sans-serif;
+}
+.proxima-cond-bold {
+  font-family: 'proxima-cond-bold', sans-serif;
 }
 
 // Stile
@@ -56,4 +114,8 @@ textarea:focus,
 select:focus {
   outline: none;
   box-shadow: none;
+}
+
+.product_desc p {
+  margin-bottom: 10px;
 }

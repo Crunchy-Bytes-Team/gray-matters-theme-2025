@@ -51,7 +51,6 @@
 
 .price--sold-out .price__availability,
 .price__regular {
-  display: block;
 }
 
 .price__sale,
