@@ -1,0 +1,39 @@
+<div class='relative w-full px-4' data-imagerow>
+  <!-- Viewport -->
+  <div class='overflow-hidden md:overflow-visible w-full' data-viewport>
+    <!-- Track (flex su mobile, riga equilibrata su desktop) -->
+    <div class='flex w-full transition-transform duration-300 ease-in-out md:transform-none' data-track>
+      {% for image in product.images %}
+        <div class='relative basis-full shrink-0 md:basis-0 md:flex-1'>
+          <img
+            src='{{ image.src | img_url: '800x' }}'
+            alt='{{ image.alt | escape }}'
+            class='w-full h-auto object-cover block'
+          >
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+
+  <!-- Frecce (solo mobile) -->
+  <button
+    type='button'
+    class='md:hidden absolute left-2 top-1/2 -translate-y-1/2 z-10 bg-black/40 text-white rounded-full w-8 h-8 flex items-center justify-center'
+    data-prev
+    aria-label='Previous'
+  >
+    <svg width='18' height='18' viewBox='0 0 24 24' fill='none'>
+      <path d="M15 19L8 12L15 5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </button>
+  <button
+    type='button'
+    class='md:hidden absolute right-2 top-1/2 -translate-y-1/2 z-10 bg-black/40 text-white rounded-full w-8 h-8 flex items-center justify-center'
+    data-next
+    aria-label='Next'
+  >
+    <svg width='18' height='18' viewBox='0 0 24 24' fill='none'>
+      <path d="M9 5L16 12L9 19" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </button>
+</div>

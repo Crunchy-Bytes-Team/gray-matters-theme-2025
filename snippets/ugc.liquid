@@ -1,0 +1,63 @@
+{% comment %}
+  Mobile: slideshow con frecce
+  Desktop: griglia 4 colonne
+{% endcomment %}
+<div class='px-4'>
+  {% if product.images and product.images.size > 0 %}
+    <!-- Slider mobile -->
+    <div class='relative w-full md:hidden' data-imagerow>
+      <div class='overflow-hidden w-full' data-viewport>
+        <div class='flex transition-transform duration-300 ease-in-out' data-track>
+          {% for image in product.images %}
+            <div class='relative basis-full shrink-0'>
+              <img
+                src='{{ image | image_url: width: 1200 }}'
+                alt='{{ image.alt | escape }}'
+                class='w-full h-auto block'
+                loading='lazy'
+              >
+              <span class='absolute bottom-2 right-2 text-white text-xs pointer-events-none'>@username</span>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+
+      <!-- Frecce -->
+      <button
+        type='button'
+        class='absolute left-2 top-1/2 -translate-y-1/2 z-10 bg-black/40 text-white rounded-full w-8 h-8 flex items-center justify-center'
+        data-prev
+        aria-label='Previous'
+      >
+        <svg width='18' height='18' viewBox='0 0 24 24' fill='none'>
+          <path d="M15 19L8 12L15 5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+      <button
+        type='button'
+        class='absolute right-2 top-1/2 -translate-y-1/2 z-10 bg-black/40 text-white rounded-full w-8 h-8 flex items-center justify-center'
+        data-next
+        aria-label='Next'
+      >
+        <svg width='18' height='18' viewBox='0 0 24 24' fill='none'>
+          <path d="M9 5L16 12L9 19" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+    </div>
+
+    <!-- Griglia desktop -->
+    <div class='ugc-grid hidden md:grid grid-cols-4 gap-0'>
+      {% for image in product.images %}
+        <div class='relative'>
+          <img
+            src='{{ image | image_url: width: 1200 }}'
+            alt='{{ image.alt | escape }}'
+            class='w-full h-auto block'
+            loading='lazy'
+          >
+          <span class='absolute bottom-2 right-2 text-white text-xs pointer-events-none'>@username</span>
+        </div>
+      {% endfor %}
+    </div>
+  {% endif %}
+</div>
