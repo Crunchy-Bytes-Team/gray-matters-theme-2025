@@ -40,10 +40,11 @@
       assign ratio = 1
     endif
   -%}
+
   <div class='group relative h-full'>
     <div
       class='
-        bg-white rounded-lg shadow-sm border transition-shadow hover:shadow-md h-full flex flex-col
+        bg-white h-full flex flex-col
         {% if card_product.featured_media %} overflow-hidden{% else %} p-4{% endif %}
         {% if settings.card_style == 'card' %} color-{{ settings.card_color_scheme }} gradient{% endif %}
         {% if image_shape and image_shape != 'default' %} card--shape{% endif %}
@@ -61,6 +62,7 @@
           <div class='card__media{% if image_shape and image_shape != 'default' %} shape--{{ image_shape }} color-{{ settings.card_color_scheme }} gradient{% endif %}'>
             <div class='media media--transparent media--hover-effect'>
               {% comment %}theme-check-disable ImgLazyLoading{% endcomment %}
+              <span>pippo</span>
               <img
                 srcset='
                   {%- if card_product.featured_media.width >= 165 -%}{{ card_product.featured_media | image_url: width: 165 }} 165w,{%- endif -%}
@@ -74,7 +76,7 @@
                 src='{{ card_product.featured_media | image_url: width: 533 }}'
                 sizes='(min-width: {{ settings.page_width }}px) {{ settings.page_width | minus: 130 | divided_by: 4 }}px, (min-width: 990px) calc((100vw - 130px) / 4), (min-width: 750px) calc((100vw - 120px) / 3), calc((100vw - 35px) / 2)'
                 alt='{{ card_product.featured_media.alt | escape }}'
-                class='motion-reduce'
+                class='motion-reduce rounded-0 border-0'
                 {% unless lazy_load == false %}
                   loading='lazy'
                 {% endunless %}
@@ -106,44 +108,8 @@
             </div>
           </div>
         {%- endif -%}
-        <div class='card__content'>
-          <div class='card__information'>
-            <h3
-              class='card__heading'
-              {% if card_product.featured_media == null and settings.card_style == 'standard' %}
-                id='title-{{ section_id }}-{{ card_product.id }}'
-              {% endif %}
-            >
-              <a
-                href='{{ card_product.url }}'
-                id='StandardCardNoMediaLink-{{ section_id }}-{{ card_product.id }}'
-                class='full-unstyled-link'
-                aria-labelledby='StandardCardNoMediaLink-{{ section_id }}-{{ card_product.id }} NoMediaStandardBadge-{{ section_id }}-{{ card_product.id }}'
-              >
-                {{ card_product.title | escape }}
-              </a>
-            </h3>
-          </div>
-          <div class='card__badge {{ settings.badge_position }}'>
-            {%- if card_product.available == false -%}
-              <span
-                id='NoMediaStandardBadge-{{ section_id }}-{{ card_product.id }}'
-                class='badge badge--bottom-left color-{{ settings.sold_out_badge_color_scheme }}'
-              >
-                {{- 'products.product.sold_out' | t -}}
-              </span>
-            {%- elsif card_product.compare_at_price > card_product.price and card_product.available -%}
-              <span
-                id='NoMediaStandardBadge-{{ section_id }}-{{ card_product.id }}'
-                class='badge badge--bottom-left color-{{ settings.sale_badge_color_scheme }}'
-              >
-                {{- 'products.product.on_sale' | t -}}
-              </span>
-            {%- endif -%}
-          </div>
-        </div>
       </div>
-      <div class='card__content'>
+      <div class='card__content paperino'>
         <div class='card__information'>
           <h3
             class='card__heading{% if card_product.featured_media or settings.card_style == 'standard' %} h5{% endif %}'
@@ -160,6 +126,7 @@
               {{ card_product.title | escape }}
             </a>
           </h3>
+
           <div class='card-information'>
             {%- if show_vendor -%}
               <span class='visually-hidden'>{{ 'accessibility.vendor' | t }}</span>
@@ -287,6 +254,45 @@
               {% endif %}
             {%- endif -%}
           </div>
+          <!-- fine card inormation -->
+
+          {% if card_product.has_only_default_variant == false %}
+            <div class='card-variants text-xs text-dark-gray mb-2'>
+              {%- comment -%} Elenco valori variante (es. 35, 36, 37) al posto di "tot varianti disponibili" {%- endcomment -%}
+              {% assign size_option_index = 0 %}
+              {% for opt in card_product.options %}
+                {% assign opt_down = opt | downcase %}
+                {% if opt_down contains 'size' or opt_down contains 'taglia' %}
+                  {% assign size_option_index = forloop.index0 %}
+                {% endif %}
+              {% endfor %}
+              {% if size_option_index == null %}
+                {% assign size_option_index = 0 %}
+              {% endif %}
+
+              {% assign printed_values = '' %}
+              <ul class='list-unstyled m-0 p-0 flex flex-wrap gap-1'>
+                {% for v in card_product.variants %}
+                  {% case size_option_index %}
+                    {% when 0 -%}
+                      {%- assign value = v.option1 | strip %}
+                    {% when 1 -%}
+                      {%- assign value = v.option2 | strip %}
+                    {% when 2 -%}
+                      {%- assign value = v.option3 | strip %}
+                  {% endcase %}
+                  {%- comment -%} Escludi la taglia 35 ed evita duplicati {%- endcomment -%}
+                  {% if value != blank and value != '35' %}
+                    {% assign needle = '|' | append: value | append: '|' %}
+                    {% unless printed_values contains needle %}
+                      <li class='px-1.5 py-0.5 bg-transparent'>{{ value }}</li>
+                      {% assign printed_values = printed_values | append: needle %}
+                    {% endunless %}
+                  {% endif %}
+                {% endfor %}
+              </ul>
+            </div>
+          {% endif %}
         </div>
         {% assign product_form_id = 'quick-add-' | append: section_id | append: card_product.id %}
         {% if quick_add == 'standard' %}
@@ -603,7 +609,7 @@
           </div>
         </div>
       </div>
-      <div class='card__content'>
+      <div class='card__content minnie'>
         <div class='card__information'>
           <h3 class='card__heading card__heading--placeholder{% if settings.card_style == 'standard' %} h5{% endif %}'>
             <a role='link' aria-disabled='true' class='full-unstyled-link'>

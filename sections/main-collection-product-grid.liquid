@@ -97,13 +97,13 @@
       </facet-filters-form>
     {%- endif -%}
 
-    <div class='{% if section.settings.filter_type == 'vertical' %} facets-vertical max-w-7xl mx-auto px-6 md:px-20{% endif %}'>
+    <div class='{% if section.settings.filter_type == 'vertical' %} facets-vertical{% endif %} w-full px-4'>
       {{ 'component-facets.css' | asset_url | stylesheet_tag }}
       <script src='{{ 'facets.js' | asset_url }}' defer='defer'></script>
       {%- if section.settings.enable_filtering or section.settings.enable_sorting -%}
         <aside
           aria-labelledby='verticalTitle'
-          class='facets-wrapper{% unless section.settings.enable_filtering %} facets-wrapper--no-filters{% endunless %}{% if section.settings.filter_type != 'vertical' %} max-w-7xl mx-auto px-6 md:px-20{% endif %}'
+          class='hidden facets-wrapper{% unless section.settings.enable_filtering %} facets-wrapper--no-filters{% endunless %}{% if section.settings.filter_type != 'vertical' %} max-w-7xl mx-auto px-6 md:px-20{% endif %}'
           id='main-collection-filters'
           data-id='{{ section.id }}'
         >
@@ -144,16 +144,13 @@
           </div>
         {%- else -%}
           <div
-            class='collection{% if section.settings.filter_type != 'vertical' %} max-w-7xl mx-auto px-6 md:px-20{% endif %}'
+            class='collection w-full'
           >
             <div class='loading-overlay gradient'></div>
             <ul
               id='product-grid'
               data-id='{{ section.id }}'
-              class='
-                product-grid grid-cols-{{ section.settings.columns_mobile }} lg:grid-cols-{{ section.settings.columns_desktop }}
-                {% if section.settings.quick_add == 'bulk' %} collection-quick-add-bulk{% endif %}
-              '
+              class='product-grid grid grid-cols-4 gap-1 w-full{% if section.settings.quick_add == "bulk" %} collection-quick-add-bulk{% endif %}'
             >
               {% assign skip_card_product_styles = false %}
               {%- for product in collection.products -%}
@@ -236,18 +233,12 @@
       "type": "select",
       "id": "image_ratio",
       "options": [
-        {
-          "value": "adapt",
-          "label": "t:sections.main-collection-product-grid.settings.image_ratio.options__1.label"
-        },
+        { "value": "adapt", "label": "t:sections.main-collection-product-grid.settings.image_ratio.options__1.label" },
         {
           "value": "portrait",
           "label": "t:sections.main-collection-product-grid.settings.image_ratio.options__2.label"
         },
-        {
-          "value": "square",
-          "label": "t:sections.main-collection-product-grid.settings.image_ratio.options__3.label"
-        }
+        { "value": "square", "label": "t:sections.main-collection-product-grid.settings.image_ratio.options__3.label" }
       ],
       "default": "adapt",
       "label": "t:sections.main-collection-product-grid.settings.image_ratio.label"
@@ -256,38 +247,14 @@
       "type": "select",
       "id": "image_shape",
       "options": [
-        {
-          "value": "default",
-          "label": "t:sections.all.image_shape.options__1.label"
-        },
-        {
-          "value": "arch",
-          "label": "t:sections.all.image_shape.options__2.label"
-        },
-        {
-          "value": "blob",
-          "label": "t:sections.all.image_shape.options__3.label"
-        },
-        {
-          "value": "chevronleft",
-          "label": "t:sections.all.image_shape.options__4.label"
-        },
-        {
-          "value": "chevronright",
-          "label": "t:sections.all.image_shape.options__5.label"
-        },
-        {
-          "value": "diamond",
-          "label": "t:sections.all.image_shape.options__6.label"
-        },
-        {
-          "value": "parallelogram",
-          "label": "t:sections.all.image_shape.options__7.label"
-        },
-        {
-          "value": "round",
-          "label": "t:sections.all.image_shape.options__8.label"
-        }
+        { "value": "default", "label": "t:sections.all.image_shape.options__1.label" },
+        { "value": "arch", "label": "t:sections.all.image_shape.options__2.label" },
+        { "value": "blob", "label": "t:sections.all.image_shape.options__3.label" },
+        { "value": "chevronleft", "label": "t:sections.all.image_shape.options__4.label" },
+        { "value": "chevronright", "label": "t:sections.all.image_shape.options__5.label" },
+        { "value": "diamond", "label": "t:sections.all.image_shape.options__6.label" },
+        { "value": "parallelogram", "label": "t:sections.all.image_shape.options__7.label" },
+        { "value": "round", "label": "t:sections.all.image_shape.options__8.label" }
       ],
       "default": "default",
       "label": "t:sections.all.image_shape.label",
@@ -319,18 +286,9 @@
       "label": "t:sections.main-collection-product-grid.settings.quick_add.label",
       "info": "t:sections.main-collection-product-grid.settings.quick_add.info",
       "options": [
-        {
-          "value": "none",
-          "label": "t:sections.main-collection-product-grid.settings.quick_add.options.option_1"
-        },
-        {
-          "value": "standard",
-          "label": "t:sections.main-collection-product-grid.settings.quick_add.options.option_2"
-        },
-        {
-          "value": "bulk",
-          "label": "t:sections.main-collection-product-grid.settings.quick_add.options.option_3"
-        }
+        { "value": "none", "label": "t:sections.main-collection-product-grid.settings.quick_add.options.option_1" },
+        { "value": "standard", "label": "t:sections.main-collection-product-grid.settings.quick_add.options.option_2" },
+        { "value": "bulk", "label": "t:sections.main-collection-product-grid.settings.quick_add.options.option_3" }
       ]
     },
     {
@@ -356,10 +314,7 @@
           "value": "vertical",
           "label": "t:sections.main-collection-product-grid.settings.filter_type.options__2.label"
         },
-        {
-          "value": "drawer",
-          "label": "t:sections.main-collection-product-grid.settings.filter_type.options__3.label"
-        }
+        { "value": "drawer", "label": "t:sections.main-collection-product-grid.settings.filter_type.options__3.label" }
       ],
       "default": "horizontal",
       "label": "t:sections.main-collection-product-grid.settings.filter_type.label",
@@ -381,14 +336,8 @@
       "default": "2",
       "label": "t:sections.main-collection-product-grid.settings.columns_mobile.label",
       "options": [
-        {
-          "value": "1",
-          "label": "t:sections.main-collection-product-grid.settings.columns_mobile.options__1.label"
-        },
-        {
-          "value": "2",
-          "label": "t:sections.main-collection-product-grid.settings.columns_mobile.options__2.label"
-        }
+        { "value": "1", "label": "t:sections.main-collection-product-grid.settings.columns_mobile.options__1.label" },
+        { "value": "2", "label": "t:sections.main-collection-product-grid.settings.columns_mobile.options__2.label" }
       ]
     },
     {
@@ -415,6 +364,7 @@
       "label": "t:sections.all.padding.padding_bottom",
       "default": 36
     }
-  ]
+  ],
+  "presets": [{ "name": "Collection product grid" }]
 }
 {% endschema %}
