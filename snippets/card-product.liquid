@@ -60,9 +60,13 @@
       >
         {%- if card_product.featured_media -%}
           <div class='card__media{% if image_shape and image_shape != 'default' %} shape--{{ image_shape }} color-{{ settings.card_color_scheme }} gradient{% endif %}'>
-            <div class='media media--transparent media--hover-effect'>
+            <a
+              href='{{ card_product.url }}'
+              class='media media--transparent media--hover-effect block'
+              aria-labelledby='CardLink-{{ section_id }}-{{ card_product.id }} Badge-{{ section_id }}-{{ card_product.id }}'
+            >
               {% comment %}theme-check-disable ImgLazyLoading{% endcomment %}
-              <span>pippo</span>
+
               <img
                 srcset='
                   {%- if card_product.featured_media.width >= 165 -%}{{ card_product.featured_media | image_url: width: 165 }} 165w,{%- endif -%}
@@ -105,14 +109,17 @@
                   height='{{ card_product.media[1].height }}'
                 >
               {%- endif -%}
-            </div>
+            </a>
           </div>
+          <div
+            class='absolute inset-0 bg-black opacity-0 group-hover:opacity-40 group-focus-within:opacity-40 transition-opacity duration-300 ease-out z-10 pointer-events-none'
+          ></div>
         {%- endif -%}
       </div>
-      <div class='card__content paperino'>
+      <div class='card__content paperino absolute top-0 left-0 z-20 opacity-0 group-hover:opacity-100 group-focus-within:opacity-100 transition-opacity duration-300 ease-out pointer-events-none group-hover:pointer-events-auto p-4 text-white'>
         <div class='card__information'>
           <h3
-            class='card__heading{% if card_product.featured_media or settings.card_style == 'standard' %} h5{% endif %}'
+            class='product-name mb-1 tracking-wider proxima-semi-bold text-xs uppercase card__heading{% if card_product.featured_media or settings.card_style == 'standard' %} h5{% endif %}'
             {% if card_product.featured_media or settings.card_style == 'card' %}
               id='title-{{ section_id }}-{{ card_product.id }}'
             {% endif %}
@@ -257,7 +264,7 @@
           <!-- fine card inormation -->
 
           {% if card_product.has_only_default_variant == false %}
-            <div class='card-variants text-xs text-dark-gray mb-2'>
+            <div class='card-variants text-xs text-white mb-2'>
               {%- comment -%} Elenco valori variante (es. 35, 36, 37) al posto di "tot varianti disponibili" {%- endcomment -%}
               {% assign size_option_index = 0 %}
               {% for opt in card_product.options %}
@@ -285,7 +292,7 @@
                   {% if value != blank and value != '35' %}
                     {% assign needle = '|' | append: value | append: '|' %}
                     {% unless printed_values contains needle %}
-                      <li class='px-1.5 py-0.5 bg-transparent'>{{ value }}</li>
+                      <li class='pr-1.5 py-0.5 bg-transparent text-xs tracking-wide'>{{ value }}</li>
                       {% assign printed_values = printed_values | append: needle %}
                     {% endunless %}
                   {% endif %}
