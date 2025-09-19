@@ -1,0 +1,806 @@
+<header>
+  <{% include 'message-bar' %}
+
+  <div class='w-full flex flex-row justify-between px-4'>
+    <!-- logo -->
+    <div clas='flex flex-row justify-start w-auto'>
+      {%- assign img_url = section.settings.logo | img_url: '1x1' | replace: '_1x1.', '_{width}x.' -%}
+      <a
+        href='{{  routes.root_url }}'
+        class='site-header__logo-image{% if section.settings.align_logo == 'center' %} site-header__logo-image--centered{% endif %}'
+      >
+        <img src='/cdn/shop/files/logo_d372fcc9-f883-42eb-be88-ef6796c08b5b_180x.png?v=1614331262'>
+      </a>
+    </div>
+    <!-- menu + icons -->
+    <div class='flex flex-row items-end'>
+      <!-- menu -->
+      <div></div>
+      <!-- icons -->
+      <div></div>
+    </div>
+  </div>
+
+  <div class='wsmenucontainer clearfix'>
+    <div id='overlapblackbg'></div>
+    <div class='wsmobileheader clearfix'>
+      <a id='wsnavtoggle' class='animated-arrow'><span></span></a>
+      <div class='smallogo'></div>
+      {% assign cart_icon_class = 'cart_empty_icon_img_span' %}
+      {% if cart.item_count > 0 %}
+        {% assign cart_icon_class = 'cart_icon_img_span' %}
+      {% endif %}
+      <div class='visible-lg visible-md bag callusicon'>
+        <button id='count-cart_items' class='header_cart_icon toggle1'>
+          <span class='{{ cart_icon_class }}'></span>
+        </button>
+      </div>
+    </div>
+
+    <div class='headerfull navigation' id='sticky-nav'>
+      <!-- Main Menu HTML Code -->
+      <div class='wsmain'>
+        <div class='smllogo mylogo'>
+          {%- assign img_url = section.settings.logo | img_url: '1x1' | replace: '_1x1.', '_{width}x.' -%}
+          <a
+            href='{{  routes.root_url }}'
+            class='site-header__logo-image{% if section.settings.align_logo == 'center' %} site-header__logo-image--centered{% endif %}'
+          >
+            {% capture logo_alt %}{{ section.settings.logo.alt | default: shop.name }}{% endcapture %}
+            <img
+              class='lazyload js'
+              src='{{ section.settings.logo | img_url: '300x300' }}'
+              data-src='{{ img_url }}'
+              data-widths='[180, 360, 540, 720, 900, 1080, 1296, 1512, 1728, 2048]'
+              data-aspectratio='{{ section.settings.logo.aspect_ratio }}'
+              data-sizes='auto'
+              alt='{{ logo_alt | escape }}'
+            >
+
+            <noscript>
+              {% capture image_size %}{{ section.settings.logo_max_width | escape }}x{% endcapture %}
+              <img
+                src='{{ section.settings.logo | img_url: image_size }}'
+                srcset='{{ section.settings.logo | img_url: image_size }} 1x, {{ section.settings.logo | img_url: image_size, scale: 2 }} 2x'
+                alt='{{ section.settings.logo.alt | default: shop.name }}'
+              >
+            </noscript>
+          </a>
+        </div>
+        <nav class='wsmenu clearfix'>
+          <ul class='mobile-sub wsmenu-list'>
+            <li class='wscarticon clearfix  visible-lg visible-md bag cart_none_mobilr'>
+              <button class='header_cart_icon toggle1'>
+                <span class='{{ cart_icon_class }}'></span>
+                <span class='icon__fallback-text'>{{ 'layout.cart.title' | t }}</span>
+              </button>
+            </li>
+            <!--
+              removed
+              <li class="wsshopmyaccount clearfix header_icons_outer rewards-menu">
+                <a href="javascript:void(0);" class="iWishView" id="#rewards-toggle">
+                  <i class="fa fa-gift" aria-hidden="true"></i>
+                </a>
+              </li>
+            -->
+
+            <!-- [Wishlist] -->
+            {% comment %}
+              <li class="heart_wishlist">
+                {% if customer %}
+                  <a class="iWishView" id="wish-w-login1" href="/pages/wishlist">
+                    <i class="fa fa-heart" aria-hidden="true"></i>
+                  </a>
+                {% else %}
+                  <a class="iWishView" href="javascript:void(0)" id="wish-wt-login1">
+                    <i class="fa fa-heart" aria-hidden="true"></i>
+                  </a>
+                {% endif %}
+              </li>
+              <!-- [Wishlist] -->
+            {% endcomment %}
+
+            <li class='wsshopmyaccount clearfix header_icons_outer'>
+              <button
+                data-toggle='collapse'
+                data-target='#top-search-bar'
+                class='padil'
+                id='top-search-toggle'
+                aria-expanded='true'
+              >
+                <a href='#' style='color: #333;' onclick="document.getElementById('search_input1').select();">
+                  <i class='icon-magnifier icons'></i>
+                  <span class='mobiletext'>Search</span>
+                </a>
+              </button>
+              <form
+                action='{{ routes.search_url }}'
+                method='get'
+                class='search_form_top For_mobile_searxch'
+                role='search'
+              >
+                <input type='hidden' name='type' value='product'>
+                <i class='fa fa-search ic-down'></i>
+                <input
+                  class='search-header__input1 search__input1 form-control'
+                  type='search'
+                  name='q'
+                  id='search_input1'
+                  placeholder='SEARCH'
+                  aria-label='{{ 'general.search.placeholder' | t }}'
+                >
+              </form>
+            </li>
+
+            <li
+              id='customer-acc-icon'
+              class='{% if customer %} cutmr_is_logged_in {% endif %} wsshopmyaccount clearfix header_icons_outer mobile_account_outer'
+            >
+              {% if shop.customer_accounts_enabled %}
+                {% if customer %}
+                  <a
+                    href='{{ routes.account_url }}'
+                    class='{% if customer %} if_cutomer_login {% endif %} site-header__icon1 site-header__account1 wtxaccountlink pad'
+                  >
+                    <span class='user_icon_img_span'></span>
+                    <span class='mobile_login_text mylogin'>Login / Create Account</span>
+                    <span class='icon__fallback-text' class='mobiletext'>{{ 'layout.customer.account' | t }}</span>
+                  </a>
+                {% else %}
+                  <a
+                    href='{{ routes.account_login_url }}'
+                    class='site-header__icon1 site-header__account1 wtxaccountlink pad '
+                  >
+                    <span class='user_icon_img_span '></span>
+                    <span class='mobile_login_text'> Login / Create Account</span>
+
+                    <span class='icon__fallback-text login_text_mobile'>{{ 'layout.customer.log_in' | t }}</span>
+                  </a>
+                {% endif %}
+              {% endif %}
+              {% if customer %}
+              {% else %}
+                <ul class='wsmenu-submenu header_account_menu'>
+                  <li class='header_accoutn_li'>
+                    <p>You must be logged in to create or edit your wishlist</p>
+                  </li>
+                  <span class='divide_line_mid_menu'></span>
+                  <li>
+                    <a href='{{ routes.account_login_url }}'>Login</a>
+                  </li>
+                  <span class='divide_line_mid_menu'></span>
+                  <li>
+                    <a href='{{ routes.account_register_url }}'>Create Account</a>
+                  </li>
+                </ul>
+              {% endif %}
+            </li>
+            <li class='instagram-nav-icon'>
+              <a href='https://instagram.com/graymattersnyc' target='_blank'>
+                <img src='https://cdn.shopify.com/s/files/1/0012/4079/3193/files/instagram-icon.png?v=1634241288'>
+                <span class='mobile_login_text'>@graymattersnyc</span>
+              </a>
+            </li>
+
+            <li>{% include 'iwish_v2' with 'iwishlink_moblink' %}</li>
+          </ul>
+
+          <ul class='mobile-sub wsmenu-list'>
+            {% assign archiveMenu = linklists.archive %}
+            {% if false %}
+              <li class='mobile_menu_top_sapce archive-mainmenu'>
+                {% if request.locale.iso_code == 'en' %}
+                  {% assign gray_room_all_path = '/collections/gray-room' %}
+                {% else %}
+                  {% assign gray_room_all_path = '/'
+                    | append: request.locale.iso_code
+                    | append: '/collections/gray-room'
+                  %}
+                {% endif %}
+                <a href='{{ gray_room_all_path }}' class='navtext navtext__accent'>
+                  <b>ARCHIVE SALE</b>
+                </a>
+                {% comment %}
+                  item.title != "All"
+                {% endcomment %}
+                <ul class='wsmenu-submenu wsmenu-submenu--variant'>
+                  {% for item in archiveMenu.links %}
+                    {% if true %}
+                      <li class='mobile_menu_top_sapce archive-menu'>
+                        {% if item.links.size > 0 %}
+                          <span class='wsmenu-inner-click'> </span>
+                        {% endif %}
+                        <a href='{{ item.url }}' class='navtext'>
+                          <span>{{ item.title }}</span>
+                        </a>
+                        {% if item.links.size > 0 %}
+                          <ul class='wsmenu-submenu nested-submenu'>
+                            {% for link in item.links %}
+                              <li>
+                                <a
+                                  href='{{ link.url }}'
+                                >
+                                  {{ link.title }}
+                                </a>
+                              </li>
+                            {% endfor %}
+                          </ul>
+                        {% endif %}
+                      </li>
+                    {% endif %}
+                  {% endfor %}
+                </ul>
+              </li>
+            {% endif %}
+
+            <li class='mobile_menu_top_sapce'>
+              <a href='{{ routes.collections_url }}/all' class='navtext'>
+                <span></span>
+                <span>Collection</span>
+              </a>
+              <ul class='wsmenu-submenu'>
+                {% for link in linklists.collection.links %}
+                  {% if false and link.url contains 'collections/all' %}
+                    {% assign my_string = '/' | append: request.locale.iso_code | append: '/collections' %}
+                    <li>
+                      <a
+                        href='{{ my_string }}'
+                        {% if link.url contains 'sale' %}
+                          class='menu-sale-item' style='font-weight: bold'
+                        {% endif %}
+                      >
+                        {{- link.title -}}
+                      </a>
+                    </li>
+                  {% else %}
+                    <li>
+                      <a
+                        href='{{ link.url }}'
+                        {% if link.url contains 'sale' %}
+                          class='menu-sale-item' style='font-weight: bold'
+                        {% endif %}
+                      >
+                        {{- link.title -}}
+                      </a>
+                    </li>
+                  {% endif %}
+                {% endfor %}
+              </ul>
+            </li>
+
+            <li class='second_main_menu_li' id='hide-lang-mobile'>
+              {% render 'country_selection' %}
+            </li>
+
+            <li class='third_main_menu_li_mobile_only'>
+              <a href='#' class='navtext'>
+                <span></span>
+                <span>Language</span>
+                <span id='country_code'>{{ request.locale.name }}</span>
+              </a>
+              <ul class='wsmenu-submenu email_sub_menu'>
+                {% for language in localization.available_languages %}
+                  <li>
+                    {% if language.iso_code == localization.language.iso_code %}
+                      <a style='font-weight: bold;' href='#'>{{ language.name }}</a>
+                    {% else %}
+                      <a href='{{ language.root_url }}'>{{ language.name }}</a>
+                    {% endif %}
+                  </li>
+                {% endfor %}
+              </ul>
+            </li>
+
+            <li class='third_main_menu_li'>
+              <a href='#' class='navtext'>
+                <span></span>
+                <span>Client Services</span>
+              </a>
+              <ul class='wsmenu-submenu email_sub_menu'>
+                <li>
+                  <a href='mailto:hello@graymattersnyc.com'><i class='fa fa-envelope-o'></i>Email</a>
+                </li>
+                <li class='sub_mobile_number mobile_nber'>
+                  <a href='tel:+19292950303'><i class='fa fa-phone'></i>+1 929 295 0303</a>
+                </li>
+                <li class='wsmenu-submenu--small'>
+                  <a href='javascript:void(0);'>Mon-Fri 10am-6pm EST</a>
+                </li>
+                <span class='only_css_apply'></span>
+                <li class='divider'></li>
+                <span class='only_css_apply'></span>
+                {% for link in linklists['top-client-services'].links %}
+                  <li>
+                    <a href='{{ link.url }}'>{{ link.title }}</a>
+                  </li>
+                {% endfor %}
+              </ul>
+            </li>
+
+            <li class='header_last_menu'>
+              <!--
+                Showroom
+                <a href="/pages/showroom" class="navtext pad"><span></span>Showroom</a>
+              -->
+
+              {% comment %}
+                <!-- Archive Sale  -->
+                <a href="https://www.thegrayroom.shop/" class="navtext pad" style="color: #0000ff;" target="_blank"><span></span>ARCHIVE SALE</a>
+              {% endcomment %}
+            </li>
+          </ul>
+        </nav>
+      </div>
+      <!-- Menu HTML Code -->
+
+      <div id='top-search-bar' class='collapse' aria-expanded='true'>
+        <div class='container-fluid'>
+          <form action='{{ routes.search_url }}' method='get' class='search_form_top' role='search'>
+            <input type='hidden' name='type' value='product'>
+            <i class='icon-magnifier icons'></i>
+
+            <input
+              class='search-header__input1 search__input1 form-control'
+              type='search'
+              name='q'
+              id='search_input2'
+              placeholder=''
+              aria-label='{{ 'general.search.placeholder' | t }}'
+            >
+            <i class='bling'></i>
+            <span data-toggle='collapse' data-target='#top-search-bar' class='search-close'> × </span>
+          </form>
+
+          <div class='suggested-terms'>
+            <h3>Popular Searches</h3>
+            <p>
+              <span><a href='{{ routes.search_url }}?q=bianco'>Bianco,</a></span>
+              <span><a href='{{ routes.search_url }}?q=cammello'>Cammello,</a></span>
+              <span><a href='{{ routes.search_url }}?q=classic'>Classic,</a></span>
+              <span><a href='{{ routes.search_url }}?q=color+block'>Color Block,</a></span>
+
+              <span><a href='{{ routes.search_url }}?q=gemma'>Gemma,</a></span>
+              <span><a href='{{ routes.search_url }}?q=emma'>Emma,</a></span>
+              <span><a href='{{ routes.search_url }}?q=clara'>Clara,</a></span>
+
+              <span><a href='{{ routes.search_url }}?q=egg'>Egg,</a></span>
+              <span><a href='{{ routes.search_url }}?q=junior'>Junior,</a></span>
+              <span><a href='{{ routes.search_url }}?q=micol'>Micol,</a></span>
+              <span><a href='{{ routes.search_url }}?q=mildred'>Mildred,</a></span>
+              <span><a href='{{ routes.search_url }}?q=nero'>Nero</a></span>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--
+    End Fixed Navigation
+    ====================================
+  -->
+</header>
+<script>
+  jQuery(document).ready(function () {
+    var list, i, switching, b, shouldSwitch;
+    list = document.getElementById('currencies-wtc');
+    switching = true;
+    /* Make a loop that will continue until
+  no switching has been done: */
+    while (switching) {
+      // start by saying: no switching is done:
+      switching = false;
+      b = list.getElementsByTagName('span');
+      // Loop through all list-items:
+      for (i = 0; i < b.length - 1; i++) {
+        // start by saying there should be no switching:
+        shouldSwitch = false;
+        /* check if the next item should
+      switch place with the current item: */
+        if (b[i].innerHTML.toLowerCase() > b[i + 1].innerHTML.toLowerCase()) {
+          /* if next item is alphabetically
+        lower than current item, mark as a switch
+        and break the loop: */
+          shouldSwitch = true;
+          break;
+        }
+      }
+      if (shouldSwitch) {
+        /* If a switch has been marked, make the switch
+      and mark the switch as done: */
+        b[i].parentNode.insertBefore(b[i + 1], b[i]);
+        switching = true;
+      }
+    }
+  });
+</script>
+
+<script type='application/ld+json'>
+  {
+    "@context": "http://schema.org",
+    "@type": "Organization",
+    "name": {{ shop.name | json }},
+    {% if section.settings.logo %}
+      {% assign image_size = section.settings.logo.width | append:'x' %}
+      "logo": {{ section.settings.logo | img_url: image_size | prepend: "https:" | json }},
+    {% endif %}
+    "sameAs": [
+      {{ settings.social_twitter_link | json }},
+      {{ settings.social_facebook_link | json }},
+      {{ settings.social_pinterest_link | json }},
+      {{ settings.social_instagram_link | json }},
+      {{ settings.social_tumblr_link | json }},
+      {{ settings.social_snapchat_link | json }},
+      {{ settings.social_youtube_link | json }},
+      {{ settings.social_vimeo_link | json }}
+    ],
+    "url": {{ shop.url | append: page.url | json }}
+  }
+</script>
+
+{% if template.name == 'index' %}
+  {% assign potential_action_target = shop.url | append: '/search?q={search_term_string}' %}
+  <script type='application/ld+json'>
+    {
+      "@context": "http://schema.org",
+      "@type": "WebSite",
+      "name": {{ shop.name | json }},
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": {{ potential_action_target | json }},
+        "query-input": "required name=search_term_string"
+      },
+      "url": {{ shop.url | append: page.url | json }}
+    }
+  </script>
+{% endif %}
+
+{% schema %}
+{
+  "name": {
+    "de": "Titel",
+    "en": "Header",
+    "es": "Encabezado",
+    "fr": "En-tête",
+    "it": "Header",
+    "ja": "ヘッダー",
+    "nl": "Koptekst",
+    "pt-BR": "Cabeçalho",
+    "zh-CN": "标头",
+    "zh-TW": "標頭"
+  },
+  "settings": [
+    {
+      "type": "radio",
+      "id": "align_logo",
+      "label": {
+        "de": "Logo-Ausrichtung",
+        "en": "Logo alignment",
+        "es": "Alineación de logotipo",
+        "fr": "Alignement du logo",
+        "it": "Allineamento logo",
+        "ja": "ロゴアラインメント",
+        "nl": "Logo-uitlijning",
+        "pt-BR": "Alinhamento do logotipo",
+        "zh-CN": "logo 对齐方式",
+        "zh-TW": "商標對齊"
+      },
+      "default": "left",
+      "options": [
+        {
+          "value": "left",
+          "label": {
+            "de": "Links",
+            "en": "Left",
+            "es": "Izquierda",
+            "fr": "Gauche",
+            "it": "Sinistra",
+            "ja": "左",
+            "nl": "Links",
+            "pt-BR": "Esquerda",
+            "zh-CN": "左侧",
+            "zh-TW": "左方"
+          }
+        },
+        {
+          "value": "center",
+          "label": {
+            "de": "Mittig",
+            "en": "Centered",
+            "es": "Centrada",
+            "fr": "Centré",
+            "it": "Centrato",
+            "ja": "中央揃え",
+            "nl": "Gecentreerd",
+            "pt-BR": "Centralizado",
+            "zh-CN": "居中",
+            "zh-TW": "置中"
+          }
+        }
+      ]
+    },
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": {
+        "de": "Logo-Foto",
+        "en": "Logo image",
+        "es": "Logotipo",
+        "fr": "Image du logo",
+        "it": "Immagine del logo",
+        "ja": "ロゴ画像",
+        "nl": "Afbeelding van logo",
+        "pt-BR": "Imagem do logotipo",
+        "zh-CN": "logo 图片",
+        "zh-TW": "標誌圖片"
+      }
+    },
+    {
+      "type": "range",
+      "id": "logo_max_width",
+      "label": {
+        "de": "Logobreite",
+        "en": "Custom logo width",
+        "es": "Ancho del logotipo personalizado",
+        "fr": "Largeur personnalisée du logo",
+        "it": "Larghezza logo personalizzato",
+        "ja": "ロゴの幅をカスタムする",
+        "nl": "Aangepaste logo-breedte",
+        "pt-BR": "Largura do logotipo personalizado",
+        "zh-CN": "自定义 logo 宽度",
+        "zh-TW": "自訂商標寬度"
+      },
+      "min": 50,
+      "max": 250,
+      "step": 5,
+      "unit": {
+        "de": "px",
+        "en": "px",
+        "es": "px",
+        "fr": "px",
+        "it": "px",
+        "ja": "px",
+        "nl": "px",
+        "pt-BR": "px",
+        "zh-CN": "px",
+        "zh-TW": "像素"
+      },
+      "default": 100
+    },
+    {
+      "type": "link_list",
+      "id": "main_linklist",
+      "label": {
+        "de": "Menü",
+        "en": "Menu",
+        "es": "Menú",
+        "fr": "Menu",
+        "it": "Menu",
+        "ja": "メニュー",
+        "nl": "Menu",
+        "pt-BR": "Menu",
+        "zh-CN": "菜单",
+        "zh-TW": "選單"
+      },
+      "default": "main-menu"
+    },
+    {
+      "type": "header",
+      "content": {
+        "de": "Ankündigungsbereich",
+        "en": "Announcement bar",
+        "es": "Barra de anuncios",
+        "fr": "Barre d'annonces",
+        "it": "Barra degli annunci",
+        "ja": "告知バー",
+        "nl": "Aankondigingsbalk",
+        "pt-BR": "Barra de anúncios",
+        "zh-CN": "公告栏",
+        "zh-TW": "公告列"
+      }
+    },
+    {
+      "type": "checkbox",
+      "id": "message",
+      "label": {
+        "de": "Ankündigung anzeigen",
+        "en": "Show announcement",
+        "es": "Mostrar anuncio",
+        "fr": "Afficher l'annonce",
+        "it": "Mostra annuncio",
+        "ja": "告知を表示する",
+        "nl": "Aankondiging weergeven",
+        "pt-BR": "Exibir anúncio",
+        "zh-CN": "显示公告",
+        "zh-TW": "顯示公告"
+      },
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "home_page_only",
+      "label": {
+        "de": "Nur Startseite",
+        "en": "Home page only",
+        "es": "Solo página de inicio",
+        "fr": "Page d'accueil uniquement",
+        "it": "Solo home page",
+        "ja": "ホームページのみ",
+        "nl": "Alleen startpagina",
+        "pt-BR": "Apenas página inicial",
+        "zh-CN": "仅主页",
+        "zh-TW": "僅限首頁"
+      },
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "slide_animation",
+      "label": {
+        "de": "Animation aktivieren",
+        "en": "Enable Slide Animation",
+        "es": "Habilitar animación",
+        "fr": "Activer l'animation",
+        "it": "Abilita animazione",
+        "ja": "アニメーションを有効にする",
+        "nl": "Animatie inschakelen",
+        "pt-BR": "Habilitar Animação",
+        "zh-CN": "启用动画",
+        "zh-TW": "啟用動畫"
+      },
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "fade_animation",
+      "label": {
+        "de": "Aktivieren Sie die Fade-Animation",
+        "en": "Enable Fade Animation",
+        "es": "Habilitar animación de fundido",
+        "fr": "Activer l'animation en fondu",
+        "it": "Abilita animazione dissolvenza",
+        "ja": "フェードアニメーションを有効にする",
+        "nl": "Schakel Fade-animatie in",
+        "pt-BR": "Habilitar Fade Animation",
+        "zh-CN": "启用淡入淡出动画",
+        "zh-TW": "启用淡入淡出动画"
+      },
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "message_text",
+      "label": {
+        "de": "Text",
+        "en": "Text",
+        "es": "Texto",
+        "fr": "Texte",
+        "it": "Testo",
+        "ja": "テキスト",
+        "nl": "Tekst",
+        "pt-BR": "Texto",
+        "zh-CN": "文本",
+        "zh-TW": "文字"
+      },
+      "default": {
+        "de": "Hier etwas ankündigen",
+        "en": "Announce something here",
+        "es": "Anuncia algo aquí",
+        "fr": "Annoncez quelque chose ici",
+        "it": "Annuncia qualcosa qui",
+        "ja": "ここで告知してください",
+        "nl": "Kondig hier iets aan",
+        "pt-BR": "Anuncie algo aqui",
+        "zh-CN": "在此处进行公告",
+        "zh-TW": "在此公告資訊"
+      }
+    },
+    {
+      "type": "url",
+      "id": "message_link",
+      "label": {
+        "de": "Link",
+        "en": "Link",
+        "es": "Enlace",
+        "fr": "Lien",
+        "it": "Link",
+        "ja": "リンク",
+        "nl": "Link",
+        "pt-BR": "Link",
+        "zh-CN": "链接",
+        "zh-TW": "連結"
+      },
+      "info": {
+        "de": "Optional",
+        "en": "Optional",
+        "es": "Opcional",
+        "fr": "Facultatif",
+        "it": "Facoltativo",
+        "ja": "選択させる",
+        "nl": "Optioneel",
+        "pt-BR": "Opcional",
+        "zh-CN": "可选",
+        "zh-TW": "(選填)"
+      }
+    },
+    {
+      "type": "text",
+      "id": "message_text_alt",
+      "label": {
+        "de": "Alternate Text",
+        "en": "Alternate Text",
+        "es": "Texto alternativo",
+        "fr": "Texte alternatif",
+        "it": "Testo alternato",
+        "ja": "代替テキスト",
+        "nl": "Alternatieve tekst",
+        "pt-BR": "Texto alternativo",
+        "zh-CN": "替代文字",
+        "zh-TW": "替代文字"
+      },
+      "default": {
+        "de": "Hier etwas ankündigen",
+        "en": "Announce something here",
+        "es": "Anuncia algo aquí",
+        "fr": "Annoncez quelque chose ici",
+        "it": "Annuncia qualcosa qui",
+        "ja": "ここで告知してください",
+        "nl": "Kondig hier iets aan",
+        "pt-BR": "Anuncie algo aqui",
+        "zh-CN": "在此处进行公告",
+        "zh-TW": "在此公告資訊"
+      }
+    },
+    {
+      "type": "url",
+      "id": "message_link_alt",
+      "label": {
+        "de": "Alternativer Link",
+        "en": "Alternate Link",
+        "es": "Enlace alternativo",
+        "fr": "Lien Alternatif",
+        "it": "Collegamento Alternativo",
+        "ja": "代替リンク",
+        "nl": "Alternatieve Link",
+        "pt-BR": "Link Alternativo",
+        "zh-CN": "替代链接",
+        "zh-TW": "替代鏈接"
+      }
+    },
+    {
+      "type": "color",
+      "id": "color_bg",
+      "label": {
+        "de": "Zeile",
+        "en": "Bar",
+        "es": "Barra",
+        "fr": "Barre",
+        "it": "Barra",
+        "ja": "バー",
+        "nl": "Balk",
+        "pt-BR": "Barra",
+        "zh-CN": "栏",
+        "zh-TW": "橫條"
+      },
+      "default": "#7796a8"
+    },
+    {
+      "type": "color",
+      "id": "color_text",
+      "label": {
+        "de": "Text",
+        "en": "Text",
+        "es": "Texto",
+        "fr": "Texte",
+        "it": "Testo",
+        "ja": "テキスト",
+        "nl": "Tekst",
+        "pt-BR": "Texto",
+        "zh-CN": "文本",
+        "zh-TW": "文字"
+      },
+      "default": "#fff"
+    }
+  ]
+}
+{% endschema %}
