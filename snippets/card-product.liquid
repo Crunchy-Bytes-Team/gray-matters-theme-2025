@@ -116,7 +116,7 @@
           ></div>
         {%- endif -%}
       </div>
-  <div class='card__content paperino lg:absolute lg:inset-0 z-30 lg:!opacity-0 lg:group-hover:!opacity-100 lg:group-focus-within:!opacity-100 transition-opacity duration-300 ease-out lg:pointer-events-none lg:group-hover:pointer-events-auto p-4 text-gray-900 lg:text-white lg:flex lg:items-start lg:justify-start'>
+      <div class='card__content paperino lg:absolute lg:inset-0 z-30 lg:!opacity-0 lg:group-hover:!opacity-100 lg:group-focus-within:!opacity-100 transition-opacity duration-300 ease-out lg:pointer-events-none lg:group-hover:pointer-events-auto p-4 text-gray-900 lg:text-white lg:flex lg:items-start lg:justify-start'>
         <div class='card__information'>
           <h3
             class='product-name mb-1 tracking-wider proxima-semi-bold text-xs uppercase card__heading{% if card_product.featured_media or settings.card_style == 'standard' %} h5{% endif %}'
@@ -264,7 +264,7 @@
           <!-- fine card inormation -->
 
           {% if card_product.has_only_default_variant == false %}
-            <div class='card-variants text-xs mb-2'>
+            <div class='card-variants text-xs mb-2 hidden lg:block'>
               {%- comment -%} Elenco valori variante (es. 35, 36, 37) al posto di "tot varianti disponibili" {%- endcomment -%}
               {% assign size_option_index = 0 %}
               {% for opt in card_product.options %}
