@@ -116,7 +116,7 @@
           ></div>
         {%- endif -%}
       </div>
-  <div class='card__content paperino md:absolute md:inset-0 z-30 md:!opacity-0 md:group-hover:!opacity-100 md:group-focus-within:!opacity-100 transition-opacity duration-300 ease-out md:pointer-events-none md:group-hover:pointer-events-auto p-4 text-gray-900 md:text-white md:flex md:items-start md:justify-start'>
+      <div class='card__content paperino md:absolute md:inset-0 z-30 md:!opacity-0 md:group-hover:!opacity-100 md:group-focus-within:!opacity-100 transition-opacity duration-300 ease-out md:pointer-events-none md:group-hover:pointer-events-auto p-4 text-gray-900 md:text-white md:flex md:items-start md:justify-start'>
         <div class='card__information'>
           <h3
             class='product-name mb-1 tracking-wider proxima-semi-bold text-xs uppercase card__heading{% if card_product.featured_media or settings.card_style == 'standard' %} h5{% endif %}'
@@ -142,39 +142,39 @@
 
             {%- if show_rating and card_product.metafields.reviews.rating.value != blank -%}
               <div class='hidden md:block'>
-              {% liquid
-                assign rating_decimal = 0
-                assign decimal = card_product.metafields.reviews.rating.value.rating | modulo: 1
-                if decimal >= 0.3 and decimal <= 0.7
-                  assign rating_decimal = 0.5
-                elsif decimal > 0.7
-                  assign rating_decimal = 1
-                endif
-              %}
-              <div
-                class='rating'
-                role='img'
-                aria-label='{{ 'accessibility.star_reviews_info' | t: rating_value: card_product.metafields.reviews.rating.value, rating_max: card_product.metafields.reviews.rating.value.scale_max }}'
-              >
-                <span
-                  aria-hidden='true'
-                  class='rating-star'
-                  style='--rating: {{ card_product.metafields.reviews.rating.value.rating | floor }}; --rating-max: {{ card_product.metafields.reviews.rating.value.scale_max }}; --rating-decimal: {{ rating_decimal }};'
-                ></span>
-              </div>
-              <p class='rating-text caption'>
-                <span aria-hidden='true'>
-                  {{- card_product.metafields.reviews.rating.value }} /
-                  {{ card_product.metafields.reviews.rating.value.scale_max -}}
-                </span>
-              </p>
-              <p class='rating-count caption'>
-                <span aria-hidden='true'>({{ card_product.metafields.reviews.rating_count }})</span>
-                <span class='visually-hidden'>
-                  {{- card_product.metafields.reviews.rating_count }}
-                  {{ 'accessibility.total_reviews' | t -}}
-                </span>
-              </p>
+                {% liquid
+                  assign rating_decimal = 0
+                  assign decimal = card_product.metafields.reviews.rating.value.rating | modulo: 1
+                  if decimal >= 0.3 and decimal <= 0.7
+                    assign rating_decimal = 0.5
+                  elsif decimal > 0.7
+                    assign rating_decimal = 1
+                  endif
+                %}
+                <div
+                  class='rating'
+                  role='img'
+                  aria-label='{{ 'accessibility.star_reviews_info' | t: rating_value: card_product.metafields.reviews.rating.value, rating_max: card_product.metafields.reviews.rating.value.scale_max }}'
+                >
+                  <span
+                    aria-hidden='true'
+                    class='rating-star'
+                    style='--rating: {{ card_product.metafields.reviews.rating.value.rating | floor }}; --rating-max: {{ card_product.metafields.reviews.rating.value.scale_max }}; --rating-decimal: {{ rating_decimal }};'
+                  ></span>
+                </div>
+                <p class='rating-text caption'>
+                  <span aria-hidden='true'>
+                    {{- card_product.metafields.reviews.rating.value }} /
+                    {{ card_product.metafields.reviews.rating.value.scale_max -}}
+                  </span>
+                </p>
+                <p class='rating-count caption'>
+                  <span aria-hidden='true'>({{ card_product.metafields.reviews.rating_count }})</span>
+                  <span class='visually-hidden'>
+                    {{- card_product.metafields.reviews.rating_count }}
+                    {{ 'accessibility.total_reviews' | t -}}
+                  </span>
+                </p>
               </div>
             {%- endif -%}
 
@@ -289,7 +289,13 @@
                       {%- assign value = v.option3 | strip %}
                   {% endcase %}
                   {%- comment -%} Pulisci prefisso PREO e lascia solo il numero {%- endcomment -%}
-                  {% assign value_clean = value | remove: 'PREO - ' | remove: 'PREO-' | remove: 'PREO ' | remove: 'PREO' | strip %}
+                  {% assign value_clean = value
+                    | remove: 'PREO - '
+                    | remove: 'PREO-'
+                    | remove: 'PREO '
+                    | remove: 'PREO'
+                    | strip
+                  %}
                   {%- comment -%} Escludi la taglia 35 ed evita duplicati sul valore pulito {%- endcomment -%}
                   {% if value_clean != blank and value_clean != '35' %}
                     {% assign needle = '|' | append: value_clean | append: '|' %}
