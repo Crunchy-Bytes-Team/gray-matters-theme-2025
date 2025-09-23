@@ -60,10 +60,9 @@
       >
         {%- if card_product.featured_media -%}
           <div class='card__media{% if image_shape and image_shape != 'default' %} shape--{{ image_shape }} color-{{ settings.card_color_scheme }} gradient{% endif %}'>
-            <a
-              href='{{ card_product.url }}'
+            <div
               class='media media--transparent media--hover-effect block'
-              aria-labelledby='CardLink-{{ section_id }}-{{ card_product.id }} Badge-{{ section_id }}-{{ card_product.id }}'
+              aria-label='{{ card_product.title | escape }}'
             >
               {% comment %}theme-check-disable ImgLazyLoading{% endcomment %}
 
@@ -109,7 +108,7 @@
                   height='{{ card_product.media[1].height }}'
                 >
               {%- endif -%}
-            </a>
+            </div>
           </div>
           <div
             class='hidden lg:block absolute inset-0 bg-black opacity-0 group-hover:opacity-40 group-focus-within:opacity-40 transition-opacity duration-300 ease-out z-10 pointer-events-none'
@@ -124,14 +123,18 @@
               id='title-{{ section_id }}-{{ card_product.id }}'
             {% endif %}
           >
-            <a
-              href='{{ card_product.url }}'
-              id='CardLink-{{ section_id }}-{{ card_product.id }}'
-              class='full-unstyled-link'
-              aria-labelledby='CardLink-{{ section_id }}-{{ card_product.id }} Badge-{{ section_id }}-{{ card_product.id }}'
-            >
-              {{ card_product.title | escape }}
-            </a>
+            {% if stretched_link %}
+              <span class='full-unstyled-link'>{{ card_product.title | escape }}</span>
+            {% else %}
+              <a
+                href='{{ card_product.url }}'
+                id='CardLink-{{ section_id }}-{{ card_product.id }}'
+                class='full-unstyled-link'
+                aria-labelledby='CardLink-{{ section_id }}-{{ card_product.id }} Badge-{{ section_id }}-{{ card_product.id }}'
+              >
+                {{ card_product.title | escape }}
+              </a>
+            {% endif %}
           </h3>
 
           <div class='card-information'>
@@ -588,6 +591,7 @@
         </div>
       </div>
     </div>
+    <a href='{{ card_product.url }}' aria-label='{{ card_product.title | escape }}' class='absolute inset-0 z-20 block'></a>
   </div>
 {%- else -%}
   {%- liquid
