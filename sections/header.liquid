@@ -1,7 +1,16 @@
 <header class='bg-pink-300 px-4 h-12 flex flex-row items-center fixed top-0 left-0 right-0 z-50'>
   <div class='w-full flex flex-row justify-between bg-white h-full items-center'>
     <!-- hamburger -->
-    <div class='flex lg:hidden w-2/12 items-start'>icona hamburger</div>
+    <div class='flex lg:hidden w-2/12 items-start'>
+      <button
+        type='button'
+        aria-label='Apri menu'
+        class='p-2 text-black hover:opacity-70 transition-opacity duration-200 ease-out'
+        data-open-mobile-menu
+      >
+        <i class='fa-solid fa-bars text-xl' aria-hidden='true'></i>
+      </button>
+    </div>
     <!-- logo -->
     <div class='flex flex-row justify-center w-10/12 lg:w-auto'>
       <a
@@ -140,4 +149,78 @@
     </div>
   </div>
 </header>
+<!-- Mobile menu drawer -->
+<div
+  id='MobileMenu'
+  class='fixed inset-0 z-[60] lg:hidden hidden opacity-0 pointer-events-none transition-opacity duration-300 ease-out'
+  aria-hidden='true'
+>
+  <!-- overlay -->
+  <button
+    class='absolute inset-0 bg-black/50 opacity-0 transition-opacity duration-300 ease-out'
+    data-close-mobile-menu
+    data-menu-overlay
+    aria-label='Chiudi menu'
+  ></button>
+  <!-- drawer -->
+  <aside
+    class='absolute left-0 top-0 h-full w-[285px] max-w-[85%] bg-white shadow-xl p-6 overflow-y-auto transition-transform duration-300 ease-out -translate-x-full'
+    data-menu-drawer
+  >
+    <button class='absolute top-3 right-3 p-2' data-close-mobile-menu aria-label='Chiudi menu'>
+      <i class='fa-solid fa-xmark text-xl' aria-hidden='true'></i>
+    </button>
+    {% render 'mobile-menu' %}
+  </aside>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      var openBtn = document.querySelector('[data-open-mobile-menu]');
+      var menu = document.getElementById('MobileMenu');
+      if (!menu) return;
+      var closers = menu.querySelectorAll('[data-close-mobile-menu]');
+      var overlay = menu.querySelector('[data-menu-overlay]');
+      var drawer = menu.querySelector('[data-menu-drawer]');
+      var TRANSITION_MS = 300;
+
+      function openMenu() {
+        // show container to allow transitions
+        menu.classList.remove('hidden');
+        // next frame to ensure transition applies
+        requestAnimationFrame(function () {
+          document.body.classList.add('overflow-hidden');
+          menu.setAttribute('aria-hidden', 'false');
+          menu.classList.remove('opacity-0', 'pointer-events-none');
+          menu.classList.add('opacity-100');
+          if (overlay) overlay.classList.remove('opacity-0');
+          if (overlay) overlay.classList.add('opacity-100');
+          if (drawer) drawer.classList.remove('-translate-x-full');
+          if (drawer) drawer.classList.add('translate-x-0');
+        });
+      }
+      function closeMenu() {
+        // start transitions
+        menu.classList.add('opacity-0');
+        menu.classList.remove('opacity-100');
+        if (overlay) overlay.classList.add('opacity-0');
+        if (overlay) overlay.classList.remove('opacity-100');
+        if (drawer) drawer.classList.add('-translate-x-full');
+        if (drawer) drawer.classList.remove('translate-x-0');
+        menu.setAttribute('aria-hidden', 'true');
+        document.body.classList.remove('overflow-hidden');
+        // after transition, hide and disable pointer events
+        setTimeout(function () {
+          menu.classList.add('hidden', 'pointer-events-none');
+        }, TRANSITION_MS);
+      }
+
+      if (openBtn) openBtn.addEventListener('click', openMenu);
+      closers.forEach(function (el) {
+        el.addEventListener('click', closeMenu);
+      });
+      window.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') closeMenu();
+      });
+    });
+  </script>
+</div>
 <div class='h-12'></div>
