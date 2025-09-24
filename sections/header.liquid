@@ -3,7 +3,7 @@
     <!-- hamburger -->
     <div class='flex lg:hidden w-2/12 items-start'>icona hamburger</div>
     <!-- logo -->
-    <div class='flex flex-row justify-start lg:justify-center w-10/12 lg:w-auto'>
+    <div class='flex flex-row justify-center w-10/12 lg:w-auto'>
       <a
         href='{{  routes.root_url }}'
         class='site-header__logo-image{% if section.settings.align_logo == 'center' %} site-header__logo-image--centered{% endif %}'
@@ -80,7 +80,7 @@
         >
       </nav>
       <!-- icons -->
-      <div class='flex items-center justify-end gap-0 lg:gap-8 text-black h-full self-center'>
+      <div class='flex items-center justify-end gap-0 lg:gap-8 text-black h-full w-full lg:w-auto'>
         <a
           href='/pages/wishlist'
           aria-label='Wishlist'
