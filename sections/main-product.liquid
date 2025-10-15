@@ -82,7 +82,10 @@
         {% render 'product-media-gallery', variant_images: variant_images %}
       </div>
       <div class='h-screen container-info-product w-full lg:w-1/2 bg-green-200 flex flex-col justify-end sticky top-0 relative bg-product'>
-        <div class="absolute inset-0 bg-cover bg-top" style="background-image: url('https://cdn.shopify.com/s/files/1/0012/4079/3193/files/R-Canvas_Sandals_Bruciato027.jpg?v=1754669953');"></div>
+        {% assign bg_image = product.metafields.module.product_detail_bg_image.value %}
+        {% if bg_image %}
+        <div class="absolute inset-0 bg-cover bg-top" style="background-image: url('{{ bg_image | escape }}');"></div>
+        {% endif %}
         <section
           id='ProductInfo-{{ section.id }}'
           class='bg-white bg-opacity-90 flex flex-col h-fit fixed bottom-0 right-0 z-10 w-full lg:w-1/2 p-6 lg:p-14'
