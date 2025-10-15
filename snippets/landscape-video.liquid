@@ -1,9 +1,12 @@
 <div class='w-full aspect-video px-4'>
-  <iframe
-    class='w-full h-full'
-    src='https://player.vimeo.com/video/452608765?api=1&loop=1&mute=1&controls=0&portrait=0&byline=0&title=0&background=1&autoplay=1'
-    frameborder='0'
-    allow='autoplay; fullscreen; picture-in-picture'
-    allowfullscreen
-  ></iframe>
+  {% assign video_url = product.metafields.module.video_module_video.value %}
+  {% if video_url %}
+    <iframe
+      class='w-full h-full'
+      src='{{ video_url }}'
+      frameborder='0'
+      allow='autoplay; fullscreen; picture-in-picture'
+      allowfullscreen
+    ></iframe>
+  {% endif %}
 </div>
