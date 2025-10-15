@@ -1,42 +1,39 @@
 <div class='px-4 py-10'>
   <h3 class='w-full text-center font-accent font-normal text-xl uppercase mb-6 lg:mb-10'>You may also like</h3>
+  {% comment %} Related products by handles (list of strings) {% endcomment %}
+  {% assign related_handles = product.metafields.module.related_product_ids.value %}
+  {% comment %} Debug: remove after verifying output {% endcomment %}
+  {%- comment -%}{{ product.metafields.module.related_product_ids | json }}{%- endcomment -%}
   <div class='relative w-full pb-6' data-relprod>
     <!-- Viewport -->
     <div class='overflow-hidden md:overflow-visible w-full' data-viewport>
       <!-- Track (flex on mobile, grid on md+) -->
       <div class='flex w-full transition-transform duration-300 ease-in-out md:grid md:grid-cols-4 md:gap-0' data-track>
-        <div class='relative group basis-1/2 md:basis-auto shrink-0' data-item>
-          <a href='#'>
-            <img src='https://cdn.shopify.com/s/files/1/0012/4079/3193/files/SQR_Clara_Summer_Pump_Cacao_001.jpg?v=1662646489'>
-            <div
-              class='absolute inset-0 bg-black opacity-0 group-hover:opacity-30 transition-opacity duration-300 ease-in-out'
-            ></div>
-          </a>
-        </div>
-        <div class='relative group basis-1/2 md:basis-auto shrink-0' data-item>
-          <a href='#'>
-            <img src='https://cdn.shopify.com/s/files/1/0012/4079/3193/files/RSQ_Canvas-Mules_Bruciato_Nero039.jpg?v=1711629527'>
-            <div
-              class='absolute inset-0 bg-black opacity-0 group-hover:opacity-30 transition-opacity duration-300 ease-in-out'
-            ></div>
-          </a>
-        </div>
-        <div class='relative group basis-1/2 md:basis-auto shrink-0' data-item>
-          <a href='#'>
-            <img src='https://cdn.shopify.com/s/files/1/0012/4079/3193/files/RSQ_Gemma_Pumps_Abisso_Choclate_002.jpg?v=1720295919'>
-            <div
-              class='absolute inset-0 bg-black opacity-0 group-hover:opacity-30 transition-opacity duration-300 ease-in-out'
-            ></div>
-          </a>
-        </div>
-        <div class='relative group basis-1/2 md:basis-auto shrink-0' data-item>
-          <a href='#'>
-            <img src='https://cdn.shopify.com/s/files/1/0012/4079/3193/products/SQR_Mildred_Boot_Nero_Cacao_001.jpg?v=1663078047'>
-            <div
-              class='absolute inset-0 bg-black opacity-0 group-hover:opacity-30 transition-opacity duration-300 ease-in-out'
-            ></div>
-          </a>
-        </div>
+        {% assign shown = 0 %}
+        {% if related_handles and related_handles != blank %}
+          {% for handle in related_handles %}
+            {% if shown >= 4 %}{% break %}{% endif %}
+            {% assign handle_clean = handle | to_s | strip %}
+            {% assign p = all_products[handle_clean] %}
+            {% if p %}
+              <div class='relative group basis-1/2 md:basis-auto shrink-0' data-item>
+                <a href='{{ p.url }}'>
+                  {% if p.featured_image %}
+                    <img
+                      src='{{ p.featured_image | image_url: width: 1200 }}'
+                      alt='{{ p.title | escape }}'
+                      loading='lazy'
+                    >
+                  {% endif %}
+                  <div
+                    class='absolute inset-0 bg-black opacity-0 group-hover:opacity-30 transition-opacity duration-300 ease-in-out'
+                  ></div>
+                </a>
+              </div>
+              {% assign shown = shown | plus: 1 %}
+            {% endif %}
+          {% endfor %}
+        {% endif %}
       </div>
     </div>
 

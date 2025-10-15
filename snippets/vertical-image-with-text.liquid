@@ -1,11 +1,37 @@
 <div class='flex flex-col lg:flex-row px-4 py-10 items-stretch  bg-pink-300'>
   <div class='w-full lg:w-1/2 flex flex-col items-center justify-center self-stretch'>
     <div>
-      <h3 class='font-accent text-xl lg:text-4xl text-center lg:text-left mb-3'>STANDING STRONG</h3>
-      <p class='font-accent text-sm lg:text-lg text-center lg:text-left mb-6 lg:mb-0'>Confident and ambitious</p>
+      <h3 class='font-accent text-xl lg:text-4xl text-center lg:text-left mb-3'>
+        {{ product.metafields.module.image_text_module_header.value | default: 'Gray Matters' }}
+      </h3>
+      <p class='font-accent text-sm lg:text-lg text-center lg:text-left mb-6 lg:mb-0'>
+        {{ product.metafields.module.image_text_module_description.value | default: 'Gray Matters' }}
+      </p>
     </div>
   </div>
   <div class='w-full lg:w-1/2'>
-    <img class='w-full block' src='https://cdn.shopify.com/s/files/1/0012/4079/3193/files/R_IMG_8395.jpg?v=1741734138'>
+    {% assign module_image_mf = product.metafields.module.image_text_module_image %}
+    {% assign module_image_val = module_image_mf.value %}
+    {% if module_image_val and module_image_val != blank %}
+      {% if module_image_mf.type == 'file_reference' or module_image_mf.type == 'image' %}
+        {% assign alt_text = product.metafields.module.image_text_module_header.value | default: 'Image' | escape %}
+        {{ module_image_val | image_url: width: 800 | image_tag: alt: alt_text, class: 'w-full block', loading: 'lazy', widths: '400,800,1200', sizes: '(min-width: 1024px) 50vw, 100vw' }}
+      {% else %}
+        <img
+          class="w-full block"
+          src="{{ module_image_val | escape }}"
+          alt="{{ product.metafields.module.image_text_module_header.value | default: "Image" }}"
+          width="800"
+          height="600"
+          loading="lazy"
+        >
+      {% endif %}
+    {% else %}
+      <!-- Fallback o placeholder se il metafield è vuoto -->
+      <div class='w-full h-96 bg-gray-200 flex items-center justify-center'>
+        <span class='text-gray-500 text-sm'>Aggiungi image_text_module_image metafield</span>
+      </div>
+    {% endif %}
+  </div>
   </div>
 </div>
