@@ -18,6 +18,7 @@
 {% endcomment %}
 {%- liquid
   assign product_form_id = 'product-form-' | append: section.id
+  assign swatch_shape = swatch_shape | default: block.settings.swatch_shape | default: 'none'
 -%}
 
 {%- for value in option.values -%}
@@ -72,7 +73,7 @@
       product_form_id: product_form_id,
       checked: value.selected,
       visually_disabled: option_disabled,
-      shape: block.settings.swatch_shape,
+      shape: swatch_shape,
       help_text: help_text,
       additional_props: input_dataset
     %}

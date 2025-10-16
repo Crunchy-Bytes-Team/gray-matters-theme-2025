@@ -17,10 +17,11 @@
     {%- for option in product.options_with_values -%}
       {%- liquid
         assign swatch_count = option.values | map: 'swatch' | compact | size
-        assign picker_type = block.settings.picker_type
+        assign picker_type = block.settings.picker_type | default: 'dropdown'
+        assign swatch_shape = block.settings.swatch_shape | default: 'none'
 
-        if swatch_count > 0 and block.settings.swatch_shape != 'none'
-          if block.settings.picker_type == 'dropdown'
+        if swatch_count > 0 and swatch_shape != 'none'
+          if picker_type == 'dropdown'
             assign picker_type = 'swatch_dropdown'
           else
             assign picker_type = 'swatch'
@@ -39,7 +40,8 @@
             product: product,
             option: option,
             block: block,
-            picker_type: picker_type
+            picker_type: picker_type,
+            swatch_shape: swatch_shape
           %}
         </fieldset>
       {%- elsif picker_type == 'button' -%}
@@ -49,7 +51,8 @@
             product: product,
             option: option,
             block: block,
-            picker_type: picker_type
+            picker_type: picker_type,
+            swatch_shape: swatch_shape
           %}
         </fieldset>
       {%- else -%}
@@ -61,7 +64,7 @@
                 data-selected-value
                 class='dropdown-swatch'
               >
-                {% render 'swatch', swatch: option.selected_value.swatch, shape: block.settings.swatch_shape %}
+                {% render 'swatch', swatch: option.selected_value.swatch, shape: swatch_shape %}
               </span>
             {%- endif -%}
             <select
@@ -74,7 +77,8 @@
                 product: product,
                 option: option,
                 block: block,
-                picker_type: picker_type
+                picker_type: picker_type,
+                swatch_shape: swatch_shape
               %}
             </select>
             <span class='svg-wrapper'>
