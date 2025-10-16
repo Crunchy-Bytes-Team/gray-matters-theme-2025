@@ -1,12 +1,17 @@
-<div class='w-full aspect-video px-4'>
-  {% assign video_url = product.metafields.module.video_module_video.value %}
-  {% if video_url %}
+{% assign video_desktop_url = product.metafields.module.video_module_video.value %}
+{% assign video_mobile_url = product.metafields.module.video_module_video_mobile.value %}
+{% assign video_url = video_desktop_url | default: video_mobile_url %}
+
+{% if video_url != blank %}
+  <div class='w-full aspect-video px-4'>
     <iframe
       class='w-full h-full'
       src='{{ video_url }}'
       frameborder='0'
       allow='autoplay; fullscreen; picture-in-picture'
       allowfullscreen
+      title='Landscape video'
+      loading='lazy'
     ></iframe>
-  {% endif %}
-</div>
+  </div>
+{% endif %}

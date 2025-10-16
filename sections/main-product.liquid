@@ -775,23 +775,26 @@
   </div>
 </product-info>
 
-<div class='bg-red-200 w-full'>
+<div class='bg-red-200 w-full relative z-20'>
   {% render 'image-row' %}
 </div>
-<div class='bg-yellow-200 w-full'>
+<div class='bg-yellow-200 w-full relative z-20'>
   {% render 'ugc' %}
 </div>
-<div class='bg-white w-full'>
+<div class='bg-white w-full relative z-20'>
   {% render 'vertical-video' %}
 </div>
-<div class='bg-black w-full'>
+<div class='bg-black w-full relative z-20'>
   {% render 'landscape-video' %}
 </div>
-<div class='bg-white w-full'>
-  {% render 'related-products' %}
-</div>
-<div class='bg-white w-full'>
+<div class='bg-white w-full relative z-20'>
   {% render 'vertical-image-with-text' %}
+</div>
+<div class='bg-pink-400 w-full relative z-20'>
+  {% render 'full-width-image' %}
+</div>
+<div class='bg-white w-full relative z-20'>
+  {% render 'related-products' %}
 </div>
 {% schema %}
 {

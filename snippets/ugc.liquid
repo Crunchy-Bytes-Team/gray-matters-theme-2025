@@ -1,63 +1,126 @@
 {% comment %}
-  Mobile: slideshow con frecce
-  Desktop: griglia 4 colonne
+  Visualizza contenuti UGC provenienti dal metafield JSON product.metafields.custom.ugc_content.
+  Formato atteso:
+  {
+    "entries": [
+      {
+        "image": "https://cdn...",
+        "text": "@username",
+        "link": "https://instagram.com/...",
+        "is_cover": true
+      }
+    ]
+  }
 {% endcomment %}
-<div class='px-4'>
-  {% if product.images and product.images.size > 0 %}
-    <!-- Slider mobile -->
-    <div class='relative w-full md:hidden' data-imagerow>
-      <div class='overflow-hidden w-full' data-viewport>
-        <div class='flex transition-transform duration-300 ease-in-out' data-track>
-          {% for image in product.images %}
-            <div class='relative basis-full shrink-0'>
-              <img
-                src='{{ image | image_url: width: 1200 }}'
-                alt='{{ image.alt | escape }}'
-                class='w-full h-auto block'
-                loading='lazy'
-              >
-              <span class='absolute bottom-2 right-2 text-white text-xs pointer-events-none'>@username</span>
-            </div>
-          {% endfor %}
-        </div>
-      </div>
 
-      <!-- Frecce -->
-      <button
-        type='button'
-        class='absolute left-2 top-1/2 -translate-y-1/2 z-10 bg-black/40 text-white rounded-full w-8 h-8 flex items-center justify-center'
-        data-prev
-        aria-label='Previous'
-      >
-        <svg width='18' height='18' viewBox='0 0 24 24' fill='none'>
-          <path d="M15 19L8 12L15 5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-      </button>
-      <button
-        type='button'
-        class='absolute right-2 top-1/2 -translate-y-1/2 z-10 bg-black/40 text-white rounded-full w-8 h-8 flex items-center justify-center'
-        data-next
-        aria-label='Next'
-      >
-        <svg width='18' height='18' viewBox='0 0 24 24' fill='none'>
-          <path d="M9 5L16 12L9 19" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-      </button>
-    </div>
+{% assign ugc_metafield = product.metafields.custom.ugc_content %}
+{% assign ugc_entries = '[]' | parse_json %}
 
-    <!-- Griglia desktop -->
-    <div class='ugc-grid hidden md:grid grid-cols-4 gap-0'>
-      {% for image in product.images %}
-        <div class='relative'>
-          <img
-            src='{{ image | image_url: width: 1200 }}'
-            alt='{{ image.alt | escape }}'
-            class='w-full h-auto block'
-            loading='lazy'
-          >
-          <span class='absolute bottom-2 right-2 text-white text-xs pointer-events-none'>@username</span>
-        </div>
+{% if ugc_metafield %}
+  {% assign ugc_value = ugc_metafield.value %}
+  {% if ugc_value == blank %}
+    {% assign ugc_value = nil %}
+  {% endif %}
+
+  {% assign entries_from_value = '' %}
+  {% if ugc_value %}
+    {% assign entries_from_value = ugc_value['entries'] %}
+  {% endif %}
+
+  {% if entries_from_value %}
+    {% assign ugc_entries = entries_from_value %}
+  {% elsif ugc_value %}
+    {% assign first_entry = ugc_value[0] %}
+    {% if first_entry and first_entry.image %}
+      {% assign ugc_entries = ugc_value %}
+    {% endif %}
+  {% endif %}
+
+  {% if ugc_entries == empty or ugc_entries.size == 0 %}
+    {% capture ugc_raw_from_text %}
+      {{ product.metafields.custom.ugc_content | metafield_text }}
+    {% endcapture %}
+    {% capture ugc_raw_plain %}
+      {{ product.metafields.custom.ugc_content }}
+    {% endcapture %}
+    {% assign ugc_string = ugc_raw_from_text | strip %}
+    {% if ugc_string == blank %}
+      {% assign ugc_string = ugc_raw_plain | strip %}
+    {% endif %}
+
+    {% if ugc_string != blank %}
+      {% assign parsed_outer = ugc_string | parse_json %}
+      {% if parsed_outer %}
+        {% assign parsed_entries = parsed_outer['entries'] %}
+        {% if parsed_entries %}
+          {% assign ugc_entries = parsed_entries %}
+        {% elsif parsed_outer[0] %}
+          {% assign parsed_first = parsed_outer[0] %}
+          {% if parsed_first and parsed_first.image %}
+            {% assign ugc_entries = parsed_outer %}
+          {% endif %}
+        {% endif %}
+      {% endif %}
+    {% endif %}
+  {% endif %}
+{% endif %}
+
+{% assign entries_count = ugc_entries | size %}
+
+{% if entries_count > 0 %}
+  <div class='px-4 py-10'>
+    <h3 class='w-full text-center font-accent font-normal text-xl uppercase mb-6 lg:mb-10'>A seen on</h3>
+
+    {% assign grid_classes = 'grid-cols-1' %}
+    {% if entries_count == 2 %}
+      {% assign grid_classes = 'grid-cols-2' %}
+    {% elsif entries_count == 3 %}
+      {% assign grid_classes = 'grid-cols-3' %}
+    {% elsif entries_count == 4 %}
+      {% assign grid_classes = 'grid-cols-4' %}
+    {% elsif entries_count >= 5 %}
+      {% assign grid_classes = 'grid-cols-5' %}
+    {% endif %}
+
+    <div class='grid gap-4 {{ grid_classes }}'>
+      {% for entry in ugc_entries %}
+        {% assign image_url_raw = entry.image | default: entry.src | default: entry.image_url %}
+        {% assign image_url_clean = image_url_raw | append: '' | strip %}
+        {% assign image_url = image_url_clean | split: ' ' | first %}
+        {% assign link_url_raw = entry.link | default: entry.url %}
+        {% assign link_url = link_url_raw | append: '' | strip %}
+        {% assign username_raw = entry.text | default: entry.caption %}
+        {% assign username = username_raw | append: '' | strip %}
+
+        {% if image_url != blank %}
+          <div class='group relative rounded overflow-hidden'>
+            {% if link_url != blank %}
+              <a href='{{ link_url }}' class='block' target='_blank' rel='noopener noreferrer'>
+                <img
+                  src='{{ image_url }}'
+                  alt='{{ username | default: product.title | escape }}'
+                  class='w-full h-auto block'
+                  loading='lazy'
+                >
+              </a>
+            {% else %}
+              <div class='block'>
+                <img
+                  src='{{ image_url }}'
+                  alt='{{ username | default: product.title | escape }}'
+                  class='w-full h-auto block'
+                  loading='lazy'
+                >
+              </div>
+            {% endif %}
+            {% if username != blank %}
+              <p class='absolute bottom-3 right-3 text-sm font-medium text-white drop-shadow pointer-events-none'>
+                {{ username | escape }}
+              </p>
+            {% endif %}
+          </div>
+        {% endif %}
       {% endfor %}
     </div>
-  {% endif %}
-</div>
+  </div>
+{% endif %}

@@ -1,0 +1,12 @@
+{% assign full_width_image = product.metafields.module.image_full_module_image.value %}
+
+{% if full_width_image != blank %}
+  <div class='w-full px-4'>
+    <img
+      class='w-full block'
+      src='{{ full_width_image }}'
+      alt='{{ product.title | escape }}'
+      loading='lazy'
+    >
+  </div>
+{% endif %}

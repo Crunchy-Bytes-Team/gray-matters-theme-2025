@@ -10,22 +10,16 @@
     </div>
   </div>
   <div class='w-full lg:w-1/2'>
-    {% assign module_image_mf = product.metafields.module.image_text_module_image %}
-    {% assign module_image_val = module_image_mf.value %}
+    {% assign module_image_val = product.metafields.module.image_text_module_image.value %}
     {% if module_image_val and module_image_val != blank %}
-      {% if module_image_mf.type == 'file_reference' or module_image_mf.type == 'image' %}
-        {% assign alt_text = product.metafields.module.image_text_module_header.value | default: 'Image' | escape %}
-        {{ module_image_val | image_url: width: 800 | image_tag: alt: alt_text, class: 'w-full block', loading: 'lazy', widths: '400,800,1200', sizes: '(min-width: 1024px) 50vw, 100vw' }}
-      {% else %}
-        <img
-          class="w-full block"
-          src="{{ module_image_val | escape }}"
-          alt="{{ product.metafields.module.image_text_module_header.value | default: "Image" }}"
-          width="800"
-          height="600"
-          loading="lazy"
-        >
-      {% endif %}
+      <img
+        class="w-full block"
+        src="{{ module_image_val }}"
+        alt="{{ product.metafields.module.image_text_module_header.value | default: 'Image' | escape }}"
+        width="800"
+        height="600"
+        loading="lazy"
+      >
     {% else %}
       <!-- Fallback o placeholder se il metafield è vuoto -->
       <div class='w-full h-96 bg-gray-200 flex items-center justify-center'>
