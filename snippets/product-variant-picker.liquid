@@ -64,7 +64,7 @@
       {%- else -%}
         <div class='h-full w-full product-form__input product-form__input--dropdown{% if is_size_option %} product-form__input--dropdown-size{% endif %}'>
           <label class='form__label hidden' for='Option-{{ section.id }}-{{ forloop.index0 }}'>{{ option.name }}</label>
-          <div class='h-full w-full select{% if is_size_option %} select--size{% endif %}'>
+          <div class='p-2 h-full w-full select{% if is_size_option %} select--size{% endif %}'>
             {%- if picker_type == 'swatch_dropdown' -%}
               <span
                 data-selected-value
@@ -75,7 +75,7 @@
             {%- endif -%}
             <select
               id='Option-{{ section.id }}-{{ forloop.index0 }}'
-              class='variant-select select__select h-full w-full'
+              class='variant-select select__select h-full w-full hover:text-white bg-transparent cursor-pointer transition-colors duration-700 ease-in-out'
               name='options[{{ option.name | escape }}]'
               form='{{ product_form_id }}'
             >
