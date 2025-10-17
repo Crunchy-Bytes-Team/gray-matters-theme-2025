@@ -97,18 +97,14 @@
         >
           <i class='fa-solid fa-heart' aria-hidden='true'></i>
         </a>
-        <a
-          href='{{ routes.cart_url }}'
-          class='relative hover:opacity-70 transition-opacity duration-200 ease-out'
-          aria-label='{{ 'templates.cart.cart' | t }}'
-        >
-          <i class='fa-solid fa-cart-shopping' aria-hidden='true'></i>
-          {% if cart.item_count > 0 %}
-            <span class='absolute -top-2 -right-2 text-[10px] bg-black text-white rounded-full px-1 leading-none'>
-              {{- cart.item_count -}}
-            </span>
-          {% endif %}
-        </a>
+        <button
+          id='cart-icon-bubble'
+        type='button'
+        class='relative hover:opacity-70 transition-opacity duration-200 ease-out bg-transparent border-none p-0'
+        aria-label='{{ 'templates.cart.cart' | t }}'
+      >
+        <i class='fa-solid fa-cart-shopping' aria-hidden='true'></i>
+      </button>
         {% if shop.customer_accounts_enabled %}
           {% if customer %}
             <a
