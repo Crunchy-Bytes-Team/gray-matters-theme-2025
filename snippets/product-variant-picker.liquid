@@ -19,6 +19,12 @@
         assign swatch_count = option.values | map: 'swatch' | compact | size
         assign picker_type = block.settings.picker_type | default: 'dropdown'
         assign swatch_shape = block.settings.swatch_shape | default: 'none'
+        assign option_key = option.name | downcase | strip
+        assign is_size_option = false
+
+        if option_key contains 'size' or option_key contains 'taglia'
+          assign is_size_option = true
+        endif
 
         if swatch_count > 0 and swatch_shape != 'none'
           if picker_type == 'dropdown'
@@ -56,9 +62,9 @@
           %}
         </fieldset>
       {%- else -%}
-        <div class='product-form__input product-form__input--dropdown'>
-          <label class='form__label' for='Option-{{ section.id }}-{{ forloop.index0 }}'>{{ option.name }}</label>
-          <div class='select'>
+        <div class='h-full w-full product-form__input product-form__input--dropdown{% if is_size_option %} product-form__input--dropdown-size{% endif %}'>
+          <label class='form__label hidden' for='Option-{{ section.id }}-{{ forloop.index0 }}'>{{ option.name }}</label>
+          <div class='h-full w-full select{% if is_size_option %} select--size{% endif %}'>
             {%- if picker_type == 'swatch_dropdown' -%}
               <span
                 data-selected-value
@@ -69,7 +75,7 @@
             {%- endif -%}
             <select
               id='Option-{{ section.id }}-{{ forloop.index0 }}'
-              class='select__select'
+              class='variant-select select__select h-full w-full'
               name='options[{{ option.name | escape }}]'
               form='{{ product_form_id }}'
             >
@@ -81,7 +87,7 @@
                 swatch_shape: swatch_shape
               %}
             </select>
-            <span class='svg-wrapper'>
+            <span class='svg-wrapper hidden'>
               {{- 'icon-caret.svg' | inline_asset_content -}}
             </span>
           </div>

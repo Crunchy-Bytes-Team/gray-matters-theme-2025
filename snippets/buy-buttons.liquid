@@ -61,7 +61,7 @@
         {%- endif -%}
 
         <div class='product-form__buttons add_to_cart_button flex flex-row justify-between'>
-          <div class='add-to-cart-button bg-gray-200 w-10/12'>
+          <div class='add-to-cart-button bg-gray-200 w-10/12 mr-10'>
             {%- liquid
               assign check_against_inventory = true
               if product.selected_or_first_available_variant.inventory_management != 'shopify' or product.selected_or_first_available_variant.inventory_policy == 'continue'
@@ -75,7 +75,7 @@
               id='ProductSubmitButton-{{ section_id }}'
               type='submit'
               name='add'
-              class='btn-dark product-form__submit px-6 py-3 transition-colors w-full {% if show_dynamic_checkout %}bg-gray-200 text-gray-900 hover:bg-gray-300 focus:ring-2 focus:ring-gray-500{% else %}bg-blue-600 text-white hover:bg-blue-700 focus:ring-2 focus:ring-blue-500{% endif %}'
+              class='add-to-cart-button btn-dark product-form__submit px-6 py-3 transition-colors w-full {% if show_dynamic_checkout %}bg-gray-200 text-gray-900 hover:bg-gray-300 focus:ring-2 focus:ring-gray-500{% else %}bg-blue-600 text-white hover:bg-blue-700 focus:ring-2 focus:ring-blue-500{% endif %}'
               {% if product.selected_or_first_available_variant.available == false
                 or quantity_rule_soldout
                 or product.selected_or_first_available_variant == null

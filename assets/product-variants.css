@@ -118,6 +118,54 @@ variant-selects {
   @apply w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-gray-900;
 }
 
+.product-form__input--dropdown .variant-select + .svg-wrapper {
+  right: 1.2rem;
+}
+
+.product-form__input--dropdown-size .select--size {
+  @apply relative rounded-lg border border-gray-300 bg-gray-100 transition-colors duration-200;
+}
+
+.product-form__input--dropdown-size .select--size:before,
+.product-form__input--dropdown-size .select--size:after {
+  content: none;
+}
+
+.product-form__input--dropdown-size .select--size:focus-within {
+  @apply border-gray-400 ring-2 ring-gray-300;
+}
+
+.product-form__input--dropdown-size .select--size .select__select {
+  @apply w-full bg-transparent px-4 py-3 pr-12 text-sm font-medium text-gray-900;
+  margin: 0;
+  border: 0;
+}
+
+.product-form__input--dropdown-size .select--size .select__select:focus,
+.product-form__input--dropdown-size
+  .select--size
+  .select__select:focus-visible {
+  outline: none;
+  box-shadow: none;
+}
+
+.product-form__input--dropdown-size .select--size .svg-wrapper {
+  @apply absolute inset-y-0 right-4 flex items-center;
+  height: auto;
+  width: auto;
+}
+
+.product-form__input--dropdown-size .select--size .svg-wrapper svg {
+  width: 1.25rem;
+  height: 1.25rem;
+  fill: currentColor;
+  color: #6b7280;
+}
+
+.product-form__input--dropdown-size .select--size:hover {
+  @apply border-gray-400 bg-gray-200;
+}
+
 /* Swatch Dropdown Combination */
 .product-form__input--swatch-dropdown {
   @apply space-y-4;
