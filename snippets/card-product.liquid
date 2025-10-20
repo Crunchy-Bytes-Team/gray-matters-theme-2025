@@ -16,6 +16,7 @@
   - horizontal_class: {Boolean} Add a card--horizontal class if set to true. Default: false (optional)
   - horizontal_quick_add: {Boolean} Changes the quick add button styles when set to true. Default: false (optional)
   - placeholder_image: {String} The placeholder image to use when no product exists. Default: 'product-apparel-2' (optional)
+  - external_link_wrapper: {Boolean} Set to true when the parent wraps the card with its own link. Default: false (optional)
 
   Usage:
   {% render 'card-product', show_vendor: section.settings.show_vendor %}
@@ -591,11 +592,13 @@
         </div>
       </div>
     </div>
-    <a
-      href='{{ card_product.url }}'
-      aria-label='{{ card_product.title | escape }}'
-      class='absolute inset-0 z-20 block'
-    ></a>
+    {% unless external_link_wrapper %}
+      <a
+        href='{{ card_product.url }}'
+        aria-label='{{ card_product.title | escape }}'
+        class='absolute inset-0 z-20 block'
+      ></a>
+    {% endunless %}
   </div>
 {%- else -%}
   {%- liquid
