@@ -135,7 +135,7 @@
                           {% endif %}
                         </td>
 
-                        <td class='cart-item__details' role='cell' headers='CartDrawer-ColumnProduct'>
+                        <td class='cart-item__details !gap-1 py-1' role='cell' headers='CartDrawer-ColumnProduct'>
                           {%- if settings.show_vendor -%}
                             <p class='caption-with-letter-spacing light'>{{ item.product.vendor }}</p>
                           {%- endif -%}
@@ -172,8 +172,11 @@
                             <dl>
                               {%- if item.product.has_only_default_variant == false -%}
                                 {%- for option in item.options_with_values -%}
+                                  {%- assign option_name_downcase = option.name | downcase -%}
                                   <div class='product-option'>
-                                    <dt>{{ option.name }}:</dt>
+                                    {%- unless option_name_downcase == 'size' -%}
+                                      <dt>{{ option.name }}</dt>
+                                    {%- endunless -%}
                                     <dd>
                                       {{ option.value -}}
                                       {%- unless forloop.last %}, {% endunless %}
@@ -283,17 +286,13 @@
                             <div class='cart-item__quantity-wrapper quantity-popover-wrapper'>
                               <div class='quantity-popover-container{% if has_qty_rules or has_vol_pricing %} quantity-popover-container--hover{% endif %}'>
                                 <quantity-input class='quantity cart-quantity'>
-                                  <button class='quantity__button' name='minus' type='button'>
-                                    <span class='visually-hidden'>
-                                      {{-
-                                        'products.product.quantity.decrease'
-                                        | t: product: item.product.title
-                                        | escape
-                                      -}}
-                                    </span>
-                                    <span class='svg-wrapper'>
-                                      {{- 'icon-minus.svg' | inline_asset_content -}}
-                                    </span>
+                                  <button
+                                    class='quantity__button'
+                                    name='minus'
+                                    type='button'
+                                    aria-label='{{- "products.product.quantity.decrease" | t: product: item.product.title | escape -}}'
+                                  >
+                                    <span aria-hidden='true' class='pointer-events-none block leading-none'>-</span>
                                   </button>
                                   <input
                                     class='quantity__input'
@@ -314,17 +313,13 @@
                                     id='Drawer-quantity-{{ item.index | plus: 1 }}'
                                     data-index='{{ item.index | plus: 1 }}'
                                   >
-                                  <button class='quantity__button' name='plus' type='button'>
-                                    <span class='visually-hidden'>
-                                      {{-
-                                        'products.product.quantity.increase'
-                                        | t: product: item.product.title
-                                        | escape
-                                      -}}
-                                    </span>
-                                    <span class='svg-wrapper'>
-                                      {{- 'icon-plus.svg' | inline_asset_content -}}
-                                    </span>
+                                  <button
+                                    class='quantity__button'
+                                    name='plus'
+                                    type='button'
+                                    aria-label='{{- "products.product.quantity.increase" | t: product: item.product.title | escape -}}'
+                                  >
+                                    <span aria-hidden='true' class='pointer-events-none block leading-none'>+</span>
                                   </button>
                                 </quantity-input>
                               </div>
