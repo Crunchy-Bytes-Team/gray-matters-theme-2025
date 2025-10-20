@@ -1,27 +1,108 @@
+{% liquid
+  assign related_metafield = product.metafields.module.related_products
+  assign related_entries = blank
+
+  if related_metafield != blank
+    assign candidate_value = related_metafield.value | default: related_metafield
+
+    if candidate_value != blank and candidate_value.entries != blank
+      assign related_entries = candidate_value.entries
+    endif
+
+    if related_entries == blank and candidate_value != blank
+      assign parsed_candidate = candidate_value | parse_json
+      if parsed_candidate == blank
+        assign parsed_candidate = candidate_value | json | parse_json
+      endif
+
+      if parsed_candidate != blank
+        if parsed_candidate.entries != blank
+          assign related_entries = parsed_candidate.entries
+        elsif parsed_candidate.value != blank and parsed_candidate.value.entries != blank
+          assign related_entries = parsed_candidate.value.entries
+        else
+          assign related_entries = parsed_candidate
+        endif
+      endif
+    endif
+
+    if related_entries == blank
+      assign parsed_metafield = related_metafield | json | parse_json
+      if parsed_metafield.value != blank and parsed_metafield.value.entries != blank
+        assign related_entries = parsed_metafield.value.entries
+      elsif parsed_metafield.entries != blank
+        assign related_entries = parsed_metafield.entries
+      endif
+    endif
+  endif
+
+  if related_entries != blank
+    assign related_entries = related_entries | sort: 'position'
+  endif
+%}
+
+{% assign current_gid = product.id | prepend: 'gid://shopify/Product/' %}
+{% assign shown_gids = '|' %}
+
 <div class='px-4 py-10'>
   <h3 class='w-full text-center font-accent font-normal text-xl uppercase mb-6 lg:mb-10'>You may also like</h3>
-  {% comment %} Related products by handles (list of strings) {% endcomment %}
-  {% assign related_handles = product.metafields.module.related_product_ids.value %}
-  {% comment %} Debug: remove after verifying output {% endcomment %}
-  {%- comment -%}{{ product.metafields.module.related_product_ids | json }}{%- endcomment -%}
   <div class='relative w-full pb-6' data-relprod>
     <!-- Viewport -->
     <div class='overflow-hidden md:overflow-visible w-full' data-viewport>
       <!-- Track (flex on mobile, grid on md+) -->
       <div class='flex w-full transition-transform duration-300 ease-in-out md:grid md:grid-cols-4 md:gap-0' data-track>
         {% assign shown = 0 %}
-        {% if related_handles and related_handles != blank %}
-          {% for handle in related_handles %}
-            {% if shown >= 4 %}{% break %}{% endif %}
-            {% assign handle_clean = handle | to_s | strip %}
-            {% assign p = all_products[handle_clean] %}
-            {% if p %}
+        {% if related_entries != blank %}
+          {% assign limit = related_entries | size %}
+          {% for entry in related_entries %}
+            {% if shown >= limit %}{% break %}{% endif %}
+
+            {% assign entry_gid = entry.gid | default: '' %}
+            {% assign related_product = blank %}
+
+            {% if entry.product %}
+              {% assign related_product = entry.product %}
+            {% endif %}
+
+            {% if related_product == blank and entry.url != blank %}
+              {% assign handle_from_url = entry.url | split: '/products/' | last %}
+              {% assign handle_from_url = handle_from_url | split: '?' | first %}
+              {% assign handle_from_url = handle_from_url | split: '#' | first %}
+              {% assign handle_from_url = handle_from_url | strip %}
+              {% if handle_from_url != blank %}
+                {% assign related_product = all_products[handle_from_url] %}
+              {% endif %}
+            {% endif %}
+
+            {% if related_product == blank and entry.handle %}
+              {% assign handle_from_entry = entry.handle | strip %}
+              {% if handle_from_entry != blank %}
+                {% assign related_product = all_products[handle_from_entry] %}
+              {% endif %}
+            {% endif %}
+
+            {% if related_product and related_product != blank %}
+              {% assign related_product_gid = related_product.id | prepend: 'gid://shopify/Product/' %}
+
+              {% if related_product_gid == current_gid %}
+                {% continue %}
+              {% endif %}
+
+              {% if entry_gid != '' and entry_gid != related_product_gid %}
+                {% continue %}
+              {% endif %}
+
+              {% assign related_gid_token = '|' | append: related_product_gid | append: '|' %}
+              {% if shown_gids contains related_gid_token %}
+                {% continue %}
+              {% endif %}
+
               <div class='relative group basis-1/2 md:basis-auto shrink-0' data-item>
-                <a href='{{ p.url }}'>
-                  {% if p.featured_image %}
+                <a href='{{ related_product.url }}'>
+                  {% if related_product.featured_image %}
                     <img
-                      src='{{ p.featured_image | image_url: width: 1200 }}'
-                      alt='{{ p.title | escape }}'
+                      src='{{ related_product.featured_image | image_url: width: 1200 }}'
+                      alt='{{ related_product.title | escape }}'
                       loading='lazy'
                     >
                   {% endif %}
@@ -30,7 +111,9 @@
                   ></div>
                 </a>
               </div>
+
               {% assign shown = shown | plus: 1 %}
+              {% assign shown_gids = shown_gids | append: related_gid_token %}
             {% endif %}
           {% endfor %}
         {% endif %}
