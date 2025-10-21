@@ -176,7 +176,7 @@
                 {%- endif -%}
 
                 <li
-                  class='relative !col-span-1{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}'
+                  class='relative overflow-hidden group !col-span-1{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}'
                   {% if settings.animations_reveal_on_scroll %}
                     data-cascade
                     style='--animation-order: {{ forloop.index }};'
@@ -196,10 +196,13 @@
                     external_link_wrapper: true,
                     section_id: section.id
                   %}
+                  <div
+                    class='pointer-events-none absolute inset-0 z-10 bg-black/0 transition-opacity duration-300 ease-out group-hover:bg-black/20 group-focus-within:bg-black/20'
+                  ></div>
                   <a
                     href='{{ product.url }}'
                     aria-label='{{ product.title | escape }}'
-                    class='absolute inset-0 z-20 block focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-current'
+                    class='absolute inset-0 z-30 block focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-current'
                   ></a>
                 </li>
                 {% assign smalls_seen = smalls_seen | plus: 1 %}
