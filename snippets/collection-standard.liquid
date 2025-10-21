@@ -116,63 +116,10 @@
             >
               {% assign skip_card_product_styles = false %}
 
-              {%- comment -%}
-                Inserisce una card grande 2x2 con immagine fissa a intervalli regolari:
-                - Prima card grande: in alto a destra (lg:col-start-3)
-                - Poi due righe complete (8 card piccole)
-                - Poi card grande a sinistra (lg:col-start-1)
-                - Poi di nuovo due righe piccole e si alterna.
-              {%- endcomment -%}
-
-              {% assign big_image_url = 'https://cdn.shopify.com/s/files/1/0012/4079/3193/files/RSQ_FW23_LookBook_Clara_Pumps_Cacao_018.jpg?v=1715089721' %}
-              {% assign smalls_per_block = 12 %}
-              {%- comment -%} 4 per chiudere i buchi lasciati dal 2x2 + 8 per due righe complete = 12 {%- endcomment -%}
-
-              {% assign smalls_seen = 0 %}
-              {% assign place_right = 1 %}
-              {%- comment -%} 1=destra, 0=sinistra {%- endcomment -%}
-
               {%- for product in collection.products -%}
                 {% assign lazy_load = false %}
                 {%- if forloop.index > 2 -%}
                   {%- assign lazy_load = true -%}
-                {%- endif -%}
-
-                {%- liquid
-                  assign insert_big = false
-                  if forloop.first
-                    assign insert_big = true
-                  endif
-                  if insert_big == false and smalls_seen >= smalls_per_block
-                    assign insert_big = true
-                  endif
-                -%}
-
-                {%- if insert_big -%}
-                  {%- comment -%} Card grande 2x2 con immagine dedicata {%- endcomment -%}
-                  <li class='hidden lg:block lg:col-span-2 lg:row-span-2 {% if place_right == 1 %}lg:col-start-3{% else %}lg:col-start-1{% endif %} relative overflow-hidden group'>
-                    <a href='{{ collection.url }}' class='block w-full h-full' aria-label='Featured'>
-                      <div
-                        class='w-full h-full bg-center bg-cover'
-                        style="background-image:url('{{ big_image_url }}');"
-                      ></div>
-                    </a>
-                    <div
-                      class='hidden lg:block absolute inset-0 bg-black opacity-0 group-hover:opacity-40 group-focus-within:opacity-40 transition-opacity duration-300 ease-out z-10 pointer-events-none'
-                    ></div>
-                    <div class='hidden lg:flex absolute inset-0 z-20 items-center justify-center opacity-100 pointer-events-none'>
-                      <div class='px-6 text-center'>
-                        <h3 class='text-5xl tracking-wider font-accent text-dark-gray lg:group-hover:text-white transition-colors duration-300'>
-                          Classics
-                        </h3>
-                        <p class='mt-2 text-base tracking-wide text-dark-gray lg:group-hover:text-white transition-colors duration-300'>
-                          i nostri classici estremamente versatili e senza tempo
-                        </p>
-                      </div>
-                    </div>
-                  </li>
-                  {% assign smalls_seen = 0 %}
-                  {% assign place_right = place_right | plus: 1 | modulo: 2 %}
                 {%- endif -%}
 
                 <li
@@ -202,7 +149,6 @@
                     class='absolute inset-0 z-20 block focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-current'
                   ></a>
                 </li>
-                {% assign smalls_seen = smalls_seen | plus: 1 %}
                 {%- assign skip_card_product_styles = true -%}
               {%- endfor -%}
             </ul>
