@@ -78,20 +78,20 @@
       ><div class='product product--{{ section.settings.media_size }} product--{{ section.settings.media_position }} product--{{ section.settings.gallery_layout }} product--mobile-{{ section.settings.mobile_thumbnails }} grid grid-cols-1 {% if product.media.size > 0 %}md:grid-cols-2{% else %}product--no-media{% endif %} gap-8 lg:gap-12'>
     -->
     <div class='flex flex-col lg:flex-row'>
-      <div class='product__media-wrapper bg-violet-300 w-full lg:w-1/2'>
+      <div class='product__media-wrapper bg-violet-300 w-full lg:w-1/2 relative z-0'>
         {% render 'product-media-gallery', variant_images: variant_images %}
       </div>
-      <div class='h-screen container-info-product w-full lg:w-1/2 bg-green-200 flex flex-col justify-end sticky top-0 relative bg-product'>
+      <div class='h-auto lg:h-screen container-info-product w-full lg:w-1/2 flex flex-col justify-end sticky top-0 relative bg-product'>
         {% assign bg_image = product.metafields.module.product_detail_bg_image.value %}
         {% if bg_image %}
           <div
-            class='fixed inset-y-0 right-0 left-0 lg:left-1/2 bg-cover bg-top'
+            class='hidden pointer-events-none lg:block lg:fixed lg:inset-y-0 lg:right-0 lg:left-1/2 bg-cover bg-top -z-10'
             style="background-image: url('{{ bg_image | escape }}');"
           ></div>
         {% endif %}
         <section
           id='ProductInfo-{{ section.id }}'
-          class='bg-white bg-opacity-90 flex flex-col h-fit fixed bottom-0 right-0 z-10 w-full lg:w-1/2 p-6 lg:p-14'
+          class='bg-white bg-opacity-90 flex flex-col h-fit fixed bottom-0 right-0 w-full lg:w-1/2 p-6 lg:p-14 z-50'
         >
           {%- assign product_form_id = 'product-form-' | append: section.id -%}
 
@@ -785,25 +785,25 @@
   </div>
 </product-info>
 
-<div class='bg-red-200 w-full relative z-20'>
+<div class='bg-red-200 w-full relative my-z-index'>
   {% render 'image-row' %}
 </div>
-<div class='bg-white w-full relative z-20 block lg:hidden'>
+<div class='bg-white w-full relative my-z-index block lg:hidden'>
   {% render 'vertical-video' %}
 </div>
-<div class='bg-black w-full relative z-20 hidden lg:block'>
+<div class='bg-black w-full relative my-z-index hidden lg:block'>
   {% render 'landscape-video' %}
 </div>
-<div class='bg-yellow-200 w-full relative z-20'>
+<div class='bg-yellow-200 w-full relative my-z-index'>
   {% render 'ugc' %}
 </div>
-<div class='bg-white w-full relative z-20'>
+<div class='bg-white w-full relative my-z-index'>
   {% render 'vertical-image-with-text' %}
 </div>
-<div class='bg-pink-400 w-full relative z-20'>
+<div class='bg-pink-400 w-full relative my-z-index'>
   {% render 'full-width-image' %}
 </div>
-<div class='bg-white w-full relative z-20'>
+<div class='bg-white w-full relative my-z-index'>
   {% render 'related-products' %}
 </div>
 {% schema %}

@@ -119,3 +119,17 @@ select:focus {
 .product_desc p {
   margin-bottom: 10px;
 }
+
+/* Sotto i 1024px */
+@media (max-width: 1023px) {
+  .my-z-index {
+    z-index: -1;
+  }
+}
+
+/* Da 1024px in su */
+@media (min-width: 1024px) {
+  .my-z-index {
+    z-index: 20;
+  }
+}
