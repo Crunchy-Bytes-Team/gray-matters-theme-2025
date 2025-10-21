@@ -693,18 +693,28 @@
             {{ 'products.product.view_full_details' | t }}
             {{- 'icon-arrow.svg' | inline_asset_content -}}
           </a>
-          <div class='uppercase text-xs proxima-reg flex flex-col tracking-wide other-info pt-8'>
+          <div class='uppercase text-xs proxima-reg flex flex-col tracking-wide other-info pt-8 hidden lg:flex'>
             <ul class='flex flex-row items-center mb-1'>
               <li class='bg-black w-2.5 h-[1px] mr-2'></li>
               <li><a href='#'>Shipping & Returns</a></li>
             </ul>
             <ul class='flex flex-ro items-center'>
               <li class='bg-black w-2.5 h-[1px] mr-2'></li>
-              <li><a href='#'>Size Guide</a></li>
+              <li>
+                <a
+                  href='#size-guide-modal'
+                  data-modal-trigger='size-guide'
+                  class='size-guide-link'
+                >
+                  Size Guide
+                </a>
+              </li>
               <li class='mx-2'>|</li>
               <li><a href='#'>Contact Us</a></li>
             </ul>
           </div>
+
+          {% render 'size-guide-modal' %}
 
           <style>
             @media (min-width: 1024px){
