@@ -3,7 +3,7 @@
 {% assign video_url = video_desktop_url | default: video_mobile_url %}
 
 {% if video_url != blank %}
-  <div class='w-full aspect-video px-4'>
+  <div class='w-full aspect-video'>
     <iframe
       class='w-full h-full'
       src='{{ video_url }}'

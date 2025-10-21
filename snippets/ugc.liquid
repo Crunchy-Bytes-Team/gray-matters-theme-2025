@@ -19,12 +19,12 @@
 {% if ugc_metafield %}
   {% assign ugc_value = ugc_metafield.value %}
   {% if ugc_value == blank %}
-    {% assign ugc_value = nil %}
+    {% assign ugc_value = null %}
   {% endif %}
 
   {% assign entries_from_value = '' %}
   {% if ugc_value %}
-    {% assign entries_from_value = ugc_value['entries'] %}
+    {% assign entries_from_value = ugc_value.entries %}
   {% endif %}
 
   {% if entries_from_value %}
@@ -51,7 +51,7 @@
     {% if ugc_string != blank %}
       {% assign parsed_outer = ugc_string | parse_json %}
       {% if parsed_outer %}
-        {% assign parsed_entries = parsed_outer['entries'] %}
+        {% assign parsed_entries = parsed_outer.entries %}
         {% if parsed_entries %}
           {% assign ugc_entries = parsed_entries %}
         {% elsif parsed_outer[0] %}
@@ -68,8 +68,8 @@
 {% assign entries_count = ugc_entries | size %}
 
 {% if entries_count > 0 %}
-  <div class='px-4 py-10'>
-    <h3 class='w-full text-center font-accent font-normal text-xl uppercase mb-6 lg:mb-10'>A seen on</h3>
+  <div class=''>
+    <h3 class='w-full text-center font-accent font-normal text-xl uppercase mb-6'>A seen on</h3>
 
     {% assign grid_classes = 'grid-cols-1' %}
     {% if entries_count == 2 %}
