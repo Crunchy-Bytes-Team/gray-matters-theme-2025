@@ -76,11 +76,45 @@
           </div>
         </div>
 
-        <a
-          href='/pages/select-language'
-          class='h-full inline-flex items-center px-7 hover:opacity-70 hover:bg-gray-200 transition-all duration-200 ease-out proxima-reg text-sm tracking-wider uppercase'
-          >Select language</a
-        >
+        {% if localization.available_languages and localization.available_languages.size > 1 %}
+          <div class='relative group h-full'>
+            <a
+              href='/pages/select-language'
+              class='h-full inline-flex items-center px-7 hover:opacity-70 hover:bg-gray-200 group-hover:bg-gray-200 transition-all duration-200 ease-out proxima-reg text-sm tracking-wider uppercase'
+              aria-haspopup='true'
+              >Select language</a
+            >
+            <div class='absolute left-0 top-full mt-0 hidden group-hover:block group-focus-within:block z-50'>
+              <ul class='min-w-[200px] bg-gray-100 text-black py-2 shadow-lg'>
+                {% for language in localization.available_languages %}
+                  <li>
+                    {% if language.iso_code == localization.language.iso_code %}
+                      <span
+                        class='block px-4 py-2 proxima-reg text-sm tracking-wider uppercase cursor-default font-semibold'
+                      >
+                        {{ language.endonym_name | default: language.name }}
+                      </span>
+                    {% else %}
+                      <a
+                        href='{{ language.root_url }}'
+                        hreflang='{{ language.iso_code }}'
+                        class='block px-4 py-2 proxima-reg text-sm tracking-wider hover:opacity-70 transition-opacity'
+                      >
+                        {{ language.endonym_name | default: language.name }}
+                      </a>
+                    {% endif %}
+                  </li>
+                {% endfor %}
+              </ul>
+            </div>
+          </div>
+        {% else %}
+          <a
+            href='/pages/select-language'
+            class='h-full inline-flex items-center px-7 hover:opacity-70 hover:bg-gray-200 transition-all duration-200 ease-out proxima-reg text-sm tracking-wider uppercase'
+            >Select language</a
+          >
+        {% endif %}
 
         <a
           href='/pages/client-service'
@@ -99,12 +133,12 @@
         </a>
         <button
           id='cart-icon-bubble'
-        type='button'
-        class='relative hover:opacity-70 transition-opacity duration-200 ease-out bg-transparent border-none p-0'
-        aria-label='{{ 'templates.cart.cart' | t }}'
-      >
-        <i class='fa-solid fa-cart-shopping' aria-hidden='true'></i>
-      </button>
+          type='button'
+          class='relative hover:opacity-70 transition-opacity duration-200 ease-out bg-transparent border-none p-0'
+          aria-label='{{ 'templates.cart.cart' | t }}'
+        >
+          <i class='fa-solid fa-cart-shopping' aria-hidden='true'></i>
+        </button>
         {% if shop.customer_accounts_enabled %}
           {% if customer %}
             <a
