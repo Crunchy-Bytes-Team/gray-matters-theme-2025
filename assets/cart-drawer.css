@@ -165,6 +165,18 @@
   opacity: 0.7;
 }
 
+.cart-item__name.no-hover {
+  transition: none;
+}
+
+.cart-item__name.no-hover:hover,
+.cart-item__name.no-hover:focus {
+  opacity: 1;
+  text-decoration: none;
+  text-underline-offset: initial;
+  text-decoration-thickness: initial;
+}
+
 .cart-item__details .product-option,
 .cart-item__details dl,
 .cart-item__details dd,

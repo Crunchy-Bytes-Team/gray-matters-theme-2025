@@ -98,16 +98,24 @@
                     >
                       <div class='cart-item__media w-20 sm:w-24 lg:w-24'>
                         {% if item.image %}
-                          {% comment %} Leave empty space due to a:empty CSS display: none rule {% endcomment %}
-                          <a href='{{ item.url }}' class='cart-item__link' tabindex='-1' aria-hidden='true'> </a>
-                          <img
-                            class='cart-item__image'
-                            src='{{ item.image | image_url: width: 300 }}'
-                            alt='{{ item.image.alt | escape }}'
-                            loading='lazy'
-                            width='150'
-                            height='{{ 150 | divided_by: item.image.aspect_ratio | ceil }}'
-                          >
+                          <div class='relative aspect-square overflow-hidden rounded border border-gray-200 bg-white'>
+                            {% comment %} Leave empty space due to a:empty CSS display: none rule {% endcomment %}
+                            <a
+                              href='{{ item.url }}'
+                              class='cart-item__link absolute inset-0'
+                              tabindex='-1'
+                              aria-hidden='true'
+                            >
+                            </a>
+                            <img
+                              class='cart-item__image h-full w-full object-cover object-bottom'
+                              src='{{ item.image | image_url: width: 300 }}'
+                              alt='{{ item.image.alt | escape }}'
+                              loading='lazy'
+                              width='300'
+                              height='300'
+                            >
+                          </div>
                         {% endif %}
                       </div>
 
@@ -116,7 +124,7 @@
                           <p class='caption-with-letter-spacing light'>{{ item.product.vendor }}</p>
                         {%- endif -%}
 
-                        <a href='{{ item.url }}' class='cart-item__name h4 break'>
+                        <a href='{{ item.url }}' class='cart-item__name no-hover h4 break tracking-wider text-xs proxima-reg'>
                           {{- item.product.title | escape -}}
                         </a>
 
@@ -202,46 +210,6 @@
                         </ul>
                       </div>
 
-                      <div class='cart-item__totals right col-span-2 flex flex-col items-end gap-1 lg:col-span-1 lg:justify-self-end'>
-                        {%- render 'loading-spinner' -%}
-                        <div class='cart-item__price-wrapper'>
-                          {%- if item.original_line_price != item.final_line_price -%}
-                            <div class='cart-item__discounted-prices'>
-                              <span class='visually-hidden'>
-                                {{ 'products.product.price.regular_price' | t }}
-                              </span>
-                              <s class='cart-item__old-price price price--end'>
-                                {{ item.original_line_price | money }}
-                              </s>
-                              <span class='visually-hidden'>
-                                {{ 'products.product.price.sale_price' | t }}
-                              </span>
-                              <span class='price price--end'>
-                                {{ item.final_line_price | money }}
-                              </span>
-                            </div>
-                          {%- else -%}
-                            <span class='price price--end'>
-                              {{ item.original_line_price | money }}
-                            </span>
-                          {%- endif -%}
-
-                          {%- if item.variant.available and item.unit_price_measurement -%}
-                            <div class='unit-price caption'>
-                              <span class='visually-hidden'>{{ 'products.product.price.unit_price' | t }}</span>
-                              {{ item.unit_price | money }}
-                              <span aria-hidden='true'>/</span>
-                              <span class='visually-hidden'
-                                >&nbsp;{{ 'accessibility.unit_price_separator' | t }}&nbsp;</span
-                              >
-                              {%- if item.unit_price_measurement.reference_value != 1 -%}
-                                {{- item.unit_price_measurement.reference_value -}}
-                              {%- endif -%}
-                              {{ item.unit_price_measurement.reference_unit }}
-                            </div>
-                          {%- endif -%}
-                        </div>
-                      </div>
                       {%- liquid
                         assign has_qty_rules = false
                         if item.variant.quantity_rule.increment > 1 or item.variant.quantity_rule.min > 1 or item.variant.quantity_rule.max != null
