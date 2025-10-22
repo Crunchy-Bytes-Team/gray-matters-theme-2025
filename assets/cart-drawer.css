@@ -211,6 +211,7 @@
   gap: 4px;
   text-align: right;
   white-space: nowrap;
+  justify-content: flex-end;
 }
 
 .cart-item__quantity-wrapper {
@@ -224,7 +225,6 @@
   display: inline-flex;
   align-items: center;
   gap: 12px;
-  padding: 6px 14px;
 }
 
 .quantity__button {

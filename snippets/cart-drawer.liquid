@@ -208,7 +208,7 @@
                       >
                         <quantity-popover>
                           <div class='cart-item__quantity-wrapper quantity-popover-wrapper'>
-                            <div class='quantity-popover-container{% if has_qty_rules or has_vol_pricing %} quantity-popover-container--hover{% endif %}'>
+                            <div class='flex quantity-popover-container{% if has_qty_rules or has_vol_pricing %} quantity-popover-container--hover{% endif %}'>
                               <quantity-input class='quantity cart-quantity'>
                                 <button
                                   class='quantity__button'
@@ -344,8 +344,7 @@
                             </span>
                           </div>
                         </quantity-popover>
-                        <div class='cart-item__quantity-price flex flex-col items-end gap-1 text-right sm:items-end sm:text-right'>
-                          {%- render 'loading-spinner' -%}
+                        <div class='cart-item__quantity-price flex flex-col items-end justify-end gap-1 text-right sm:items-end sm:text-right h-full'>
                           <div class='cart-item__price-wrapper text-xs proxima-semi-bold tracking-wider '>
                             {%- if item.original_line_price != item.final_line_price -%}
                               <div class='cart-item__discounted-prices'>

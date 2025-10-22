@@ -123,11 +123,6 @@ quantity-popover .quantity__rules span:first-of-type {
   display: block;
 }
 
-.quantity-popover-container {
-  display: flex;
-  padding: 0.5rem 0.5rem 0.5rem 0;
-}
-
 .quantity-popover-container:not(.quantity-popover-container--hover) {
   align-items: center;
 }
