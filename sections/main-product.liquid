@@ -78,7 +78,7 @@
       ><div class='product product--{{ section.settings.media_size }} product--{{ section.settings.media_position }} product--{{ section.settings.gallery_layout }} product--mobile-{{ section.settings.mobile_thumbnails }} grid grid-cols-1 {% if product.media.size > 0 %}md:grid-cols-2{% else %}product--no-media{% endif %} gap-8 lg:gap-12'>
     -->
     <div class='flex flex-col lg:flex-row'>
-      <div class='product__media-wrapper bg-violet-300 w-full lg:w-1/2 relative z-0 pl-0 pr-0 lg:pl-4 lg:pr-0'>
+      <div class='product__media-wrapper bg-white w-full lg:w-1/2 relative z-0 pl-0 pr-0 lg:pl-4 lg:pr-0'>
         {% render 'product-media-gallery', variant_images: variant_images %}
         {% assign bg_image = product.metafields.module.product_detail_bg_image.value %}
         <img class='flex lg:hidden pb-6' src='{{ bg_image | escape }}'>
@@ -787,26 +787,31 @@
   </div>
 </product-info>
 
-<div class='bg-red-200 w-full relative my-z-index px-0 lg:px-4 pb-6'>
-  {% render 'image-row' %}
-</div>
-<div class='bg-white w-full relative my-z-index block lg:hidden px-0 lg:px-4 pb-6'>
-  {% render 'vertical-video' %}
-</div>
-<div class='bg-black w-full relative my-z-index hidden lg:block px-0 lg:px-4 pb-6'>
-  {% render 'landscape-video' %}
-</div>
-<div class='bg-yellow-200 w-full relative my-z-index px-0 lg:px-4 pb-6'>
-  {% render 'ugc' %}
-</div>
-<div class='bg-white w-full relative my-z-index px-0 lg:px-4 pb-6'>
-  {% render 'vertical-image-with-text' %}
-</div>
-<div class='bg-pink-400 w-full relative my-z-index  px-0 lg:px-4'>
-  {% render 'full-width-image' %}
-</div>
-<div class='bg-white w-full relative my-z-inde px-0 lg:px-4 pb-6'>
-  {% render 'related-products' %}
+<div class='w-full bg-white'>
+  <div class='image-row-snippet w-full relative my-z-index px-0 lg:px-4 pb-6'>
+    {% render 'image-row' %}
+  </div>
+  <div class='vertical-video-snippet  w-full relative my-z-index block lg:hidden px-0 lg:px-4 pb-6'>
+    {% render 'vertical-video' %}
+  </div>
+  <div class='landscape-video-snippet  w-full relative my-z-index hidden lg:block px-0 lg:px-4 pb-6'>
+    {% render 'landscape-video' %}
+  </div>
+  <div class='ugc-snippet w-full  relative my-z-index px-0 lg:px-4 pb-6'>
+    {% render 'ugc' %}
+  </div>
+  <div class='bg-white w-full relative my-z-index px-0 lg:px-4 pb-6'>
+    {% render 'vertical-image-with-text' %}
+  </div>
+  <div class='full-width-image-snippet w-full relative my-z-index px-0 lg:px-4'>
+    {% render 'full-width-image' %}
+  </div>
+  <div class='yotpo-review-snippet w-full px-4 pb-6 my-z-index relative'>
+    <div id='yotpo-review-wrapper' class='h-96'></div>
+  </div>
+  <div class='relative-products-snippet w-full relative my-z-inde px-0 lg:px-4 pb-6'>
+    {% render 'related-products' %}
+  </div>
 </div>
 {% schema %}
 {

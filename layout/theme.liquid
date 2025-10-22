@@ -122,6 +122,31 @@
         document.documentElement.classList.add('shopify-design-mode');
       }
     </script>
+    <script>
+      document.addEventListener('DOMContentLoaded', function () {
+        const productId = '{{ product.id }}'; // Replace with actual product ID if rendered server-side
+        const wrapper = document.getElementById('yotpo-review-wrapper');
+
+        if (wrapper && productId) {
+          const iframe = document.createElement('iframe');
+          iframe.src = `https://v0-yotpo-review-widget.vercel.app?productId=${productId}`;
+          iframe.style.border = 'none';
+          iframe.width = '100%';
+          iframe.height = '100%';
+
+          wrapper.appendChild(iframe);
+
+          window.addEventListener('message', function (event) {
+            // Optional: validate event.origin if security is important
+            const data = event.data;
+
+            if (data && data.type === 'no-review' && data.productId == productId) {
+              wrapper.style.height = '0';
+            }
+          });
+        }
+      });
+    </script>
   </head>
 
   <body>
