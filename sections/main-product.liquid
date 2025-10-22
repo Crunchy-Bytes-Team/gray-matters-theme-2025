@@ -90,7 +90,7 @@
         {% assign bg_image = product.metafields.module.product_detail_bg_image.value %}
         {% if bg_image %}
           <div
-            class='hidden pointer-events-none lg:block lg:fixed lg:inset-y-0 lg:right-0 lg:left-1/2 bg-cover bg-top -z-10'
+            class='hidden pointer-events-none lg:block lg:absolute lg:inset-0 bg-cover bg-top -z-10 fixed'
             style="background-image: url('{{ bg_image | escape }}');"
           ></div>
         {% endif %}
