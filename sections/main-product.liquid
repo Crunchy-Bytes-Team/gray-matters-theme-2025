@@ -1,3 +1,7 @@
+<div class='w-full bg-white px-4 py-4'>
+  {% render 'breadcrumbs' %}
+</div>
+
 <product-info
   id='MainProduct-{{ section.id }}'
   class='section-{{ section.id }}-padding gradient color-{{ section.settings.color_scheme }}'
@@ -73,7 +77,7 @@
   {%- endif -%}
 
   {% assign variant_images = product.images | where: 'attached_to_variant?', true | map: 'src' %}
-  <div class='w-full bg-pink-200'>
+  <div class='w-full'>
     <!--
       ><div class='product product--{{ section.settings.media_size }} product--{{ section.settings.media_position }} product--{{ section.settings.gallery_layout }} product--mobile-{{ section.settings.mobile_thumbnails }} grid grid-cols-1 {% if product.media.size > 0 %}md:grid-cols-2{% else %}product--no-media{% endif %} gap-8 lg:gap-12'>
     -->
@@ -81,9 +85,8 @@
       <div class='product__media-wrapper bg-white w-full lg:w-1/2 relative z-0 pl-0 pr-0 lg:pl-4 lg:pr-0'>
         {% render 'product-media-gallery', variant_images: variant_images %}
         {% assign bg_image = product.metafields.module.product_detail_bg_image.value %}
-        <img class='flex lg:hidden pb-6' src='{{ bg_image | escape }}'>
       </div>
-      <div class='h-auto lg:h-screen container-info-product w-full lg:w-1/2 flex flex-col justify-end sticky top-0 relative bg-product'>
+      <div class='col-dx h-auto lg:h-screen container-info-product w-full lg:w-1/2 flex flex-col justify-end sticky top-0 relative bg-product'>
         {% assign bg_image = product.metafields.module.product_detail_bg_image.value %}
         {% if bg_image %}
           <div
