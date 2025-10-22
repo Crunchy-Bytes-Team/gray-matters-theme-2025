@@ -71,56 +71,88 @@
   <div class=''>
     <h3 class='w-full text-center font-accent font-normal text-xl uppercase mb-6'>A seen on</h3>
 
-    {% assign grid_classes = 'grid-cols-1' %}
+    {% assign grid_classes = 'md:grid-cols-1' %}
     {% if entries_count == 2 %}
-      {% assign grid_classes = 'grid-cols-2' %}
+      {% assign grid_classes = 'md:grid-cols-2' %}
     {% elsif entries_count == 3 %}
-      {% assign grid_classes = 'grid-cols-3' %}
+      {% assign grid_classes = 'md:grid-cols-3' %}
     {% elsif entries_count == 4 %}
-      {% assign grid_classes = 'grid-cols-4' %}
+      {% assign grid_classes = 'md:grid-cols-4' %}
     {% elsif entries_count >= 5 %}
-      {% assign grid_classes = 'grid-cols-5' %}
+      {% assign grid_classes = 'md:grid-cols-5' %}
     {% endif %}
 
-    <div class='grid gap-4 {{ grid_classes }}'>
-      {% for entry in ugc_entries %}
-        {% assign image_url_raw = entry.image | default: entry.src | default: entry.image_url %}
-        {% assign image_url_clean = image_url_raw | append: '' | strip %}
-        {% assign image_url = image_url_clean | split: ' ' | first %}
-        {% assign link_url_raw = entry.link | default: entry.url %}
-        {% assign link_url = link_url_raw | append: '' | strip %}
-        {% assign username_raw = entry.text | default: entry.caption %}
-        {% assign username = username_raw | append: '' | strip %}
+    <div class='relative w-full' data-ugc-carousel>
+      <div class='overflow-hidden md:overflow-visible w-full' data-viewport>
+        <div
+          class='flex flex-nowrap w-full transition-transform duration-300 ease-in-out md:grid md:gap-4 {{ grid_classes }}'
+          data-track
+        >
+          {% for entry in ugc_entries %}
+            {% assign image_url_raw = entry.image | default: entry.src | default: entry.image_url %}
+            {% assign image_url_clean = image_url_raw | append: '' | strip %}
+            {% assign image_url = image_url_clean | split: ' ' | first %}
+            {% assign link_url_raw = entry.link | default: entry.url %}
+            {% assign link_url = link_url_raw | append: '' | strip %}
+            {% assign username_raw = entry.text | default: entry.caption %}
+            {% assign username = username_raw | append: '' | strip %}
 
-        {% if image_url != blank %}
-          <div class='group relative rounded overflow-hidden'>
-            {% if link_url != blank %}
-              <a href='{{ link_url }}' class='block' target='_blank' rel='noopener noreferrer'>
-                <img
-                  src='{{ image_url }}'
-                  alt='{{ username | default: product.title | escape }}'
-                  class='w-full h-auto block'
-                  loading='lazy'
-                >
-              </a>
-            {% else %}
-              <div class='block'>
-                <img
-                  src='{{ image_url }}'
-                  alt='{{ username | default: product.title | escape }}'
-                  class='w-full h-auto block'
-                  loading='lazy'
-                >
+            {% if image_url != blank %}
+              <div class='relative basis-full shrink-0 md:basis-auto' data-item>
+                <div class='group relative rounded overflow-hidden'>
+                  {% if link_url != blank %}
+                    <a href='{{ link_url }}' class='block' target='_blank' rel='noopener noreferrer'>
+                      <img
+                        src='{{ image_url }}'
+                        alt='{{ username | default: product.title | escape }}'
+                        class='w-full h-auto block'
+                        loading='lazy'
+                      >
+                    </a>
+                  {% else %}
+                    <div class='block'>
+                      <img
+                        src='{{ image_url }}'
+                        alt='{{ username | default: product.title | escape }}'
+                        class='w-full h-auto block'
+                        loading='lazy'
+                      >
+                    </div>
+                  {% endif %}
+                  {% if username != blank %}
+                    <p class='absolute bottom-3 right-3 text-sm font-medium text-white drop-shadow pointer-events-none'>
+                      {{ username | escape }}
+                    </p>
+                  {% endif %}
+                </div>
               </div>
             {% endif %}
-            {% if username != blank %}
-              <p class='absolute bottom-3 right-3 text-sm font-medium text-white drop-shadow pointer-events-none'>
-                {{ username | escape }}
-              </p>
-            {% endif %}
-          </div>
-        {% endif %}
-      {% endfor %}
+          {% endfor %}
+        </div>
+      </div>
+
+      {% if entries_count > 1 %}
+        <button
+          type='button'
+          class='md:hidden absolute left-2 top-1/2 -translate-y-1/2 bg-black/70 text-white rounded-full w-9 h-9 flex items-center justify-center'
+          aria-label='Previous'
+          data-prev
+        >
+          ‹
+        </button>
+        <button
+          type='button'
+          class='md:hidden absolute right-2 top-1/2 -translate-y-1/2 bg-black/70 text-white rounded-full w-9 h-9 flex items-center justify-center'
+          aria-label='Next'
+          data-next
+        >
+          ›
+        </button>
+        <div
+          class='absolute left-2 -bottom-3 h-[2px] w-[100px] bg-gray-300 opacity-0 transition-opacity duration-200'
+          data-progress
+        ></div>
+      {% endif %}
     </div>
   </div>
 {% endif %}
