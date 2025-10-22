@@ -790,32 +790,31 @@
   </div>
 </product-info>
 
-<div class='w-full bg-white'>
-  <div class='image-row-snippet w-full relative my-z-index px-0 lg:px-4 pb-6'>
-    {% render 'image-row' %}
-  </div>
-  <div class='vertical-video-snippet  w-full relative my-z-index block lg:hidden px-0 lg:px-4 pb-6'>
-    {% render 'vertical-video' %}
-  </div>
-  <div class='landscape-video-snippet  w-full relative my-z-index hidden lg:block px-0 lg:px-4 pb-6'>
-    {% render 'landscape-video' %}
-  </div>
-  <div class='ugc-snippet w-full  relative my-z-index px-0 lg:px-4 pb-6'>
-    {% render 'ugc' %}
-  </div>
-  <div class='bg-white w-full relative my-z-index px-0 lg:px-4 pb-6'>
-    {% render 'vertical-image-with-text' %}
-  </div>
-  <div class='full-width-image-snippet w-full relative my-z-index px-0 lg:px-4'>
-    {% render 'full-width-image' %}
-  </div>
-  <div class='yotpo-review-snippet w-full px-4 pb-6 my-z-index relative'>
-    <div id='yotpo-review-wrapper' class='h-96'></div>
-  </div>
-  <div class='relative-products-snippet w-full relative my-z-inde px-0 lg:px-4 pb-6'>
-    {% render 'related-products' %}
-  </div>
+<div class='image-row-snippet bg-white w-full relative my-z-index px-0 lg:px-4 pb-6'>
+  {% render 'image-row' %}
 </div>
+<div class='vertical-video-snippet  bg-white w-full relative my-z-index block lg:hidden px-0 lg:px-4 pb-6'>
+  {% render 'vertical-video' %}
+</div>
+<div class='landscape-video-snippet  bg-white w-full relative my-z-index hidden lg:block px-0 lg:px-4 pb-6'>
+  {% render 'landscape-video' %}
+</div>
+<div class='ugc-snippet w-full  bg-white relative my-z-index px-0 lg:px-4 pb-6'>
+  {% render 'ugc' %}
+</div>
+<div class='bg-white w-full bg-white relative my-z-index px-0 lg:px-4 pb-6'>
+  {% render 'vertical-image-with-text' %}
+</div>
+<div class='full-width-image-snippet  bg-white w-full relative my-z-index px-0 lg:px-4'>
+  {% render 'full-width-image' %}
+</div>
+<div class='yotpo-review-snippet bg-white w-full px-4 pb-6 my-z-index relative'>
+  <div id='yotpo-review-wrapper' class='h-96'></div>
+</div>
+<div class='relative-products-snippet  bg-white w-full relative my-z-inde px-0 lg:px-4 pb-6'>
+  {% render 'related-products' %}
+</div>
+
 {% schema %}
 {
   "name": "t:sections.main-product.name",
