@@ -37,7 +37,10 @@
     },
     "search": {
       "search": "検索",
-      "reset": "検索ワードをクリアする"
+      "reset": "検索ワードをクリアする",
+      "heading": "検索結果 ({{ count }})",
+      "results_with_count": "{{ count }} 件の結果: 「{{ terms }}」",
+      "no_results": "「{{ terms }}」に一致する結果はありません"
     },
     "cart": {
       "view": "カートを見る ({{ count }})",

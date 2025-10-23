@@ -37,7 +37,10 @@
     },
     "search": {
       "search": "Cerca",
-      "reset": "Cancella termine ricerca"
+      "reset": "Cancella termine ricerca",
+      "heading": "Risultati di ricerca ({{ count }})",
+      "results_with_count": "{{ count }} risultati per \"{{ terms }}\"",
+      "no_results": "Nessun risultato per \"{{ terms }}\""
     },
     "cart": {
       "view": "Visualizza carrello ({{ count }})",

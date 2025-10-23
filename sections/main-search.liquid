@@ -65,6 +65,10 @@
 
 {% paginate search.results by 24 %}
   <div class='template-search{% unless search.performed and search.results_count > 0 %} template-search--empty{% endunless %} section-{{ section.id }}-padding'>
+    <h1 class='pt-12 pb-8 text-center proxima-semi-bold uppercase tracking-wider text-lg'>
+      <span class='visually-hidden'>{{ 'general.search.heading' | t: count: search.results_count }}:</span>
+      {{ 'general.search.results_with_count' | t: terms: search.terms, count: search.results_count }}
+    </h1>
     <div class='hidden template-search__header max-w-7xl mx-auto px-6 md:px-20{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}'>
       <h1 class='h2 center'>
         {%- if search.performed -%}
@@ -205,11 +209,7 @@
           </form>
         </facet-filters-form>
       {%- endif -%}
-      <div
-        {% if section.settings.filter_type == 'vertical' %}
-          class='facets-vertical max-w-7xl mx-auto px-6 md:px-20'
-        {% endif %}
-      >
+      <div class='w-full px-4 md:px-4-{% if section.settings.filter_type == 'vertical' %} facets-vertical{% endif %}'>
         {%- if search.filters != empty -%}
           {%- if section.settings.enable_filtering or section.settings.enable_sorting -%}
             <aside
@@ -228,10 +228,17 @@
             </aside>
           {%- endif -%}
         {%- endif -%}
-        <div class='product-grid-container w-full bg-yellow-300' id='ProductGridContainer'>
-          {%- if search.results.size == 0 and search.filters != empty -%}
+        <div
+          class='product-grid-container w-full{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}'
+          id='ProductGridContainer'
+          {% if settings.animations_reveal_on_scroll %}
+            data-cascade
+          {% endif %}
+        >
+          {%- assign product_results = search.results | where: 'object_type', 'product' -%}
+          {%- if product_results.size == 0 -%}
             <div
-              class='template-search__results collection collection--empty{% if section.settings.filter_type != 'vertical' %} max-w-7xl mx-auto px-6 md:px-20{% endif %}'
+              class='template-search__results collection collection--empty w-full'
               id='product-grid'
               data-id='{{ section.id }}'
             >
@@ -239,86 +246,62 @@
               <div class='title-wrapper center'>
                 <h2 class='title title--primary'>
                   {{ 'sections.collection_template.empty' | t -}}
-                  <br>
-                  {{
-                    'sections.collection_template.use_fewer_filters_html'
-                    | t: link: search_url, class: 'underlined-link link'
-                  }}
+                  {%- if search.filters != empty -%}
+                    <br>
+                    {{
+                      'sections.collection_template.use_fewer_filters_html'
+                      | t: link: search_url, class: 'underlined-link link'
+                    }}
+                  {%- endif -%}
                 </h2>
               </div>
             </div>
           {%- else -%}
-            <div
-              class='template-search__results collection{% if section.settings.filter_type != 'vertical' %} max-w-7xl mx-auto px-6 md:px-20{% endif %}'
-              id='product-grid'
-              data-id='{{ section.id }}'
-            >
+            <div class='template-search__results collection w-full'>
               <div class='loading-overlay gradient'></div>
               <ul
-                class='grid product-grid  grid--{{ section.settings.columns_mobile }}-col-tablet-down grid--{{ section.settings.columns_desktop }}-col-desktop'
+                id='product-grid'
+                data-id='{{ section.id }}'
+                class='grid grid-flow-row-dense grid-cols-2 lg:grid-cols-4 gap-1 w-full'
                 role='list'
               >
                 {%- assign skip_card_product_styles = false -%}
-                {%- for item in search.results -%}
+                {%- for product in product_results -%}
                   {% assign lazy_load = false %}
                   {%- if forloop.index > 2 -%}
                     {%- assign lazy_load = true -%}
                   {%- endif -%}
 
                   <li
-                    class='grid__item{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}'
+                    class='relative overflow-hidden group !col-span-1{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}'
                     {% if settings.animations_reveal_on_scroll %}
                       data-cascade
+                      style='--animation-order: {{ forloop.index }};'
                     {% endif %}
                   >
-                    {%- case item.object_type -%}
-                      {%- when 'product' -%}
-                        {%- capture product_settings -%}{%- if section.settings.product_show_vendor -%}vendor,{%- endif -%}title,price{%- endcapture -%}
-                        {% render 'card-product',
-                          card_product: item,
-                          media_aspect_ratio: section.settings.image_ratio,
-                          image_shape: section.settings.image_shape,
-                          show_secondary_image: section.settings.show_secondary_image,
-                          show_vendor: section.settings.show_vendor,
-                          show_rating: section.settings.show_rating,
-                          lazy_load: lazy_load,
-                          skip_styles: skip_card_product_styles
-                        %}
-                        {%- assign skip_card_product_styles = true -%}
-                      {%- when 'article' -%}
-                        {% render 'article-card',
-                          article: item,
-                          show_image: true,
-                          show_date: section.settings.article_show_date,
-                          show_author: section.settings.article_show_author,
-                          show_badge: true,
-                          media_aspect_ratio: 1,
-                          lazy_load: lazy_load
-                        %}
-                      {%- when 'page' -%}
-                        <div class='article-group relative group relative underline-links-hover'>
-                          <div
-                            class='card card--card card--text ratio color-{{ settings.blog_card_color_scheme }}'
-                            style='--ratio-percent: 100%;'
-                          >
-                            <div class='card__content'>
-                              <div class='card__information'>
-                                <h3 class='card__heading'>
-                                  <a href='{{ item.url }}' class='full-unstyled-link'>
-                                    {{ item.title | truncate: 50 | escape }}
-                                  </a>
-                                </h3>
-                              </div>
-                              <div class='card__badge {{ settings.badge_position }}'>
-                                <span class='badge color-{{ settings.color_schemes | first }}'>
-                                  {{- 'templates.search.page' | t -}}
-                                </span>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                    {%- endcase -%}
+                    {% render 'card-product',
+                      card_product: product,
+                      media_aspect_ratio: section.settings.image_ratio,
+                      image_shape: section.settings.image_shape,
+                      show_secondary_image: section.settings.show_secondary_image,
+                      show_vendor: section.settings.show_vendor,
+                      show_rating: section.settings.show_rating,
+                      lazy_load: lazy_load,
+                      skip_styles: skip_card_product_styles,
+                      stretched_link: true,
+                      external_link_wrapper: true,
+                      section_id: section.id
+                    %}
+                    <div
+                      class='pointer-events-none absolute inset-0 z-10 bg-black/0 transition-opacity duration-300 ease-out group-hover:bg-black/20 group-focus-within:bg-black/20'
+                    ></div>
+                    <a
+                      href='{{ product.url }}'
+                      aria-label='{{ product.title | escape }}'
+                      class='absolute inset-0 z-30 block focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-current'
+                    ></a>
                   </li>
+                  {%- assign skip_card_product_styles = true -%}
                 {%- endfor -%}
               </ul>
               {%- if paginate.pages > 1 -%}

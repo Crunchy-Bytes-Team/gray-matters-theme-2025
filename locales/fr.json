@@ -37,8 +37,11 @@
     },
     "search": {
       "search": "Recherche",
-      "reset": "Effacer le terme de recherche"
-    },
+      "reset": "Effacer le terme de recherche",
+      "heading": "Résultats de recherche ({{ count }})",
+      "results_with_count": "{{ count }} résultats pour \"{{ terms }}\"",
+      "no_results": "Aucun résultat pour \"{{ terms }}\""
+          },
     "cart": {
       "view": "Voir le panier ({{ count }})",
       "item_added": "Article ajouté au panier",
