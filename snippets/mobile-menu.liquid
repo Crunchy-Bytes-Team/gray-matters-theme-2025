@@ -9,14 +9,11 @@
     >
       <span>Collection</span>
       <span class='flex items-center gap-2'>
-        <span aria-hidden='true' class='text-lg leading-none'>+</span>
-        <span class='inline-flex items-center justify-center w-5 h-5 text-black' data-accordion-icon>
-          <span data-icon-plus>{{- 'icon-plus.svg' | inline_asset_content -}}</span>
-          <span data-icon-minus class='hidden'>{{- 'icon-minus.svg' | inline_asset_content -}}</span>
-        </span>
+        <span aria-hidden='true' class='text-lg leading-none' data-accordion-plus>+</span>
+        <span aria-hidden='true' class='text-lg leading-none hidden' data-accordion-minus>-</span>
       </span>
     </button>
-    <div id='MobileMenuCollection' class='hidden pl-2 pb-3' data-accordion-panel>
+    <div id='MobileMenuCollection' class='hidden pb-3' data-accordion-panel>
       <ul class='space-y-2'>
         <li>
           <a
@@ -67,14 +64,11 @@
     >
       <span>Select language</span>
       <span class='flex items-center gap-2'>
-        <span aria-hidden='true' class='text-lg leading-none'>+</span>
-        <span class='inline-flex items-center justify-center w-5 h-5 text-black' data-accordion-icon>
-          <span data-icon-plus>{{- 'icon-plus.svg' | inline_asset_content -}}</span>
-          <span data-icon-minus class='hidden'>{{- 'icon-minus.svg' | inline_asset_content -}}</span>
-        </span>
+        <span aria-hidden='true' class='text-lg leading-none' data-accordion-plus>+</span>
+        <span aria-hidden='true' class='text-lg leading-none hidden' data-accordion-minus>-</span>
       </span>
     </button>
-    <div id='MobileMenuLanguage' class='hidden pl-2 pb-3' data-accordion-panel>
+    <div id='MobileMenuLanguage' class='hidden pb-3' data-accordion-panel>
       {%- if localization.available_languages and localization.available_languages.size > 1 -%}
         <ul class='space-y-2'>
           {%- for language in localization.available_languages -%}
@@ -112,14 +106,11 @@
     >
       <span>Client Service</span>
       <span class='flex items-center gap-2'>
-        <span aria-hidden='true' class='text-lg leading-none'>+</span>
-        <span class='inline-flex items-center justify-center w-5 h-5 text-black' data-accordion-icon>
-          <span data-icon-plus>{{- 'icon-plus.svg' | inline_asset_content -}}</span>
-          <span data-icon-minus class='hidden'>{{- 'icon-minus.svg' | inline_asset_content -}}</span>
-        </span>
+        <span aria-hidden='true' class='text-lg leading-none' data-accordion-plus>+</span>
+        <span aria-hidden='true' class='text-lg leading-none hidden' data-accordion-minus>-</span>
       </span>
     </button>
-    <div id='MobileMenuClientService' class='hidden pl-2 pb-3' data-accordion-panel>
+    <div id='MobileMenuClientService' class='hidden pb-3' data-accordion-panel>
       <a
         href='mailto:hello@graymattersnyc.com'
         class='menu-drawer__menu-item flex items-center gap-2 py-1 proxima-reg text-sm tracking-wider uppercase hover:opacity-70 transition-opacity duration-200 ease-out'
@@ -172,6 +163,10 @@
             if (plus) plus.classList.add('hidden');
             if (minus) minus.classList.remove('hidden');
           }
+          var plusText = btn.querySelector('[data-accordion-plus]');
+          var minusText = btn.querySelector('[data-accordion-minus]');
+          if (plusText) plusText.classList.add('hidden');
+          if (minusText) minusText.classList.remove('hidden');
         } else {
           panel.classList.add('hidden');
           btn.setAttribute('aria-expanded', 'false');
@@ -182,6 +177,10 @@
             if (plus) plus.classList.remove('hidden');
             if (minus) minus.classList.add('hidden');
           }
+          var plusText = btn.querySelector('[data-accordion-plus]');
+          var minusText = btn.querySelector('[data-accordion-minus]');
+          if (plusText) plusText.classList.remove('hidden');
+          if (minusText) minusText.classList.add('hidden');
         }
       });
     });
