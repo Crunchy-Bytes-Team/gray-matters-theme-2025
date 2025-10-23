@@ -1,16 +1,16 @@
 <nav class='mobile-menu space-y-2' aria-label='Mobile menu'>
-  <div class='border-b border-gray-200 pb-2' data-accordion-item>
+  <div class='pb-2' data-accordion-item>
     <button
       type='button'
-      class='menu-drawer__menu-item w-full flex items-center justify-between py-3 text-sm tracking-wider uppercase hover:opacity-70 transition-opacity duration-200 ease-out'
+      class='menu-drawer__menu-item w-full flex items-center justify-between py-3 pr-0 text-sm tracking-wider uppercase hover:opacity-70 transition-opacity duration-200 ease-out'
       data-accordion-button
       aria-controls='MobileMenuCollection'
       aria-expanded='false'
     >
       <span>Collection</span>
-      <span class='flex items-center gap-2'>
-        <span aria-hidden='true' class='text-lg leading-none' data-accordion-plus>+</span>
-        <span aria-hidden='true' class='text-lg leading-none hidden' data-accordion-minus>-</span>
+      <span class='ml-auto inline-flex items-center justify-end text-lg leading-none'>
+        <span aria-hidden='true' class='inline-block w-4 text-right' data-accordion-plus>+</span>
+        <span aria-hidden='true' class='inline-block w-4 text-right hidden' data-accordion-minus>-</span>
       </span>
     </button>
     <div id='MobileMenuCollection' class='hidden pb-3' data-accordion-panel>
@@ -54,18 +54,18 @@
     </div>
   </div>
 
-  <div class='border-b border-gray-200 pb-2' data-accordion-item>
+  <div class='pb-2' data-accordion-item>
     <button
       type='button'
-      class='menu-drawer__menu-item w-full flex items-center justify-between py-3 text-sm tracking-wider uppercase hover:opacity-70 transition-opacity duration-200 ease-out'
+      class='menu-drawer__menu-item w-full flex items-center justify-between py-3 pr-0 text-sm tracking-wider uppercase hover:opacity-70 transition-opacity duration-200 ease-out'
       data-accordion-button
       aria-controls='MobileMenuLanguage'
       aria-expanded='false'
     >
       <span>Select language</span>
-      <span class='flex items-center gap-2'>
-        <span aria-hidden='true' class='text-lg leading-none' data-accordion-plus>+</span>
-        <span aria-hidden='true' class='text-lg leading-none hidden' data-accordion-minus>-</span>
+      <span class='ml-auto inline-flex items-center justify-end text-lg leading-none'>
+        <span aria-hidden='true' class='inline-block w-4 text-right' data-accordion-plus>+</span>
+        <span aria-hidden='true' class='inline-block w-4 text-right hidden' data-accordion-minus>-</span>
       </span>
     </button>
     <div id='MobileMenuLanguage' class='hidden pb-3' data-accordion-panel>
@@ -96,18 +96,18 @@
     </div>
   </div>
 
-  <div class='border-b border-gray-200 pb-2' data-accordion-item>
+  <div class='pb-2' data-accordion-item>
     <button
       type='button'
-      class='menu-drawer__menu-item w-full flex items-center justify-between py-3 text-sm tracking-wider uppercase hover:opacity-70 transition-opacity duration-200 ease-out'
+      class='menu-drawer__menu-item w-full flex items-center justify-between py-3 pr-0 text-sm tracking-wider uppercase hover:opacity-70 transition-opacity duration-200 ease-out'
       data-accordion-button
       aria-controls='MobileMenuClientService'
       aria-expanded='false'
     >
       <span>Client Service</span>
-      <span class='flex items-center gap-2'>
-        <span aria-hidden='true' class='text-lg leading-none' data-accordion-plus>+</span>
-        <span aria-hidden='true' class='text-lg leading-none hidden' data-accordion-minus>-</span>
+      <span class='ml-auto inline-flex items-center justify-end text-lg leading-none'>
+        <span aria-hidden='true' class='inline-block w-4 text-right' data-accordion-plus>+</span>
+        <span aria-hidden='true' class='inline-block w-4 text-right hidden' data-accordion-minus>-</span>
       </span>
     </button>
     <div id='MobileMenuClientService' class='hidden pb-3' data-accordion-panel>
@@ -147,6 +147,100 @@
     var container = document.getElementById('MobileMenu');
     if (!container) return;
     var buttons = container.querySelectorAll('[data-accordion-button]');
+    var panels = container.querySelectorAll('[data-accordion-panel]');
+    var reduceMotionQuery =
+      typeof window.matchMedia === 'function' ? window.matchMedia('(prefers-reduced-motion: reduce)') : null;
+    var reduceMotion = reduceMotionQuery ? reduceMotionQuery.matches : false;
+
+    if (!reduceMotion) {
+      panels.forEach(function (panel) {
+        panel.style.overflow = 'hidden';
+        panel.style.maxHeight = '0px';
+        panel.style.opacity = '0';
+        panel.style.transition = 'max-height 250ms ease-out, opacity 250ms ease-out';
+      });
+    }
+
+    function toggleIndicators(btn, expanded) {
+      var iconWrap = btn.querySelector('[data-accordion-icon]');
+      if (iconWrap) {
+        var plusIcon = iconWrap.querySelector('[data-icon-plus]');
+        var minusIcon = iconWrap.querySelector('[data-icon-minus]');
+        if (plusIcon) plusIcon.classList.toggle('hidden', expanded);
+        if (minusIcon) minusIcon.classList.toggle('hidden', !expanded);
+      }
+      var plusText = btn.querySelector('[data-accordion-plus]');
+      var minusText = btn.querySelector('[data-accordion-minus]');
+      if (plusText) plusText.classList.toggle('hidden', expanded);
+      if (minusText) minusText.classList.toggle('hidden', !expanded);
+    }
+
+    function openPanel(btn, panel) {
+      panel.classList.remove('hidden');
+      btn.setAttribute('aria-expanded', 'true');
+      toggleIndicators(btn, true);
+      if (reduceMotion) return;
+
+      if (panel._accordionCloseHandler) {
+        panel.removeEventListener('transitionend', panel._accordionCloseHandler);
+        panel._accordionCloseHandler = null;
+      }
+      if (panel._accordionOpenHandler) {
+        panel.removeEventListener('transitionend', panel._accordionOpenHandler);
+        panel._accordionOpenHandler = null;
+      }
+
+      panel.style.maxHeight = '0px';
+      panel.style.opacity = '0';
+
+      requestAnimationFrame(function () {
+        panel.style.maxHeight = panel.scrollHeight + 'px';
+        panel.style.opacity = '1';
+      });
+
+      panel._accordionOpenHandler = function (event) {
+        if (event.target !== panel || event.propertyName !== 'max-height') return;
+        panel.style.maxHeight = 'none';
+        panel.removeEventListener('transitionend', panel._accordionOpenHandler);
+        panel._accordionOpenHandler = null;
+      };
+      panel.addEventListener('transitionend', panel._accordionOpenHandler);
+    }
+
+    function closePanel(btn, panel) {
+      btn.setAttribute('aria-expanded', 'false');
+      toggleIndicators(btn, false);
+      if (reduceMotion) {
+        panel.classList.add('hidden');
+        return;
+      }
+
+      if (panel._accordionOpenHandler) {
+        panel.removeEventListener('transitionend', panel._accordionOpenHandler);
+        panel._accordionOpenHandler = null;
+      }
+      if (panel._accordionCloseHandler) {
+        panel.removeEventListener('transitionend', panel._accordionCloseHandler);
+        panel._accordionCloseHandler = null;
+      }
+
+      panel.style.maxHeight = panel.scrollHeight + 'px';
+
+      requestAnimationFrame(function () {
+        panel.style.maxHeight = '0px';
+        panel.style.opacity = '0';
+      });
+
+      panel._accordionCloseHandler = function (event) {
+        if (event.target !== panel || event.propertyName !== 'max-height') return;
+        panel.classList.add('hidden');
+        panel.style.maxHeight = '0px';
+        panel.removeEventListener('transitionend', panel._accordionCloseHandler);
+        panel._accordionCloseHandler = null;
+      };
+      panel.addEventListener('transitionend', panel._accordionCloseHandler);
+    }
+
     buttons.forEach(function (btn) {
       btn.addEventListener('click', function () {
         var panelId = btn.getAttribute('aria-controls');
@@ -154,33 +248,9 @@
         if (!panel) return;
         var isHidden = panel.classList.contains('hidden');
         if (isHidden) {
-          panel.classList.remove('hidden');
-          btn.setAttribute('aria-expanded', 'true');
-          var iconWrap = btn.querySelector('[data-accordion-icon]');
-          if (iconWrap) {
-            var plus = iconWrap.querySelector('[data-icon-plus]');
-            var minus = iconWrap.querySelector('[data-icon-minus]');
-            if (plus) plus.classList.add('hidden');
-            if (minus) minus.classList.remove('hidden');
-          }
-          var plusText = btn.querySelector('[data-accordion-plus]');
-          var minusText = btn.querySelector('[data-accordion-minus]');
-          if (plusText) plusText.classList.add('hidden');
-          if (minusText) minusText.classList.remove('hidden');
+          openPanel(btn, panel);
         } else {
-          panel.classList.add('hidden');
-          btn.setAttribute('aria-expanded', 'false');
-          var iconWrap = btn.querySelector('[data-accordion-icon]');
-          if (iconWrap) {
-            var plus = iconWrap.querySelector('[data-icon-plus]');
-            var minus = iconWrap.querySelector('[data-icon-minus]');
-            if (plus) plus.classList.remove('hidden');
-            if (minus) minus.classList.add('hidden');
-          }
-          var plusText = btn.querySelector('[data-accordion-plus]');
-          var minusText = btn.querySelector('[data-accordion-minus]');
-          if (plusText) plusText.classList.remove('hidden');
-          if (minusText) minusText.classList.add('hidden');
+          closePanel(btn, panel);
         }
       });
     });
