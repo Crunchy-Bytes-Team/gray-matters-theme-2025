@@ -2,15 +2,18 @@
   <div class='border-b border-gray-200 pb-2' data-accordion-item>
     <button
       type='button'
-      class='menu-drawer__menu-item w-full flex items-center justify-between py-3 text-sm tracking-wider uppercase'
+      class='menu-drawer__menu-item w-full flex items-center justify-between py-3 text-sm tracking-wider uppercase hover:opacity-70 transition-opacity duration-200 ease-out'
       data-accordion-button
       aria-controls='MobileMenuCollection'
       aria-expanded='false'
     >
       <span>Collection</span>
-      <span class='inline-flex items-center justify-center w-5 h-5 text-black' data-accordion-icon>
-        <span data-icon-plus>{{- 'icon-plus.svg' | inline_asset_content -}}</span>
-        <span data-icon-minus class='hidden'>{{- 'icon-minus.svg' | inline_asset_content -}}</span>
+      <span class='flex items-center gap-2'>
+        <span aria-hidden='true' class='text-lg leading-none'>+</span>
+        <span class='inline-flex items-center justify-center w-5 h-5 text-black' data-accordion-icon>
+          <span data-icon-plus>{{- 'icon-plus.svg' | inline_asset_content -}}</span>
+          <span data-icon-minus class='hidden'>{{- 'icon-minus.svg' | inline_asset_content -}}</span>
+        </span>
       </span>
     </button>
     <div id='MobileMenuCollection' class='hidden pl-2 pb-3' data-accordion-panel>
@@ -18,35 +21,35 @@
         <li>
           <a
             href='{{ routes.all_products_collection_url }}'
-            class='menu-drawer__menu-item block py-1 proxima-reg text-sm tracking-wider uppercase hover:opacity-70 transition-opacity'
+            class='menu-drawer__menu-item block py-1 proxima-reg text-sm tracking-wider uppercase hover:opacity-70 transition-opacity duration-200 ease-out'
             >all</a
           >
         </li>
         <li>
           <a
             href='{{ routes.collections_url }}/the-latest'
-            class='menu-drawer__menu-item block py-1 proxima-reg text-sm tracking-wider uppercase hover:opacity-70 transition-opacity'
+            class='menu-drawer__menu-item block py-1 proxima-reg text-sm tracking-wider uppercase hover:opacity-70 transition-opacity duration-200 ease-out'
             >the latest</a
           >
         </li>
         <li>
           <a
             href='{{ routes.collections_url }}/classic'
-            class='menu-drawer__menu-item block py-1 proxima-reg text-sm tracking-wider uppercase hover:opacity-70 transition-opacity'
+            class='menu-drawer__menu-item block py-1 proxima-reg text-sm tracking-wider uppercase hover:opacity-70 transition-opacity duration-200 ease-out'
             >classic</a
           >
         </li>
         <li>
           <a
             href='{{ routes.collections_url }}/flats'
-            class='menu-drawer__menu-item block py-1 proxima-reg text-sm tracking-wider uppercase hover:opacity-70 transition-opacity'
+            class='menu-drawer__menu-item block py-1 proxima-reg text-sm tracking-wider uppercase hover:opacity-70 transition-opacity duration-200 ease-out'
             >flats</a
           >
         </li>
         <li>
           <a
             href='{{ routes.collections_url }}/boots'
-            class='menu-drawer__menu-item block py-1 proxima-reg text-sm tracking-wider uppercase hover:opacity-70 transition-opacity'
+            class='menu-drawer__menu-item block py-1 proxima-reg text-sm tracking-wider uppercase hover:opacity-70 transition-opacity duration-200 ease-out'
             >boots</a
           >
         </li>
@@ -57,15 +60,18 @@
   <div class='border-b border-gray-200 pb-2' data-accordion-item>
     <button
       type='button'
-      class='menu-drawer__menu-item w-full flex items-center justify-between py-3 text-sm tracking-wider uppercase'
+      class='menu-drawer__menu-item w-full flex items-center justify-between py-3 text-sm tracking-wider uppercase hover:opacity-70 transition-opacity duration-200 ease-out'
       data-accordion-button
       aria-controls='MobileMenuLanguage'
       aria-expanded='false'
     >
       <span>Select language</span>
-      <span class='inline-flex items-center justify-center w-5 h-5 text-black' data-accordion-icon>
-        <span data-icon-plus>{{- 'icon-plus.svg' | inline_asset_content -}}</span>
-        <span data-icon-minus class='hidden'>{{- 'icon-minus.svg' | inline_asset_content -}}</span>
+      <span class='flex items-center gap-2'>
+        <span aria-hidden='true' class='text-lg leading-none'>+</span>
+        <span class='inline-flex items-center justify-center w-5 h-5 text-black' data-accordion-icon>
+          <span data-icon-plus>{{- 'icon-plus.svg' | inline_asset_content -}}</span>
+          <span data-icon-minus class='hidden'>{{- 'icon-minus.svg' | inline_asset_content -}}</span>
+        </span>
       </span>
     </button>
     <div id='MobileMenuLanguage' class='hidden pl-2 pb-3' data-accordion-panel>
@@ -74,14 +80,14 @@
           {%- for language in localization.available_languages -%}
             <li>
               {%- if language.iso_code == localization.language.iso_code -%}
-                <span class='menu-drawer__menu-item block py-1 proxima-reg text-sm tracking-wider uppercase font-semibold'>
+                <span class='menu-drawer__menu-item block py-1 proxima-reg text-sm tracking-wider uppercase font-semibold hover:opacity-70 transition-opacity duration-200 ease-out'>
                   {{ language.endonym_name | default: language.name }}
                 </span>
               {%- else -%}
                 <a
                   href='{{ language.root_url }}'
                   hreflang='{{ language.iso_code }}'
-                  class='menu-drawer__menu-item block py-1 proxima-reg text-sm tracking-wider uppercase hover:opacity-70 transition-opacity'
+                  class='menu-drawer__menu-item block py-1 proxima-reg text-sm tracking-wider uppercase hover:opacity-70 transition-opacity duration-200 ease-out'
                 >
                   {{ language.endonym_name | default: language.name }}
                 </a>
@@ -99,21 +105,24 @@
   <div class='border-b border-gray-200 pb-2' data-accordion-item>
     <button
       type='button'
-      class='menu-drawer__menu-item w-full flex items-center justify-between py-3 text-sm tracking-wider uppercase'
+      class='menu-drawer__menu-item w-full flex items-center justify-between py-3 text-sm tracking-wider uppercase hover:opacity-70 transition-opacity duration-200 ease-out'
       data-accordion-button
       aria-controls='MobileMenuClientService'
       aria-expanded='false'
     >
       <span>Client Service</span>
-      <span class='inline-flex items-center justify-center w-5 h-5 text-black' data-accordion-icon>
-        <span data-icon-plus>{{- 'icon-plus.svg' | inline_asset_content -}}</span>
-        <span data-icon-minus class='hidden'>{{- 'icon-minus.svg' | inline_asset_content -}}</span>
+      <span class='flex items-center gap-2'>
+        <span aria-hidden='true' class='text-lg leading-none'>+</span>
+        <span class='inline-flex items-center justify-center w-5 h-5 text-black' data-accordion-icon>
+          <span data-icon-plus>{{- 'icon-plus.svg' | inline_asset_content -}}</span>
+          <span data-icon-minus class='hidden'>{{- 'icon-minus.svg' | inline_asset_content -}}</span>
+        </span>
       </span>
     </button>
     <div id='MobileMenuClientService' class='hidden pl-2 pb-3' data-accordion-panel>
       <a
         href='mailto:hello@graymattersnyc.com'
-        class='menu-drawer__menu-item flex items-center gap-2 py-1 proxima-reg text-sm tracking-wider uppercase hover:opacity-70 transition-opacity'
+        class='menu-drawer__menu-item flex items-center gap-2 py-1 proxima-reg text-sm tracking-wider uppercase hover:opacity-70 transition-opacity duration-200 ease-out'
       >
         <i class='fa-solid fa-envelope' aria-hidden='true'></i>
         <span>Email</span>
@@ -122,19 +131,19 @@
   </div>
   <ul class='space-y-2 mt-4'>
     <li>
-      <span class='menu-drawer__menu-item flex items-center gap-2 py-1 proxima-reg text-sm tracking-wider uppercase'>
+      <span class='menu-drawer__menu-item flex items-center gap-2 py-1 proxima-reg text-sm tracking-wider uppercase hover:opacity-70 transition-opacity duration-200 ease-out'>
         <i class='fa-solid fa-magnifying-glass text-gray-400' aria-hidden='true'></i>
         search
       </span>
     </li>
     <li>
-      <span class='menu-drawer__menu-item flex items-center gap-2 py-1 proxima-reg text-sm tracking-wider uppercase'>
+      <span class='menu-drawer__menu-item flex items-center gap-2 py-1 proxima-reg text-sm tracking-wider uppercase hover:opacity-70 transition-opacity duration-200 ease-out'>
         <i class='fa-regular fa-user text-gray-400' aria-hidden='true'></i>
         login
       </span>
     </li>
     <li>
-      <span class='menu-drawer__menu-item flex items-center gap-2 py-1 proxima-reg text-sm tracking-wider uppercase'>
+      <span class='menu-drawer__menu-item flex items-center gap-2 py-1 proxima-reg text-sm tracking-wider uppercase hover:opacity-70 transition-opacity duration-200 ease-out'>
         <i class='fa-brands fa-instagram text-gray-400' aria-hidden='true'></i>
         ig account name
       </span>
