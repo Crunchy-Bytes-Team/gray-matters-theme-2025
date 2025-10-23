@@ -221,13 +221,16 @@
             </a>
           {% endif %}
         {% endif %}
-        <a
-          href='{{ routes.search_url }}'
+        <button
+          type='button'
+          data-toggle-search
           aria-label='{{ 'general.search.search' | t }}'
-          class='hidden lg:flex hover:opacity-70 transition-opacity duration-200 ease-out'
+          aria-expanded='false'
+          aria-controls='HeaderSearchContainer'
+          class='hidden lg:flex hover:opacity-70 transition-opacity duration-200 ease-out bg-transparent border-none p-0'
         >
           <i class='fa-solid fa-magnifying-glass' aria-hidden='true'></i>
-        </a>
+        </button>
         {% if settings.social_instagram_link != blank %}
           <a
             href='https://instagram.com/graymattersnyc'
@@ -269,13 +272,13 @@
     document.addEventListener('DOMContentLoaded', function () {
       var openBtn = document.querySelector('[data-open-mobile-menu]');
       var menu = document.getElementById('MobileMenu');
-      if (!menu) return;
-      var closers = menu.querySelectorAll('[data-close-mobile-menu]');
-      var overlay = menu.querySelector('[data-menu-overlay]');
-      var drawer = menu.querySelector('[data-menu-drawer]');
+      var overlay = menu ? menu.querySelector('[data-menu-overlay]') : null;
+      var drawer = menu ? menu.querySelector('[data-menu-drawer]') : null;
+      var closers = menu ? menu.querySelectorAll('[data-close-mobile-menu]') : [];
       var TRANSITION_MS = 300;
 
       function openMenu() {
+        if (!menu) return;
         // show container to allow transitions
         menu.classList.remove('hidden');
         // next frame to ensure transition applies
@@ -291,6 +294,7 @@
         });
       }
       function closeMenu() {
+        if (!menu) return;
         // start transitions
         menu.classList.add('opacity-0');
         menu.classList.remove('opacity-100');
@@ -307,13 +311,130 @@
       }
 
       if (openBtn) openBtn.addEventListener('click', openMenu);
-      closers.forEach(function (el) {
-        el.addEventListener('click', closeMenu);
-      });
+      if (closers && closers.forEach) {
+        closers.forEach(function (el) {
+          el.addEventListener('click', closeMenu);
+        });
+      }
       window.addEventListener('keydown', function (e) {
-        if (e.key === 'Escape') closeMenu();
+        if (e.key === 'Escape') {
+          closeMenu();
+          hideSearch();
+        }
       });
+
+      var searchToggle = document.querySelector('[data-toggle-search]');
+      var searchContainer = document.getElementById('HeaderSearchContainer');
+      var searchHideTimer = null;
+      var SEARCH_TRANSITION_MS = 250;
+
+      function showSearch() {
+        if (!searchContainer) return;
+        if (searchHideTimer) {
+          clearTimeout(searchHideTimer);
+          searchHideTimer = null;
+        }
+        searchContainer.classList.remove('hidden');
+        requestAnimationFrame(function () {
+          searchContainer.classList.add('is-search-active');
+        });
+        if (searchToggle) {
+          searchToggle.setAttribute('aria-expanded', 'true');
+        }
+        var searchInput = searchContainer.querySelector('input[name="q"]');
+        if (searchInput) {
+          setTimeout(function () {
+            searchInput.focus();
+          }, 0);
+        }
+      }
+
+      function hideSearch() {
+        if (!searchContainer) return;
+        if (searchContainer.classList.contains('hidden')) return;
+        if (searchHideTimer) {
+          clearTimeout(searchHideTimer);
+          searchHideTimer = null;
+        }
+        searchContainer.classList.remove('is-search-active');
+        if (searchToggle) {
+          searchToggle.setAttribute('aria-expanded', 'false');
+        }
+        searchHideTimer = setTimeout(function () {
+          searchContainer.classList.add('hidden');
+        }, SEARCH_TRANSITION_MS);
+      }
+
+      if (searchToggle && searchContainer) {
+        searchToggle.addEventListener('click', function (event) {
+          event.preventDefault();
+          var isHidden = searchContainer.classList.contains('hidden');
+          if (isHidden) {
+            showSearch();
+          } else {
+            hideSearch();
+          }
+        });
+
+        document.addEventListener('click', function (event) {
+          if (!searchContainer.contains(event.target) && (!searchToggle || !searchToggle.contains(event.target))) {
+            hideSearch();
+          }
+        });
+      }
     });
   </script>
 </div>
 <div class='h-12'></div>
+<div id='HeaderSearchContainer' class='w-full hidden container-search-form py-8'>
+  <form
+    action='{{ routes.search_url }}'
+    method='get'
+    class='search_form_top For_mobile_searxch'
+    role='search'
+  >
+    <input type='hidden' name='type' value='product'>
+    <i class='fa fa-search ic-down'></i>
+    <input
+      class='search-header__input1 search__input1 form-control'
+      type='search'
+      name='q'
+      id='search_input1'
+      placeholder='SEARCH'
+      aria-label='{{ 'general.search.placeholder' | t }}'
+    >
+  </form>
+
+  <div class='suggested-terms'>
+    <h3>Popular Searches</h3>
+    <p>
+      <span><a href='{{ routes.search_url }}?q=bianco'>Bianco,</a></span>
+      <span><a href='{{ routes.search_url }}?q=cammello'>Cammello,</a></span>
+      <span><a href='{{ routes.search_url }}?q=classic'>Classic,</a></span>
+      <span><a href='{{ routes.search_url }}?q=color+block'>Color Block,</a></span>
+
+      <span><a href='{{ routes.search_url }}?q=gemma'>Gemma,</a></span>
+      <span><a href='{{ routes.search_url }}?q=emma'>Emma,</a></span>
+      <span><a href='{{ routes.search_url }}?q=clara'>Clara,</a></span>
+
+      <span><a href='{{ routes.search_url }}?q=egg'>Egg,</a></span>
+      <span><a href='{{ routes.search_url }}?q=junior'>Junior,</a></span>
+      <span><a href='{{ routes.search_url }}?q=micol'>Micol,</a></span>
+      <span><a href='{{ routes.search_url }}?q=mildred'>Mildred,</a></span>
+      <span><a href='{{ routes.search_url }}?q=nero'>Nero</a></span>
+    </p>
+  </div>
+</div>
+<style>
+  #HeaderSearchContainer {
+    opacity: 0;
+    transform: translateY(-12px);
+    transition: opacity 250ms ease, transform 250ms ease;
+    pointer-events: none;
+  }
+  #HeaderSearchContainer.is-search-active {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+</style>
