@@ -145,3 +145,22 @@ select:focus {
   white-space: nowrap !important;
   border: 0 !important;
 }
+#HeaderSearchContainer {
+  position: fixed;
+  top: 3rem;
+  left: 0;
+  right: 0;
+  z-index: 40;
+  max-height: calc(100vh - 3rem);
+  overflow-y: auto;
+  opacity: 0;
+  transform: translateY(-12px);
+  transition: opacity 250ms ease, transform 250ms ease;
+  pointer-events: none;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
+}
+#HeaderSearchContainer.is-search-active {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}

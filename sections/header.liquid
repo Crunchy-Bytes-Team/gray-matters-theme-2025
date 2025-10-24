@@ -1,4 +1,4 @@
-<header class='bg-pink-300 px-4 h-12 flex flex-row items-center fixed top-0 left-0 right-0 z-50'>
+<header class='bg-white px-4 h-12 flex flex-row items-center fixed top-0 left-0 right-0 z-50'>
   <div class='w-full flex flex-row justify-between bg-white h-full items-center'>
     <!-- hamburger -->
     <div class='flex lg:hidden w-2/12 items-start'>
@@ -382,11 +382,32 @@
           }
         });
       }
+
+      var searchCloseButtons = searchContainer ? searchContainer.querySelectorAll('[data-close-search]') : [];
+      if (searchCloseButtons && searchCloseButtons.forEach) {
+        searchCloseButtons.forEach(function (btn) {
+          btn.addEventListener('click', function (event) {
+            event.preventDefault();
+            hideSearch();
+          });
+        });
+      }
     });
   </script>
 </div>
 <div class='h-12'></div>
-<div id='HeaderSearchContainer' class='w-full hidden container-search-form py-8'>
+<div
+  id='HeaderSearchContainer'
+  class='hidden container-search-form fixed top-12 inset-x-0 z-40 bg-gray-200 shadow-lg p-4-'
+>
+  <button
+    type='button'
+    class='absolute top-4 right-4 p-2 text-gray-500 hover:text-gray-700 transition-colors duration-200 ease-out mr-4'
+    data-close-search
+    aria-label='Chiudi ricerca'
+  >
+    <i class='fa-solid fa-xmark text-xl' aria-hidden='true'></i>
+  </button>
   <form
     action='{{ routes.search_url }}'
     method='get'
@@ -394,47 +415,34 @@
     role='search'
   >
     <input type='hidden' name='type' value='product'>
-    <i class='fa fa-search ic-down'></i>
+    <i class='fa fa-search ic-down text-gray-300 ml-4'></i>
     <input
-      class='search-header__input1 search__input1 form-control'
+      class='search-header__input1 search__input1 form-control bg-transparent pl-6'
       type='search'
       name='q'
       id='search_input1'
-      placeholder='SEARCH'
+      placeholder=''
       aria-label='{{ 'general.search.placeholder' | t }}'
     >
   </form>
 
-  <div class='suggested-terms'>
-    <h3>Popular Searches</h3>
+  <div class='suggested-terms border-t border-gray-300 mt-5 pt-5 flex flex-row'>
+    <h3 class='proxima-semi-bold uppercase tracking-widest pr-0 lg:pr-4'>Popular Searches</h3>
     <p>
-      <span><a href='{{ routes.search_url }}?q=bianco'>Bianco,</a></span>
-      <span><a href='{{ routes.search_url }}?q=cammello'>Cammello,</a></span>
-      <span><a href='{{ routes.search_url }}?q=classic'>Classic,</a></span>
-      <span><a href='{{ routes.search_url }}?q=color+block'>Color Block,</a></span>
+      <span><a class='text-xs tracking-widest' href='{{ routes.search_url }}?q=bianco'>Bianco,</a></span>
+      <span><a class='text-xs tracking-widest' href='{{ routes.search_url }}?q=cammello'>Cammello,</a></span>
+      <span><a class='text-xs tracking-widest' href='{{ routes.search_url }}?q=classic'>Classic,</a></span>
+      <span><a class='text-xs tracking-widest' href='{{ routes.search_url }}?q=color+block'>Color Block,</a></span>
 
-      <span><a href='{{ routes.search_url }}?q=gemma'>Gemma,</a></span>
-      <span><a href='{{ routes.search_url }}?q=emma'>Emma,</a></span>
-      <span><a href='{{ routes.search_url }}?q=clara'>Clara,</a></span>
+      <span><a class='text-xs tracking-widest' href='{{ routes.search_url }}?q=gemma'>Gemma,</a></span>
+      <span><a class='text-xs tracking-widest' href='{{ routes.search_url }}?q=emma'>Emma,</a></span>
+      <span><a class='text-xs tracking-widest' href='{{ routes.search_url }}?q=clara'>Clara,</a></span>
 
-      <span><a href='{{ routes.search_url }}?q=egg'>Egg,</a></span>
-      <span><a href='{{ routes.search_url }}?q=junior'>Junior,</a></span>
-      <span><a href='{{ routes.search_url }}?q=micol'>Micol,</a></span>
-      <span><a href='{{ routes.search_url }}?q=mildred'>Mildred,</a></span>
-      <span><a href='{{ routes.search_url }}?q=nero'>Nero</a></span>
+      <span><a class='text-xs tracking-widest' href='{{ routes.search_url }}?q=egg'>Egg,</a></span>
+      <span><a class='text-xs tracking-widest' href='{{ routes.search_url }}?q=junior'>Junior,</a></span>
+      <span><a class='text-xs tracking-widest' href='{{ routes.search_url }}?q=micol'>Micol,</a></span>
+      <span><a class='text-xs tracking-widest' href='{{ routes.search_url }}?q=mildred'>Mildred,</a></span>
+      <span><a class='text-xs tracking-widest' href='{{ routes.search_url }}?q=nero'>Nero</a></span>
     </p>
   </div>
 </div>
-<style>
-  #HeaderSearchContainer {
-    opacity: 0;
-    transform: translateY(-12px);
-    transition: opacity 250ms ease, transform 250ms ease;
-    pointer-events: none;
-  }
-  #HeaderSearchContainer.is-search-active {
-    opacity: 1;
-    transform: translateY(0);
-    pointer-events: auto;
-  }
-</style>
