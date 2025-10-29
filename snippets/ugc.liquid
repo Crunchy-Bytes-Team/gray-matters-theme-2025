@@ -82,10 +82,10 @@
       {% assign grid_classes = 'md:grid-cols-5' %}
     {% endif %}
 
-    <div class='relative w-full' data-ugc-carousel>
+    <div class='relative w-full' data-imagerow>
       <div class='overflow-hidden md:overflow-visible w-full' data-viewport>
         <div
-          class='flex flex-nowrap w-full transition-transform duration-300 ease-in-out md:grid md:gap-4 {{ grid_classes }}'
+          class='flex w-full transition-transform duration-300 ease-in-out md:grid md:gap-4 {{ grid_classes }}'
           data-track
         >
           {% for entry in ugc_entries %}
