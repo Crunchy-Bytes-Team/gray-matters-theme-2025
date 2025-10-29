@@ -39,45 +39,22 @@
             class='h-full inline-flex items-center px-7 hover:opacity-70 hover:bg-gray-200 group-hover:bg-gray-200 transition-all duration-200 ease-out proxima-reg text-sm tracking-wider uppercase text-dark-gray'
             >Collection</a
           >
-          <div class='absolute left-0 top-full mt-0 hidden group-hover:block group-focus-within:block z-50'>
-            <ul class='min-w-[200px] bg-gray-100 text-black py-2'>
-              <li>
-                <a
-                  href='{{ routes.all_products_collection_url }}'
-                  class='block px-4 py-2 proxima-reg text-sm tracking-wider uppercase hover:opacity-70 transition-opacity text-dark-gray'
-                  >all</a
-                >
-              </li>
-              <li>
-                <a
-                  href='{{ routes.collections_url }}/the-latest'
-                  class='block px-4 py-2 proxima-reg text-sm tracking-wider uppercase hover:opacity-70 transition-opacity text-dark-gray'
-                  >the latest</a
-                >
-              </li>
-              <li>
-                <a
-                  href='{{ routes.collections_url }}/classic'
-                  class='block px-4 py-2 proxima-reg text-sm tracking-wider uppercase hover:opacity-70 transition-opacity text-dark-gray'
-                  >classic</a
-                >
-              </li>
-              <li>
-                <a
-                  href='{{ routes.collections_url }}/flats'
-                  class='block px-4 py-2 proxima-reg text-sm tracking-wider uppercase hover:opacity-70 transition-opacity text-dark-gray'
-                  >flats</a
-                >
-              </li>
-              <li>
-                <a
-                  href='{{ routes.collections_url }}/boots'
-                  class='block px-4 py-2 proxima-reg text-sm tracking-wider uppercase hover:opacity-70 transition-opacity text-dark-gray'
-                  >boots</a
-                >
-              </li>
-            </ul>
-          </div>
+          {% assign collection_menu = linklists['collection'] %}
+          {% if collection_menu != blank and collection_menu.links != blank %}
+            <div class='absolute left-0 top-full mt-0 hidden group-hover:block group-focus-within:block z-50'>
+              <ul class='min-w-[200px] bg-gray-100 text-black py-2'>
+                {% for link in collection_menu.links %}
+                  <li>
+                    <a
+                      href='{{ link.url }}'
+                      class='block px-4 py-2 proxima-reg text-sm tracking-wider uppercase hover:opacity-70 transition-opacity text-dark-gray'
+                      >{{ link.title | escape }}</a
+                    >
+                  </li>
+                {% endfor %}
+              </ul>
+            </div>
+          {% endif %}
         </div>
 
         {% if localization.available_languages and localization.available_languages.size > 1 %}
