@@ -39,7 +39,7 @@
             class='h-full inline-flex items-center px-7 hover:opacity-70 hover:bg-gray-200 group-hover:bg-gray-200 transition-all duration-200 ease-out proxima-reg text-sm tracking-wider uppercase text-dark-gray'
             >Collection</a
           >
-          {% assign collection_menu = linklists['collection'] %}
+          {% assign collection_menu = linklists.collection %}
           {% if collection_menu != blank and collection_menu.links != blank %}
             <div class='absolute left-0 top-full mt-0 hidden group-hover:block group-focus-within:block z-50'>
               <ul class='min-w-[200px] bg-gray-100 text-black py-2'>
@@ -48,8 +48,9 @@
                     <a
                       href='{{ link.url }}'
                       class='block px-4 py-2 proxima-reg text-sm tracking-wider uppercase hover:opacity-70 transition-opacity text-dark-gray'
-                      >{{ link.title | escape }}</a
                     >
+                      {{- link.title | escape -}}
+                    </a>
                   </li>
                 {% endfor %}
               </ul>
@@ -398,8 +399,9 @@
 </div>
 <div class='h-12'></div>
 <div
+  style='top:80px'
   id='HeaderSearchContainer'
-  class='hidden container-search-form py-4 fixed top-12 inset-x-0 z-40 bg-gray-200 shadow-lg px-4 relative'
+  class='hidden container-search-form py-4 fixed  inset-x-0 z-40 bg-gray-200 shadow-lg px-4 relative'
 >
   <button
     type='button'

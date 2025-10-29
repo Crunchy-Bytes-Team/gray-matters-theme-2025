@@ -1,3 +1,5 @@
+{% assign mobile_collection_menu = linklists['collection'] %}
+
 <nav class='mobile-menu space-y-2' aria-label='Mobile menu'>
   <div data-accordion-item>
     <button
@@ -14,43 +16,29 @@
       </span>
     </button>
     <div id='MobileMenuCollection' class='hidden pb-3' data-accordion-panel>
-      <ul class='space-y-2'>
-        <li>
-          <a
-            href='{{ routes.all_products_collection_url }}'
-            class='menu-drawer__menu-item block py-1 proxima-reg text-sm tracking-wider uppercase hover:opacity-70 transition-opacity duration-200 ease-out'
-            >all</a
-          >
-        </li>
-        <li>
-          <a
-            href='{{ routes.collections_url }}/the-latest'
-            class='menu-drawer__menu-item block py-1 proxima-reg text-sm tracking-wider uppercase hover:opacity-70 transition-opacity duration-200 ease-out'
-            >the latest</a
-          >
-        </li>
-        <li>
-          <a
-            href='{{ routes.collections_url }}/classic'
-            class='menu-drawer__menu-item block py-1 proxima-reg text-sm tracking-wider uppercase hover:opacity-70 transition-opacity duration-200 ease-out'
-            >classic</a
-          >
-        </li>
-        <li>
-          <a
-            href='{{ routes.collections_url }}/flats'
-            class='menu-drawer__menu-item block py-1 proxima-reg text-sm tracking-wider uppercase hover:opacity-70 transition-opacity duration-200 ease-out'
-            >flats</a
-          >
-        </li>
-        <li>
-          <a
-            href='{{ routes.collections_url }}/boots'
-            class='menu-drawer__menu-item block py-1 proxima-reg text-sm tracking-wider uppercase hover:opacity-70 transition-opacity duration-200 ease-out'
-            >boots</a
-          >
-        </li>
-      </ul>
+      {% if mobile_collection_menu != blank and mobile_collection_menu.links != blank %}
+        <ul class='space-y-2'>
+          {% for link in mobile_collection_menu.links %}
+            <li>
+              <a
+                href='{{ link.url }}'
+                class='menu-drawer__menu-item block py-1 proxima-reg text-sm tracking-wider uppercase hover:opacity-70 transition-opacity duration-200 ease-out'
+                >{{ link.title | escape }}</a
+              >
+            </li>
+          {% endfor %}
+        </ul>
+      {% else %}
+        <ul class='space-y-2'>
+          <li>
+            <a
+              href='{{ routes.collections_url }}'
+              class='menu-drawer__menu-item block py-1 proxima-reg text-sm tracking-wider uppercase hover:opacity-70 transition-opacity duration-200 ease-out'
+              >Collection</a
+            >
+          </li>
+        </ul>
+      {% endif %}
     </div>
   </div>
 
