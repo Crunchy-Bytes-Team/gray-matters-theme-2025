@@ -1,4 +1,7 @@
-<header class='bg-white px-4 h-12 flex flex-row items-center fixed top-0 left-0 right-0 z-50'>
+<div style='background:#ce71ed' class='text-white text-xs text-center py-1'>
+  {% render 'announcements' %}
+</div>
+<header class='bg-white px-4 h-12 flex flex-row items-center fixed top-8 left-0 right-0 z-50' data-site-header>
   <div class='w-full flex flex-row justify-between bg-white h-full items-center'>
     <!-- hamburger -->
     <div class='flex lg:hidden w-2/12 items-start'>
@@ -276,6 +279,26 @@
       var drawer = menu ? menu.querySelector('[data-menu-drawer]') : null;
       var closers = menu ? menu.querySelectorAll('[data-close-mobile-menu]') : [];
       var TRANSITION_MS = 300;
+      var siteHeader = document.querySelector('[data-site-header]');
+      var HEADER_SCROLL_THRESHOLD = 0;
+
+      function syncHeaderOffset() {
+        if (!siteHeader) return;
+        if (window.scrollY > HEADER_SCROLL_THRESHOLD) {
+          if (siteHeader.classList.contains('top-8')) {
+            siteHeader.classList.replace('top-8', 'top-0');
+          } else {
+            siteHeader.classList.add('top-0');
+          }
+        } else if (siteHeader.classList.contains('top-0')) {
+          siteHeader.classList.replace('top-0', 'top-8');
+        } else {
+          siteHeader.classList.add('top-8');
+        }
+      }
+
+      syncHeaderOffset();
+      window.addEventListener('scroll', syncHeaderOffset);
 
       function openMenu() {
         if (!menu) return;

@@ -423,15 +423,16 @@
         <!-- Start blocks -->
         <!-- Subtotals -->
 
-        <div class='h-auto w-full cart-drawer__footer space-y-4' {{ block.shopify_attributes }}>
-          <div class='flex items-center justify-between text-xs uppercase tracking-wider pt-8 border-t border-gray-200 pr-8 pl-8'>
+        <div
+          class='p-8 border-t border-gray-200 h-auto w-full cart-drawer__footer space-y-4'
+          {{ block.shopify_attributes }}
+        >
+          <div class='flex items-center justify-between text-xs uppercase tracking-wider '>
             <span>Subtotale</span>
             <span class='text-xs proxima-semi-bold'>{{ cart.total_price | money_with_currency }}</span>
           </div>
-          <p class='text-xs text-slate-500 pr-8 pl-8'>
-            Imposte incluse. Spedizione calcolata al momento del pagamento.
-          </p>
-          <div class='pl-8 pr-8'>
+          <p class='text-xs text-slate-500'>Imposte incluse. Spedizione calcolata al momento del pagamento.</p>
+          <div class=''>
             <button
               type='submit'
               id='CartDrawer-Checkout'
