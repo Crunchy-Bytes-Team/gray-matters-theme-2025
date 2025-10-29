@@ -85,18 +85,19 @@
       <div class='product__media-wrapper bg-white w-full lg:w-1/2 relative z-0 pl-0 pr-0 lg:pl-4 lg:pr-0'>
         {% render 'product-media-gallery', variant_images: variant_images %}
         {% assign bg_image = product.metafields.module.product_detail_bg_image.value %}
+        <img class='flex lg:hidden' src='{{ bg_image | escape }}'>
       </div>
       <div class='col-dx h-auto lg:h-screen container-info-product w-full lg:w-1/2 flex flex-col justify-end sticky top-0 relative bg-product'>
         {% assign bg_image = product.metafields.module.product_detail_bg_image.value %}
         {% if bg_image %}
           <div
-            class='hidden pointer-events-none lg:block lg:absolute lg:inset-0 bg-cover bg-top -z-10 fixed'
+            class='hidden pointer-events-none lg:block lg:absolute lg:inset-0 bg-cover bg-top -z-10 fixed pippo mr-4'
             style="background-image: url('{{ bg_image | escape }}');"
           ></div>
         {% endif %}
         <section
           id='ProductInfo-{{ section.id }}'
-          class='bg-white bg-opacity-90 flex flex-col h-fit fixed bottom-0 right-0 w-full lg:w-1/2 p-6 lg:p-14 z-50'
+          class='bg-white bg-opacity-90 flex flex-col h-fit fixed bottom-0 right-0 w-full lg:w-1/2 p-6 lg:py-14 lg:pl-14 lg:pr-10 z-50'
         >
           {%- assign product_form_id = 'product-form-' | append: section.id -%}
 
