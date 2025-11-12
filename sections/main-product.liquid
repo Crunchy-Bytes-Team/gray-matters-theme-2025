@@ -115,7 +115,7 @@
                   </div>
               {%- when 'price' -%}
                 <div
-                  class='flex items-start lg:items-center w-auto gap-3'
+                  class='flex items-center w-auto gap-7 lg:gap-3'
                   id='price-{{ section.id }}'
                   role='status'
                   {{ block.shopify_attributes }}
@@ -148,10 +148,10 @@
                   style='max-height:0; opacity:0; overflow:hidden; transition:max-height 300ms ease, opacity 300ms ease;'
                   aria-hidden='true'
                 >
-                  <div class='w-full lg:w-3/4 lg:h-auto h-40 overflow-auto text-base'>
+                  <div class='w-full lg:w-3/4 lg:h-auto h-40 overflow-auto text-base pt-2 lg:pt-0'>
                     {{ product.description }}
                   </div>
-                  <div class='color-variant flex py-10'>
+                  <div class='color-variant flex py-4'>
                     {% render 'color-variant' %}
                   </div>
                 </div>

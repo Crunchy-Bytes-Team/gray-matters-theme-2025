@@ -159,6 +159,16 @@ select:focus {
   pointer-events: none;
   box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
 }
+
+.toggle-desc-btn span {
+  display: inline-block;
+  transition: transform 250ms ease;
+  transform-origin: center;
+}
+
+.toggle-desc-btn.is-open span {
+  transform: rotate(45deg);
+}
 #HeaderSearchContainer.is-search-active {
   opacity: 1;
   transform: translateY(0);

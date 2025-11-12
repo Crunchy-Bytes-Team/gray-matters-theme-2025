@@ -9,7 +9,8 @@
   ready(function () {
     var btn = document.querySelector('.toggle-desc-btn');
     var panel = document.querySelector('[id^="MobileProductDesc-"]');
-    if (!btn || !panel) return;
+    var icon = btn ? btn.querySelector('span') : null;
+    if (!btn || !panel || !icon) return;
     btn.addEventListener('click', function () {
       var isHidden = panel.classList.contains('hidden');
       // Ensure transitions are applied
@@ -37,7 +38,8 @@
         panel.addEventListener('transitionend', onOpenEnd);
 
         btn.setAttribute('aria-expanded', 'true');
-        btn.textContent = '−';
+        btn.classList.add('is-open');
+        icon.textContent = '+';
       } else {
         // HIDE: collapse to current height, then to 0, then add hidden
         panel.setAttribute('aria-hidden', 'true');
@@ -57,7 +59,8 @@
         panel.addEventListener('transitionend', onCloseEnd);
 
         btn.setAttribute('aria-expanded', 'false');
-        btn.textContent = '+';
+        btn.classList.remove('is-open');
+        icon.textContent = '+';
       }
     });
   });
