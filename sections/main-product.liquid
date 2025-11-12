@@ -154,6 +154,26 @@
                   <div class='color-variant flex py-4'>
                     {% render 'color-variant' %}
                   </div>
+                  <div class='flex flex-col pt-0 lg:pt-8'>
+                    <ul class='flex flex-row items-center mb-1'>
+                      <li class='bg-black w-2.5 h-[1px] mr-2'></li>
+                      <li><a class='text-xs tracking-wider uppercase' href='#'>Shipping & Returns</a></li>
+                    </ul>
+                    <ul class='flex flex-row items-center'>
+                      <li class='bg-black w-2.5 h-[1px] mr-2'></li>
+                      <li>
+                        <a
+                          href='#size-guide-modal'
+                          data-modal-trigger='size-guide'
+                          class='size-guide-link text-xs tracking-wider uppercase'
+                        >
+                          Size Guide
+                        </a>
+                      </li>
+                      <li class='mx-2'>|</li>
+                      <li><a class='text-xs tracking-wider uppercase' href='#'>Contact Us</a></li>
+                    </ul>
+                  </div>
                 </div>
 
                 {%- if cart.taxes_included or cart.duties_included or shop.shipping_policy.body != blank -%}
@@ -701,26 +721,6 @@
             {{ 'products.product.view_full_details' | t }}
             {{- 'icon-arrow.svg' | inline_asset_content -}}
           </a>
-          <div class='flex-col pt-8 hidden lg:flex'>
-            <ul class='flex flex-row items-center mb-1'>
-              <li class='bg-black w-2.5 h-[1px] mr-2'></li>
-              <li><a class='text-xs tracking-wider uppercase' href='#'>Shipping & Returns</a></li>
-            </ul>
-            <ul class='flex flex-row items-center'>
-              <li class='bg-black w-2.5 h-[1px] mr-2'></li>
-              <li>
-                <a
-                  href='#size-guide-modal'
-                  data-modal-trigger='size-guide'
-                  class='size-guide-link text-xs tracking-wider uppercase'
-                >
-                  Size Guide
-                </a>
-              </li>
-              <li class='mx-2'>|</li>
-              <li><a class='text-xs tracking-wider uppercase' href='#'>Contact Us</a></li>
-            </ul>
-          </div>
 
           {% render 'size-guide-modal' %}
 
