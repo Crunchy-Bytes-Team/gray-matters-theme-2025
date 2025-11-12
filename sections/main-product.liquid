@@ -115,7 +115,7 @@
                   </div>
               {%- when 'price' -%}
                 <div
-                  class='flex items-center w-auto gap-3'
+                  class='flex items-start lg:items-center w-auto gap-3'
                   id='price-{{ section.id }}'
                   role='status'
                   {{ block.shopify_attributes }}
@@ -126,11 +126,11 @@
                   <button
                     type='button'
                     id='MobileDescToggle-{{ section.id }}'
-                    class='lg:hidden leading-none toggle-desc-btn text-5xl'
+                    class='lg:hidden leading-none toggle-desc-btn text-5xl flex flex-col items-start'
                     aria-expanded='false'
                     aria-controls='MobileProductDesc-{{ section.id }}'
                   >
-                    +
+                    <span>+</span>
                   </button>
                 </div>
                 <!-- end riga1 -->
@@ -531,7 +531,7 @@
                     </div>
                     <p class='rating-text caption'>
                       <span aria-hidden='true'>
-                        {{- product.metafields.reviews.rating.value }} /
+                        {{- product.metafields.reviews.rating.value }}
                         {{ product.metafields.reviews.rating.value.scale_max -}}
                       </span>
                     </p>

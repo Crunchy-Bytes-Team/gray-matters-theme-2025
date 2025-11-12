@@ -60,8 +60,8 @@
           {%- render 'gift-card-recipient-form', product: product, form: form, section: section -%}
         {%- endif -%}
 
-        <div class='product-form__buttons add_to_cart_button flex flex-row justify-between'>
-          <div class='add-to-cart-button bg-gray-200 w-10/12 mr-4 lg:mr-10'>
+        <div class='product-form__buttons add_to_cart_button flex flex-row justify-between items-end'>
+          <div class='add-to-cart-button bg-gray-200 w-7/12 lg:w-10/12 mr-4 lg:mr-10'>
             {%- liquid
               assign check_against_inventory = true
               if product.selected_or_first_available_variant.inventory_management != 'shopify' or product.selected_or_first_available_variant.inventory_policy == 'continue'
@@ -75,7 +75,7 @@
               id='ProductSubmitButton-{{ section_id }}'
               type='submit'
               name='add'
-              class='uppercase add-to-cart-button btn-dark product-form__submit px-6 py-3 transition-colors w-full {% if show_dynamic_checkout %}bg-gray-200 text-gray-900 hover:bg-gray-300 focus:ring-2 focus:ring-gray-500{% else %}bg-blue-600 text-white hover:bg-blue-700 focus:ring-2 focus:ring-blue-500{% endif %}'
+              class='uppercase add-to-cart-button btn-dark product-form__submit px-6 h-8 transition-colors w-full {% if show_dynamic_checkout %}bg-gray-200 text-gray-900 hover:bg-gray-300 focus:ring-2 focus:ring-gray-500{% else %}bg-blue-600 text-white hover:bg-blue-700 focus:ring-2 focus:ring-blue-500{% endif %}'
               {% if product.selected_or_first_available_variant.available == false
                 or quantity_rule_soldout
                 or product.selected_or_first_available_variant == null
@@ -101,11 +101,14 @@
               {%- endif -%}
             -->
           </div>
-          <div class='size-selector bg-white hover:bg-black hover:text-white  transition-colors duration-700 ease-in-out w-2/12'>
-            {%- comment -%}
-              {%- when 'variant_picker' -%}
-            {%- endcomment -%}
-            {% render 'product-variant-picker', product: product, block: block, product_form_id: product_form_id %}
+          <div class='w-5/12 lg:w-2/12 flex flex-col'>
+            <span class='uppercase text-sm text-dark-gray tracking-wide'>Select size</span>
+            <div class='size-selector bg-gray-100 bg-opacity-70 hover:bg-black hover:text-white  transition-colors duration-700 ease-in-out'>
+              {%- comment -%}
+                {%- when 'variant_picker' -%}
+              {%- endcomment -%}
+              {% render 'product-variant-picker', product: product, block: block, product_form_id: product_form_id %}
+            </div>
           </div>
         </div>
       {%- endform -%}
