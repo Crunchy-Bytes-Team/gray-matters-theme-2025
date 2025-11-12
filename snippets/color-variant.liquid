@@ -1,6 +1,114 @@
-<div class='w-5 h-5 rounded-full overflow-hidden flex flex-col border border-gray-200'>
-  <div class='w-full h-1/2 bg-green-400'></div>
-  <div class='w-full h-1/2 bg-violet-400'></div>
+{% comment %}
+  Dynamic Color Variant Rendering
+  Extracts product variants from metafields and renders color pills
+{% endcomment %}
+
+{% comment %}
+  // Example content of the metafield `product.metafields.module.product_variants`
+  {
+    "entries": [{
+      "url": "https://www.graymattersnyc.com/products/egg-mules-bianco",
+      "gid": "gid://shopify/Product/4418476769385",
+      "product_id": 131
+    }, {
+      "url": "https://www.graymattersnyc.com/products/egg-mules-cera",
+      "gid": "gid://shopify/Product/4875640340585",
+      "product_id": 133
+    }]
+  }
+{% endcomment %}
+
+{% assign variants_metafield = product.metafields.module.product_variants %}
+{% assign variant_entries = blank %}
+
+{% if variants_metafield != blank %}
+  {% if variants_metafield.value != blank and variants_metafield.value.entries != blank %}
+    {% assign variant_entries = variants_metafield.value.entries %}
+  {% elsif variants_metafield.entries != blank %}
+    {% assign variant_entries = variants_metafield.entries %}
+  {% else %}
+    {% assign parsed_metafield = variants_metafield | parse_json %}
+    {% if parsed_metafield != blank and parsed_metafield.entries != blank %}
+      {% assign variant_entries = parsed_metafield.entries %}
+    {% endif %}
+  {% endif %}
+{% endif %}
+
+{% assign border_class = 'border-2 border-gray-900 cursor-pointer' %}
+{% assign margin_class = 'mr-2' %}
+{% assign primary_color = product.metafields.custom.primary_color | default: '' %}
+{% assign secondary_color = product.metafields.custom.secondary_color | default: '' %}
+{% assign primary_hex = '' %}
+{% assign secondary_hex = '' %}
+{% if primary_color != blank %}
+  {% assign primary_hex = primary_color %}
+{% else %}
+  {% assign primary_hex = '#ffffff' %}
+{% endif %}
+{% if secondary_color != blank %}
+  {% assign secondary_hex = secondary_color %}
+{% endif %}
+
+<div class='flex flex-row'>
+  {% comment %} Render current product pill {% endcomment %}
+  {% if primary_hex != blank %}
+    <div class='w-5 h-5 rounded-full overflow-hidden flex flex-col {{ border_class }} {{ margin_class }}'>
+      {% if secondary_hex != blank %}
+        <div class='w-full h-1/2' style='background-color: {{ primary_hex }};'></div>
+        <div class='w-full h-1/2' style='background-color: {{ secondary_hex }};'></div>
+      {% else %}
+        <div class='w-full h-full' style='background-color: {{ primary_hex }};'></div>
+      {% endif %}
+    </div>
+  {% endif %}
+
+  {% if variant_entries != blank %}
+    {% for entry in variant_entries %}
+      {% assign variant_handle = blank %}
+      {% assign variant_relative_url = '' %}
+      {% if entry.url != blank %}
+        {% assign variant_handle = entry.url | split: '/products/' | last %}
+        {% assign variant_handle = variant_handle | split: '?' | first %}
+        {% assign variant_handle = variant_handle | split: '#' | first %}
+        {% assign variant_handle = variant_handle | strip %}
+
+        {% comment %} Convert absolute URL to relative URL {% endcomment %}
+        {% if variant_handle != blank %}
+          {% assign variant_relative_url = '/products/' | append: variant_handle %}
+        {% endif %}
+      {% endif %}
+
+      {% if variant_handle != blank and variant_relative_url != blank %}
+        {% assign variant_product = all_products[variant_handle] %}
+
+        {% if variant_product != blank %}
+          {% assign variant_primary_color = variant_product.metafields.custom.primary_color | default: '' %}
+          {% assign variant_secondary_color = variant_product.metafields.custom.secondary_color | default: '' %}
+          {% assign variant_primary_hex = '' %}
+          {% assign variant_secondary_hex = '' %}
+
+          {% if variant_primary_color != blank %}
+            {% assign variant_primary_hex = variant_primary_color %}
+          {% endif %}
+          {% if variant_secondary_color != blank %}
+            {% assign variant_secondary_hex = variant_secondary_color %}
+          {% endif %}
+
+          {% if variant_primary_hex != blank %}
+            <a
+              href='{{ variant_relative_url }}'
+              class='w-5 h-5 rounded-full overflow-hidden flex flex-col border border-gray-200 mr-2'
+            >
+              {% if variant_secondary_hex != blank %}
+                <div class='w-full h-1/2' style='background-color: {{ variant_primary_hex }};'></div>
+                <div class='w-full h-1/2' style='background-color: {{ variant_secondary_hex }};'></div>
+              {% else %}
+                <div class='w-full h-full' style='background-color: {{ variant_primary_hex }};'></div>
+              {% endif %}
+            </a>
+          {% endif %}
+        {% endif %}
+      {% endif %}
+    {% endfor %}
+  {% endif %}
 </div>
-<div class='w-5 h-5 rounded-full bg-blue-500 ml-2 border border-gray-200'></div>
-<div class='w-5 h-5 rounded-full bg-yellow-500 ml-2 border border-gray-200'></div>
