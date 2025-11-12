@@ -29,11 +29,6 @@
   assign money_price = price | money
   assign money_price_min = price_min | money
   assign money_price_max = price_max | money
-  if settings.currency_code_enabled
-    assign money_price = price | money_with_currency
-    assign money_price_min = price_min | money_with_currency
-    assign money_price_max = price_max | money_with_currency
-  endif
 
   if target == product and product.price_varies
     assign money_price = 'products.product.price.from_price_html' | t: price: money_price
@@ -66,7 +61,7 @@
                 {{- 'products.product.price.regular_price' | t -}}
               </span>
               <span class='proxima-reg uppercase tracking-wider text-sm'>
-                <s class='price-item price-item--regular variant-item__old-price proxima-reg uppercase tracking-wider text-sm'>
+                <s class='price-item price-item--regular variant-item__old-price proxima-reg uppercase tracking-wider text-sm 1'>
                   {% if settings.currency_code_enabled %}
                     {{ compare_at_price | money_with_currency }}
                   {% else %}
@@ -79,7 +74,7 @@
           <span class='visually-hidden visually-hidden--inline'>
             {{- 'products.product.price.regular_price' | t -}}
           </span>
-          <span class='price-item price-item--regular proxima-reg uppercase tracking-wider text-sm'>
+          <span class='price-item price-item--regular proxima-reg uppercase tracking-wider text-sm 2'>
             {{-
               'products.product.volume_pricing.price_range'
               | t: minimum: money_price_min, maximum: money_price_max
@@ -89,7 +84,7 @@
           <span class='hidden visually-hidden visually-hidden--inline'>
             {{- 'products.product.price.regular_price' | t -}}
           </span>
-          <span class='price-item price-item--regular proxima-reg uppercase tracking-wider text-sm'>
+          <span class='price-item price-item--regular proxima-reg uppercase tracking-wider text-sm 3'>
             {{ money_price }}
           </span>
         {%- endif -%}

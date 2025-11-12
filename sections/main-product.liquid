@@ -109,7 +109,9 @@
               {%- when 'title' -%}
                 <div id='riga1' class='w-full flex flex-row justify-between items-center lg:items-start'>
                   <div class='mb-0 lg:mb-3 w-auto product__title' {{ block.shopify_attributes }}>
-                    <h1 class='uppercase text-sm tracking-wider proxima-semi-bold'>{{ product.title | escape }}</h1>
+                    <h1 class='uppercase text-base lg:text-sm tracking-wider proxima-semi-bold'>
+                      {{ product.title | escape }}
+                    </h1>
                   </div>
               {%- when 'price' -%}
                 <div
@@ -146,7 +148,7 @@
                   style='max-height:0; opacity:0; overflow:hidden; transition:max-height 300ms ease, opacity 300ms ease;'
                   aria-hidden='true'
                 >
-                  <div class='w-full lg:w-3/4 lg:h-auto h-40 overflow-auto'>
+                  <div class='w-full lg:w-3/4 lg:h-auto h-40 overflow-auto text-base'>
                     {{ product.description }}
                   </div>
                   <div class='color-variant flex py-10'>
@@ -699,24 +701,24 @@
             {{ 'products.product.view_full_details' | t }}
             {{- 'icon-arrow.svg' | inline_asset_content -}}
           </a>
-          <div class='uppercase text-xs proxima-reg flex flex-col tracking-wide other-info pt-8 hidden lg:flex'>
+          <div class='flex-col pt-8 hidden lg:flex'>
             <ul class='flex flex-row items-center mb-1'>
               <li class='bg-black w-2.5 h-[1px] mr-2'></li>
-              <li><a href='#'>Shipping & Returns</a></li>
+              <li><a class='text-xs tracking-wider uppercase' href='#'>Shipping & Returns</a></li>
             </ul>
-            <ul class='flex flex-ro items-center'>
+            <ul class='flex flex-row items-center'>
               <li class='bg-black w-2.5 h-[1px] mr-2'></li>
               <li>
                 <a
                   href='#size-guide-modal'
                   data-modal-trigger='size-guide'
-                  class='size-guide-link'
+                  class='size-guide-link text-xs tracking-wider uppercase'
                 >
                   Size Guide
                 </a>
               </li>
               <li class='mx-2'>|</li>
-              <li><a href='#'>Contact Us</a></li>
+              <li><a class='text-xs tracking-wider uppercase' href='#'>Contact Us</a></li>
             </ul>
           </div>
 
