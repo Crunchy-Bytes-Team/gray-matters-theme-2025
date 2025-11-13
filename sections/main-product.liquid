@@ -148,7 +148,10 @@
                   style='max-height:0; opacity:0; overflow:hidden; transition:max-height 300ms ease, opacity 300ms ease;'
                   aria-hidden='true'
                 >
-                  <div class='w-full lg:w-3/4 lg:h-auto h-40 overflow-auto text-base pt-2 lg:pt-0'>
+                  <div
+                    class='w-full lg:w-3/4 h-40 lg:h-auto overflow-auto text-base pt-2 lg:pt-0'
+                    style='padding-right:10px'
+                  >
                     {{ product.description }}
                   </div>
                   <div class='color-variant flex py-4'>
@@ -796,23 +799,26 @@
 <div class='image-row-snippet bg-white w-full relative my-z-index px-0 lg:px-4 pb-6'>
   {% render 'image-row' %}
 </div>
-<div class='vertical-video-snippet  bg-white w-full relative my-z-index block lg:hidden px-0 lg:px-4 pb-6'>
+<div class='image-row-snippet bg-white w-full relative my-z-index px-0 lg:px-4 pb-6'>
+  {% render 'image-row-2' %}
+</div>
+<div class='vertical-video-snippet bg-white w-full relative my-z-index px-0 lg:px-4 pb-6'>
   {% render 'vertical-video' %}
 </div>
-<div class='landscape-video-snippet  bg-white w-full relative my-z-index hidden lg:block px-0 lg:px-4 pb-6'>
+<div class='landscape-video-snippet bg-white w-full relative my-z-index hidden lg:block px-0 lg:px-4 pb-6'>
   {% render 'landscape-video' %}
 </div>
-<div class='ugc-snippet w-full  bg-white relative my-z-index px-0 lg:px-4 pb-6'>
+<div class='ugc-snippet w-full bg-white relative my-z-index px-0 lg:px-4 pb-6'>
   {% render 'ugc' %}
 </div>
-<div class='bg-white w-full bg-white relative my-z-index px-0 lg:px-4 pb-6'>
+<div class='w-full bg-white relative my-z-index px-0 lg:px-4 pb-6'>
   {% render 'vertical-image-with-text' %}
 </div>
-<div class='full-width-image-snippet  bg-white w-full relative my-z-index px-0 lg:px-4'>
+<div class='full-width-image-snippet bg-white w-full relative my-z-index px-0 lg:px-4 hidden lg:flex'>
   {% render 'full-width-image' %}
 </div>
 <div class='yotpo-review-snippet bg-white w-full px-4 pb-6 my-z-index relative'>
-  <div id='yotpo-review-wrapper' class='h-96'></div>
+  <div id='yotpo-review-wrapper' style='height:600px'></div>
 </div>
 <div class='relative-products-snippet  bg-white w-full relative my-z-index px-0 lg:px-4 pb-6'>
   {% render 'related-products' %}

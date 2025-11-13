@@ -75,7 +75,7 @@
               id='ProductSubmitButton-{{ section_id }}'
               type='submit'
               name='add'
-              class='uppercase add-to-cart-button btn-dark product-form__submit px-6 py-2 lg:py-0 h-auto lg:h-8 transition-colors w-full {% if show_dynamic_checkout %}bg-gray-200 text-gray-900 hover:bg-gray-300 focus:ring-2 focus:ring-gray-500{% else %}bg-blue-600 text-white hover:bg-blue-700 focus:ring-2 focus:ring-blue-500{% endif %}'
+              class='uppercase add-to-cart-button btn-dark product-form__submit px-6 h-10 lg:h-8 transition-colors w-full {% if show_dynamic_checkout %}bg-gray-200 text-gray-900 hover:bg-gray-300 focus:ring-2 focus:ring-gray-500{% else %}bg-blue-600 text-white hover:bg-blue-700 focus:ring-2 focus:ring-blue-500{% endif %}'
               {% if product.selected_or_first_available_variant.available == false
                 or quantity_rule_soldout
                 or product.selected_or_first_available_variant == null
@@ -103,7 +103,10 @@
           </div>
           <div class='w-5/12 lg:w-2/12 flex flex-col'>
             <span class='uppercase text-xs lg:text-sm text-dark-gray tracking-wide'>Select size</span>
-            <div class='size-selector bg-gray-100 bg-opacity-70 hover:bg-black hover:text-white  transition-colors duration-700 ease-in-out py-2 lg:py-0'>
+            <div
+              style=''
+              class='size-selector bg-gray-100 bg-opacity-70 hover:bg-black hover:text-white transition-colors duration-700 ease-in-out flex items-center h-10 lg:h-auto'
+            >
               {%- comment -%}
                 {%- when 'variant_picker' -%}
               {%- endcomment -%}

@@ -1,4 +1,5 @@
 {% assign video_mobile_url = product.metafields.module.video_module_video_mobile.value %}
+{% assign module_image_val = product.metafields.module.image_text_module_image.value %}
 
 {% if video_mobile_url != blank %}
   <div class='w-full flex'>
@@ -15,6 +16,15 @@
         ></iframe>
       </div>
     </div>
-    <div class='hidden lg:w-1/2'></div>
+    <div class='hidden lg:w-1/2 lg:flex flex-col items-center justify-center self-stretch'>
+      <div>
+        <h3 class='font-accent text-xl lg:text-4xl text-center lg:text-left mb-2 lg:mb-3'>
+          {{ product.metafields.module.image_text_module_header.value | default: 'Gray Matters' }}
+        </h3>
+        <p class='font-accent text-sm lg:text-lg text-center lg:text-left mb-6 lg:mb-0'>
+          {{ product.metafields.module.image_text_module_description.value | default: 'Gray Matters' }}
+        </p>
+      </div>
+    </div>
   </div>
 {% endif %}

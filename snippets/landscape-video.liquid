@@ -1,12 +1,10 @@
 {% assign video_desktop_url = product.metafields.module.video_module_video.value %}
-{% assign video_mobile_url = product.metafields.module.video_module_video_mobile.value %}
-{% assign video_url = video_desktop_url | default: video_mobile_url %}
 
-{% if video_url != blank %}
+{% if video_desktop_url != blank %}
   <div class='w-full aspect-video'>
     <iframe
       class='w-full h-full'
-      src='{{ video_url }}'
+      src='{{ video_desktop_url }}'
       frameborder='0'
       allow='autoplay; fullscreen; picture-in-picture'
       allowfullscreen
