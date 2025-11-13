@@ -67,7 +67,20 @@
 
 {% assign entries_count = ugc_entries | size %}
 
+{% assign has_valid_ugc_entry = false %}
 {% if entries_count > 0 %}
+  {% for entry in ugc_entries %}
+    {% assign image_url_raw = entry.image | default: entry.src | default: entry.image_url %}
+    {% assign image_url_clean = image_url_raw | append: '' | strip %}
+    {% assign image_url = image_url_clean | split: ' ' | first %}
+    {% if image_url != blank %}
+      {% assign has_valid_ugc_entry = true %}
+      {% break %}
+    {% endif %}
+  {% endfor %}
+{% endif %}
+
+{% if entries_count > 0 and has_valid_ugc_entry %}
   <div class=''>
     <h3 class='w-full text-center font-accent font-normal text-xl uppercase mb-6'>A seen on</h3>
 
