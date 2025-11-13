@@ -134,19 +134,19 @@
       {% if entries_count > 1 %}
         <button
           type='button'
-          class='md:hidden absolute left-2 top-1/2 -translate-y-1/2 bg-black/70 text-white rounded-full w-9 h-9 flex items-center justify-center'
+          class='md:hidden absolute left-2 top-1/2 -translate-y-1/2 flex items-center justify-center leading-none'
           aria-label='Previous'
           data-prev
         >
-          ‹
+          <i class='fa-solid fa-chevron-left text-white drop-shadow' style='font-size:50px;'></i>
         </button>
         <button
           type='button'
-          class='md:hidden absolute right-2 top-1/2 -translate-y-1/2 bg-black/70 text-white rounded-full w-9 h-9 flex items-center justify-center'
+          class='md:hidden absolute right-2 top-1/2 -translate-y-1/2 flex items-center justify-center leading-none'
           aria-label='Next'
           data-next
         >
-          ›
+          <i class='fa-solid fa-chevron-right  text-white drop-shadow' style='font-size:50px;'></i>
         </button>
         <div
           class='absolute left-2 -bottom-3 h-[2px] w-[100px] bg-gray-300 opacity-0 transition-opacity duration-200'
