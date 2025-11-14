@@ -94,7 +94,7 @@
                 <div class='cart-items flex flex-col' role='list'>
                   {%- for item in cart.items -%}
                     <div
-                      id='CartDrawer-Item-{{ item.index | plus: 1 }}'
+                      id='CartDrawer-Item-{{ forloop.index }}'
                       class='cart-item grid grid-cols-[auto,1fr] gap-4 py-3 lg:grid-cols-4'
                       role='listitem'
                     >
@@ -236,8 +236,8 @@
                                   step='{{ item.variant.quantity_rule.increment }}'
                                   {% # theme-check-enable %}
                                   aria-label='{{ 'products.product.quantity.input_label' | t: product: item.product.title | escape }}'
-                                  id='Drawer-quantity-{{ item.index | plus: 1 }}'
-                                  data-index='{{ item.index | plus: 1 }}'
+                                  id='Drawer-quantity-{{ forloop.index }}'
+                                  data-index='{{ forloop.index }}'
                                 >
                                 <button
                                   class='quantity__button'
@@ -336,7 +336,7 @@
                             </div>
                           {%- endif -%}
                           <div
-                            id='CartDrawer-LineItemError-{{ item.index | plus: 1 }}'
+                            id='CartDrawer-LineItemError-{{ forloop.index }}'
                             class='cart-item__error'
                             role='alert'
                           >
