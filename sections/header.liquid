@@ -1,8 +1,8 @@
-<div style='background:#ce71ed' class='text-white text-xs text-center py-1'>
+<div style='background:#ce71ed' class='text-white text-xs text-center py-1 relative z-[60]' data-announcement-bar>
   {% render 'announcements' %}
   SPEDIZIONI GRATUITE E DAZI PREPAGATI
 </div>
-<header class='bg-white px-4 h-12 flex flex-row items-center fixed top-8 left-0 right-0 z-50' data-site-header>
+<header class='bg-white px-4 h-12 flex flex-row items-center fixed top-6 left-0 right-0 z-50' data-site-header>
   <div class='w-full flex flex-row justify-between bg-white h-full items-center'>
     <!-- hamburger -->
     <div class='flex lg:hidden w-2/12 items-start'>
@@ -259,20 +259,29 @@
       var closers = menu ? menu.querySelectorAll('[data-close-mobile-menu]') : [];
       var TRANSITION_MS = 300;
       var siteHeader = document.querySelector('[data-site-header]');
+      var announcementBar = document.querySelector('[data-announcement-bar]');
       var HEADER_SCROLL_THRESHOLD = 0;
 
       function syncHeaderOffset() {
         if (!siteHeader) return;
         if (window.scrollY > HEADER_SCROLL_THRESHOLD) {
-          if (siteHeader.classList.contains('top-8')) {
-            siteHeader.classList.replace('top-8', 'top-0');
+          if (siteHeader.classList.contains('top-6')) {
+            siteHeader.classList.replace('top-6', 'top-0');
           } else {
             siteHeader.classList.add('top-0');
           }
         } else if (siteHeader.classList.contains('top-0')) {
-          siteHeader.classList.replace('top-0', 'top-8');
+          siteHeader.classList.replace('top-0', 'top-6');
         } else {
-          siteHeader.classList.add('top-8');
+          siteHeader.classList.add('top-6');
+        }
+
+        if (announcementBar) {
+          if (window.scrollY > HEADER_SCROLL_THRESHOLD) {
+            announcementBar.classList.add('top-0');
+          } else {
+            announcementBar.classList.remove('top-0');
+          }
         }
       }
 
