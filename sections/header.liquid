@@ -347,6 +347,19 @@
       var searchContainer = document.getElementById('HeaderSearchContainer');
       var searchHideTimer = null;
       var SEARCH_TRANSITION_MS = 250;
+      var SEARCH_DEFAULT_TOP = 80;
+      var SEARCH_SCROLLED_TOP = 48;
+      function syncSearchContainerTop() {
+        if (!searchContainer) return;
+        var nextTop = window.scrollY > 0 ? SEARCH_SCROLLED_TOP : SEARCH_DEFAULT_TOP;
+        var nextTopValue = nextTop + 'px';
+        if (searchContainer.style.top !== nextTopValue) {
+          searchContainer.style.top = nextTopValue;
+        }
+      }
+
+      syncSearchContainerTop();
+      window.addEventListener('scroll', syncSearchContainerTop);
 
       function showSearch() {
         if (!searchContainer) return;
@@ -467,3 +480,352 @@
     </p>
   </div>
 </div>
+{% schema %}
+{
+  "name": {
+    "de": "Titel",
+    "en": "Header",
+    "es": "Encabezado",
+    "fr": "En-tête",
+    "it": "Header",
+    "ja": "ヘッダー",
+    "nl": "Koptekst",
+    "pt-BR": "Cabeçalho",
+    "zh-CN": "标头",
+    "zh-TW": "標頭"
+  },
+  "settings": [
+    {
+      "type": "radio",
+      "id": "align_logo",
+      "label": {
+        "de": "Logo-Ausrichtung",
+        "en": "Logo alignment",
+        "es": "Alineación de logotipo",
+        "fr": "Alignement du logo",
+        "it": "Allineamento logo",
+        "ja": "ロゴアラインメント",
+        "nl": "Logo-uitlijning",
+        "pt-BR": "Alinhamento do logotipo",
+        "zh-CN": "logo 对齐方式",
+        "zh-TW": "商標對齊"
+      },
+      "default": "left",
+      "options": [
+        {
+          "value": "left",
+          "label": {
+            "de": "Links",
+            "en": "Left",
+            "es": "Izquierda",
+            "fr": "Gauche",
+            "it": "Sinistra",
+            "ja": "左",
+            "nl": "Links",
+            "pt-BR": "Esquerda",
+            "zh-CN": "左侧",
+            "zh-TW": "左方"
+          }
+        },
+        {
+          "value": "center",
+          "label": {
+            "de": "Mittig",
+            "en": "Centered",
+            "es": "Centrada",
+            "fr": "Centré",
+            "it": "Centrato",
+            "ja": "中央揃え",
+            "nl": "Gecentreerd",
+            "pt-BR": "Centralizado",
+            "zh-CN": "居中",
+            "zh-TW": "置中"
+          }
+        }
+      ]
+    },
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": {
+        "de": "Logo-Foto",
+        "en": "Logo image",
+        "es": "Logotipo",
+        "fr": "Image du logo",
+        "it": "Immagine del logo",
+        "ja": "ロゴ画像",
+        "nl": "Afbeelding van logo",
+        "pt-BR": "Imagem do logotipo",
+        "zh-CN": "logo 图片",
+        "zh-TW": "標誌圖片"
+      }
+    },
+    {
+      "type": "range",
+      "id": "logo_max_width",
+      "label": {
+        "de": "Logobreite",
+        "en": "Custom logo width",
+        "es": "Ancho del logotipo personalizado",
+        "fr": "Largeur personnalisée du logo",
+        "it": "Larghezza logo personalizzato",
+        "ja": "ロゴの幅をカスタムする",
+        "nl": "Aangepaste logo-breedte",
+        "pt-BR": "Largura do logotipo personalizado",
+        "zh-CN": "自定义 logo 宽度",
+        "zh-TW": "自訂商標寬度"
+      },
+      "min": 50,
+      "max": 250,
+      "step": 5,
+      "unit": {
+        "de": "px",
+        "en": "px",
+        "es": "px",
+        "fr": "px",
+        "it": "px",
+        "ja": "px",
+        "nl": "px",
+        "pt-BR": "px",
+        "zh-CN": "px",
+        "zh-TW": "像素"
+      },
+      "default": 100
+    },
+    {
+      "type": "link_list",
+      "id": "main_linklist",
+      "label": {
+        "de": "Menü",
+        "en": "Menu",
+        "es": "Menú",
+        "fr": "Menu",
+        "it": "Menu",
+        "ja": "メニュー",
+        "nl": "Menu",
+        "pt-BR": "Menu",
+        "zh-CN": "菜单",
+        "zh-TW": "選單"
+      },
+      "default": "main-menu"
+    },
+    {
+      "type": "header",
+      "content": {
+        "de": "Ankündigungsbereich",
+        "en": "Announcement bar",
+        "es": "Barra de anuncios",
+        "fr": "Barre d'annonces",
+        "it": "Barra degli annunci",
+        "ja": "告知バー",
+        "nl": "Aankondigingsbalk",
+        "pt-BR": "Barra de anúncios",
+        "zh-CN": "公告栏",
+        "zh-TW": "公告列"
+      }
+    },
+    {
+      "type": "checkbox",
+      "id": "message",
+      "label": {
+        "de": "Ankündigung anzeigen",
+        "en": "Show announcement",
+        "es": "Mostrar anuncio",
+        "fr": "Afficher l'annonce",
+        "it": "Mostra annuncio",
+        "ja": "告知を表示する",
+        "nl": "Aankondiging weergeven",
+        "pt-BR": "Exibir anúncio",
+        "zh-CN": "显示公告",
+        "zh-TW": "顯示公告"
+      },
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "home_page_only",
+      "label": {
+        "de": "Nur Startseite",
+        "en": "Home page only",
+        "es": "Solo página de inicio",
+        "fr": "Page d'accueil uniquement",
+        "it": "Solo home page",
+        "ja": "ホームページのみ",
+        "nl": "Alleen startpagina",
+        "pt-BR": "Apenas página inicial",
+        "zh-CN": "仅主页",
+        "zh-TW": "僅限首頁"
+      },
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "slide_animation",
+      "label": {
+        "de": "Animation aktivieren",
+        "en": "Enable Slide Animation",
+        "es": "Habilitar animación",
+        "fr": "Activer l'animation",
+        "it": "Abilita animazione",
+        "ja": "アニメーションを有効にする",
+        "nl": "Animatie inschakelen",
+        "pt-BR": "Habilitar Animação",
+        "zh-CN": "启用动画",
+        "zh-TW": "啟用動畫"
+      },
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "fade_animation",
+      "label": {
+        "de": "Aktivieren Sie die Fade-Animation",
+        "en": "Enable Fade Animation",
+        "es": "Habilitar animación de fundido",
+        "fr": "Activer l'animation en fondu",
+        "it": "Abilita animazione dissolvenza",
+        "ja": "フェードアニメーションを有効にする",
+        "nl": "Schakel Fade-animatie in",
+        "pt-BR": "Habilitar Fade Animation",
+        "zh-CN": "启用淡入淡出动画",
+        "zh-TW": "启用淡入淡出动画"
+      },
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "message_text",
+      "label": {
+        "de": "Text",
+        "en": "Text",
+        "es": "Texto",
+        "fr": "Texte",
+        "it": "Testo",
+        "ja": "テキスト",
+        "nl": "Tekst",
+        "pt-BR": "Texto",
+        "zh-CN": "文本",
+        "zh-TW": "文字"
+      },
+      "default": {
+        "de": "Hier etwas ankündigen",
+        "en": "Announce something here",
+        "es": "Anuncia algo aquí",
+        "fr": "Annoncez quelque chose ici",
+        "it": "Annuncia qualcosa qui",
+        "ja": "ここで告知してください",
+        "nl": "Kondig hier iets aan",
+        "pt-BR": "Anuncie algo aqui",
+        "zh-CN": "在此处进行公告",
+        "zh-TW": "在此公告資訊"
+      }
+    },
+    {
+      "type": "url",
+      "id": "message_link",
+      "label": {
+        "de": "Link",
+        "en": "Link",
+        "es": "Enlace",
+        "fr": "Lien",
+        "it": "Link",
+        "ja": "リンク",
+        "nl": "Link",
+        "pt-BR": "Link",
+        "zh-CN": "链接",
+        "zh-TW": "連結"
+      },
+      "info": {
+        "de": "Optional",
+        "en": "Optional",
+        "es": "Opcional",
+        "fr": "Facultatif",
+        "it": "Facoltativo",
+        "ja": "選択させる",
+        "nl": "Optioneel",
+        "pt-BR": "Opcional",
+        "zh-CN": "可选",
+        "zh-TW": "(選填)"
+      }
+    },
+    {
+      "type": "text",
+      "id": "message_text_alt",
+      "label": {
+        "de": "Alternate Text",
+        "en": "Alternate Text",
+        "es": "Texto alternativo",
+        "fr": "Texte alternatif",
+        "it": "Testo alternato",
+        "ja": "代替テキスト",
+        "nl": "Alternatieve tekst",
+        "pt-BR": "Texto alternativo",
+        "zh-CN": "替代文字",
+        "zh-TW": "替代文字"
+      },
+      "default": {
+        "de": "Hier etwas ankündigen",
+        "en": "Announce something here",
+        "es": "Anuncia algo aquí",
+        "fr": "Annoncez quelque chose ici",
+        "it": "Annuncia qualcosa qui",
+        "ja": "ここで告知してください",
+        "nl": "Kondig hier iets aan",
+        "pt-BR": "Anuncie algo aqui",
+        "zh-CN": "在此处进行公告",
+        "zh-TW": "在此公告資訊"
+      }
+    },
+    {
+      "type": "url",
+      "id": "message_link_alt",
+      "label": {
+        "de": "Alternativer Link",
+        "en": "Alternate Link",
+        "es": "Enlace alternativo",
+        "fr": "Lien Alternatif",
+        "it": "Collegamento Alternativo",
+        "ja": "代替リンク",
+        "nl": "Alternatieve Link",
+        "pt-BR": "Link Alternativo",
+        "zh-CN": "替代链接",
+        "zh-TW": "替代鏈接"
+      }
+    },
+    {
+      "type": "color",
+      "id": "color_bg",
+      "label": {
+        "de": "Zeile",
+        "en": "Bar",
+        "es": "Barra",
+        "fr": "Barre",
+        "it": "Barra",
+        "ja": "バー",
+        "nl": "Balk",
+        "pt-BR": "Barra",
+        "zh-CN": "栏",
+        "zh-TW": "橫條"
+      },
+      "default": "#7796a8"
+    },
+    {
+      "type": "color",
+      "id": "color_text",
+      "label": {
+        "de": "Text",
+        "en": "Text",
+        "es": "Texto",
+        "fr": "Texte",
+        "it": "Testo",
+        "ja": "テキスト",
+        "nl": "Tekst",
+        "pt-BR": "Texto",
+        "zh-CN": "文本",
+        "zh-TW": "文字"
+      },
+      "default": "#fff"
+    }
+  ]
+}
+{% endschema %}
