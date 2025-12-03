@@ -1,4 +1,4 @@
-{% assign mobile_collection_menu = linklists['collection'] %}
+{% assign mobile_collection_menu = linklists.collection %}
 
 <nav class='mobile-menu space-y-2' aria-label='Mobile menu'>
   <div data-accordion-item>
@@ -23,8 +23,9 @@
               <a
                 href='{{ link.url }}'
                 class='menu-drawer__menu-item block py-1 proxima-reg text-sm tracking-wider uppercase hover:opacity-70 transition-opacity duration-200 ease-out'
-                >{{ link.title | escape }}</a
               >
+                {{- link.title | escape -}}
+              </a>
             </li>
           {% endfor %}
         </ul>
@@ -62,14 +63,14 @@
           {%- for language in localization.available_languages -%}
             <li>
               {%- if language.iso_code == localization.language.iso_code -%}
-                <span class='menu-drawer__menu-item block py-1 proxima-reg text-sm tracking-wider uppercase font-semibold hover:opacity-70 transition-opacity duration-200 ease-out'>
+                <span class='menu-drawer__menu-item block py-1 proxima-reg text-sm tracking-wider uppercase font-semibold text-black hover:opacity-70 transition-opacity duration-200 ease-out'>
                   {{ language.endonym_name | default: language.name }}
                 </span>
               {%- else -%}
                 <a
                   href='{{ language.root_url }}'
                   hreflang='{{ language.iso_code }}'
-                  class='menu-drawer__menu-item block py-1 proxima-reg text-sm tracking-wider uppercase hover:opacity-70 transition-opacity duration-200 ease-out'
+                  class='menu-drawer__menu-item block py-1 proxima-reg text-sm tracking-wider uppercase text-gray-500 hover:opacity-70 transition-opacity duration-200 ease-out'
                 >
                   {{ language.endonym_name | default: language.name }}
                 </a>

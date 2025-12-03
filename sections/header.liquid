@@ -1,6 +1,5 @@
 <div style='background:#ce71ed' class='text-white text-xs text-center py-1 relative z-[60]' data-announcement-bar>
-  {% render 'announcements' %}
-  SPEDIZIONI GRATUITE E DAZI PREPAGATI
+  {% render 'message-bar' %}
 </div>
 <header class='bg-white px-4 h-12 flex flex-row items-center fixed top-6 left-0 right-0 z-[70]' data-site-header>
   <div class='w-full flex flex-row justify-between bg-white h-full items-center'>
@@ -236,7 +235,17 @@
   <!-- overlay -->
   <button
     class='absolute inset-0 bg-black/50 opacity-0 transition-opacity duration-300 ease-out'
-    data-close-mobile-menu
+    data-close-mobile-menubg-white
+    px-4
+    h-12
+    flex
+    flex-row
+    items-center
+    fixed
+    top-6
+    left-0
+    right-0
+    z-[70]
     data-menu-overlay
     aria-label='Chiudi menu'
   ></button>

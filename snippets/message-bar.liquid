@@ -1,4 +1,58 @@
 {% if section.settings.message %}
+  <style>
+
+      @keyframes full-x-translate {
+        from {
+          transform:translateX(400%);
+        }
+        to {
+          transform:translateX(-100%);
+        }
+      }
+
+      .announsment_bar_top {
+        {% if section.settings.slide_animation %}
+          display: flex !important;
+        {% endif %}
+        background-color: {{ section.settings.color_bg }};
+        color: {{ section.settings.color_text }};
+      }
+
+      .announsment_bar_top > span {
+        transition: opacity 500ms ease-in-out;
+      }
+
+      .animate-translate-x {
+        transform: translateX(400%);
+        animation: full-x-translate 45s linear infinite;
+      }
+
+
+    @media only screen and (max-width: 767px) {
+      @keyframes full-x-translate {
+        from {
+          transform:translateX(100%);
+        }
+        to {
+          transform:translateX(-100%);
+        }
+      }
+
+      .animate-translate-x {
+        transform: translateX(100%);
+        animation: full-x-translate 28s linear infinite;
+      }
+    }
+  </style>
+
+  {% comment %}
+    ---------------------------------------------------------
+
+     Show alternate messages in announcement bar if present
+
+    ---------------------------------------------------------
+  {% endcomment %}
+
   {% if section.settings.message_text_alt and section.settings.message_link_alt and section.settings.fade_animation %}
     <script>
       const messages = [
