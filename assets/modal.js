@@ -1,15 +1,6 @@
 const MODAL_BODY_LOCK_CLASS = 'overflow-hidden';
 const DEFAULT_OPEN_CLASSES = ['grid', 'place-items-center'];
 
-const getFocusableElements = (container) =>
-  container
-    ? Array.from(
-        container.querySelectorAll(
-          'a[href], button:not([disabled]), textarea:not([disabled]), input:not([disabled]), select:not([disabled]), [tabindex]:not([tabindex="-1"])',
-        ),
-      )
-    : [];
-
 document.addEventListener('DOMContentLoaded', () => {
   const modals = Array.from(document.querySelectorAll('[data-modal]'));
   if (!modals.length) return;
