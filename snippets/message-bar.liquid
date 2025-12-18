@@ -1,0 +1,138 @@
+{%- liquid
+  assign show_message = false
+  assign slide_animation = true
+  assign fade_animation = true
+  assign message_text = ''
+  assign message_link = ''
+  assign message_text_alt = ''
+  assign message_link_alt = ''
+  assign color_bg = '#ce71ed'
+  assign color_text = '#ffffff'
+  assign show_on_home_only = false
+
+  if section and section.settings
+    assign show_message = section.settings.message
+    assign slide_animation = section.settings.slide_animation
+    assign fade_animation = section.settings.fade_animation
+    assign message_text = section.settings.message_text
+    assign message_link = section.settings.message_link
+    assign message_text_alt = section.settings.message_text_alt
+    assign message_link_alt = section.settings.message_link_alt
+    assign color_bg = section.settings.color_bg | default: color_bg
+    assign color_text = section.settings.color_text | default: color_text
+    assign show_on_home_only = section.settings.home_page_only
+  endif
+
+  if show_message == blank and settings.message_bar_enabled
+    assign show_message = settings.message_bar_enabled
+    assign slide_animation = settings.message_bar_slide_animation
+    assign fade_animation = settings.message_bar_fade_animation
+    assign message_text = settings.message_bar_text | default: message_text
+    assign message_link = settings.message_bar_link | default: message_link
+    assign message_text_alt = settings.message_bar_text_alt | default: message_text_alt
+    assign message_link_alt = settings.message_bar_link_alt | default: message_link_alt
+    assign color_bg = settings.message_bar_color_bg | default: color_bg
+    assign color_text = settings.message_bar_color_text | default: color_text
+  endif
+
+  assign message_text = message_text | default: '' | strip
+  assign message_text_alt = message_text_alt | default: '' | strip
+  assign show_message = show_message | default: false
+  assign slide_animation = slide_animation | default: true
+  assign fade_animation = fade_animation | default: true
+
+  if show_on_home_only and template.name != 'index'
+    assign show_message = false
+  endif
+-%}
+
+{% if show_message and message_text != blank %}
+  <style>
+      @keyframes full-x-translate {
+        from {
+          transform:translateX(400%);
+        }
+        to {
+          transform:translateX(-100%);
+        }
+      }
+
+      .announsment_bar_top {
+        {% if slide_animation %}
+          display: flex !important;
+        {% endif %}
+        background-color: {{ color_bg }};
+        color: {{ color_text }};
+      }
+
+      .announsment_bar_top > span {
+        transition: opacity 500ms ease-in-out;
+      }
+
+      .animate-translate-x {
+        transform: translateX(400%);
+        animation: full-x-translate 45s linear infinite;
+      }
+
+
+    @media only screen and (max-width: 767px) {
+      @keyframes full-x-translate {
+        from {
+          transform:translateX(100%);
+        }
+        to {
+          transform:translateX(-100%);
+        }
+      }
+
+      .animate-translate-x {
+        transform: translateX(100%);
+        animation: full-x-translate 28s linear infinite;
+      }
+    }
+  </style>
+
+  {% if message_text_alt != blank and message_link_alt != blank and fade_animation %}
+    <script>
+      const messages = [
+        { text: `{{ message_text_alt | escape }}`, link: `{{ message_link_alt }}` },
+        { text: `{{ message_text | escape }}`, link: `{{ message_link }}` },
+      ];
+
+      messages.forEach((msg, i) => {
+        setTimeout(() => {
+          $('.announsment_bar_top > span').css('opacity', 1);
+          $('#announcement-bar-message').text(msg.text);
+          $('#announcement-bar-link').attr('href', msg.link);
+        }, 4000 * (i + 2));
+        setTimeout(() => {
+          $('.announsment_bar_top > span').css('opacity', 0);
+        }, 3500 * (i + 2));
+      });
+
+      setInterval(() => {
+        messages.forEach((msg, i) => {
+          setTimeout(() => {
+            $('.announsment_bar_top > span').css('opacity', 1);
+            $('#announcement-bar-message').text(msg.text);
+            $('#announcement-bar-link').attr('href', msg.link);
+          }, 4000 * (i + 2));
+          setTimeout(() => {
+            $('.announsment_bar_top > span').css('opacity', 0);
+          }, 3500 * (i + 2));
+        });
+      }, 10000);
+    </script>
+  {% endif %}
+
+  <a id='announcement-bar-link' href='{{ message_link | default: '#' }}' class='announsment_bar_top'>
+    <span
+      id='announcement-bar-message'
+      {% if slide_animation %}
+        class='animate-translate-x'
+      {% endif %}
+    >
+      {{ message_text | escape }}
+    </span>
+  </a>
+{% endif %}
