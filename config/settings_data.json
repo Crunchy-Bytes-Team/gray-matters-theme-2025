@@ -182,6 +182,21 @@
           "settings": {
             "color_scheme": "scheme-1"
           }
+        },
+        "header": {
+          "type": "header",
+          "settings": {
+            "align_logo": "left",
+            "logo": "shopify://shop_images/logo.png",
+            "logo_max_width": 100,
+            "main_linklist": "main-menu",
+            "message": false,
+            "home_page_only": true,
+            "message_text": "Announce something here",
+            "message_link": "",
+            "color_bg": "#7796a8",
+            "color_text": "#fff"
+          }
         }
       }
     }

@@ -7,6 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "prepare": "husky install",
     "dev": "shopify theme dev --store=gray-matters-online-store.myshopify.com",
+    "devdev": "shopify theme dev --store=crunchy-dev-store.myshopify.com",
     "upload": "shopify theme share",
     "tailwind:build": "npx tailwindcss -i ./assets/app-tailwind.css -o ./assets/app.css",
     "tailwind:watch": "npx tailwindcss -i ./assets/app-tailwind.css -o ./assets/app.css --watch",

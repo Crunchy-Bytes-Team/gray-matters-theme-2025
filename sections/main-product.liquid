@@ -4,6 +4,7 @@
 
 <product-info
   id='MainProduct-{{ section.id }}'
+  style='position:relative;z-index:1;'
   class='section-{{ section.id }}-padding gradient color-{{ section.settings.color_scheme }}'
   data-section='{{ section.id }}'
   data-product-id='{{ product.id }}'
@@ -796,31 +797,31 @@
   </div>
 </product-info>
 
-<div class='image-row-snippet bg-white w-full relative my-z-index px-0 lg:px-4 pb-6'>
+<div class='image-row-snippet bg-white w-full relative z-0 lg:z-50 px-0 lg:px-4 pb-6'>
   {% render 'image-row' %}
 </div>
-<div class='image-row-snippet bg-white w-full relative my-z-index px-0 lg:px-4 pb-6'>
+<div class='image-row-snippet bg-white w-full relative z-0 lg:z-50 px-0 lg:px-4 pb-6'>
   {% render 'image-row-2' %}
 </div>
-<div class='vertical-video-snippet bg-white w-full relative my-z-index px-0 lg:px-4 pb-6'>
+<div class='vertical-video-snippet bg-white w-full relative z-0 lg:z-50 px-0 lg:px-4 pb-6'>
   {% render 'vertical-video' %}
 </div>
-<div class='landscape-video-snippet bg-white w-full relative my-z-index hidden lg:block px-0 lg:px-4 pb-6'>
+<div class='landscape-video-snippet bg-white w-full relative z-0 lg:z-50 hidden lg:block px-0 lg:px-4 pb-6'>
   {% render 'landscape-video' %}
 </div>
-<div class='ugc-snippet w-full bg-white relative my-z-index px-0 lg:px-4 pb-6'>
+<div class='ugc-snippet w-full bg-white relative z-0 lg:z-50 px-0 lg:px-4 pb-6'>
   {% render 'ugc' %}
 </div>
-<div class='w-full bg-white relative my-z-index px-0 lg:px-4 pb-6'>
+<div class='w-full bg-white relative z-0 lg:z-50 px-0 lg:px-4 pb-6'>
   {% render 'vertical-image-with-text' %}
 </div>
-<div class='full-width-image-snippet bg-white w-full relative my-z-index px-0 lg:px-4 hidden lg:flex'>
+<div class='full-width-image-snippet bg-white w-full relative z-0 lg:z-50 px-0 lg:px-4 hidden lg:flex'>
   {% render 'full-width-image' %}
 </div>
-<div class='yotpo-review-snippet bg-white w-full px-4 pb-6 my-z-index relative'>
+<div class='yotpo-review-snippet bg-white w-full px-4 pb-6 z-0 lg:z-50 relative'>
   <div id='yotpo-review-wrapper' style='height:600px'></div>
 </div>
-<div class='relative-products-snippet  bg-white w-full relative my-z-index px-0 lg:px-4 pb-6'>
+<div class='relative-products-snippet  bg-white w-full relative z-0 lg:z-50 px-0 lg:px-4 pb-6'>
   {% render 'related-products' %}
 </div>
 
