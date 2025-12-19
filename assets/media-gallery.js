@@ -12,9 +12,11 @@ if (!customElements.get('media-gallery')) {
         this.mql = window.matchMedia('(min-width: 750px)');
         if (!this.elements.thumbnails) return;
 
+        const getDebounceFn = window.getDebounce || (() => debounce);
+        const debounceFn = getDebounceFn();
         this.elements.viewer.addEventListener(
           'slideChanged',
-          debounce(this.onSlideChanged.bind(this), 500),
+          debounceFn(this.onSlideChanged.bind(this), 500),
         );
         this.elements.thumbnails
           .querySelectorAll('[data-target]')

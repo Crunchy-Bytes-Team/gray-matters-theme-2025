@@ -257,8 +257,10 @@ if (!customElements.get('quick-order-list')) {
       }
 
       addMultipleDebounce() {
+        const getDebounceFn = window.getDebounce || (() => debounce);
+        const debounceFn = getDebounceFn();
         this.querySelectorAll('quantity-input').forEach((qty) => {
-          const debouncedOnChange = debounce((event) => {
+          const debouncedOnChange = debounceFn((event) => {
             this.onChange(event);
           }, 100);
           qty.addEventListener('change', debouncedOnChange.bind(this));

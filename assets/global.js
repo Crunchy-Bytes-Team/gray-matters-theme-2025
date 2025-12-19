@@ -327,6 +327,21 @@ function debounce(fn, wait) {
   };
 }
 
+// Helper function to get debounce with fallback for files that load before global.js
+window.getDebounce = function () {
+  if (typeof debounce !== 'undefined') {
+    return debounce;
+  }
+  // Local fallback implementation
+  return function (fn, wait) {
+    let t;
+    return (...args) => {
+      clearTimeout(t);
+      t = setTimeout(() => fn.apply(this, args), wait);
+    };
+  };
+};
+
 function throttle(fn, delay) {
   let lastCall = 0;
   return function (...args) {

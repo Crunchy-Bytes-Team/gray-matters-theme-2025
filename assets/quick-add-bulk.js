@@ -6,7 +6,9 @@ if (!customElements.get('quick-add-bulk')) {
         super();
         this.quantity = this.querySelector('quantity-input');
 
-        const debouncedOnChange = debounce((event) => {
+        const getDebounceFn = window.getDebounce || (() => debounce);
+        const debounceFn = getDebounceFn();
+        const debouncedOnChange = debounceFn((event) => {
           if (parseInt(event.target.value) === 0) {
             this.startQueue(
               event.target.dataset.index,

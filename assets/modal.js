@@ -1,14 +1,19 @@
 const MODAL_BODY_LOCK_CLASS = 'overflow-hidden';
 const DEFAULT_OPEN_CLASSES = ['grid', 'place-items-center'];
 
-const getFocusableElements = (container) =>
-  container
-    ? Array.from(
-        container.querySelectorAll(
-          'a[href], button:not([disabled]), textarea:not([disabled]), input:not([disabled]), select:not([disabled]), [tabindex]:not([tabindex="-1"])',
-        ),
-      )
-    : [];
+// getFocusableElements is defined in global.js - using that instead to avoid duplicate declaration
+// Fallback implementation if global.js hasn't loaded yet
+const getFocusableElementsSafe = (container) => {
+  if (typeof getFocusableElements !== 'undefined') {
+    return getFocusableElements(container);
+  }
+  // Local fallback implementation
+  return Array.from(
+    container.querySelectorAll(
+      "summary, a[href], button:enabled, [tabindex]:not([tabindex^='-']), [draggable], area, input:not([type=hidden]):enabled, select:enabled, textarea:enabled, object, iframe",
+    ),
+  );
+};
 
 document.addEventListener('DOMContentLoaded', () => {
   const modals = Array.from(document.querySelectorAll('[data-modal]'));
@@ -33,7 +38,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const focusableContent =
       modal.querySelector('[data-modal-autofocus]') ||
       modal.querySelector('[data-modal-content]') ||
-      getFocusableElements(modal)[0];
+      getFocusableElementsSafe(modal)[0];
 
     if (typeof window.trapFocus === 'function') {
       window.trapFocus(modal, focusableContent || modal);

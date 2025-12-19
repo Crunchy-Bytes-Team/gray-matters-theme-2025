@@ -1,5 +1,3 @@
-{{ 'customer.css' | asset_url | stylesheet_tag }}
-
 {%- style -%}
   .section-{{ section.id }}-padding {
     padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
@@ -14,138 +12,178 @@
   }
 {%- endstyle -%}
 
-<div class="customer account section-{{ section.id }}-padding">
-  <div>
-    <h1 class="customer__title">{{ 'customer.account.title' | t }}</h1>
-    <a href="{{ routes.account_logout_url }}">
-      <span class="svg-wrapper">
-        {{- 'icon-account.svg' | inline_asset_content -}}
-      </span>
-      {{ 'customer.log_out' | t }}
-    </a>
-  </div>
+<div class="max-w-7xl mx-auto px-6 md:px-20 section-{{ section.id }}-padding">
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
+    <!-- Left Column: Account Details, Addresses, Wishlist -->
+    <div class="order-2 md:order-1">
+      <!-- ORDER HISTORY -->
+      <div class="mb-8">
+        <a href="{{ routes.account_url }}" class="text-xl font-bold uppercase tracking-wider hover:opacity-70 transition-opacity">
+          {{ 'customer.orders.title' | t }}
+        </a>
+      </div>
 
-  <div>
-    <div>
-      <h2>{{ 'customer.orders.title' | t }}</h2>
+      <!-- ACCOUNT DETAILS -->
+      <div class="mb-8">
+        <h2 class="text-xl font-bold uppercase tracking-wider mb-4">
+          {{ 'customer.account.details' | t }}
+        </h2>
+        <div class="space-y-2 text-sm">
+          <p class="font-semibold">{{ customer.name }}</p>
+          <p>{{ customer.email }}</p>
+          <a href="{{ routes.account_edit_url }}" class="underline">
+            Edit
+          </a>
+        </div>
+      </div>
+
+      <!-- MY ADDRESSES -->
+      <div class="mb-8">
+        <h2 class="text-xl font-bold uppercase tracking-wider mb-4">
+          {{ 'customer.account.addresses' | t }}
+        </h2>
+        {%- if customer.default_address -%}
+          <div class="mb-4 text-sm space-y-1">
+            {{ customer.default_address | format_address }}
+          </div>
+          <div class="space-x-4">
+            <a href="{{ routes.account_addresses_url }}" class="underline text-sm">
+              Edit
+            </a>
+            <a href="{{ routes.account_addresses_url }}" class="underline text-sm">
+              Add New Address
+            </a>
+          </div>
+        {%- else -%}
+          <div class="mb-4 text-sm">
+            <p class="mb-2">No address on file</p>
+            <a href="{{ routes.account_addresses_url }}" class="underline text-sm">
+              Add New Address
+            </a>
+          </div>
+        {%- endif -%}
+      </div>
+
+      <!-- MY WISHLIST -->
+      <div class="mb-8">
+        <h2 class="text-xl font-bold uppercase tracking-wider mb-4">
+          {{ 'customer.account.wishlist' | t | default: 'MY WISHLIST' }}
+        </h2>
+        <a href="{{ routes.root_url }}/pages/wishlist" class="underline text-sm">
+          View/Edit Wishlist
+        </a>
+      </div>
+
+      <!-- Logout -->
+      <div class="mb-8">
+        <a href="{{ routes.account_logout_url }}" class="underline text-sm">
+          {{ 'customer.log_out' | t }}
+        </a>
+      </div>
+    </div>
+
+    <!-- Right Column: Order History -->
+    <div class="order-1 md:order-2">
+      <h1 class="text-2xl md:text-3xl font-bold uppercase tracking-wider mb-6">
+        {{ 'customer.orders.title' | t }}
+      </h1>
 
       {% paginate customer.orders by 20 %}
         {%- if customer.orders.size > 0 -%}
-          <table role="table" class="order-history">
-            <caption class="visually-hidden">
-              {{ 'customer.orders.title' | t }}
-            </caption>
-            <thead role="rowgroup">
-              <tr role="row">
-                <th id="ColumnOrder" scope="col" role="columnheader">{{ 'customer.orders.order_number' | t }}</th>
-                <th id="ColumnDate" scope="col" role="columnheader">{{ 'customer.orders.date' | t }}</th>
-                <th id="ColumnPayment" scope="col" role="columnheader">{{ 'customer.orders.payment_status' | t }}</th>
-                <th id="ColumnFulfillment" scope="col" role="columnheader">
-                  {{ 'customer.orders.fulfillment_status' | t }}
-                </th>
-                <th id="ColumnTotal" scope="col" role="columnheader">{{ 'customer.orders.total' | t }}</th>
-              </tr>
-            </thead>
-            <tbody role="rowgroup">
-              {%- for order in customer.orders -%}
-                <tr role="row">
-                  <td
-                    id="RowOrder"
-                    role="cell"
-                    headers="ColumnOrder"
-                    data-label="{{ 'customer.orders.order_number' | t }}"
-                  >
-                    <a
-                      href="{{ order.customer_url }}"
-                      aria-label="{{ 'customer.orders.order_number_link' | t: number: order.name }}"
-                    >
-                      {{ order.name }}
-                    </a>
-                  </td>
-                  <td headers="RowOrder ColumnDate" role="cell" data-label="{{ 'customer.orders.date' | t }}">
-                    {{ order.created_at | time_tag: format: 'date' }}
-                  </td>
-                  <td
-                    headers="RowOrder ColumnPayment"
-                    role="cell"
-                    data-label="{{ 'customer.orders.payment_status' | t }}"
-                  >
-                    {{ order.financial_status_label }}
-                  </td>
-                  <td
-                    headers="RowOrder ColumnFulfillment"
-                    role="cell"
-                    data-label="{{ 'customer.orders.fulfillment_status' | t }}"
-                  >
-                    {{ order.fulfillment_status_label }}
-                  </td>
-                  <td headers="RowOrder ColumnTotal" role="cell" data-label="{{ 'customer.orders.total' | t }}">
-                    {{ order.total_net_amount | money_with_currency }}
-                  </td>
+          <div class="overflow-x-auto">
+            <table role="table" class="w-full border-collapse">
+              <thead>
+                <tr class="border-b border-gray-200">
+                  <th scope="col" class="text-left py-3 px-4 text-sm font-semibold uppercase tracking-wider">
+                    {{ 'customer.orders.order_number' | t }}
+                  </th>
+                  <th scope="col" class="text-left py-3 px-4 text-sm font-semibold uppercase tracking-wider">
+                    {{ 'customer.orders.date' | t }}
+                  </th>
+                  <th scope="col" class="text-left py-3 px-4 text-sm font-semibold uppercase tracking-wider">
+                    {{ 'customer.orders.payment_status' | t }}
+                  </th>
+                  <th scope="col" class="text-left py-3 px-4 text-sm font-semibold uppercase tracking-wider">
+                    {{ 'customer.orders.fulfillment_status' | t }}
+                  </th>
+                  <th scope="col" class="text-left py-3 px-4 text-sm font-semibold uppercase tracking-wider">
+                    {{ 'customer.orders.total' | t }}
+                  </th>
                 </tr>
-              {%- endfor -%}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {%- for order in customer.orders -%}
+                  <tr class="border-b border-gray-100 hover:bg-gray-50 transition-colors">
+                    <td class="py-3 px-4 text-sm">
+                      <a href="{{ order.customer_url }}" class="underline hover:no-underline">
+                        {{ order.name }}
+                      </a>
+                    </td>
+                    <td class="py-3 px-4 text-sm">
+                      {{ order.created_at | time_tag: format: 'date' }}
+                    </td>
+                    <td class="py-3 px-4 text-sm">
+                      {{ order.financial_status_label }}
+                    </td>
+                    <td class="py-3 px-4 text-sm">
+                      <a href="{{ order.customer_url }}" class="underline hover:no-underline">
+                        {{ order.fulfillment_status_label }}
+                      </a>
+                    </td>
+                    <td class="py-3 px-4 text-sm font-semibold">
+                      {{ order.total_net_amount | money_with_currency }}
+                    </td>
+                  </tr>
+                {%- endfor -%}
+              </tbody>
+            </table>
+          </div>
         {%- else -%}
-          <p>{{ 'customer.orders.none' | t }}</p>
+          <p class="text-sm text-gray-600">
+            {{ 'customer.orders.none' | t | default: 'You have not placed any orders yet.' }}
+          </p>
         {%- endif -%}
 
         {%- if paginate.pages > 1 -%}
-          {%- if paginate.parts.size > 0 -%}
-            <nav class="pagination" role="navigation" aria-label="{{ 'general.pagination.label' | t }}">
-              <ul role="list">
-                {%- if paginate.previous -%}
-                  <li>
-                    <a href="{{ paginate.previous.url }}" aria-label="{{ 'general.pagination.previous' | t }}">
-                      <span class="svg-wrapper">
-                        {{- 'icon-caret.svg' | inline_asset_content -}}
-                      </span>
-                    </a>
-                  </li>
-                {%- endif -%}
+          <nav class="mt-8 flex justify-center" role="navigation" aria-label="{{ 'general.pagination.label' | t }}">
+            <ul class="flex items-center space-x-2">
+              {%- if paginate.previous -%}
+                <li>
+                  <a href="{{ paginate.previous.url }}" class="px-3 py-2 text-sm underline hover:no-underline" aria-label="{{ 'general.pagination.previous' | t }}">
+                    ←
+                  </a>
+                </li>
+              {%- endif -%}
 
-                {%- for part in paginate.parts -%}
-                  <li>
-                    {%- if part.is_link -%}
-                      <a href="{{ part.url }}" aria-label="{{ 'general.pagination.page' | t: number: part.title }}">
-                        {{- part.title -}}
-                      </a>
+              {%- for part in paginate.parts -%}
+                <li>
+                  {%- if part.is_link -%}
+                    <a href="{{ part.url }}" class="px-3 py-2 text-sm underline hover:no-underline" aria-label="{{ 'general.pagination.page' | t: number: part.title }}">
+                      {{ part.title }}
+                    </a>
+                  {%- else -%}
+                    {%- if part.title == paginate.current_page -%}
+                      <span class="px-3 py-2 text-sm font-semibold" aria-current="page" aria-label="{{ 'general.pagination.page' | t: number: part.title }}">
+                        {{ part.title }}
+                      </span>
                     {%- else -%}
-                      {%- if part.title == paginate.current_page -%}
-                        <span aria-current="page" aria-label="{{ 'general.pagination.page' | t: number: part.title }}">
-                          {{- part.title -}}
-                        </span>
-                      {%- else -%}
-                        <span>{{ part.title }}</span>
-                      {%- endif -%}
+                      <span class="px-3 py-2 text-sm">{{ part.title }}</span>
                     {%- endif -%}
-                  </li>
-                {%- endfor -%}
+                  {%- endif -%}
+                </li>
+              {%- endfor -%}
 
-                {%- if paginate.next -%}
-                  <li>
-                    <a href="{{ paginate.next.url }}" aria-label="{{ 'general.pagination.next' | t }}">
-                      <span class="svg-wrapper">
-                        {{- 'icon-caret.svg' | inline_asset_content -}}
-                      </span>
-                    </a>
-                  </li>
-                {%- endif -%}
-              </ul>
-            </nav>
-          {%- endif -%}
+              {%- if paginate.next -%}
+                <li>
+                  <a href="{{ paginate.next.url }}" class="px-3 py-2 text-sm underline hover:no-underline" aria-label="{{ 'general.pagination.next' | t }}">
+                    →
+                  </a>
+                </li>
+              {%- endif -%}
+            </ul>
+          </nav>
         {%- endif -%}
       {% endpaginate %}
-    </div>
-
-    <div>
-      <h2>{{ 'customer.account.details' | t }}</h2>
-
-      {{ customer.default_address | format_address }}
-
-      <a href="{{ routes.account_addresses_url }}">
-        {{ 'customer.account.view_addresses' | t }} ({{ customer.addresses_count }})
-      </a>
     </div>
   </div>
 </div>

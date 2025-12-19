@@ -20,7 +20,9 @@ class CartItems extends HTMLElement {
       document.getElementById('shopping-cart-line-item-status') ||
       document.getElementById('CartDrawer-LineItemStatus');
 
-    const debouncedOnChange = debounce((event) => {
+    const getDebounceFn = window.getDebounce || (() => debounce);
+    const debounceFn = getDebounceFn();
+    const debouncedOnChange = debounceFn((event) => {
       this.onChange(event);
     }, ON_CHANGE_DEBOUNCE_TIMER);
 
@@ -350,9 +352,11 @@ if (!customElements.get('cart-note')) {
       constructor() {
         super();
 
+        const getDebounceFn = window.getDebounce || (() => debounce);
+        const debounceFn = getDebounceFn();
         this.addEventListener(
           'input',
-          debounce((event) => {
+          debounceFn((event) => {
             const body = JSON.stringify({ note: event.target.value });
             fetch(`${routes.cart_update_url}`, {
               ...fetchConfig(),

@@ -6,9 +6,11 @@ class SearchForm extends HTMLElement {
 
     if (this.input) {
       this.input.form.addEventListener('reset', this.onFormReset.bind(this));
+      const getDebounceFn = window.getDebounce || (() => debounce);
+      const debounceFn = getDebounceFn();
       this.input.addEventListener(
         'input',
-        debounce((event) => {
+        debounceFn((event) => {
           this.onChange(event);
         }, 300).bind(this),
       );
