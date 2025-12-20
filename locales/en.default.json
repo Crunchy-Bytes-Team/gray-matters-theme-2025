@@ -397,6 +397,8 @@
     "account": {
       "title": "Account",
       "details": "Account details",
+      "addresses": "MY ADDRESSES",
+      "wishlist": "MY WISHLIST",
       "view_addresses": "View addresses",
       "return": "Return to Account details"
     },

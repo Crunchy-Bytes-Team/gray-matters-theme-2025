@@ -1,19 +1,9 @@
-{%- style -%}
-  .section-{{ section.id }}-padding {
-    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
-    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
-  }
+<script src="{{ 'customer.js' | asset_url }}" defer></script>
+<div class="max-w-7xl mx-auto px-6 md:px-20 py-40">
+  <div class="grid grid-cols-1 md:grid-cols-[1fr_3fr] gap-8 md:gap-12 relative">
+    <!-- Vertical Separator -->
+    <div class="hidden md:block absolute left-[calc(25%-12px)] top-0 bottom-0 w-px bg-gray-200"></div>
 
-  @media screen and (min-width: 750px) {
-    .section-{{ section.id }}-padding {
-      padding-top: {{ section.settings.padding_top }}px;
-      padding-bottom: {{ section.settings.padding_bottom }}px;
-    }
-  }
-{%- endstyle -%}
-
-<div class="max-w-7xl mx-auto px-6 md:px-20 section-{{ section.id }}-padding">
-  <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
     <!-- Left Column: Account Details, Addresses, Wishlist -->
     <div class="order-2 md:order-1">
       <!-- ORDER HISTORY -->
@@ -25,13 +15,13 @@
 
       <!-- ACCOUNT DETAILS -->
       <div class="mb-8">
-        <h2 class="text-xl font-bold uppercase tracking-wider mb-4">
+        <a href="#" onclick="toggleAccountDetails(event)" class="text-xl font-bold uppercase tracking-wider mb-4 hover:opacity-70 transition-opacity block">
           {{ 'customer.account.details' | t }}
-        </h2>
+        </a>
         <div class="space-y-2 text-sm">
           <p class="font-semibold">{{ customer.name }}</p>
           <p>{{ customer.email }}</p>
-          <a href="{{ routes.account_edit_url }}" class="underline">
+          <a href="#" onclick="toggleAccountEditForm(event)" class="underline hover:opacity-70 transition-opacity">
             Edit
           </a>
         </div>
@@ -39,25 +29,25 @@
 
       <!-- MY ADDRESSES -->
       <div class="mb-8">
-        <h2 class="text-xl font-bold uppercase tracking-wider mb-4">
+        <a href="#" onclick="toggleAddressesList(event)" class="text-xl font-bold uppercase tracking-wider mb-4 hover:opacity-70 transition-opacity block">
           {{ 'customer.account.addresses' | t }}
-        </h2>
+        </a>
         {%- if customer.default_address -%}
           <div class="mb-4 text-sm space-y-1">
             {{ customer.default_address | format_address }}
           </div>
           <div class="space-x-4">
-            <a href="{{ routes.account_addresses_url }}" class="underline text-sm">
+            <a href="#" onclick="toggleAddressEditForm(event)" class="underline text-sm hover:opacity-70 transition-opacity">
               Edit
             </a>
-            <a href="{{ routes.account_addresses_url }}" class="underline text-sm">
+            <a href="#" onclick="toggleAddAddressForm(event)" class="underline text-sm hover:opacity-70 transition-opacity">
               Add New Address
             </a>
           </div>
         {%- else -%}
           <div class="mb-4 text-sm">
             <p class="mb-2">No address on file</p>
-            <a href="{{ routes.account_addresses_url }}" class="underline text-sm">
+            <a href="#" onclick="toggleAddAddressForm(event)" class="underline text-sm hover:opacity-70 transition-opacity">
               Add New Address
             </a>
           </div>
@@ -67,24 +57,681 @@
       <!-- MY WISHLIST -->
       <div class="mb-8">
         <h2 class="text-xl font-bold uppercase tracking-wider mb-4">
-          {{ 'customer.account.wishlist' | t | default: 'MY WISHLIST' }}
+          {{ 'customer.account.wishlist' | t }}
         </h2>
-        <a href="{{ routes.root_url }}/pages/wishlist" class="underline text-sm">
+        <a href="{{ routes.root_url }}/pages/wishlist" class="underline text-sm hover:opacity-70 transition-opacity">
           View/Edit Wishlist
         </a>
       </div>
 
       <!-- Logout -->
       <div class="mb-8">
-        <a href="{{ routes.account_logout_url }}" class="underline text-sm">
+        <a href="{{ routes.account_logout_url }}" class="underline text-sm hover:opacity-70 transition-opacity">
           {{ 'customer.log_out' | t }}
         </a>
       </div>
     </div>
 
-    <!-- Right Column: Order History -->
+    <!-- Right Column: Order History / Account Edit Form -->
     <div class="order-1 md:order-2">
-      <h1 class="text-2xl md:text-3xl font-bold uppercase tracking-wider mb-6">
+      <div>
+      <!-- Add Address Form (hidden by default) -->
+      <div id="AddAddressForm" class="hidden mb-8" data-customer-addresses>
+        {%- form 'customer_address', customer.new_address -%}
+          {%- if form.errors -%}
+            <div class="mb-6 p-4 bg-red-50 border border-red-200 text-red-700 text-sm">
+              <h3 class="font-semibold mb-2">{{ 'templates.contact.form.error_heading' | t }}</h3>
+              <ul class="list-disc list-inside">
+                {%- for field in form.errors -%}
+                  <li>
+                    {%- if field == 'form' -%}
+                      {{ form.errors.messages[field] }}
+                    {%- else -%}
+                      {{ form.errors.translated_fields[field] | capitalize }} {{ form.errors.messages[field] }}
+                    {%- endif -%}
+                  </li>
+                {%- endfor -%}
+              </ul>
+            </div>
+          {%- endif -%}
+
+          {%- if form.posted_successfully? -%}
+            <div class="mb-6 p-4 bg-green-50 border border-green-200 text-green-700 text-sm">
+              {{ 'customer.addresses.add' | t | default: 'Address added successfully.' }}
+            </div>
+          {%- endif -%}
+
+          <h1 class="text-xl font-bold uppercase tracking-wider mb-6">ADD ADDRESS</h1>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+            <!-- First Name -->
+            <div>
+              <label for="AddressFirstNameNew" class="block text-sm font-medium mb-2">
+                {{ 'customer.addresses.first_name' | t }}
+              </label>
+              <input
+                type="text"
+                id="AddressFirstNameNew"
+                name="address[first_name]"
+                value="{{ form.first_name }}"
+                autocomplete="given-name"
+                placeholder="{{ 'customer.addresses.first_name' | t }}"
+                class="w-full px-4 py-4 bg-gray-50 focus:outline-none"
+              >
+            </div>
+
+            <!-- Last Name -->
+            <div>
+              <label for="AddressLastNameNew" class="block text-sm font-medium mb-2">
+                {{ 'customer.addresses.last_name' | t }}
+              </label>
+              <input
+                type="text"
+                id="AddressLastNameNew"
+                name="address[last_name]"
+                value="{{ form.last_name }}"
+                autocomplete="family-name"
+                placeholder="{{ 'customer.addresses.last_name' | t }}"
+                class="w-full px-4 py-4 bg-gray-50 focus:outline-none"
+              >
+            </div>
+          </div>
+
+          <!-- Company -->
+          <div class="mb-4">
+            <label for="AddressCompanyNew" class="block text-sm font-medium mb-2">
+              {{ 'customer.addresses.company' | t }}
+            </label>
+            <input
+              type="text"
+              id="AddressCompanyNew"
+              name="address[company]"
+              value="{{ form.company }}"
+              autocomplete="organization"
+              placeholder="{{ 'customer.addresses.company' | t }}"
+              class="w-full px-4 py-4 bg-gray-50 focus:outline-none"
+            >
+          </div>
+
+          <!-- Address Line 1 -->
+          <div class="mb-4">
+            <label for="AddressAddress1New" class="block text-sm font-medium mb-2">
+              {{ 'customer.addresses.address1' | t }}
+            </label>
+            <input
+              type="text"
+              id="AddressAddress1New"
+              name="address[address1]"
+              value="{{ form.address1 }}"
+              autocomplete="address-line1"
+              placeholder="{{ 'customer.addresses.address1' | t }}"
+              class="w-full px-4 py-4 bg-gray-50 focus:outline-none"
+            >
+          </div>
+
+          <!-- Address Line 2 -->
+          <div class="mb-4">
+            <label for="AddressAddress2New" class="block text-sm font-medium mb-2">
+              {{ 'customer.addresses.address2' | t }}
+            </label>
+            <input
+              type="text"
+              id="AddressAddress2New"
+              name="address[address2]"
+              value="{{ form.address2 }}"
+              autocomplete="address-line2"
+              placeholder="Apartment, Suite, etc"
+              class="w-full px-4 py-4 bg-gray-50 focus:outline-none"
+            >
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+            <!-- City -->
+            <div>
+              <label for="AddressCityNew" class="block text-sm font-medium mb-2">
+                {{ 'customer.addresses.city' | t }}
+              </label>
+              <input
+                type="text"
+                id="AddressCityNew"
+                name="address[city]"
+                value="{{ form.city }}"
+                autocomplete="address-level2"
+                placeholder="{{ 'customer.addresses.city' | t }}"
+                class="w-full px-4 py-4 bg-gray-50 focus:outline-none"
+              >
+            </div>
+
+            <!-- Country -->
+            <div>
+              <label for="AddressCountryNew" class="block text-sm font-medium mb-2">
+                {{ 'customer.addresses.country' | t }}
+              </label>
+              <select
+                id="AddressCountryNew"
+                name="address[country]"
+                data-default="{{ form.country }}"
+                autocomplete="country"
+                data-address-country-select
+                data-form-id="new"
+                class="w-full px-4 py-4 bg-gray-50 focus:outline-none"
+              >
+                {{ all_country_option_tags }}
+              </select>
+            </div>
+          </div>
+
+          <!-- Province -->
+          <div id="AddressProvinceContainerNew" class="mb-4" style="display: none">
+            <label for="AddressProvinceNew" class="block text-sm font-medium mb-2">
+              {{ 'customer.addresses.province' | t }}
+            </label>
+            <select
+              id="AddressProvinceNew"
+              name="address[province]"
+              data-default="{{ form.province }}"
+              autocomplete="address-level1"
+              class="w-full px-4 py-4 bg-gray-50 focus:outline-none"
+            ></select>
+          </div>
+
+          <!-- Zip/Postal Code -->
+          <div class="mb-4">
+            <label for="AddressZipNew" class="block text-sm font-medium mb-2">
+              {{ 'customer.addresses.zip' | t }}
+            </label>
+            <input
+              type="text"
+              id="AddressZipNew"
+              name="address[zip]"
+              value="{{ form.zip }}"
+              autocapitalize="characters"
+              autocomplete="postal-code"
+              placeholder="Zip Code"
+              class="w-full px-4 py-4 bg-gray-50 focus:outline-none"
+            >
+          </div>
+
+          <!-- Set as default address -->
+          <div class="mb-4">
+            <label class="flex items-center">
+              <input
+                type="checkbox"
+                id="address_default_address_new"
+                name="address[default]"
+                value="1"
+                class="mr-2"
+              >
+              <span class="text-sm">{{ 'customer.addresses.set_default' | t }}</span>
+            </label>
+          </div>
+
+          <!-- Buttons -->
+          <div class="flex gap-4 mt-6">
+            <button
+              type="submit"
+              class="bg-black text-white py-3 px-8 uppercase tracking-wider text-sm font-semibold hover:opacity-90 transition-opacity"
+            >
+              SAVE ADDRESS
+            </button>
+            <button
+              type="button"
+              onclick="toggleAddAddressForm(event)"
+              class="bg-white text-black border border-black py-3 px-8 uppercase tracking-wider text-sm font-semibold hover:opacity-90 transition-opacity"
+            >
+              CANCEL
+            </button>
+          </div>
+        {%- endform -%}
+      </div>
+
+      <!-- Address Edit Form (hidden by default) -->
+      {%- if customer.default_address -%}
+        <div id="AddressEditForm" class="hidden mb-8" data-customer-addresses>
+          {%- assign address = customer.default_address -%}
+          {%- form 'customer_address', address -%}
+            {%- if form.errors -%}
+              <div class="mb-6 p-4 bg-red-50 border border-red-200 text-red-700 text-sm">
+                <h3 class="font-semibold mb-2">{{ 'templates.contact.form.error_heading' | t }}</h3>
+                <ul class="list-disc list-inside">
+                  {%- for field in form.errors -%}
+                    <li>
+                      {%- if field == 'form' -%}
+                        {{ form.errors.messages[field] }}
+                      {%- else -%}
+                        {{ form.errors.translated_fields[field] | capitalize }} {{ form.errors.messages[field] }}
+                      {%- endif -%}
+                    </li>
+                  {%- endfor -%}
+                </ul>
+              </div>
+            {%- endif -%}
+
+            {%- if form.posted_successfully? -%}
+              <div class="mb-6 p-4 bg-green-50 border border-green-200 text-green-700 text-sm">
+                {{ 'customer.addresses.update' | t | default: 'Address updated successfully.' }}
+              </div>
+            {%- endif -%}
+
+            <h1 class="text-xl font-bold uppercase tracking-wider mb-6">EDIT ADDRESS</h1>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+              <!-- First Name -->
+              <div>
+                <label for="AddressFirstName_{{ form.id }}" class="block text-sm font-medium mb-2">
+                  {{ 'customer.addresses.first_name' | t }}
+                </label>
+                <input
+                  type="text"
+                  id="AddressFirstName_{{ form.id }}"
+                  name="address[first_name]"
+                  value="{{ form.first_name }}"
+                  autocomplete="given-name"
+                  class="w-full px-4 py-4 bg-gray-50 focus:outline-none"
+                >
+              </div>
+
+              <!-- Last Name -->
+              <div>
+                <label for="AddressLastName_{{ form.id }}" class="block text-sm font-medium mb-2">
+                  {{ 'customer.addresses.last_name' | t }}
+                </label>
+                <input
+                  type="text"
+                  id="AddressLastName_{{ form.id }}"
+                  name="address[last_name]"
+                  value="{{ form.last_name }}"
+                  autocomplete="family-name"
+                  class="w-full px-4 py-4 bg-gray-50 focus:outline-none"
+                >
+              </div>
+            </div>
+
+            <!-- Company -->
+            <div class="mb-4">
+              <label for="AddressCompany_{{ form.id }}" class="block text-sm font-medium mb-2">
+                {{ 'customer.addresses.company' | t }}
+              </label>
+              <input
+                type="text"
+                id="AddressCompany_{{ form.id }}"
+                name="address[company]"
+                value="{{ form.company }}"
+                autocomplete="organization"
+                class="w-full px-4 py-4 bg-gray-50 focus:outline-none"
+              >
+            </div>
+
+            <!-- Address Line 1 -->
+            <div class="mb-4">
+              <label for="AddressAddress1_{{ form.id }}" class="block text-sm font-medium mb-2">
+                {{ 'customer.addresses.address1' | t }}
+              </label>
+              <input
+                type="text"
+                id="AddressAddress1_{{ form.id }}"
+                name="address[address1]"
+                value="{{ form.address1 }}"
+                autocomplete="address-line1"
+                class="w-full px-4 py-4 bg-gray-50 focus:outline-none"
+              >
+            </div>
+
+            <!-- Address Line 2 -->
+            <div class="mb-4">
+              <label for="AddressAddress2_{{ form.id }}" class="block text-sm font-medium mb-2">
+                {{ 'customer.addresses.address2' | t }}
+              </label>
+              <input
+                type="text"
+                id="AddressAddress2_{{ form.id }}"
+                name="address[address2]"
+                value="{{ form.address2 }}"
+                autocomplete="address-line2"
+                class="w-full px-4 py-4 bg-gray-50 focus:outline-none"
+              >
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+              <!-- City -->
+              <div>
+                <label for="AddressCity_{{ form.id }}" class="block text-sm font-medium mb-2">
+                  {{ 'customer.addresses.city' | t }}
+                </label>
+                <input
+                  type="text"
+                  id="AddressCity_{{ form.id }}"
+                  name="address[city]"
+                  value="{{ form.city }}"
+                  autocomplete="address-level2"
+                  class="w-full px-4 py-4 bg-gray-50 focus:outline-none"
+                >
+              </div>
+
+              <!-- Country -->
+              <div>
+                <label for="AddressCountry_{{ form.id }}" class="block text-sm font-medium mb-2">
+                  {{ 'customer.addresses.country' | t }}
+                </label>
+                <select
+                  id="AddressCountry_{{ form.id }}"
+                  name="address[country]"
+                  data-default="{{ form.country }}"
+                  autocomplete="country"
+                  class="w-full px-4 py-4 bg-gray-50 focus:outline-none"
+                  data-address-country-select
+                  data-form-id="{{ form.id }}"
+                  onchange="updateProvinceSelector('{{ form.id }}')"
+                >
+                  {{ all_country_option_tags }}
+                </select>
+              </div>
+            </div>
+
+            <!-- Province -->
+            <div id="AddressProvinceContainer_{{ form.id }}" class="mb-4" style="display: none">
+              <label for="AddressProvince_{{ form.id }}" class="block text-sm font-medium mb-2">
+                {{ 'customer.addresses.province' | t }}
+              </label>
+              <select
+                id="AddressProvince_{{ form.id }}"
+                name="address[province]"
+                data-default="{{ form.province }}"
+                autocomplete="address-level1"
+                class="w-full px-4 py-4 bg-gray-50 focus:outline-none"
+              ></select>
+            </div>
+
+            <!-- Zip/Postal Code -->
+            <div class="mb-4">
+              <label for="AddressZip_{{ form.id }}" class="block text-sm font-medium mb-2">
+                {{ 'customer.addresses.zip' | t }}
+              </label>
+              <input
+                type="text"
+                id="AddressZip_{{ form.id }}"
+                name="address[zip]"
+                value="{{ form.zip }}"
+                autocapitalize="characters"
+                autocomplete="postal-code"
+                class="w-full px-4 py-4 bg-gray-50 focus:outline-none"
+              >
+            </div>
+
+            <!-- Set as default address -->
+            <div class="mb-4">
+              <label class="flex items-center">
+                <input
+                  type="checkbox"
+                  id="address_default_address_{{ form.id }}"
+                  name="address[default]"
+                  value="1"
+                  {% if address.id == customer.default_address.id %}checked{% endif %}
+                  class="mr-2"
+                >
+                <span class="text-sm">{{ 'customer.addresses.set_default' | t }}</span>
+              </label>
+            </div>
+
+            <!-- Buttons -->
+            <div class="flex gap-4 mt-6">
+              <button
+                type="submit"
+                class="bg-black text-white py-3 px-8 uppercase tracking-wider text-sm font-semibold hover:opacity-90 transition-opacity"
+              >
+                UPDATE ADDRESS
+              </button>
+              <button
+                type="button"
+                onclick="toggleAddressEditForm(event)"
+                class="bg-white text-black border border-black py-3 px-8 uppercase tracking-wider text-sm font-semibold hover:opacity-90 transition-opacity"
+              >
+                CANCEL
+              </button>
+            </div>
+          {%- endform -%}
+        </div>
+      {%- endif -%}
+
+      <!-- Account Edit Form (hidden by default) -->
+      <div id="AccountEditForm" class="hidden mb-8">
+        {%- form 'customer', class: 'account-edit-form' -%}
+          {%- if form.errors -%}
+            <div class="mb-6 p-4 bg-red-50 border border-red-200 text-red-700 text-sm">
+              <h3 class="font-semibold mb-2">{{ 'templates.contact.form.error_heading' | t }}</h3>
+              <ul class="list-disc list-inside">
+                {%- for field in form.errors -%}
+                  <li>
+                    {%- if field == 'form' -%}
+                      {{ form.errors.messages[field] }}
+                    {%- else -%}
+                      {{ form.errors.translated_fields[field] | capitalize }} {{ form.errors.messages[field] }}
+                    {%- endif -%}
+                  </li>
+                {%- endfor -%}
+              </ul>
+            </div>
+          {%- endif -%}
+
+          {%- if form.posted_successfully? -%}
+            <div class="mb-6 p-4 bg-green-50 border border-green-200 text-green-700 text-sm">
+              {{ 'customer.account.details_updated' | t | default: 'Account details updated successfully.' }}
+            </div>
+          {%- endif -%}
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+            <!-- First Name -->
+            <div>
+              <label for="AccountEditFirstName" class="block text-sm font-medium mb-2">
+                {{ 'customer.register.first_name' | t }}
+              </label>
+              <input
+                type="text"
+                name="customer[first_name]"
+                id="AccountEditFirstName"
+                value="{{ form.first_name | default: customer.first_name }}"
+                autocomplete="given-name"
+                class="w-full px-4 py-4 bg-gray-50 focus:outline-none"
+              >
+            </div>
+
+            <!-- Last Name -->
+            <div>
+              <label for="AccountEditLastName" class="block text-sm font-medium mb-2">
+                {{ 'customer.register.last_name' | t }}
+              </label>
+              <input
+                type="text"
+                name="customer[last_name]"
+                id="AccountEditLastName"
+                value="{{ form.last_name | default: customer.last_name }}"
+                autocomplete="family-name"
+                class="w-full px-4 py-4 bg-gray-50 focus:outline-none"
+              >
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+            <!-- Email -->
+            <div>
+              <label for="AccountEditEmail" class="block text-sm font-medium mb-2">
+                {{ 'customer.login_page.email' | t }}
+              </label>
+              <input
+                type="email"
+                name="customer[email]"
+                id="AccountEditEmail"
+                value="{{ form.email | default: customer.email }}"
+                autocomplete="email"
+                class="w-full px-4 py-4 bg-gray-50 focus:outline-none"
+              >
+            </div>
+
+            <!-- Shoe Size -->
+            <div>
+              <label for="AccountEditShoeSize" class="block text-sm font-medium mb-2">
+                Shoe Size
+              </label>
+              <input
+                type="text"
+                name="customer[note]"
+                id="AccountEditShoeSize"
+                value="{{ customer.note }}"
+                class="w-full px-4 py-4 bg-gray-50 focus:outline-none"
+                placeholder="Enter shoe size"
+              >
+            </div>
+          </div>
+
+          <!-- Update Password Checkbox -->
+          <div class="mb-4">
+            <label class="flex items-center">
+              <input
+                type="checkbox"
+                id="UpdatePasswordCheckbox"
+                name="customer[password_update]"
+                class="mr-2"
+                onchange="togglePasswordField(this)"
+              >
+              <span class="text-sm">Update Password</span>
+            </label>
+          </div>
+
+          <!-- Password Field (hidden by default) -->
+          <div id="PasswordField" class="mb-4 hidden">
+            <label for="AccountEditPassword" class="block text-sm font-medium mb-2">
+              {{ 'customer.login_page.password' | t }}
+            </label>
+            <input
+              type="password"
+              name="customer[password]"
+              id="AccountEditPassword"
+              autocomplete="new-password"
+              class="w-full px-4 py-4 bg-gray-50 focus:outline-none"
+              placeholder="{{ 'customer.login_page.password' | t }}"
+            >
+          </div>
+
+          <!-- Buttons -->
+          <div class="flex gap-4 mt-6">
+            <button
+              type="submit"
+              class="bg-black text-white py-3 px-8 uppercase tracking-wider text-sm font-semibold hover:opacity-90 transition-opacity"
+            >
+              UPDATE
+            </button>
+            <button
+              type="button"
+              onclick="toggleAccountEditForm(event)"
+              class="bg-white text-black border border-black py-3 px-8 uppercase tracking-wider text-sm font-semibold hover:opacity-90 transition-opacity"
+            >
+              CANCEL
+            </button>
+          </div>
+        {%- endform -%}
+      </div>
+
+      <!-- Account Details Summary (hidden by default) -->
+      <div id="AccountDetailsSummary" class="hidden">
+        <h1 class="text-xl font-bold uppercase tracking-wider mb-6">
+          {{ 'customer.account.details' | t }}
+        </h1>
+        <div class="space-y-4">
+          <div>
+            <p class="text-sm font-semibold uppercase tracking-wider mb-2">First Name</p>
+            <p class="text-sm">{{ customer.first_name }}</p>
+          </div>
+          <div>
+            <p class="text-sm font-semibold uppercase tracking-wider mb-2">Last Name</p>
+            <p class="text-sm">{{ customer.last_name }}</p>
+          </div>
+          <div>
+            <p class="text-sm font-semibold uppercase tracking-wider mb-2">Email</p>
+            <p class="text-sm">{{ customer.email }}</p>
+          </div>
+          <div>
+            <p class="text-sm font-semibold uppercase tracking-wider mb-2">Shoe Size</p>
+            <p class="text-sm">{{ customer.note | default: 'Not set' }}</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Addresses List (hidden by default) -->
+      <div id="AddressesList" class="hidden">
+        <h1 class="text-xl font-bold uppercase tracking-wider mb-6">
+          {{ 'customer.account.addresses' | t }}
+        </h1>
+        {%- if customer.addresses.size > 0 -%}
+          <div class="overflow-x-auto">
+            <table role="table" class="w-full border-collapse">
+              <thead>
+                <tr class="border-b border-gray-200">
+                  <th scope="col" class="text-left py-3 px-4 text-sm font-semibold uppercase tracking-wider">
+                    Address
+                  </th>
+                  <th scope="col" class="text-left py-3 px-4 text-sm font-semibold uppercase tracking-wider">
+                    Default
+                  </th>
+                  <th scope="col" class="text-left py-3 px-4 text-sm font-semibold uppercase tracking-wider">
+                    Actions
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {%- for address in customer.addresses -%}
+                  <tr class="border-b border-gray-100 hover:bg-gray-50 transition-colors">
+                    <td class="py-3 px-4 text-sm">
+                      <div class="space-y-1">
+                        <div class="font-semibold">{{ address.first_name }} {{ address.last_name }}</div>
+                        {%- if address.company -%}
+                          <div>{{ address.company }}</div>
+                        {%- endif -%}
+                        <div>{{ address.address1 }}</div>
+                        {%- if address.address2 -%}
+                          <div>{{ address.address2 }}</div>
+                        {%- endif -%}
+                        <div>{{ address.city }}{% if address.province %}, {{ address.province }}{% endif %} {{ address.zip }}</div>
+                        <div>{{ address.country }}</div>
+                        {%- if address.phone -%}
+                          <div>{{ address.phone }}</div>
+                        {%- endif -%}
+                      </div>
+                    </td>
+                    <td class="py-3 px-4 text-sm">
+                      {%- if address.id == customer.default_address.id -%}
+                        <span class="font-semibold">Yes</span>
+                      {%- else -%}
+                        No
+                      {%- endif -%}
+                    </td>
+                    <td class="py-3 px-4 text-sm">
+                      <div class="flex gap-4">
+                        <a href="#" onclick="editAddressById({{ address.id }}, event)" class="underline hover:no-underline">
+                          Edit
+                        </a>
+                        <form method="post" action="{{ address.url }}" class="inline" onsubmit="return confirm('{{ 'customer.addresses.delete_confirm' | t }}');">
+                          <input type="hidden" name="_method" value="delete">
+                          <button type="submit" class="underline hover:no-underline text-left">
+                            Delete
+                          </button>
+                        </form>
+                      </div>
+                    </td>
+                  </tr>
+                {%- endfor -%}
+              </tbody>
+            </table>
+          </div>
+        {%- else -%}
+          <p class="text-sm text-gray-600">
+            No addresses on file
+          </p>
+        {%- endif -%}
+      </div>
+
+      <!-- Order History (shown by default) -->
+      <div id="OrderHistory">
+      <h1 class="text-xl font-bold uppercase tracking-wider mb-6">
         {{ 'customer.orders.title' | t }}
       </h1>
 
@@ -115,7 +762,7 @@
                 {%- for order in customer.orders -%}
                   <tr class="border-b border-gray-100 hover:bg-gray-50 transition-colors">
                     <td class="py-3 px-4 text-sm">
-                      <a href="{{ order.customer_url }}" class="underline hover:no-underline">
+                      <a href="/account/orders/{{ order.id }}" class="underline hover:no-underline">
                         {{ order.name }}
                       </a>
                     </td>
@@ -126,7 +773,7 @@
                       {{ order.financial_status_label }}
                     </td>
                     <td class="py-3 px-4 text-sm">
-                      <a href="{{ order.customer_url }}" class="underline hover:no-underline">
+                      <a href="/account/orders/{{ order.id }}" class="underline hover:no-underline">
                         {{ order.fulfillment_status_label }}
                       </a>
                     </td>
@@ -184,9 +831,191 @@
           </nav>
         {%- endif -%}
       {% endpaginate %}
+      </div>
+      </div>
     </div>
   </div>
 </div>
+
+<script>
+  function toggleAccountDetails(event) {
+    event.preventDefault();
+    const accountDetailsSummary = document.getElementById('AccountDetailsSummary');
+    const accountEditForm = document.getElementById('AccountEditForm');
+    const addressesList = document.getElementById('AddressesList');
+    const addressEditForm = document.getElementById('AddressEditForm');
+    const addAddressForm = document.getElementById('AddAddressForm');
+    const orderHistory = document.getElementById('OrderHistory');
+    
+    if (!accountDetailsSummary) return;
+    
+    // Hide other forms/views if visible
+    if (accountEditForm && !accountEditForm.classList.contains('hidden')) {
+      accountEditForm.classList.add('hidden');
+    }
+    if (addressesList && !addressesList.classList.contains('hidden')) {
+      addressesList.classList.add('hidden');
+    }
+    if (addressEditForm && !addressEditForm.classList.contains('hidden')) {
+      addressEditForm.classList.add('hidden');
+    }
+    if (addAddressForm && !addAddressForm.classList.contains('hidden')) {
+      addAddressForm.classList.add('hidden');
+    }
+    
+    if (accountDetailsSummary.classList.contains('hidden')) {
+      accountDetailsSummary.classList.remove('hidden');
+      orderHistory.classList.add('hidden');
+    } else {
+      accountDetailsSummary.classList.add('hidden');
+      orderHistory.classList.remove('hidden');
+    }
+  }
+
+  function toggleAccountEditForm(event) {
+    event.preventDefault();
+    const editForm = document.getElementById('AccountEditForm');
+    const accountDetailsSummary = document.getElementById('AccountDetailsSummary');
+    const addressesList = document.getElementById('AddressesList');
+    const addressEditForm = document.getElementById('AddressEditForm');
+    const addAddressForm = document.getElementById('AddAddressForm');
+    const orderHistory = document.getElementById('OrderHistory');
+    
+    // Hide other forms/views if visible
+    if (accountDetailsSummary && !accountDetailsSummary.classList.contains('hidden')) {
+      accountDetailsSummary.classList.add('hidden');
+    }
+    if (addressesList && !addressesList.classList.contains('hidden')) {
+      addressesList.classList.add('hidden');
+    }
+    if (addressEditForm && !addressEditForm.classList.contains('hidden')) {
+      addressEditForm.classList.add('hidden');
+    }
+    if (addAddressForm && !addAddressForm.classList.contains('hidden')) {
+      addAddressForm.classList.add('hidden');
+    }
+    
+    if (editForm.classList.contains('hidden')) {
+      editForm.classList.remove('hidden');
+      orderHistory.classList.add('hidden');
+    } else {
+      editForm.classList.add('hidden');
+      orderHistory.classList.remove('hidden');
+    }
+  }
+
+  function toggleAddressesList(event) {
+    event.preventDefault();
+    const addressesList = document.getElementById('AddressesList');
+    const addAddressForm = document.getElementById('AddAddressForm');
+    const addressEditForm = document.getElementById('AddressEditForm');
+    const accountEditForm = document.getElementById('AccountEditForm');
+    const orderHistory = document.getElementById('OrderHistory');
+    
+    if (!addressesList) return;
+    
+    // Hide other forms/views if visible
+    if (addAddressForm && !addAddressForm.classList.contains('hidden')) {
+      addAddressForm.classList.add('hidden');
+    }
+    if (addressEditForm && !addressEditForm.classList.contains('hidden')) {
+      addressEditForm.classList.add('hidden');
+    }
+    if (accountEditForm && !accountEditForm.classList.contains('hidden')) {
+      accountEditForm.classList.add('hidden');
+    }
+    
+    if (addressesList.classList.contains('hidden')) {
+      addressesList.classList.remove('hidden');
+      orderHistory.classList.add('hidden');
+    } else {
+      addressesList.classList.add('hidden');
+      orderHistory.classList.remove('hidden');
+    }
+  }
+
+  function editAddressById(addressId, event) {
+    event.preventDefault();
+    // For now, just show the default address edit form
+    // In a full implementation, you'd load the specific address
+    toggleAddressEditForm(event);
+  }
+
+  function toggleAddAddressForm(event) {
+    event.preventDefault();
+    const addAddressForm = document.getElementById('AddAddressForm');
+    const addressesList = document.getElementById('AddressesList');
+    const addressEditForm = document.getElementById('AddressEditForm');
+    const accountEditForm = document.getElementById('AccountEditForm');
+    const orderHistory = document.getElementById('OrderHistory');
+    
+    if (!addAddressForm) return;
+    
+    // Hide other forms/views if visible
+    if (addressesList && !addressesList.classList.contains('hidden')) {
+      addressesList.classList.add('hidden');
+    }
+    if (addressEditForm && !addressEditForm.classList.contains('hidden')) {
+      addressEditForm.classList.add('hidden');
+    }
+    if (accountEditForm && !accountEditForm.classList.contains('hidden')) {
+      accountEditForm.classList.add('hidden');
+    }
+    
+    if (addAddressForm.classList.contains('hidden')) {
+      addAddressForm.classList.remove('hidden');
+      orderHistory.classList.add('hidden');
+    } else {
+      addAddressForm.classList.add('hidden');
+      orderHistory.classList.remove('hidden');
+    }
+  }
+
+  function toggleAddressEditForm(event) {
+    event.preventDefault();
+    const addressEditForm = document.getElementById('AddressEditForm');
+    const addressesList = document.getElementById('AddressesList');
+    const addAddressForm = document.getElementById('AddAddressForm');
+    const accountEditForm = document.getElementById('AccountEditForm');
+    const orderHistory = document.getElementById('OrderHistory');
+    
+    if (!addressEditForm) return;
+    
+    // Hide other forms/views if visible
+    if (addressesList && !addressesList.classList.contains('hidden')) {
+      addressesList.classList.add('hidden');
+    }
+    if (addAddressForm && !addAddressForm.classList.contains('hidden')) {
+      addAddressForm.classList.add('hidden');
+    }
+    if (accountEditForm && !accountEditForm.classList.contains('hidden')) {
+      accountEditForm.classList.add('hidden');
+    }
+    
+    if (addressEditForm.classList.contains('hidden')) {
+      addressEditForm.classList.remove('hidden');
+      orderHistory.classList.add('hidden');
+    } else {
+      addressEditForm.classList.add('hidden');
+      orderHistory.classList.remove('hidden');
+    }
+  }
+
+  function togglePasswordField(checkbox) {
+    const passwordField = document.getElementById('PasswordField');
+    const passwordInput = document.getElementById('AccountEditPassword');
+    
+    if (checkbox.checked) {
+      passwordField.classList.remove('hidden');
+      passwordInput.setAttribute('required', 'required');
+    } else {
+      passwordField.classList.add('hidden');
+      passwordInput.removeAttribute('required');
+      passwordInput.value = '';
+    }
+  }
+
+</script>
 
 {% schema %}
 {
