@@ -762,7 +762,7 @@
                 {%- for order in customer.orders -%}
                   <tr class="border-b border-gray-100 hover:bg-gray-50 transition-colors">
                     <td class="py-3 px-4 text-sm">
-                      <a href="/account/orders/{{ order.id }}" class="underline hover:no-underline">
+                      <a href="{{ order.customer_url }}" class="underline hover:no-underline">
                         {{ order.name }}
                       </a>
                     </td>
@@ -773,7 +773,7 @@
                       {{ order.financial_status_label }}
                     </td>
                     <td class="py-3 px-4 text-sm">
-                      <a href="/account/orders/{{ order.id }}" class="underline hover:no-underline">
+                      <a href="{{ order.customer_url }}" class="underline hover:no-underline">
                         {{ order.fulfillment_status_label }}
                       </a>
                     </td>
