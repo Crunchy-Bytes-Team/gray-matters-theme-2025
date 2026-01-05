@@ -795,15 +795,17 @@
                           >
                             Edit
                           </a>
-                          <form
-                            method='post'
-                            action='{{ address.url }}'
-                            class='inline'
-                            onsubmit="return confirm('{{ 'customer.addresses.delete_confirm' | t }}');"
-                          >
-                            <input type='hidden' name='_method' value='delete'>
-                            <button type='submit' class='underline hover:no-underline text-left'>Delete</button>
-                          </form>
+                          {%- unless address.id == customer.default_address.id -%}
+                            <form
+                              method='post'
+                              action='{{ address.url }}'
+                              class='inline'
+                              onsubmit="return confirm('{{ 'customer.addresses.delete_confirm' | t }}');"
+                            >
+                              <input type='hidden' name='_method' value='delete'>
+                              <button type='submit' class='underline hover:no-underline text-left'>Delete</button>
+                            </form>
+                          {%- endunless -%}
                         </div>
                       </td>
                     </tr>
