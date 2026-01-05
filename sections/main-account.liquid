@@ -7,10 +7,11 @@
     <!-- Left Column: Account Details, Addresses, Wishlist -->
     <div class='order-2 md:order-1'>
       <!-- ORDER HISTORY -->
-      <div class='mb-8'>
+      <div class='mb-8 flex items-center gap-2'>
+        <i class='fa-solid fa-chevron-right text-sm'></i>
         <a
           href='{{ routes.account_url }}'
-          class='text-xl font-bold uppercase tracking-wider hover:opacity-70 transition-opacity'
+          class='text-xl font-bold uppercase tracking-wider hover:opacity-70 hover:underline transition-opacity'
         >
           {{ 'customer.orders.title' | t }}
         </a>
@@ -18,13 +19,16 @@
 
       <!-- ACCOUNT DETAILS -->
       <div class='mb-8'>
-        <a
-          href='#'
-          onclick='toggleAccountDetails(event)'
-          class='text-xl font-bold uppercase tracking-wider mb-4 hover:opacity-70 transition-opacity block'
-        >
-          {{ 'customer.account.details' | t }}
-        </a>
+        <div class='flex items-center gap-2 mb-4'>
+          <i class='fa-solid fa-chevron-right text-sm'></i>
+          <a
+            href='#'
+            onclick='toggleAccountDetails(event)'
+            class='text-xl font-bold uppercase tracking-wider hover:opacity-70 hover:underline transition-opacity'
+          >
+            {{ 'customer.account.details' | t }}
+          </a>
+        </div>
         <div class='space-y-2 text-sm'>
           <p class='font-semibold'>{{ customer.name }}</p>
           <p>{{ customer.email }}</p>
@@ -36,13 +40,16 @@
 
       <!-- MY ADDRESSES -->
       <div class='mb-8'>
-        <a
-          href='#'
-          onclick='toggleAddressesList(event)'
-          class='text-xl font-bold uppercase tracking-wider mb-4 hover:opacity-70 transition-opacity block'
-        >
-          {{ 'customer.account.addresses' | t }}
-        </a>
+        <div class='flex items-center gap-2 mb-4'>
+          <i class='fa-solid fa-chevron-right text-sm'></i>
+          <a
+            href='#'
+            onclick='toggleAddressesList(event)'
+            class='text-xl font-bold uppercase tracking-wider hover:opacity-70 hover:underline transition-opacity'
+          >
+            {{ 'customer.account.addresses' | t }}
+          </a>
+        </div>
         {%- if customer.default_address -%}
           <div class='mb-4 text-sm space-y-1'>
             {{ customer.default_address | format_address }}
@@ -50,7 +57,7 @@
           <div class='space-x-4'>
             <a
               href='#'
-              onclick='toggleAddressEditForm(event)'
+              onclick='editAddressById({{ customer.default_address.id }}, event)'
               class='underline text-sm hover:opacity-70 transition-opacity'
             >
               Edit
@@ -79,9 +86,12 @@
 
       <!-- MY WISHLIST -->
       <div class='mb-8'>
-        <h2 class='text-xl font-bold uppercase tracking-wider mb-4'>
-          {{ 'customer.account.wishlist' | t }}
-        </h2>
+        <div class='flex items-center gap-2 mb-4'>
+          <i class='fa-solid fa-chevron-right text-sm'></i>
+          <h2 class='text-xl font-bold uppercase tracking-wider'>
+            {{ 'customer.account.wishlist' | t }}
+          </h2>
+        </div>
         <a href='{{ routes.root_url }}/pages/wishlist' class='underline text-sm hover:opacity-70 transition-opacity'>
           View/Edit Wishlist
         </a>
@@ -101,6 +111,7 @@
         <!-- Add Address Form (hidden by default) -->
         <div id='AddAddressForm' class='hidden mb-8' data-customer-addresses>
           {%- form 'customer_address', customer.new_address -%}
+            <input type='hidden' name='return_to' value='{{ routes.account_url }}?show=addresses'>
             {%- if form.errors -%}
               <div class='mb-6 p-4 bg-red-50 border border-red-200 text-red-700 text-sm'>
                 <h3 class='font-semibold mb-2'>{{ 'templates.contact.form.error_heading' | t }}</h3>
@@ -313,6 +324,7 @@
         {%- for address in customer.addresses -%}
           <div id='AddressEditForm_{{ address.id }}' class='hidden mb-8' data-customer-addresses>
             {%- form 'customer_address', address -%}
+              <input type='hidden' name='return_to' value='{{ routes.account_url }}?show=addresses'>
               {%- if form.errors -%}
                 <div class='mb-6 p-4 bg-red-50 border border-red-200 text-red-700 text-sm'>
                   <h3 class='font-semibold mb-2'>{{ 'templates.contact.form.error_heading' | t }}</h3>
@@ -677,27 +689,30 @@
             {{ 'customer.account.details' | t }}
           </h1>
           <div class='space-y-4'>
-            <div>
-              <p class='text-sm font-semibold uppercase tracking-wider mb-2'>First Name</p>
-              <p class='text-sm'>{{ customer.first_name }}</p>
+            <div class='flex items-start'>
+              <span class='text-sm font-semibold uppercase tracking-wider min-w-[120px]'>First Name:</span>
+              <span class='text-sm'>{{ customer.first_name }}</span>
             </div>
-            <div>
-              <p class='text-sm font-semibold uppercase tracking-wider mb-2'>Last Name</p>
-              <p class='text-sm'>{{ customer.last_name }}</p>
+            <div class='flex items-start'>
+              <span class='text-sm font-semibold uppercase tracking-wider min-w-[120px]'>Last Name:</span>
+              <span class='text-sm'>{{ customer.last_name }}</span>
             </div>
-            <div>
-              <p class='text-sm font-semibold uppercase tracking-wider mb-2'>Email</p>
-              <p class='text-sm'>{{ customer.email }}</p>
+            <div class='flex items-start'>
+              <span class='text-sm font-semibold uppercase tracking-wider min-w-[120px]'>Email:</span>
+              <span class='text-sm'>{{ customer.email }}</span>
             </div>
-            <div>
-              <p class='text-sm font-semibold uppercase tracking-wider mb-2'>Shoe Size</p>
-              <p class='text-sm'>{{ customer.note | default: 'Not set' }}</p>
+            <div class='flex items-start'>
+              <span class='text-sm font-semibold uppercase tracking-wider min-w-[120px]'>Shoe Size:</span>
+              <span class='text-sm'>{{ customer.note | default: 'Not set' }}</span>
             </div>
           </div>
         </div>
 
-        <!-- Addresses List (hidden by default) -->
-        <div id='AddressesList' class='hidden'>
+        <!-- Addresses List (hidden by default, shown if show=addresses in URL) -->
+        <div
+          id='AddressesList'
+          class='{% if request.query_parameters.show == 'addresses' %}{% else %}hidden{% endif %}'
+        >
           <h1 class='text-xl font-bold uppercase tracking-wider mb-6'>
             {{ 'customer.account.addresses' | t }}
           </h1>
@@ -781,8 +796,8 @@
           {%- endif -%}
         </div>
 
-        <!-- Order History (shown by default) -->
-        <div id='OrderHistory'>
+        <!-- Order History (shown by default, hidden if show=addresses in URL) -->
+        <div id='OrderHistory' class='{% if request.query_parameters.show == 'addresses' %}hidden{% endif %}'>
           <h1 class='text-xl font-bold uppercase tracking-wider mb-6'>
             {{ 'customer.orders.title' | t }}
           </h1>
@@ -906,6 +921,26 @@
 </div>
 
 <script>
+  // Check if we should show addresses list on page load
+  function showAddressesListIfNeeded() {
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get('show') === 'addresses') {
+      // Small delay to ensure all elements are loaded
+      setTimeout(function() {
+        const addressesList = document.getElementById('AddressesList');
+        const orderHistory = document.getElementById('OrderHistory');
+        if (addressesList && orderHistory) {
+          addressesList.classList.remove('hidden');
+          orderHistory.classList.add('hidden');
+        }
+      }, 100);
+    }
+  }
+
+  // Listen for both DOMContentLoaded and Turbo events
+  document.addEventListener('DOMContentLoaded', showAddressesListIfNeeded);
+  document.addEventListener('turbo:load', showAddressesListIfNeeded);
+
   // Helper function to hide all address edit forms
   function hideAllAddressEditForms() {
     const allEditForms = document.querySelectorAll('[id^="AddressEditForm_"]');

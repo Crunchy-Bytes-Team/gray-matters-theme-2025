@@ -46,7 +46,7 @@
         <table class="w-full border-collapse">
           <thead>
             <tr class="border-b border-gray-200">
-              <th scope="col" class="text-left py-3 px-4 text-sm font-semibold uppercase tracking-wider">
+              <th scope="col" class="text-left py-3 pr-4 text-sm font-semibold uppercase tracking-wider">
                 PRODUCT
               </th>
               <th scope="col" class="text-left py-3 px-4 text-sm font-semibold uppercase tracking-wider">
@@ -62,8 +62,8 @@
           </thead>
           <tbody>
             {%- for line_item in order.line_items -%}
-              <tr class="border-b border-gray-100">
-                <td class="py-3 px-4 text-sm">
+              <tr class="border-b border-gray-200">
+                <td class="py-3 pr-4 text-sm">
                   <div>
                     {%- if line_item.url != blank -%}
                       <a href="{{ line_item.url }}" class="underline hover:no-underline">
@@ -102,7 +102,7 @@
       <div class="mb-6">
         <div class="space-y-2 text-sm">
           {%- for shipping_method in order.shipping_methods -%}
-            <div class="flex justify-between">
+            <div class="flex justify-between pb-6">
               <span>Shipping ({{ shipping_method.title | escape }})</span>
               <span>{{ shipping_method.price | money }}</span>
             </div>
@@ -123,9 +123,9 @@
       </div>
 
       <!-- Return to Orders Button -->
-      <div class="text-center">
+      <div class="text-right">
         <a href="{{ routes.account_url }}" class="inline-block bg-black text-white py-3 px-8 uppercase tracking-wider text-sm font-semibold hover:opacity-90 transition-opacity">
-          {{ 'customer.account.return' | t | default: 'RETURN TO MY ORDERS' }}
+          RETURN TO MY ORDERS
         </a>
       </div>
       </div>
