@@ -1,4 +1,4 @@
-<div class="max-w-7xl mx-auto px-6 md:px-20 py-40">
+<div class="max-w-7xl mx-auto px-6 md:px-0 py-40">
   <div class="grid grid-cols-1 md:grid-cols-[1fr_3fr] gap-8 md:gap-12 relative">
     <!-- Vertical Separator -->
     <div class="hidden md:block absolute left-[calc(25%-12px)] top-0 bottom-0 w-px bg-gray-200"></div>
@@ -10,9 +10,6 @@
         <h2 class="text-xl font-bold uppercase tracking-wider mb-4">
           {{ 'customer.order.shipping_address' | t }}
         </h2>
-        <p class="text-sm mb-2">
-          <strong>Fulfillment Status:</strong> {{ order.fulfillment_status_label }}
-        </p>
         <div class="text-sm space-y-1">
           {{ order.shipping_address | format_address }}
         </div>
@@ -23,9 +20,6 @@
         <h2 class="text-xl font-bold uppercase tracking-wider mb-4">
           {{ 'customer.order.billing_address' | t }}
         </h2>
-        <p class="text-sm mb-2">
-          <strong>Payment Status:</strong> {{ order.financial_status_label }}
-        </p>
         <div class="text-sm space-y-1">
           {{ order.billing_address | format_address }}
         </div>
@@ -55,7 +49,7 @@
               <th scope="col" class="text-left py-3 px-4 text-sm font-semibold uppercase tracking-wider">
                 QUANTITY
               </th>
-              <th scope="col" class="text-left py-3 px-4 text-sm font-semibold uppercase tracking-wider">
+              <th scope="col" class="text-right py-3 pl-4 text-sm font-semibold uppercase tracking-wider">
                 SUBTOTAL
               </th>
             </tr>
@@ -84,12 +78,12 @@
                 <td class="py-6 px-4 text-sm">
                   {{ line_item.quantity }}
                 </td>
-                <td class="py-6 px-4 text-sm">
+                <td class="py-6 pl-4 text-sm text-right">
                   {%- if line_item.original_line_price != line_item.final_line_price -%}
-                    <s class="text-gray-500">{{ line_item.original_line_price | money }}</s>
-                    <span class="ml-2">{{ line_item.final_line_price | money }}</span>
+                    <s class="text-gray-500">{{ line_item.original_line_price | money | replace: '€', '€ ' }}</s>
+                    <span class="ml-2">{{ line_item.final_line_price | money | replace: '€', '€ ' }}</span>
                   {%- else -%}
-                    {{ line_item.original_line_price | money }}
+                    {{ line_item.original_line_price | money | replace: '€', '€ ' }}
                   {%- endif -%}
                 </td>
               </tr>
@@ -104,14 +98,14 @@
           {%- for shipping_method in order.shipping_methods -%}
             <div class="flex justify-between pb-6">
               <span>Shipping ({{ shipping_method.title | escape }})</span>
-              <span>{{ shipping_method.price | money }}</span>
+              <span>{{ shipping_method.price | money | replace: '€', '€ ' }}</span>
             </div>
           {%- endfor -%}
 
           {%- for tax_line in order.tax_lines -%}
             <div class="flex justify-between">
               <span>Tax ({{ tax_line.title | escape }} {{ tax_line.rate | times: 100 }}%)</span>
-              <span>{{ tax_line.price | money }}</span>
+              <span>{{ tax_line.price | money | replace: '€', '€ ' }}</span>
             </div>
           {%- endfor -%}
         </div>
@@ -119,7 +113,7 @@
 
       <div class="flex justify-between border-t border-gray-200 font-bold text-lg pt-8">
         <span>Total</span>
-        <span>{{ order.total_net_amount | money_with_currency }}</span>
+        <span>{{ order.total_net_amount | money | replace: '€', '€ ' }}</span>
       </div>
 
       <!-- Return to Orders Button -->

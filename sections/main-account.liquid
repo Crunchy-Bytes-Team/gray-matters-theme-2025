@@ -1,35 +1,36 @@
 <script src='{{ 'customer.js' | asset_url }}' defer></script>
-<div class='max-w-7xl mx-auto px-6 md:px-20 py-40'>
+<div class='max-w-7xl mx-auto px-6 md:px-20 py-20 md:py-40'>
   <div class='grid grid-cols-1 md:grid-cols-[1fr_3fr] gap-8 md:gap-12 relative'>
     <!-- Vertical Separator -->
     <div class='hidden md:block absolute left-[calc(25%-12px)] top-0 bottom-0 w-px bg-gray-200'></div>
 
     <!-- Left Column: Account Details, Addresses, Wishlist -->
-    <div class='order-2 md:order-1'>
+    <div class='order-1 md:order-1'>
       <!-- ORDER HISTORY -->
-      <div class='mb-8 flex items-center gap-2'>
+      <div class='mb-4 flex items-center gap-2'>
         <i class='fa-solid fa-chevron-right text-sm'></i>
         <a
           href='{{ routes.account_url }}'
-          class='text-xl font-bold uppercase tracking-wider hover:opacity-70 hover:underline transition-opacity'
+          class='text-lg md:text-xl font-bold uppercase tracking-wider hover:opacity-70 hover:underline transition-opacity'
         >
           {{ 'customer.orders.title' | t }}
         </a>
       </div>
 
       <!-- ACCOUNT DETAILS -->
-      <div class='mb-8'>
+      <div class='mb-4'>
         <div class='flex items-center gap-2 mb-4'>
           <i class='fa-solid fa-chevron-right text-sm'></i>
           <a
             href='#'
-            onclick='toggleAccountDetails(event)'
-            class='text-xl font-bold uppercase tracking-wider hover:opacity-70 hover:underline transition-opacity'
+            onclick='toggleAccountDetails(event); return false;'
+            data-turbo='false'
+            class='text-lg md:text-xl font-bold uppercase tracking-wider hover:opacity-70 hover:underline transition-opacity'
           >
             {{ 'customer.account.details' | t }}
           </a>
         </div>
-        <div class='space-y-2 text-sm'>
+        <div class='space-y-2 text-sm hidden md:block'>
           <p class='font-semibold'>{{ customer.name }}</p>
           <p>{{ customer.email }}</p>
           <a href='#' onclick='toggleAccountEditForm(event)' class='underline hover:opacity-70 transition-opacity'>
@@ -39,66 +40,73 @@
       </div>
 
       <!-- MY ADDRESSES -->
-      <div class='mb-8'>
+      <div class='mb-4'>
         <div class='flex items-center gap-2 mb-4'>
           <i class='fa-solid fa-chevron-right text-sm'></i>
           <a
             href='#'
             onclick='toggleAddressesList(event)'
-            class='text-xl font-bold uppercase tracking-wider hover:opacity-70 hover:underline transition-opacity'
+            class='text-lg md:text-xl font-bold uppercase tracking-wider hover:opacity-70 hover:underline transition-opacity'
           >
             {{ 'customer.account.addresses' | t }}
           </a>
         </div>
-        {%- if customer.default_address -%}
-          <div class='mb-4 text-sm space-y-1'>
-            {{ customer.default_address | format_address }}
-          </div>
-          <div class='space-x-4'>
-            <a
-              href='#'
-              onclick='editAddressById({{ customer.default_address.id }}, event)'
-              class='underline text-sm hover:opacity-70 transition-opacity'
-            >
-              Edit
-            </a>
-            <a
-              href='#'
-              onclick='toggleAddAddressForm(event)'
-              class='underline text-sm hover:opacity-70 transition-opacity'
-            >
-              Add New Address
-            </a>
-          </div>
-        {%- else -%}
-          <div class='mb-4 text-sm'>
-            <p class='mb-2'>No address on file</p>
-            <a
-              href='#'
-              onclick='toggleAddAddressForm(event)'
-              class='underline text-sm hover:opacity-70 transition-opacity'
-            >
-              Add New Address
-            </a>
-          </div>
-        {%- endif -%}
+        <div class='hidden md:block'>
+          {%- if customer.default_address -%}
+            <div class='mb-4 text-sm space-y-1'>
+              {{ customer.default_address | format_address }}
+            </div>
+            <div class='space-x-4'>
+              <a
+                href='#'
+                onclick='editAddressById({{ customer.default_address.id }}, event)'
+                class='underline text-sm hover:opacity-70 transition-opacity'
+              >
+                Edit
+              </a>
+              <a
+                href='#'
+                onclick='toggleAddAddressForm(event); return false;'
+                data-turbo='false'
+                class='underline text-sm hover:opacity-70 transition-opacity'
+              >
+                Add New Address
+              </a>
+            </div>
+          {%- else -%}
+            <div class='mb-4 text-sm'>
+              <p class='mb-2'>No address on file</p>
+              <a
+                href='#'
+                onclick='toggleAddAddressForm(event); return false;'
+                data-turbo='false'
+                class='underline text-sm hover:opacity-70 transition-opacity'
+              >
+                Add New Address
+              </a>
+            </div>
+          {%- endif -%}
+        </div>
       </div>
 
       <!-- MY WISHLIST -->
-      <div class='mb-8'>
+      <div class='mb-4'>
         <div class='flex items-center gap-2 mb-4'>
           <i class='fa-solid fa-chevron-right text-sm'></i>
-          <h2 class='text-xl font-bold uppercase tracking-wider'>
+          <h2 class='text-lg md:text-xl font-bold uppercase tracking-wider'>
             {{ 'customer.account.wishlist' | t }}
           </h2>
         </div>
-        <a href='{{ routes.root_url }}/pages/wishlist' class='underline text-sm hover:opacity-70 transition-opacity'>
+        <a
+          href='{{ routes.root_url }}/pages/wishlist'
+          class='underline text-sm hover:opacity-70 transition-opacity hidden md:block'
+        >
           View/Edit Wishlist
         </a>
       </div>
 
       <!-- Logout -->
-      <div class='mb-8'>
+      <div class='mb-8 hidden md:block'>
         <a href='{{ routes.account_logout_url }}' class='underline text-sm hover:opacity-70 transition-opacity'>
           {{ 'customer.log_out' | t }}
         </a>
@@ -106,7 +114,7 @@
     </div>
 
     <!-- Right Column: Order History / Account Edit Form -->
-    <div class='order-1 md:order-2'>
+    <div class='order-2 md:order-2'>
       <div>
         <!-- Add Address Form (hidden by default) -->
         <div id='AddAddressForm' class='hidden mb-8' data-customer-addresses>
@@ -136,7 +144,7 @@
               </div>
             {%- endif -%}
 
-            <h1 class='text-xl font-bold uppercase tracking-wider mb-6'>ADD ADDRESS</h1>
+            <h1 class='text-lg md:text-xl font-bold uppercase tracking-wider mb-6'>ADD ADDRESS</h1>
 
             <div class='grid grid-cols-1 md:grid-cols-2 gap-4 mb-4'>
               <!-- First Name -->
@@ -349,7 +357,7 @@
                 </div>
               {%- endif -%}
 
-              <h1 class='text-xl font-bold uppercase tracking-wider mb-6'>EDIT ADDRESS</h1>
+              <h1 class='text-lg md:text-xl font-bold uppercase tracking-wider mb-6'>EDIT ADDRESS</h1>
 
               <div class='grid grid-cols-1 md:grid-cols-2 gap-4 mb-4'>
                 <!-- First Name -->
@@ -685,7 +693,7 @@
 
         <!-- Account Details Summary (hidden by default) -->
         <div id='AccountDetailsSummary' class='hidden'>
-          <h1 class='text-xl font-bold uppercase tracking-wider mb-6'>
+          <h1 class='text-lg md:text-xl font-bold uppercase tracking-wider mb-6'>
             {{ 'customer.account.details' | t }}
           </h1>
           <div class='space-y-4'>
@@ -705,6 +713,15 @@
               <span class='text-sm font-semibold uppercase tracking-wider min-w-[120px]'>Shoe Size:</span>
               <span class='text-sm'>{{ customer.note | default: 'Not set' }}</span>
             </div>
+            <div class='md:hidden'>
+              <a
+                href='#'
+                onclick='toggleAccountEditForm(event)'
+                class='underline text-sm hover:opacity-70 transition-opacity'
+              >
+                Edit
+              </a>
+            </div>
           </div>
         </div>
 
@@ -713,7 +730,7 @@
           id='AddressesList'
           class='{% if request.query_parameters.show == 'addresses' %}{% else %}hidden{% endif %}'
         >
-          <h1 class='text-xl font-bold uppercase tracking-wider mb-6'>
+          <h1 class='text-lg md:text-xl font-bold uppercase tracking-wider mb-6'>
             {{ 'customer.account.addresses' | t }}
           </h1>
           {%- if customer.addresses.size > 0 -%}
@@ -721,7 +738,10 @@
               <table role='table' class='w-full border-collapse'>
                 <thead>
                   <tr class='border-b border-gray-200'>
-                    <th scope='col' class='text-left py-3 px-4 text-sm font-semibold uppercase tracking-wider'>
+                    <th
+                      scope='col'
+                      class='text-left py-3 pl-0 md:pl-4 pr-4 text-sm font-semibold uppercase tracking-wider'
+                    >
                       Address
                     </th>
                     <th scope='col' class='text-left py-3 px-4 text-sm font-semibold uppercase tracking-wider'>
@@ -735,7 +755,7 @@
                 <tbody>
                   {%- for address in customer.addresses -%}
                     <tr class='border-b border-gray-100 hover:bg-gray-50 transition-colors'>
-                      <td class='py-3 px-4 text-sm'>
+                      <td class='py-3 pl-0 md:pl-4 pr-4 text-sm'>
                         <div class='space-y-1'>
                           <div class='font-semibold'>
                             {{ address.first_name }}
@@ -766,7 +786,7 @@
                           No
                         {%- endif -%}
                       </td>
-                      <td class='py-3 px-4 text-sm'>
+                      <td class='py-3 pl-4 pr-0 md:pr-4 text-sm'>
                         <div class='flex gap-4'>
                           <a
                             href='#'
@@ -798,7 +818,7 @@
 
         <!-- Order History (shown by default, hidden if show=addresses in URL) -->
         <div id='OrderHistory' class='{% if request.query_parameters.show == 'addresses' %}hidden{% endif %}'>
-          <h1 class='text-xl font-bold uppercase tracking-wider mb-6'>
+          <h1 class='text-lg md:text-xl font-bold uppercase tracking-wider mb-6'>
             {{ 'customer.orders.title' | t }}
           </h1>
 
@@ -840,9 +860,7 @@
                           {{ order.financial_status_label }}
                         </td>
                         <td class='py-3 px-4 text-sm'>
-                          <a href='{{ order.customer_url }}' class='underline hover:no-underline'>
-                            {{ order.fulfillment_status_label }}
-                          </a>
+                          {{ order.fulfillment_status_label }}
                         </td>
                         <td class='py-3 px-4 text-sm font-semibold'>
                           {{ order.total_net_amount | money_with_currency }}
@@ -984,7 +1002,11 @@
   }
 
   function toggleAccountDetails(event) {
-    event.preventDefault();
+    if (event) {
+      event.preventDefault();
+      event.stopPropagation();
+      event.stopImmediatePropagation();
+    }
     const accountDetailsSummary = document.getElementById('AccountDetailsSummary');
     const accountEditForm = document.getElementById('AccountEditForm');
     const addressesList = document.getElementById('AddressesList');
@@ -1009,10 +1031,14 @@
 
     if (accountDetailsSummary.classList.contains('hidden')) {
       accountDetailsSummary.classList.remove('hidden');
-      orderHistory.classList.add('hidden');
+      if (orderHistory) {
+        orderHistory.classList.add('hidden');
+      }
     } else {
       accountDetailsSummary.classList.add('hidden');
-      orderHistory.classList.remove('hidden');
+      if (orderHistory) {
+        orderHistory.classList.remove('hidden');
+      }
     }
   }
 
@@ -1040,10 +1066,14 @@
 
     if (editForm.classList.contains('hidden')) {
       editForm.classList.remove('hidden');
-      orderHistory.classList.add('hidden');
+      if (orderHistory) {
+        orderHistory.classList.add('hidden');
+      }
     } else {
       editForm.classList.add('hidden');
-      orderHistory.classList.remove('hidden');
+      if (orderHistory) {
+        orderHistory.classList.remove('hidden');
+      }
     }
   }
 
@@ -1132,7 +1162,11 @@
   }
 
   function toggleAddAddressForm(event) {
-    event.preventDefault();
+    if (event) {
+      event.preventDefault();
+      event.stopPropagation();
+      event.stopImmediatePropagation();
+    }
     const addAddressForm = document.getElementById('AddAddressForm');
     const addressesList = document.getElementById('AddressesList');
     const accountEditForm = document.getElementById('AccountEditForm');
@@ -1153,10 +1187,14 @@
 
     if (addAddressForm.classList.contains('hidden')) {
       addAddressForm.classList.remove('hidden');
-      orderHistory.classList.add('hidden');
+      if (orderHistory) {
+        orderHistory.classList.add('hidden');
+      }
     } else {
       addAddressForm.classList.add('hidden');
-      orderHistory.classList.remove('hidden');
+      if (orderHistory) {
+        orderHistory.classList.remove('hidden');
+      }
     }
   }
 
@@ -1206,6 +1244,9 @@
           orderHistory.classList.remove('hidden');
         }
       }
+    {%- else -%}
+      // No default address, do nothing
+      return;
     {%- endif -%}
   }
 
@@ -1233,6 +1274,50 @@
       passwordInput.value = '';
     }
   }
+
+  // Make functions globally accessible
+  window.toggleAccountDetails = toggleAccountDetails;
+  window.toggleAccountEditForm = toggleAccountEditForm;
+  window.toggleAddressesList = toggleAddressesList;
+  window.editAddressById = editAddressById;
+  window.toggleAddAddressForm = toggleAddAddressForm;
+  window.closeAddressEditForm = closeAddressEditForm;
+  window.togglePasswordField = togglePasswordField;
+
+  // Initialize event listeners after DOM is ready
+  function initializeAccountEventListeners() {
+    // Account Details link
+    const accountDetailsLink = document.querySelector('a[onclick*="toggleAccountDetails"]');
+    if (accountDetailsLink) {
+      accountDetailsLink.addEventListener('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        toggleAccountDetails(e);
+        return false;
+      });
+    }
+
+    // Add New Address links
+    const addAddressLinks = document.querySelectorAll('a[onclick*="toggleAddAddressForm"]');
+    addAddressLinks.forEach(function(link) {
+      link.addEventListener('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        toggleAddAddressForm(e);
+        return false;
+      });
+    });
+  }
+
+  // Initialize on page load
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initializeAccountEventListeners);
+  } else {
+    initializeAccountEventListeners();
+  }
+
+  // Re-initialize on Turbo navigation
+  document.addEventListener('turbo:load', initializeAccountEventListeners);
 </script>
 
 {% schema %}
