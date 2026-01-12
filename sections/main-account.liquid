@@ -851,7 +851,8 @@
                     {%- for order in customer.orders -%}
                       <tr class='border-b border-gray-100 hover:bg-gray-50 transition-colors'>
                         <td class='py-3 px-4 text-sm'>
-                          <a href='{{ order.customer_url }}' class='underline hover:no-underline'>
+                          {%- assign order_path = order.customer_url | remove: request.origin | remove: shop.url -%}
+                          <a href='{{ order_path }}' class='underline hover:no-underline'>
                             {{ order.name }}
                           </a>
                         </td>
