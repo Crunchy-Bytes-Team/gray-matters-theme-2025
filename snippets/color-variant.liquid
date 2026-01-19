@@ -79,6 +79,11 @@
       {% endif %}
 
       {% if variant_handle != blank and variant_relative_url != blank %}
+        {% comment %} Skip if this variant is the current product {% endcomment %}
+        {% if variant_handle == product.handle %}
+          {% continue %}
+        {% endif %}
+
         {% comment %} Check if entry has product_color_image - this takes priority over color metafields {% endcomment %}
         {% assign entry_color_image = entry.product_color_image | default: '' %}
 
