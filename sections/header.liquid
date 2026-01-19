@@ -1,7 +1,28 @@
-<div style='background:#ce71ed' class='text-white text-xs text-center py-1 relative z-[60]' data-announcement-bar>
-  {% render 'message-bar' %}
+<div
+  class='announcement-bar-container fixed top-0 left-0 right-0 z-[60] transition-all duration-300 ease-out'
+  data-announcement-bar
+  style='transform: translateY(0); opacity: 1;'
+>
+  {% render 'message-bar', section: section %}
 </div>
-<header class='bg-white px-4 h-12 flex flex-row items-center fixed top-6 left-0 right-0 z-[70]' data-site-header>
+<style>
+  .announcement-bar-container {
+    will-change: transform, opacity;
+  }
+
+  .announcement-bar-container[style*='opacity: 0'] {
+    pointer-events: none;
+  }
+
+  [data-site-header] {
+    transition: top 0.3s ease-out;
+  }
+</style>
+<header
+  class='bg-white px-4 h-12 flex flex-row items-center fixed left-0 right-0 z-[70] transition-all duration-300 ease-out'
+  data-site-header
+  style='top: 0;'
+>
   <div class='w-full flex flex-row justify-between bg-white h-full items-center'>
     <!-- hamburger -->
     <div class='flex lg:hidden w-2/12 items-start'>
@@ -271,31 +292,273 @@
       var announcementBar = document.querySelector('[data-announcement-bar]');
       var HEADER_SCROLL_THRESHOLD = 0;
 
-      function syncHeaderOffset() {
-        if (!siteHeader) return;
-        if (window.scrollY > HEADER_SCROLL_THRESHOLD) {
-          if (siteHeader.classList.contains('top-6')) {
-            siteHeader.classList.replace('top-6', 'top-0');
-          } else {
-            siteHeader.classList.add('top-0');
-          }
-        } else if (siteHeader.classList.contains('top-0')) {
-          siteHeader.classList.replace('top-0', 'top-6');
-        } else {
-          siteHeader.classList.add('top-6');
-        }
+      // Update spacer height dynamically based on header position
+      function updateSpacerHeight() {
+        const spacer = document.querySelector('.header-spacer');
+        const header = document.querySelector('[data-site-header]');
+        const announcementBar = document.querySelector('[data-announcement-bar]');
 
-        if (announcementBar) {
-          if (window.scrollY > HEADER_SCROLL_THRESHOLD) {
-            announcementBar.classList.add('top-0');
-          } else {
-            announcementBar.classList.remove('top-0');
+        if (spacer && header) {
+          // Spacer should match header height (48px) plus any visible announcement bar height
+          let spacerHeight = 48; // Header height (h-12 = 48px)
+
+          if (announcementBar && announcementBar.style.display !== 'none') {
+            // Check if announcement bar is actually visible (not hidden via transform)
+            const isVisible =
+              announcementBar.style.opacity !== '0' &&
+              announcementBar.style.transform !== 'translateY(-100%)' &&
+              !announcementBar.style.transform.includes('translateY(-100%)');
+
+            if (isVisible) {
+              const barHeight = announcementBar.offsetHeight;
+              if (barHeight > 0) {
+                spacerHeight += barHeight;
+              }
+            }
           }
+
+          spacer.style.height = spacerHeight + 'px';
+
+          // #region agent log
+          fetch('http://127.0.0.1:7245/ingest/e4a9059f-9047-481b-89e5-4a3cbbdd03fa', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              location: 'header.liquid:287',
+              message: 'Spacer height update',
+              data: {
+                spacerHeight: spacerHeight,
+                announcementBarHeight: announcementBar ? announcementBar.offsetHeight : 0,
+                announcementBarDisplay: announcementBar ? announcementBar.style.display : 'N/A',
+                announcementBarOpacity: announcementBar ? announcementBar.style.opacity : 'N/A',
+                announcementBarTransform: announcementBar ? announcementBar.style.transform : 'N/A',
+              },
+              timestamp: Date.now(),
+              sessionId: 'debug-session',
+              runId: 'run1',
+              hypothesisId: 'D',
+            }),
+          }).catch(() => {});
+          // #endregion
         }
       }
 
-      syncHeaderOffset();
-      window.addEventListener('scroll', syncHeaderOffset);
+      // Initialize announcement bar scroll behavior
+      function initAnnouncementBar() {
+        if (!announcementBar || !siteHeader) return;
+
+        // #region agent log
+        fetch('http://127.0.0.1:7245/ingest/e4a9059f-9047-481b-89e5-4a3cbbdd03fa', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            location: 'header.liquid:295',
+            message: 'initAnnouncementBar entry',
+            data: { announcementBarExists: !!announcementBar, siteHeaderExists: !!siteHeader },
+            timestamp: Date.now(),
+            sessionId: 'debug-session',
+            runId: 'run1',
+            hypothesisId: 'A',
+          }),
+        }).catch(() => {});
+        // #endregion
+
+        // Check if announcement bar has content
+        const announcementContent = announcementBar.querySelector('#announcement-bar-message');
+        const hasContent = announcementContent && announcementContent.textContent.trim() !== '';
+
+        // #region agent log
+        fetch('http://127.0.0.1:7245/ingest/e4a9059f-9047-481b-89e5-4a3cbbdd03fa', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            location: 'header.liquid:300',
+            message: 'Content check result',
+            data: {
+              hasContent: hasContent,
+              contentText: announcementContent ? announcementContent.textContent.trim() : 'null',
+              initialTopClass: siteHeader.className,
+              initialTopStyle: siteHeader.style.top,
+            },
+            timestamp: Date.now(),
+            sessionId: 'debug-session',
+            runId: 'run1',
+            hypothesisId: 'A',
+          }),
+        }).catch(() => {});
+        // #endregion
+
+        if (!hasContent) {
+          // No content, hide announcement bar completely
+          announcementBar.style.display = 'none';
+
+          // #region agent log
+          fetch('http://127.0.0.1:7245/ingest/e4a9059f-9047-481b-89e5-4a3cbbdd03fa', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              location: 'header.liquid:304',
+              message: 'No content path - setting header to top-0',
+              data: {
+                scrollY: window.scrollY,
+                headerClasses: siteHeader.className,
+                headerTopStyle: siteHeader.style.top,
+              },
+              timestamp: Date.now(),
+              sessionId: 'debug-session',
+              runId: 'run1',
+              hypothesisId: 'B',
+            }),
+          }).catch(() => {});
+          // #endregion
+
+          // When no announcement bar, header should always be at top-0 (sticky mode height)
+          // Remove any top-6 class and ensure top-0
+          siteHeader.classList.remove('top-6');
+          siteHeader.classList.add('top-0');
+          siteHeader.style.top = '0';
+
+          // Update search container position
+          syncSearchContainerTop();
+
+          // #region agent log
+          fetch('http://127.0.0.1:7245/ingest/e4a9059f-9047-481b-89e5-4a3cbbdd03fa', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              location: 'header.liquid:312',
+              message: 'No content path - after setting top-0',
+              data: {
+                scrollY: window.scrollY,
+                headerClasses: siteHeader.className,
+                headerTopStyle: siteHeader.style.top,
+              },
+              timestamp: Date.now(),
+              sessionId: 'debug-session',
+              runId: 'run1',
+              hypothesisId: 'B',
+            }),
+          }).catch(() => {});
+          // #endregion
+
+          // No scroll handler needed - header stays at top-0 always when no announcement bar
+          return;
+        }
+
+        // Has content, implement scroll direction detection
+        let lastScrollY = window.scrollY;
+        let announcementBarHeight = announcementBar.offsetHeight;
+
+        function hideAnnouncementBar() {
+          announcementBar.style.transform = 'translateY(-100%)';
+          announcementBar.style.opacity = '0';
+          updateSpacerHeight();
+          syncSearchContainerTop();
+        }
+
+        function showAnnouncementBar() {
+          announcementBar.style.transform = 'translateY(0)';
+          announcementBar.style.opacity = '1';
+          // Delay to ensure height is calculated after show
+          requestAnimationFrame(() => {
+            updateSpacerHeight();
+            syncSearchContainerTop();
+          });
+        }
+
+        function moveHeaderToTop() {
+          // Remove any top class and set to top-0
+          siteHeader.classList.remove('top-6');
+          if (!siteHeader.classList.contains('top-0')) {
+            siteHeader.classList.add('top-0');
+          }
+          // Set to top-0 explicitly
+          siteHeader.style.top = '0';
+          // Update search container position
+          syncSearchContainerTop();
+        }
+
+        function adjustHeaderForAnnouncementBar() {
+          // When announcement bar is visible, position header below it
+          // Get the actual rendered height of the announcement bar
+          const barHeight = announcementBar.offsetHeight;
+
+          if (barHeight > 0) {
+            siteHeader.classList.remove('top-0');
+            if (!siteHeader.classList.contains('top-6')) {
+              siteHeader.classList.add('top-6');
+            }
+            // Position header below announcement bar using its actual height
+            siteHeader.style.top = barHeight + 'px';
+          } else {
+            // Fallback: use default top-6 if height is 0
+            siteHeader.classList.remove('top-0');
+            if (!siteHeader.classList.contains('top-6')) {
+              siteHeader.classList.add('top-6');
+            }
+            siteHeader.style.top = '';
+          }
+
+          // Update search container position when header position changes
+          syncSearchContainerTop();
+        }
+
+        function handleScroll() {
+          const currentScrollY = window.scrollY;
+          const scrollingDown = currentScrollY > lastScrollY;
+          const isAtTop = currentScrollY <= HEADER_SCROLL_THRESHOLD;
+          const scrollDelta = Math.abs(currentScrollY - lastScrollY);
+
+          // Update announcement bar height if it changed (e.g., on resize)
+          const currentHeight = announcementBar.offsetHeight;
+          if (currentHeight !== announcementBarHeight) {
+            announcementBarHeight = currentHeight;
+          }
+
+          if (isAtTop) {
+            // At top of page, always show announcement bar
+            showAnnouncementBar();
+            // Small delay to ensure height is calculated after show
+            requestAnimationFrame(() => {
+              adjustHeaderForAnnouncementBar();
+            });
+          } else if (scrollingDown && scrollDelta > 5) {
+            // Scrolling down (with threshold to avoid jitter), hide announcement bar and move header to top
+            hideAnnouncementBar();
+            moveHeaderToTop();
+          } else if (!scrollingDown && scrollDelta > 5) {
+            // Scrolling up (with threshold), show announcement bar and adjust header
+            showAnnouncementBar();
+            // Small delay to ensure height is calculated after show
+            requestAnimationFrame(() => {
+              adjustHeaderForAnnouncementBar();
+            });
+          }
+
+          lastScrollY = currentScrollY;
+        }
+
+        // Initial setup
+        if (window.scrollY <= HEADER_SCROLL_THRESHOLD) {
+          showAnnouncementBar();
+          adjustHeaderForAnnouncementBar();
+        } else {
+          hideAnnouncementBar();
+          moveHeaderToTop();
+        }
+
+        window.addEventListener('scroll', handleScroll, { passive: true });
+      }
+
+      // Note: syncHeaderOffset removed - no longer needed since header stays at top-0 when no announcement bar
+
+      // Initialize announcement bar behavior
+      initAnnouncementBar();
+
+      // Update spacer on load and when announcement bar visibility changes
+      updateSpacerHeight();
+      setTimeout(updateSpacerHeight, 100);
+      window.addEventListener('resize', updateSpacerHeight);
 
       function openMenu() {
         if (!menu) return;
@@ -347,12 +610,30 @@
       var searchContainer = document.getElementById('HeaderSearchContainer');
       var searchHideTimer = null;
       var SEARCH_TRANSITION_MS = 250;
-      var SEARCH_DEFAULT_TOP = 80;
-      var SEARCH_SCROLLED_TOP = 48;
+      var HEADER_HEIGHT = 48; // h-12 = 48px
+
       function syncSearchContainerTop() {
         if (!searchContainer) return;
-        var nextTop = window.scrollY > 0 ? SEARCH_SCROLLED_TOP : SEARCH_DEFAULT_TOP;
-        var nextTopValue = nextTop + 'px';
+
+        // Calculate search container top position based on header and announcement bar
+        let searchTop = HEADER_HEIGHT;
+
+        // Check if announcement bar is visible
+        if (announcementBar && announcementBar.style.display !== 'none') {
+          const isVisible =
+            announcementBar.style.opacity !== '0' &&
+            announcementBar.style.transform !== 'translateY(-100%)' &&
+            !announcementBar.style.transform.includes('translateY(-100%)');
+
+          if (isVisible) {
+            const barHeight = announcementBar.offsetHeight;
+            if (barHeight > 0) {
+              searchTop += barHeight;
+            }
+          }
+        }
+
+        var nextTopValue = searchTop + 'px';
         if (searchContainer.style.top !== nextTopValue) {
           searchContainer.style.top = nextTopValue;
         }
@@ -428,11 +709,11 @@
     });
   </script>
 </div>
-<div class='h-12'></div>
+<div class='header-spacer' style='height: 48px;'></div>
 <div
-  style='top:80px'
   id='HeaderSearchContainer'
-  class='hidden container-search-form py-4 fixed  inset-x-0 z-40 bg-gray-200 shadow-lg px-4 relative'
+  class='hidden container-search-form py-4 fixed inset-x-0 z-40 bg-gray-200 shadow-lg px-4 relative'
+  style='top: 48px;'
 >
   <button
     type='button'

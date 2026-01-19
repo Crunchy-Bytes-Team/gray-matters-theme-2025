@@ -57,15 +57,21 @@
         }
       }
 
-      .announsment_bar_top {
+      .announcement-bar-link {
         {% if slide_animation %}
           display: flex !important;
         {% endif %}
         background-color: {{ color_bg }};
         color: {{ color_text }};
+        width: 100%;
+        text-align: center;
+        padding: 0.25rem 0;
+        text-decoration: none;
+        font-size: 0.75rem;
+        line-height: 1.5;
       }
 
-      .announsment_bar_top > span {
+      .announcement-bar-link > span {
         transition: opacity 500ms ease-in-out;
       }
 
@@ -94,38 +100,45 @@
 
   {% if message_text_alt != blank and message_link_alt != blank and fade_animation %}
     <script>
-      const messages = [
-        { text: `{{ message_text_alt | escape }}`, link: `{{ message_link_alt }}` },
-        { text: `{{ message_text | escape }}`, link: `{{ message_link }}` },
-      ];
+      (function() {
+        const messages = [
+          { text: {{ message_text_alt | escape | json }}, link: {{ message_link_alt | json }} },
+          { text: {{ message_text | escape | json }}, link: {{ message_link | json }} },
+        ];
 
-      messages.forEach((msg, i) => {
-        setTimeout(() => {
-          $('.announsment_bar_top > span').css('opacity', 1);
-          $('#announcement-bar-message').text(msg.text);
-          $('#announcement-bar-link').attr('href', msg.link);
-        }, 4000 * (i + 2));
-        setTimeout(() => {
-          $('.announsment_bar_top > span').css('opacity', 0);
-        }, 3500 * (i + 2));
-      });
+        function updateMessage(index) {
+          const messageSpan = document.querySelector('#announcement-bar-message');
+          const messageLink = document.querySelector('#announcement-bar-link');
+          if (messageSpan && messageLink) {
+            messageSpan.style.opacity = '1';
+            messageSpan.textContent = messages[index].text;
+            messageLink.href = messages[index].link;
+          }
+        }
 
-      setInterval(() => {
+        function fadeOutMessage() {
+          const messageSpan = document.querySelector('#announcement-bar-message');
+          if (messageSpan) {
+            messageSpan.style.opacity = '0';
+          }
+        }
+
         messages.forEach((msg, i) => {
-          setTimeout(() => {
-            $('.announsment_bar_top > span').css('opacity', 1);
-            $('#announcement-bar-message').text(msg.text);
-            $('#announcement-bar-link').attr('href', msg.link);
-          }, 4000 * (i + 2));
-          setTimeout(() => {
-            $('.announsment_bar_top > span').css('opacity', 0);
-          }, 3500 * (i + 2));
+          setTimeout(() => updateMessage(i), 4000 * (i + 2));
+          setTimeout(() => fadeOutMessage(), 3500 * (i + 2));
         });
-      }, 10000);
+
+        setInterval(() => {
+          messages.forEach((msg, i) => {
+            setTimeout(() => updateMessage(i), 4000 * (i + 2));
+            setTimeout(() => fadeOutMessage(), 3500 * (i + 2));
+          });
+        }, 10000);
+      })();
     </script>
   {% endif %}
 
-  <a id='announcement-bar-link' href='{{ message_link | default: '#' }}' class='announsment_bar_top'>
+  <a id='announcement-bar-link' href='{{ message_link | default: '#' }}' class='announcement-bar-link'>
     <span
       id='announcement-bar-message'
       {% if slide_animation %}
