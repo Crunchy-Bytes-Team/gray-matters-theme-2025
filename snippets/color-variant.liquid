@@ -79,33 +79,47 @@
       {% endif %}
 
       {% if variant_handle != blank and variant_relative_url != blank %}
-        {% assign variant_product = all_products[variant_handle] %}
+        {% comment %} Check if entry has product_color_image - this takes priority over color metafields {% endcomment %}
+        {% assign entry_color_image = entry.product_color_image | default: '' %}
 
-        {% if variant_product != blank %}
-          {% assign variant_primary_color = variant_product.metafields.custom.primary_color | default: '' %}
-          {% assign variant_secondary_color = variant_product.metafields.custom.secondary_color | default: '' %}
-          {% assign variant_primary_hex = '' %}
-          {% assign variant_secondary_hex = '' %}
+        {% if entry_color_image != blank %}
+          {% comment %} Render variant link with background-image from entry {% endcomment %}
+          <a
+            href='{{ variant_relative_url }}'
+            class='w-5 h-5 rounded-full overflow-hidden flex flex-col border border-gray-200 mr-2'
+            style='background-image: url({{ entry_color_image | escape }}); background-size: cover; background-position: center;'
+          >
+          </a>
+        {% else %}
+          {% comment %} Fall back to color metafields from variant product {% endcomment %}
+          {% assign variant_product = all_products[variant_handle] %}
 
-          {% if variant_primary_color != blank %}
-            {% assign variant_primary_hex = variant_primary_color %}
-          {% endif %}
-          {% if variant_secondary_color != blank %}
-            {% assign variant_secondary_hex = variant_secondary_color %}
-          {% endif %}
+          {% if variant_product != blank %}
+            {% assign variant_primary_color = variant_product.metafields.custom.primary_color | default: '' %}
+            {% assign variant_secondary_color = variant_product.metafields.custom.secondary_color | default: '' %}
+            {% assign variant_primary_hex = '' %}
+            {% assign variant_secondary_hex = '' %}
 
-          {% if variant_primary_hex != blank %}
-            <a
-              href='{{ variant_relative_url }}'
-              class='w-5 h-5 rounded-full overflow-hidden flex flex-col border border-gray-200 mr-2'
-            >
-              {% if variant_secondary_hex != blank %}
-                <div class='w-full h-1/2' style='background-color: {{ variant_primary_hex }};'></div>
-                <div class='w-full h-1/2' style='background-color: {{ variant_secondary_hex }};'></div>
-              {% else %}
-                <div class='w-full h-full' style='background-color: {{ variant_primary_hex }};'></div>
-              {% endif %}
-            </a>
+            {% if variant_primary_color != blank %}
+              {% assign variant_primary_hex = variant_primary_color %}
+            {% endif %}
+            {% if variant_secondary_color != blank %}
+              {% assign variant_secondary_hex = variant_secondary_color %}
+            {% endif %}
+
+            {% if variant_primary_hex != blank %}
+              <a
+                href='{{ variant_relative_url }}'
+                class='w-5 h-5 rounded-full overflow-hidden flex flex-col border border-gray-200 mr-2'
+              >
+                {% if variant_secondary_hex != blank %}
+                  <div class='w-full h-1/2' style='background-color: {{ variant_primary_hex }};'></div>
+                  <div class='w-full h-1/2' style='background-color: {{ variant_secondary_hex }};'></div>
+                {% else %}
+                  <div class='w-full h-full' style='background-color: {{ variant_primary_hex }};'></div>
+                {% endif %}
+              </a>
+            {% endif %}
           {% endif %}
         {% endif %}
       {% endif %}
