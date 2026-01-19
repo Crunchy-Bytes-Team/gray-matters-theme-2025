@@ -17,7 +17,7 @@
         <h2 class="text-xl font-bold uppercase tracking-wider mb-4">
           {{ 'customer.account.details' | t }}
         </h2>
-        <div class="space-y-2 text-sm">
+        <div class="space-y-2 text-base">
           <p class="font-semibold">{{ customer.name }}</p>
           <p>{{ customer.email }}</p>
           <a href="{{ routes.account_edit_url }}" class="underline">
@@ -32,19 +32,19 @@
           {{ 'customer.account.addresses' | t }}
         </h2>
         {%- if customer.default_address -%}
-          <div class="mb-4 text-sm space-y-1">
+          <div class="mb-4 text-base space-y-1">
             {{ customer.default_address | format_address }}
           </div>
           <div class="space-x-4">
-            <a href="{{ routes.account_addresses_url }}" class="underline text-sm">
+            <a href="{{ routes.account_addresses_url }}" class="underline text-base">
               Edit
             </a>
-            <a href="{{ routes.account_addresses_url }}" class="underline text-sm">
+            <a href="{{ routes.account_addresses_url }}" class="underline text-base">
               Add New Address
             </a>
           </div>
         {%- else -%}
-          <a href="{{ routes.account_addresses_url }}" class="underline text-sm">
+          <a href="{{ routes.account_addresses_url }}" class="underline text-base">
             Add New Address
           </a>
         {%- endif -%}
@@ -55,14 +55,14 @@
         <h2 class="text-xl font-bold uppercase tracking-wider mb-4">
           {{ 'customer.account.wishlist' | t }}
         </h2>
-        <a href="{{ routes.root_url }}/pages/wishlist" class="underline text-sm">
+        <a href="{{ routes.root_url }}/pages/wishlist" class="underline text-base">
           View/Edit Wishlist
         </a>
       </div>
 
       <!-- Logout -->
       <div class="mb-8">
-        <a href="{{ routes.account_logout_url }}" class="underline text-sm">
+        <a href="{{ routes.account_logout_url }}" class="underline text-base">
           {{ 'customer.log_out' | t }}
         </a>
       </div>
@@ -73,7 +73,7 @@
       <div class="md:pl-12">
         {%- form 'customer', class: 'account-edit-form' -%}
           {%- if form.errors -%}
-            <div class="mb-6 p-4 bg-red-50 border border-red-200 text-red-700 text-sm">
+            <div class="mb-6 p-4 bg-red-50 border border-red-200 text-red-700 text-base">
               <h3 class="font-semibold mb-2">{{ 'templates.contact.form.error_heading' | t }}</h3>
               <ul class="list-disc list-inside">
                 {%- for field in form.errors -%}
@@ -90,7 +90,7 @@
           {%- endif -%}
 
           {%- if form.posted_successfully? -%}
-            <div class="mb-6 p-4 bg-green-50 border border-green-200 text-green-700 text-sm">
+            <div class="mb-6 p-4 bg-green-50 border border-green-200 text-green-700 text-base">
               {{ 'customer.account.details_updated' | t | default: 'Account details updated successfully.' }}
             </div>
           {%- endif -%}
@@ -98,7 +98,7 @@
           <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
             <!-- First Name -->
             <div>
-              <label for="AccountEditFirstName" class="block text-sm font-medium mb-2">
+              <label for="AccountEditFirstName" class="block text-base font-medium mb-2">
                 {{ 'customer.register.first_name' | t }}
               </label>
               <input
@@ -113,7 +113,7 @@
 
             <!-- Last Name -->
             <div>
-              <label for="AccountEditLastName" class="block text-sm font-medium mb-2">
+              <label for="AccountEditLastName" class="block text-base font-medium mb-2">
                 {{ 'customer.register.last_name' | t }}
               </label>
               <input
@@ -130,7 +130,7 @@
           <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
             <!-- Email -->
             <div>
-              <label for="AccountEditEmail" class="block text-sm font-medium mb-2">
+              <label for="AccountEditEmail" class="block text-base font-medium mb-2">
                 {{ 'customer.login_page.email' | t }}
               </label>
               <input
@@ -145,7 +145,7 @@
 
             <!-- Shoe Size -->
             <div>
-              <label for="AccountEditShoeSize" class="block text-sm font-medium mb-2">
+              <label for="AccountEditShoeSize" class="block text-base font-medium mb-2">
                 Shoe Size
               </label>
               <input
@@ -169,13 +169,13 @@
                 class="mr-2"
                 onchange="togglePasswordField(this)"
               >
-              <span class="text-sm">Update Password</span>
+              <span class="text-base">Update Password</span>
             </label>
           </div>
 
           <!-- Password Field (hidden by default) -->
           <div id="PasswordField" class="mb-4 hidden">
-            <label for="AccountEditPassword" class="block text-sm font-medium mb-2">
+            <label for="AccountEditPassword" class="block text-base font-medium mb-2">
               {{ 'customer.login_page.password' | t }}
             </label>
             <input
@@ -192,13 +192,13 @@
           <div class="flex gap-4 mt-6">
             <button
               type="submit"
-              class="bg-black text-white py-3 px-8 uppercase tracking-wider text-sm font-semibold hover:opacity-90 transition-opacity"
+              class="bg-black text-white py-3 px-8 uppercase tracking-wider text-base font-semibold hover:opacity-90 transition-opacity"
             >
               UPDATE
             </button>
             <a
               href="{{ routes.account_url }}"
-              class="bg-white text-black border border-black py-3 px-8 uppercase tracking-wider text-sm font-semibold hover:opacity-90 transition-opacity inline-block text-center"
+              class="bg-white text-black border border-black py-3 px-8 uppercase tracking-wider text-base font-semibold hover:opacity-90 transition-opacity inline-block text-center"
             >
               CANCEL
             </a>
