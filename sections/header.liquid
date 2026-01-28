@@ -59,64 +59,53 @@
             class='h-full inline-flex items-center px-7 hover:opacity-70 hover:bg-gray-200 group-hover:bg-gray-200 transition-all duration-200 ease-out proxima-reg text-sm tracking-wider uppercase text-dark-gray'
             >Collection</a
           >
-          {% assign collection_menu = linklists.collection %}
-          {% if collection_menu != blank and collection_menu.links != blank %}
-            <div class='absolute left-0 top-full mt-0 hidden group-hover:block group-focus-within:block z-50'>
-              <ul class='min-w-[200px] bg-gray-100 text-black py-2'>
-                {% for link in collection_menu.links %}
-                  <li>
-                    <a
-                      href='{{ link.url }}'
-                      class='block px-4 py-2 proxima-reg text-sm tracking-wider uppercase hover:opacity-70 transition-opacity text-dark-gray'
-                    >
-                      {{- link.title | escape -}}
-                    </a>
-                  </li>
-                {% endfor %}
-              </ul>
-            </div>
-          {% endif %}
+          <div class='absolute left-0 top-full mt-1 opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto group-focus-within:opacity-100 group-focus-within:pointer-events-auto transition-opacity duration-200 ease-out z-50'>
+            <ul class='min-w-[200px] text-black py-2' style='background-color: #e6e6e6;'>
+              {% for link in linklists.collection.links %}
+                <li>
+                  <a
+                    href='{{ link.url }}'
+                    class='block px-4 py-2 proxima-reg text-sm tracking-wider uppercase hover:opacity-70 transition-opacity text-dark-gray {% if link.url contains 'sale' %}font-semibold{% endif %}'
+                  >
+                    {{- link.title | escape -}}
+                  </a>
+                </li>
+              {% endfor %}
+            </ul>
+          </div>
         </div>
 
-        {% if localization.available_languages and localization.available_languages.size > 1 %}
-          <div class='relative group h-full'>
-            <a
-              href='/pages/select-language'
-              class='h-full inline-flex items-center px-7 hover:opacity-70 hover:bg-gray-200 group-hover:bg-gray-200 transition-all duration-200 ease-out proxima-reg text-sm tracking-wider uppercase text-dark-gray'
-              aria-haspopup='true'
-              >Select language</a
-            >
-            <div class='absolute left-0 top-full mt-0 hidden group-hover:block group-focus-within:block z-50'>
-              <ul class='min-w-[200px] bg-gray-100 text-black py-2 shadow-lg'>
-                {% for language in localization.available_languages %}
-                  <li>
-                    {% if language.iso_code == localization.language.iso_code %}
-                      <span
-                        class='block px-4 py-2 proxima-reg text-sm tracking-wider uppercase cursor-default font-semibold text-dark-gray'
-                      >
-                        {{ language.endonym_name | default: language.name }}
-                      </span>
-                    {% else %}
-                      <a
-                        href='{{ language.root_url }}'
-                        hreflang='{{ language.iso_code }}'
-                        class='block px-4 py-2 proxima-reg text-sm tracking-wider hover:opacity-70 transition-opacity text-dark-gray'
-                      >
-                        {{ language.endonym_name | default: language.name }}
-                      </a>
-                    {% endif %}
-                  </li>
-                {% endfor %}
-              </ul>
-            </div>
-          </div>
-        {% else %}
+        <div class='relative group h-full'>
           <a
             href='/pages/select-language'
-            class='h-full inline-flex items-center px-7 hover:opacity-70 hover:bg-gray-200 transition-all duration-200 ease-out proxima-reg text-sm tracking-wider uppercase text-dark-gray'
+            class='h-full inline-flex items-center px-7 hover:opacity-70 hover:bg-gray-200 group-hover:bg-gray-200 transition-all duration-200 ease-out proxima-reg text-sm tracking-wider uppercase text-dark-gray'
+            aria-haspopup='true'
             >Select language</a
           >
-        {% endif %}
+          <div class='absolute left-0 top-full mt-1 opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto group-focus-within:opacity-100 group-focus-within:pointer-events-auto transition-opacity duration-200 ease-out z-50'>
+            <ul class='min-w-[200px] text-black py-2 shadow-lg' style='background-color: #e6e6e6;'>
+              {% for language in localization.available_languages %}
+                <li>
+                  {% if language.iso_code == localization.language.iso_code %}
+                    <span
+                      class='block px-4 py-2 proxima-reg text-sm tracking-wider uppercase cursor-default font-semibold text-dark-gray'
+                    >
+                      {{ language.endonym_name | default: language.name }}
+                    </span>
+                  {% else %}
+                    <a
+                      href='{{ language.root_url }}'
+                      hreflang='{{ language.iso_code }}'
+                      class='block px-4 py-2 proxima-reg text-sm tracking-wider hover:opacity-70 transition-opacity text-dark-gray'
+                    >
+                      {{ language.endonym_name | default: language.name }}
+                    </a>
+                  {% endif %}
+                </li>
+              {% endfor %}
+            </ul>
+          </div>
+        </div>
 
         <div class='relative group h-full'>
           <a
@@ -125,8 +114,8 @@
             aria-haspopup='true'
             >Client Service</a
           >
-          <div class='absolute left-0 top-full mt-0 hidden group-hover:block group-focus-within:block z-50'>
-            <div class='min-w-[200px] bg-gray-100 text-black py-2 shadow-lg'>
+          <div class='absolute left-0 top-full mt-1 opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto group-focus-within:opacity-100 group-focus-within:pointer-events-auto transition-opacity duration-200 ease-out z-50'>
+            <div class='min-w-[200px] text-black py-2 shadow-lg' style='background-color: #e6e6e6;'>
               <a
                 href='mailto:hello@graymattersnyc.com'
                 class='flex items-center gap-2 px-4 py-2 proxima-reg text-xs tracking-wider hover:opacity-70 transition-opacity text-dark-gray'
@@ -142,68 +131,44 @@
                 <span>+1 929 295 0303</span>
               </a>
               <span class='block px-4 py-1 proxima-reg text-xs tracking-wider text-gray-600'>
-                Lun-Ven 10.00 - 18.00 EST
+                Mon-Fri 10am-6pm EST
               </span>
               <div class='w-full px-4'>
                 <div class='border-t border-gray-300 mt-4 mb-2'></div>
               </div>
-              <a
-                href='#'
-                class='block px-4 py-2 proxima-reg text-xs tracking-wider uppercase hover:opacity-70 transition-opacity text-dark-gray'
-              >
-                spedizioni e resi
-              </a>
-              <a
-                href='#'
-                class='block px-4 py-2 proxima-reg text-xs tracking-wider uppercase hover:opacity-70 transition-opacity text-dark-gray'
-              >
-                FAQ
-              </a>
-              <a
-                href='#'
-                class='block px-4 py-2 proxima-reg text-xs tracking-wider uppercase hover:opacity-70 transition-opacity text-dark-gray'
-              >
-                cura delle scarpe
-              </a>
-              <a
-                href='#'
-                class='block px-4 py-2 proxima-reg text-xs tracking-wider uppercase hover:opacity-70 transition-opacity text-dark-gray'
-              >
-                stampa
-              </a>
-              <a
-                href='#'
-                class='block px-4 py-2 proxima-reg text-xs tracking-wider uppercase hover:opacity-70 transition-opacity text-dark-gray'
-              >
-                ladygrayu club
-              </a>
-              <a
-                href='#'
-                class='block px-4 py-2 proxima-reg text-xs tracking-wider uppercase hover:opacity-70 transition-opacity text-dark-gray'
-              >
-                brand stories
-              </a>
+              {% assign client_services_menu = linklists['top-client-services'] %}
+              {% if client_services_menu != blank and client_services_menu.links != blank %}
+                {% for link in client_services_menu.links %}
+                  <a
+                    href='{{ link.url }}'
+                    class='block px-4 py-2 proxima-reg text-xs tracking-wider uppercase hover:opacity-70 transition-opacity text-dark-gray'
+                  >
+                    {{ link.title }}
+                  </a>
+                {% endfor %}
+              {% endif %}
             </div>
           </div>
         </div>
       </nav>
       <!-- icons -->
       <div class='flex items-center justify-end gap-0 lg:gap-8 text-black h-full w-full lg:w-auto'>
+        <!-- Instagram -->
         <a
-          href='/pages/wishlist'
-          aria-label='Wishlist'
-          class='hidden lg:flex hover:opacity-70 transition-opacity duration-200 ease-out'
+          href='https://instagram.com/graymattersnyc'
+          target='_blank'
+          aria-label='Instagram'
+          class='hover:opacity-70 transition-opacity duration-200 ease-out'
         >
-          <i class='fa-solid fa-heart' aria-hidden='true'></i>
+          <img
+            src='{{ 'icons/instagram-icon.png' | asset_url }}'
+            alt='Instagram'
+            width='20'
+            height='20'
+            class='w-5 h-5'
+          >
         </a>
-        <button
-          id='cart-icon-bubble'
-          type='button'
-          class='relative hover:opacity-70 transition-opacity duration-200 ease-out bg-transparent border-none p-0'
-          aria-label='{{ 'templates.cart.cart' | t }}'
-        >
-          <i class='fa-solid fa-cart-shopping' aria-hidden='true'></i>
-        </button>
+        <!-- User Account -->
         {% if shop.customer_accounts_enabled %}
           {% if customer %}
             <a
@@ -211,7 +176,13 @@
               aria-label='{{ 'customer.account_fallback' | t }}'
               class='hidden lg:flex hover:opacity-70 transition-opacity duration-200 ease-out'
             >
-              <i class='fa-regular fa-user' aria-hidden='true'></i>
+              <img
+                src='{{ 'icons/user_new.png' | asset_url }}'
+                alt='{{ 'customer.account_fallback' | t }}'
+                width='20'
+                height='20'
+                class='w-5 h-5'
+              >
             </a>
           {% else %}
             <a
@@ -219,10 +190,17 @@
               aria-label='{{ 'customer.log_in' | t }}'
               class='hidden lg:flex hover:opacity-70 transition-opacity duration-200 ease-out'
             >
-              <i class='fa-regular fa-user' aria-hidden='true'></i>
+              <img
+                src='{{ 'icons/user_new.png' | asset_url }}'
+                alt='{{ 'customer.log_in' | t }}'
+                width='20'
+                height='20'
+                class='w-5 h-5'
+              >
             </a>
           {% endif %}
         {% endif %}
+        <!-- Search -->
         <button
           type='button'
           data-toggle-search
@@ -233,16 +211,29 @@
         >
           <i class='fa-solid fa-magnifying-glass' aria-hidden='true'></i>
         </button>
-        {% if settings.social_instagram_link != blank %}
-          <a
-            href='https://instagram.com/graymattersnyc'
-            target='_blank'
-            aria-label='Instagram'
-            class='hover:opacity-70 transition-opacity duration-200 ease-out'
+        <!-- Cart -->
+        <button
+          id='cart-icon-bubble'
+          type='button'
+          class='relative hover:opacity-70 transition-opacity duration-200 ease-out bg-transparent border-none p-0'
+          aria-label='{{ 'templates.cart.cart' | t }}'
+        >
+          <img
+            src='{{ 'icons/cart_icon_empty.png' | asset_url }}'
+            alt='{{ 'templates.cart.cart' | t }}'
+            width='20'
+            height='20'
+            class='w-5 h-5'
           >
-            <i class='fa-brands fa-instagram' aria-hidden='true'></i>
-          </a>
-        {% endif %}
+          {%- if cart != empty -%}
+            <div class='cart-count-bubble absolute -top-2 -right-2 bg-black text-white text-xs rounded-full w-5 h-5 flex items-center justify-center'>
+              {%- if cart.item_count < 100 -%}
+                <span aria-hidden='true'>{{ cart.item_count }}</span>
+              {%- endif -%}
+              <span class='visually-hidden'>{{ 'sections.header.cart_count' | t: count: cart.item_count }}</span>
+            </div>
+          {%- endif -%}
+        </button>
       </div>
     </div>
   </div>
@@ -318,28 +309,6 @@
           }
 
           spacer.style.height = spacerHeight + 'px';
-
-          // #region agent log
-          fetch('http://127.0.0.1:7245/ingest/e4a9059f-9047-481b-89e5-4a3cbbdd03fa', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              location: 'header.liquid:287',
-              message: 'Spacer height update',
-              data: {
-                spacerHeight: spacerHeight,
-                announcementBarHeight: announcementBar ? announcementBar.offsetHeight : 0,
-                announcementBarDisplay: announcementBar ? announcementBar.style.display : 'N/A',
-                announcementBarOpacity: announcementBar ? announcementBar.style.opacity : 'N/A',
-                announcementBarTransform: announcementBar ? announcementBar.style.transform : 'N/A',
-              },
-              timestamp: Date.now(),
-              sessionId: 'debug-session',
-              runId: 'run1',
-              hypothesisId: 'D',
-            }),
-          }).catch(() => {});
-          // #endregion
         }
       }
 
@@ -347,70 +316,13 @@
       function initAnnouncementBar() {
         if (!announcementBar || !siteHeader) return;
 
-        // #region agent log
-        fetch('http://127.0.0.1:7245/ingest/e4a9059f-9047-481b-89e5-4a3cbbdd03fa', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            location: 'header.liquid:295',
-            message: 'initAnnouncementBar entry',
-            data: { announcementBarExists: !!announcementBar, siteHeaderExists: !!siteHeader },
-            timestamp: Date.now(),
-            sessionId: 'debug-session',
-            runId: 'run1',
-            hypothesisId: 'A',
-          }),
-        }).catch(() => {});
-        // #endregion
-
         // Check if announcement bar has content
         const announcementContent = announcementBar.querySelector('#announcement-bar-message');
         const hasContent = announcementContent && announcementContent.textContent.trim() !== '';
 
-        // #region agent log
-        fetch('http://127.0.0.1:7245/ingest/e4a9059f-9047-481b-89e5-4a3cbbdd03fa', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            location: 'header.liquid:300',
-            message: 'Content check result',
-            data: {
-              hasContent: hasContent,
-              contentText: announcementContent ? announcementContent.textContent.trim() : 'null',
-              initialTopClass: siteHeader.className,
-              initialTopStyle: siteHeader.style.top,
-            },
-            timestamp: Date.now(),
-            sessionId: 'debug-session',
-            runId: 'run1',
-            hypothesisId: 'A',
-          }),
-        }).catch(() => {});
-        // #endregion
-
         if (!hasContent) {
           // No content, hide announcement bar completely
           announcementBar.style.display = 'none';
-
-          // #region agent log
-          fetch('http://127.0.0.1:7245/ingest/e4a9059f-9047-481b-89e5-4a3cbbdd03fa', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              location: 'header.liquid:304',
-              message: 'No content path - setting header to top-0',
-              data: {
-                scrollY: window.scrollY,
-                headerClasses: siteHeader.className,
-                headerTopStyle: siteHeader.style.top,
-              },
-              timestamp: Date.now(),
-              sessionId: 'debug-session',
-              runId: 'run1',
-              hypothesisId: 'B',
-            }),
-          }).catch(() => {});
-          // #endregion
 
           // When no announcement bar, header should always be at top-0 (sticky mode height)
           // Remove any top-6 class and ensure top-0
@@ -420,26 +332,6 @@
 
           // Update search container position
           syncSearchContainerTop();
-
-          // #region agent log
-          fetch('http://127.0.0.1:7245/ingest/e4a9059f-9047-481b-89e5-4a3cbbdd03fa', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              location: 'header.liquid:312',
-              message: 'No content path - after setting top-0',
-              data: {
-                scrollY: window.scrollY,
-                headerClasses: siteHeader.className,
-                headerTopStyle: siteHeader.style.top,
-              },
-              timestamp: Date.now(),
-              sessionId: 'debug-session',
-              runId: 'run1',
-              hypothesisId: 'B',
-            }),
-          }).catch(() => {});
-          // #endregion
 
           // No scroll handler needed - header stays at top-0 always when no announcement bar
           return;
@@ -559,6 +451,161 @@
       updateSpacerHeight();
       setTimeout(updateSpacerHeight, 100);
       window.addEventListener('resize', updateSpacerHeight);
+
+      // Add hover event listeners to manually control dropdown visibility
+      const menuGroups = document.querySelectorAll('nav .group');
+      menuGroups.forEach((group, index) => {
+          // Try multiple selectors to find dropdown
+          let dropdown = group.querySelector('div[class*="opacity-0"]');
+          if (!dropdown) {
+            dropdown = group.querySelector('div[class*="-translate-y"]');
+          }
+          if (!dropdown) {
+            // Look for any absolute positioned div (dropdown container)
+            dropdown = group.querySelector('div.absolute');
+          }
+          if (!dropdown) {
+            // Look for any div that's a direct child
+            const divs = Array.from(group.children).filter(c => c.tagName === 'DIV');
+            dropdown = divs.length > 0 ? divs[0] : null;
+          }
+
+          if (!dropdown) {
+            return;
+          }
+
+          // Initialize dropdown state - using opacity-only animation to avoid hover breakage
+          dropdown.style.opacity = '0';
+          dropdown.style.pointerEvents = 'none';
+          dropdown.style.transition = 'opacity 200ms ease-out';
+
+          let hideTimeout = null;
+
+          // Manually control dropdown visibility
+          group.addEventListener('mouseenter', function() {
+            // Clear any pending hide
+            if (hideTimeout) {
+              clearTimeout(hideTimeout);
+              hideTimeout = null;
+            }
+
+            // Show dropdown
+            dropdown.style.opacity = '1';
+            dropdown.style.pointerEvents = 'auto';
+          });
+
+          group.addEventListener('mouseleave', function(e) {
+            const relatedTarget = e.relatedTarget;
+            const groupRect = group.getBoundingClientRect();
+            const dropdownRect = dropdown.getBoundingClientRect();
+            const mouseY = e.clientY;
+            const mouseX = e.clientX;
+
+            // Check if mouse is moving toward dropdown - check both relatedTarget and actual mouse position
+            const isMovingToDropdown = relatedTarget && (dropdown.contains(relatedTarget) || dropdown === relatedTarget);
+            const isInDropdownArea = mouseX >= dropdownRect.left && mouseX <= dropdownRect.right &&
+                                    mouseY >= dropdownRect.top && mouseY <= dropdownRect.bottom;
+
+            // Also check what element is actually under the mouse cursor
+            const elementUnderMouse = document.elementFromPoint(mouseX, mouseY);
+            const mouseIsInDropdown = elementUnderMouse && (dropdown.contains(elementUnderMouse) || dropdown === elementUnderMouse);
+
+            // Clear any pending hide timeout
+            if (hideTimeout) {
+              clearTimeout(hideTimeout);
+              hideTimeout = null;
+            }
+
+            // When entering from below, mouse can be in dropdown area but elementFromPoint returns child elements
+            // Use isInDropdownArea as the PRIMARY check - it's more reliable than elementFromPoint
+            // Also check if mouse is moving down toward dropdown area (entering from below)
+            const isMovingDown = mouseY > groupRect.bottom;
+            const shouldKeepVisible = isInDropdownArea || isMovingDown || mouseIsInDropdown || isMovingToDropdown;
+
+            if (!shouldKeepVisible) {
+              hideTimeout = setTimeout(function() {
+                // Final check: get fresh bounding rect and verify mouse is still not in dropdown area
+                const freshDropdownRect = dropdown.getBoundingClientRect();
+                const freshMouseElement = document.elementFromPoint(mouseX, mouseY);
+                const freshIsInDropdownArea = mouseX >= freshDropdownRect.left && mouseX <= freshDropdownRect.right &&
+                                             mouseY >= freshDropdownRect.top && mouseY <= freshDropdownRect.bottom;
+                const freshMouseIsInDropdown = freshMouseElement && (dropdown.contains(freshMouseElement) || dropdown === freshMouseElement);
+
+                if (!freshIsInDropdownArea && !freshMouseIsInDropdown) {
+                  dropdown.style.opacity = '0';
+                  dropdown.style.pointerEvents = 'none';
+                }
+                hideTimeout = null;
+              }, 200); // Increased delay to allow mouse to reach dropdown when entering from below
+            } else {
+              // Mouse is in dropdown area or moving toward it - ensure dropdown stays visible
+              if (hideTimeout) {
+                clearTimeout(hideTimeout);
+                hideTimeout = null;
+              }
+              dropdown.style.opacity = '1';
+              dropdown.style.pointerEvents = 'auto';
+            }
+          });
+
+          // Also handle dropdown hover to keep it visible
+          // This is critical when entering from below - mouse can enter dropdown before group
+          dropdown.addEventListener('mouseenter', function() {
+            // Clear any pending hide
+            if (hideTimeout) {
+              clearTimeout(hideTimeout);
+              hideTimeout = null;
+            }
+
+            // Always show dropdown when mouse enters it (even if entering from below)
+            dropdown.style.opacity = '1';
+            dropdown.style.pointerEvents = 'auto';
+          });
+
+          // Also listen for mousemove over dropdown area to catch cases where mouseenter might not fire
+          // This helps when entering from below where dropdown might have pointer-events-none initially
+          dropdown.addEventListener('mousemove', function(e) {
+            const computed = window.getComputedStyle(dropdown);
+            if (computed.opacity === '0' || computed.pointerEvents === 'none') {
+              // Mouse is in dropdown area but dropdown is hidden - show it
+              if (hideTimeout) {
+                clearTimeout(hideTimeout);
+                hideTimeout = null;
+              }
+              dropdown.style.opacity = '1';
+              dropdown.style.pointerEvents = 'auto';
+            }
+          });
+
+          dropdown.addEventListener('mouseleave', function(e) {
+            const relatedTarget = e.relatedTarget;
+            const mouseY = e.clientY;
+            const mouseX = e.clientX;
+            const dropdownRect = dropdown.getBoundingClientRect();
+
+            // Check if mouse is moving back to group or still in dropdown area
+            const isMovingToGroup = relatedTarget && (group.contains(relatedTarget) || group === relatedTarget);
+            const isStillInDropdownArea = mouseX >= dropdownRect.left && mouseX <= dropdownRect.right &&
+                                         mouseY >= dropdownRect.top && mouseY <= dropdownRect.bottom;
+
+            // Only hide if mouse is truly leaving (not moving to group and not still in dropdown area)
+            if (!isMovingToGroup && !isStillInDropdownArea) {
+              // Use a small delay to catch cases where mouse is moving between dropdown and group
+              setTimeout(function() {
+                const finalCheckRect = dropdown.getBoundingClientRect();
+                const finalCheckElement = document.elementFromPoint(mouseX, mouseY);
+                const finalIsInDropdownArea = mouseX >= finalCheckRect.left && mouseX <= finalCheckRect.right &&
+                                             mouseY >= finalCheckRect.top && mouseY <= finalCheckRect.bottom;
+                const finalIsInGroup = finalCheckElement && (group.contains(finalCheckElement) || group === finalCheckElement);
+
+                if (!finalIsInDropdownArea && !finalIsInGroup) {
+                  dropdown.style.opacity = '0';
+                  dropdown.style.pointerEvents = 'none';
+                }
+              }, 100);
+            }
+          });
+        });
 
       function openMenu() {
         if (!menu) return;

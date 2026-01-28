@@ -45,13 +45,6 @@
               <a href='{{ routes.all_products_collection_url }}' class='button'>
                 {{ 'general.continue_shopping' | t }}
               </a>
-
-              {%- if shop.customer_accounts_enabled and customer == null -%}
-                <p class='cart__login-title h3'>{{ 'sections.cart.login.title' | t }}</p>
-                <p class='cart__login-paragraph'>
-                  {{ 'sections.cart.login.paragraph_html' | t: link: routes.account_login_url }}
-                </p>
-              {%- endif -%}
             </div>
           </div>
           {%- if settings.cart_drawer_collection != blank -%}
@@ -421,32 +414,32 @@
 
         <!-- Start blocks -->
         <!-- Subtotals -->
-
-        <div
-          class='p-8 border-t border-gray-200 h-auto w-full cart-drawer__footer space-y-4'
-          {{ block.shopify_attributes }}
-        >
-          <div class='flex items-center justify-between text-xs uppercase tracking-wider '>
-            <span>Subtotale</span>
-            <span class='text-xs proxima-semi-bold'>{{ cart.total_price | money_with_currency }}</span>
+        {%- if cart != empty -%}
+          <div
+            class='p-8 border-t border-gray-200 h-auto w-full cart-drawer__footer space-y-4'
+            {{ block.shopify_attributes }}
+          >
+            <div class='flex items-center justify-between text-xs uppercase tracking-wider '>
+              <span>Subtotale</span>
+              <span class='text-xs proxima-semi-bold'>{{ cart.total_price | money_with_currency }}</span>
+            </div>
+            <p class='text-xs text-slate-500'>Imposte incluse. Spedizione calcolata al momento del pagamento.</p>
           </div>
-          <p class='text-xs text-slate-500'>Imposte incluse. Spedizione calcolata al momento del pagamento.</p>
-          <div class=''>
-            <button
-              type='submit'
-              id='CartDrawer-Checkout'
-              class='cart__checkout-button button w-full'
-              name='checkout'
-              form='CartDrawer-Form'
-              {% if cart == empty %}
-                disabled
-              {% endif %}
-            >
-              {{ 'sections.cart.checkout' | t }}
-            </button>
-          </div>
-        </div>
+        {%- endif -%}
       </div>
+      {%- if cart != empty -%}
+        <div class='cart-drawer__checkout-wrapper'>
+          <button
+            type='submit'
+            id='CartDrawer-Checkout'
+            class='cart__checkout-button button w-full'
+            name='checkout'
+            form='CartDrawer-Form'
+          >
+            {{ 'sections.cart.checkout' | t }}
+          </button>
+        </div>
+      {%- endif -%}
     </div>
   </div>
 </cart-drawer>

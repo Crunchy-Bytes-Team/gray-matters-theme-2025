@@ -39,6 +39,8 @@ class CartDrawer extends HTMLElement {
     // here the animation doesn't seem to always get triggered. A timeout seem to help
     setTimeout(() => {
       this.classList.add('animate', 'active');
+      // Add class to body for desktop push behavior
+      document.body.classList.add('cart-drawer-active');
     });
 
     this.addEventListener(
@@ -61,7 +63,7 @@ class CartDrawer extends HTMLElement {
   close() {
     this.classList.remove('active');
     removeTrapFocus(this.activeElement);
-    document.body.classList.remove('overflow-hidden');
+    document.body.classList.remove('overflow-hidden', 'cart-drawer-active');
   }
 
   setSummaryAccessibility(cartDrawerNote) {

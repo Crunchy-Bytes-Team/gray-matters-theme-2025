@@ -1,5 +1,11 @@
 /* Minicart Drawer */
 
+/* Page content wrapper - shrinks when cart is open on desktop */
+#PageContentWrapper {
+  width: 100%;
+  transition: width 320ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
 .drawer {
   visibility: hidden;
   opacity: 0;
@@ -37,11 +43,47 @@
   background-color: rgba(18, 18, 18, 0.35);
 }
 
+/* Desktop: wrapper shrinks to make space for cart */
+@media (min-width: 641px) {
+  body.cart-drawer-active #PageContentWrapper {
+    width: calc(100% - min(420px, 100%));
+  }
+
+  body.cart-drawer-active .cart-drawer__overlay {
+    display: none;
+  }
+
+  /* Cart drawer still slides in/out with transform (existing behavior preserved) */
+  .cart-drawer {
+    position: fixed;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    left: auto;
+    width: min(420px, 100%);
+    z-index: 60;
+  }
+
+  /* Constrain fixed header and announcement bar to wrapper width */
+  body.cart-drawer-active [data-site-header] {
+    max-width: calc(100% - min(420px, 100%));
+    transition: max-width 320ms cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  body.cart-drawer-active [data-announcement-bar] {
+    max-width: calc(100% - min(420px, 100%));
+    transition: max-width 320ms cubic-bezier(0.4, 0, 0.2, 1);
+  }
+}
+
 .drawer__inner {
   width: min(420px, 100%);
   background-color: #ffffff;
   transform: translate3d(100%, 0, 0);
   transition: transform 320ms cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 }
 
 .drawer.active .drawer__inner {
@@ -66,12 +108,6 @@
   display: block;
   width: 20px;
   height: 20px;
-}
-
-.drawer__contents {
-  flex: 1;
-  overflow-y: auto;
-  padding: 28px 32px 32px;
 }
 
 .drawer__cart-items-wrapper {
@@ -276,8 +312,9 @@
 }
 
 .drawer__contents {
-  max-height: calc(100vh - 280px);
+  flex: 1;
   overflow-y: auto;
+  padding: 28px 32px 100px 32px;
   scrollbar-width: thin;
 }
 
@@ -345,6 +382,21 @@
   gap: 12px;
 }
 
+/* Floating checkout button wrapper */
+.cart-drawer__checkout-wrapper {
+  position: sticky;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 10;
+  background-color: #ffffff;
+  border-top: 1px solid #e5e7eb;
+  padding: 16px 32px;
+  box-shadow: 0 -4px 6px -1px rgba(0, 0, 0, 0.1);
+  margin-top: auto;
+  flex-shrink: 0;
+}
+
 #CartDrawer-Checkout {
   width: 100%;
   padding: 16px;
@@ -372,6 +424,7 @@
 
   .drawer__contents {
     padding: 24px 20px;
+    padding-bottom: 100px;
   }
 
   .cart-item {
@@ -385,5 +438,9 @@
 
   .cart-item__quantity {
     grid-column: 1 / span 2;
+  }
+
+  .cart-drawer__checkout-wrapper {
+    padding: 16px 20px;
   }
 }

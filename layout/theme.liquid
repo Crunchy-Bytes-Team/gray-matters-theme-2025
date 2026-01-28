@@ -154,13 +154,15 @@
       {%- render 'cart-drawer' -%}
     {%- endif -%}
 
-    {% sections 'header-group' %}
+    <div class='page-content-wrapper' id='PageContentWrapper'>
+      {% sections 'header-group' %}
 
-    <main id='MainContent' class='content-for-layout focus-none' role='main' tabindex='-1'>
-      {{ content_for_layout }}
-    </main>
+      <main id='MainContent' class='content-for-layout focus-none' role='main' tabindex='-1'>
+        {{ content_for_layout }}
+      </main>
 
-    {% sections 'footer-group' %}
+      {% sections 'footer-group' %}
+    </div>
 
     <ul hidden>
       <li id='a11y-refresh-page-message'>{{ 'accessibility.refresh_page' | t }}</li>
