@@ -828,19 +828,6 @@
   <div class='relative-products-snippet  bg-white w-full relative z-0 lg:z-50 px-0 lg:px-4 pb-6'>
     {% render 'related-products' %}
   </div>
-{% else %}
-  {% assign debug_metafield_blank = false %}
-  {% if related_metafield == blank %}
-    {% assign debug_metafield_blank = true %}
-  {% endif %}
-  <!-- #region agent log -->
-  <script type="application/json" id="debug-related-products-skip">
-  {"sessionId":"debug-session","hypothesisId":"D","location":"sections/main-product.liquid","message":"Related products block skipped","data":{"vendor":{{ product.vendor | json }},"metafield_blank":{{ debug_metafield_blank | json }},"product_handle":{{ product.handle | json }}}}
-  </script>
-  <script>
-  (function(){ var el=document.getElementById('debug-related-products-skip'); if(!el) return; try { var p=JSON.parse(el.textContent); p.timestamp=Date.now(); p.runId='run1'; fetch('http://127.0.0.1:7245/ingest/e4a9059f-9047-481b-89e5-4a3cbbdd03fa',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(p)}).catch(function(){}); } catch(e){} })();
-  </script>
-  <!-- #endregion agent log -->
 {% endif %}
 
 {% schema %}
