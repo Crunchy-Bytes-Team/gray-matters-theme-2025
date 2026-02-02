@@ -117,19 +117,40 @@
               {% assign skip_card_product_styles = false %}
 
               {%- comment -%}
-                Inserisce una card grande 2x2 con immagine fissa a intervalli regolari:
+                Inserisce una card grande 2x2 con immagine dedicata a intervalli regolari:
                 - Prima card grande: in alto a destra (lg:col-start-3)
                 - Poi due righe complete (8 card piccole)
                 - Poi card grande a sinistra (lg:col-start-1)
                 - Poi di nuovo due righe piccole e si alterna.
+                Immagini e link/titolo per le card grandi provengono da shop metafield
+                gray_matters.collections_display_order e da custom.collection_image (big_image_url) su ogni collection.
               {%- endcomment -%}
 
-              {% assign big_image_url = 'https://cdn.shopify.com/s/files/1/0012/4079/3193/files/RSQ_FW23_LookBook_Clara_Pumps_Cacao_018.jpg?v=1715089721' %}
+              {% assign display_order_metafield = shop.metafields.gray_matters.collections_display_order %}
+              {% assign display_order_size = 0 %}
+              {% if display_order_metafield != blank and display_order_metafield.value != blank %}
+                {% for item in display_order_metafield.value %}
+                  {% assign coll = '' %}
+                  {% if item.url != blank %}
+                    {% assign coll = item %}
+                  {% elsif item.value != blank and item.value.url != blank %}
+                    {% assign coll = item.value %}
+                  {% else %}
+                    {% assign coll = collections[item] %}
+                  {% endif %}
+                  {% if coll != blank and coll.handle != 'all' %}
+                    {% assign display_order_size = display_order_size | plus: 1 %}
+                  {% endif %}
+                {% endfor %}
+              {% endif %}
+
+              {% assign default_big_image_url = 'https://cdn.shopify.com/s/files/1/0012/4079/3193/files/RSQ_FW23_LookBook_Clara_Pumps_Cacao_018.jpg?v=1715089721' %}
               {% assign smalls_per_block = 12 %}
               {%- comment -%} 4 per chiudere i buchi lasciati dal 2x2 + 8 per due righe complete = 12 {%- endcomment -%}
 
               {% assign smalls_seen = 0 %}
               {% assign place_right = 1 %}
+              {% assign big_card_index = 0 %}
               {%- comment -%} 1=destra, 0=sinistra {%- endcomment -%}
 
               {%- for product in collection.products -%}
@@ -149,9 +170,47 @@
                 -%}
 
                 {%- if insert_big -%}
-                  {%- comment -%} Card grande 2x2 con immagine dedicata {%- endcomment -%}
+                  {%- comment -%} Card grande 2x2: collection e immagine da display_order + collection_image metafield {%- endcomment -%}
+                  {% assign collection_for_card = '' %}
+                  {% assign effective_index = big_card_index %}
+                  {% if display_order_size > 0 %}
+                    {% assign effective_index = big_card_index | modulo: display_order_size %}
+                  {% endif %}
+                  {% if display_order_metafield != blank and display_order_metafield.value != blank %}
+                    {% assign valid_index = 0 %}
+                    {% for item in display_order_metafield.value %}
+                      {% assign coll = '' %}
+                      {% if item.url != blank %}
+                        {% assign coll = item %}
+                      {% elsif item.value != blank and item.value.url != blank %}
+                        {% assign coll = item.value %}
+                      {% else %}
+                        {% assign coll = collections[item] %}
+                      {% endif %}
+                      {% if coll != blank and coll.handle != 'all' %}
+                        {% if valid_index == effective_index %}
+                          {% assign collection_for_card = coll %}
+                          {% break %}
+                        {% endif %}
+                        {% assign valid_index = valid_index | plus: 1 %}
+                      {% endif %}
+                    {% endfor %}
+                  {% endif %}
+
+                  {% assign big_image_url = default_big_image_url %}
+                  {% if collection_for_card != blank %}
+                    {% assign collection_image_metafield = collection_for_card.metafields.custom.collection_image %}
+                    {% if collection_image_metafield != blank and collection_image_metafield.value != blank %}
+                      {% assign big_image_url = collection_image_metafield.value | replace: '\/', '/' %}
+                    {% endif %}
+                  {% endif %}
+
                   <li class='hidden lg:block lg:col-span-2 lg:row-span-2 {% if place_right == 1 %}lg:col-start-3{% else %}lg:col-start-1{% endif %} relative overflow-hidden group'>
-                    <a href='{{ collection.url }}' class='block w-full h-full' aria-label='Featured'>
+                    <a
+                      href='{% if collection_for_card != blank %}{{ collection_for_card.url }}{% else %}{{ collection.url }}{% endif %}'
+                      class='block w-full h-full'
+                      aria-label='{% if collection_for_card != blank %}{{ collection_for_card.title | escape }}{% else %}Featured{% endif %}'
+                    >
                       <div
                         class='w-full h-full bg-center bg-cover'
                         style="background-image:url('{{ big_image_url }}');"
@@ -163,14 +222,23 @@
                     <div class='hidden lg:flex absolute inset-0 z-20 items-center justify-center opacity-100 pointer-events-none'>
                       <div class='px-6 text-center'>
                         <h3 class='text-5xl tracking-wider font-accent text-dark-gray lg:group-hover:text-white transition-colors duration-300'>
-                          Classics
+                          {% if collection_for_card != blank -%}
+                            {{- collection_for_card.title -}}
+                          {%- else -%}
+                            Classics
+                          {%- endif %}
                         </h3>
                         <p class='mt-2 text-base tracking-wide text-dark-gray lg:group-hover:text-white transition-colors duration-300'>
-                          i nostri classici estremamente versatili e senza tempo
+                          {% if collection_for_card != blank and collection_for_card.description != blank -%}
+                            {{- collection_for_card.description | strip_html | truncate: 120 -}}
+                          {%- else -%}
+                            i nostri classici estremamente versatili e senza tempo
+                          {%- endif %}
                         </p>
                       </div>
                     </div>
                   </li>
+                  {% assign big_card_index = big_card_index | plus: 1 %}
                   {% assign smalls_seen = 0 %}
                   {% assign place_right = place_right | plus: 1 | modulo: 2 %}
                 {%- endif -%}

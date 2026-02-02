@@ -37,7 +37,7 @@
 {%- endstyle -%}
 
 {%- if collection.handle == 'all' -%}
-  {%- render 'collection-all' -%}
+  {%- render 'collection-all', section: section -%}
 {%- else -%}
   {%- render 'collection-standard' -%}
 {%- endif -%}
