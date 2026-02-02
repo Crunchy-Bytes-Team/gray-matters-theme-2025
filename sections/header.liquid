@@ -55,7 +55,7 @@
       <nav class='hidden lg:flex flex-row items-center justify-center gap-1 text-black mr-10 h-full'>
         <div class='relative group h-full'>
           <a
-            href='{{ routes.collections_url }}'
+            href='{{ routes.collections_url }}/all'
             class='h-full inline-flex items-center px-7 hover:opacity-70 hover:bg-gray-200 group-hover:bg-gray-200 transition-all duration-200 ease-out proxima-reg text-sm tracking-wider uppercase text-dark-gray'
             >Collection</a
           >
@@ -98,7 +98,7 @@
                       hreflang='{{ language.iso_code }}'
                       class='block px-4 py-2 proxima-reg text-sm tracking-wider hover:opacity-70 transition-opacity text-dark-gray'
                     >
-                      {{ language.endonym_name | default: language.name }}
+                      {{ language.endonym_name | default: language.name | upcase }}
                     </a>
                   {% endif %}
                 </li>
@@ -455,157 +455,172 @@
       // Add hover event listeners to manually control dropdown visibility
       const menuGroups = document.querySelectorAll('nav .group');
       menuGroups.forEach((group, index) => {
-          // Try multiple selectors to find dropdown
-          let dropdown = group.querySelector('div[class*="opacity-0"]');
-          if (!dropdown) {
-            dropdown = group.querySelector('div[class*="-translate-y"]');
+        // Try multiple selectors to find dropdown
+        let dropdown = group.querySelector('div[class*="opacity-0"]');
+        if (!dropdown) {
+          dropdown = group.querySelector('div[class*="-translate-y"]');
+        }
+        if (!dropdown) {
+          // Look for any absolute positioned div (dropdown container)
+          dropdown = group.querySelector('div.absolute');
+        }
+        if (!dropdown) {
+          // Look for any div that's a direct child
+          const divs = Array.from(group.children).filter((c) => c.tagName === 'DIV');
+          dropdown = divs.length > 0 ? divs[0] : null;
+        }
+
+        if (!dropdown) {
+          return;
+        }
+
+        // Initialize dropdown state - using opacity-only animation to avoid hover breakage
+        dropdown.style.opacity = '0';
+        dropdown.style.pointerEvents = 'none';
+        dropdown.style.transition = 'opacity 200ms ease-out';
+
+        let hideTimeout = null;
+
+        // Manually control dropdown visibility
+        group.addEventListener('mouseenter', function () {
+          // Clear any pending hide
+          if (hideTimeout) {
+            clearTimeout(hideTimeout);
+            hideTimeout = null;
           }
-          if (!dropdown) {
-            // Look for any absolute positioned div (dropdown container)
-            dropdown = group.querySelector('div.absolute');
-          }
-          if (!dropdown) {
-            // Look for any div that's a direct child
-            const divs = Array.from(group.children).filter(c => c.tagName === 'DIV');
-            dropdown = divs.length > 0 ? divs[0] : null;
-          }
 
-          if (!dropdown) {
-            return;
-          }
-
-          // Initialize dropdown state - using opacity-only animation to avoid hover breakage
-          dropdown.style.opacity = '0';
-          dropdown.style.pointerEvents = 'none';
-          dropdown.style.transition = 'opacity 200ms ease-out';
-
-          let hideTimeout = null;
-
-          // Manually control dropdown visibility
-          group.addEventListener('mouseenter', function() {
-            // Clear any pending hide
-            if (hideTimeout) {
-              clearTimeout(hideTimeout);
-              hideTimeout = null;
-            }
-
-            // Show dropdown
-            dropdown.style.opacity = '1';
-            dropdown.style.pointerEvents = 'auto';
-          });
-
-          group.addEventListener('mouseleave', function(e) {
-            const relatedTarget = e.relatedTarget;
-            const groupRect = group.getBoundingClientRect();
-            const dropdownRect = dropdown.getBoundingClientRect();
-            const mouseY = e.clientY;
-            const mouseX = e.clientX;
-
-            // Check if mouse is moving toward dropdown - check both relatedTarget and actual mouse position
-            const isMovingToDropdown = relatedTarget && (dropdown.contains(relatedTarget) || dropdown === relatedTarget);
-            const isInDropdownArea = mouseX >= dropdownRect.left && mouseX <= dropdownRect.right &&
-                                    mouseY >= dropdownRect.top && mouseY <= dropdownRect.bottom;
-
-            // Also check what element is actually under the mouse cursor
-            const elementUnderMouse = document.elementFromPoint(mouseX, mouseY);
-            const mouseIsInDropdown = elementUnderMouse && (dropdown.contains(elementUnderMouse) || dropdown === elementUnderMouse);
-
-            // Clear any pending hide timeout
-            if (hideTimeout) {
-              clearTimeout(hideTimeout);
-              hideTimeout = null;
-            }
-
-            // When entering from below, mouse can be in dropdown area but elementFromPoint returns child elements
-            // Use isInDropdownArea as the PRIMARY check - it's more reliable than elementFromPoint
-            // Also check if mouse is moving down toward dropdown area (entering from below)
-            const isMovingDown = mouseY > groupRect.bottom;
-            const shouldKeepVisible = isInDropdownArea || isMovingDown || mouseIsInDropdown || isMovingToDropdown;
-
-            if (!shouldKeepVisible) {
-              hideTimeout = setTimeout(function() {
-                // Final check: get fresh bounding rect and verify mouse is still not in dropdown area
-                const freshDropdownRect = dropdown.getBoundingClientRect();
-                const freshMouseElement = document.elementFromPoint(mouseX, mouseY);
-                const freshIsInDropdownArea = mouseX >= freshDropdownRect.left && mouseX <= freshDropdownRect.right &&
-                                             mouseY >= freshDropdownRect.top && mouseY <= freshDropdownRect.bottom;
-                const freshMouseIsInDropdown = freshMouseElement && (dropdown.contains(freshMouseElement) || dropdown === freshMouseElement);
-
-                if (!freshIsInDropdownArea && !freshMouseIsInDropdown) {
-                  dropdown.style.opacity = '0';
-                  dropdown.style.pointerEvents = 'none';
-                }
-                hideTimeout = null;
-              }, 200); // Increased delay to allow mouse to reach dropdown when entering from below
-            } else {
-              // Mouse is in dropdown area or moving toward it - ensure dropdown stays visible
-              if (hideTimeout) {
-                clearTimeout(hideTimeout);
-                hideTimeout = null;
-              }
-              dropdown.style.opacity = '1';
-              dropdown.style.pointerEvents = 'auto';
-            }
-          });
-
-          // Also handle dropdown hover to keep it visible
-          // This is critical when entering from below - mouse can enter dropdown before group
-          dropdown.addEventListener('mouseenter', function() {
-            // Clear any pending hide
-            if (hideTimeout) {
-              clearTimeout(hideTimeout);
-              hideTimeout = null;
-            }
-
-            // Always show dropdown when mouse enters it (even if entering from below)
-            dropdown.style.opacity = '1';
-            dropdown.style.pointerEvents = 'auto';
-          });
-
-          // Also listen for mousemove over dropdown area to catch cases where mouseenter might not fire
-          // This helps when entering from below where dropdown might have pointer-events-none initially
-          dropdown.addEventListener('mousemove', function(e) {
-            const computed = window.getComputedStyle(dropdown);
-            if (computed.opacity === '0' || computed.pointerEvents === 'none') {
-              // Mouse is in dropdown area but dropdown is hidden - show it
-              if (hideTimeout) {
-                clearTimeout(hideTimeout);
-                hideTimeout = null;
-              }
-              dropdown.style.opacity = '1';
-              dropdown.style.pointerEvents = 'auto';
-            }
-          });
-
-          dropdown.addEventListener('mouseleave', function(e) {
-            const relatedTarget = e.relatedTarget;
-            const mouseY = e.clientY;
-            const mouseX = e.clientX;
-            const dropdownRect = dropdown.getBoundingClientRect();
-
-            // Check if mouse is moving back to group or still in dropdown area
-            const isMovingToGroup = relatedTarget && (group.contains(relatedTarget) || group === relatedTarget);
-            const isStillInDropdownArea = mouseX >= dropdownRect.left && mouseX <= dropdownRect.right &&
-                                         mouseY >= dropdownRect.top && mouseY <= dropdownRect.bottom;
-
-            // Only hide if mouse is truly leaving (not moving to group and not still in dropdown area)
-            if (!isMovingToGroup && !isStillInDropdownArea) {
-              // Use a small delay to catch cases where mouse is moving between dropdown and group
-              setTimeout(function() {
-                const finalCheckRect = dropdown.getBoundingClientRect();
-                const finalCheckElement = document.elementFromPoint(mouseX, mouseY);
-                const finalIsInDropdownArea = mouseX >= finalCheckRect.left && mouseX <= finalCheckRect.right &&
-                                             mouseY >= finalCheckRect.top && mouseY <= finalCheckRect.bottom;
-                const finalIsInGroup = finalCheckElement && (group.contains(finalCheckElement) || group === finalCheckElement);
-
-                if (!finalIsInDropdownArea && !finalIsInGroup) {
-                  dropdown.style.opacity = '0';
-                  dropdown.style.pointerEvents = 'none';
-                }
-              }, 100);
-            }
-          });
+          // Show dropdown
+          dropdown.style.opacity = '1';
+          dropdown.style.pointerEvents = 'auto';
         });
+
+        group.addEventListener('mouseleave', function (e) {
+          const relatedTarget = e.relatedTarget;
+          const groupRect = group.getBoundingClientRect();
+          const dropdownRect = dropdown.getBoundingClientRect();
+          const mouseY = e.clientY;
+          const mouseX = e.clientX;
+
+          // Check if mouse is moving toward dropdown - check both relatedTarget and actual mouse position
+          const isMovingToDropdown = relatedTarget && (dropdown.contains(relatedTarget) || dropdown === relatedTarget);
+          const isInDropdownArea =
+            mouseX >= dropdownRect.left &&
+            mouseX <= dropdownRect.right &&
+            mouseY >= dropdownRect.top &&
+            mouseY <= dropdownRect.bottom;
+
+          // Also check what element is actually under the mouse cursor
+          const elementUnderMouse = document.elementFromPoint(mouseX, mouseY);
+          const mouseIsInDropdown =
+            elementUnderMouse && (dropdown.contains(elementUnderMouse) || dropdown === elementUnderMouse);
+
+          // Clear any pending hide timeout
+          if (hideTimeout) {
+            clearTimeout(hideTimeout);
+            hideTimeout = null;
+          }
+
+          // When entering from below, mouse can be in dropdown area but elementFromPoint returns child elements
+          // Use isInDropdownArea as the PRIMARY check - it's more reliable than elementFromPoint
+          // Also check if mouse is moving down toward dropdown area (entering from below)
+          const isMovingDown = mouseY > groupRect.bottom;
+          const shouldKeepVisible = isInDropdownArea || isMovingDown || mouseIsInDropdown || isMovingToDropdown;
+
+          if (!shouldKeepVisible) {
+            hideTimeout = setTimeout(function () {
+              // Final check: get fresh bounding rect and verify mouse is still not in dropdown area
+              const freshDropdownRect = dropdown.getBoundingClientRect();
+              const freshMouseElement = document.elementFromPoint(mouseX, mouseY);
+              const freshIsInDropdownArea =
+                mouseX >= freshDropdownRect.left &&
+                mouseX <= freshDropdownRect.right &&
+                mouseY >= freshDropdownRect.top &&
+                mouseY <= freshDropdownRect.bottom;
+              const freshMouseIsInDropdown =
+                freshMouseElement && (dropdown.contains(freshMouseElement) || dropdown === freshMouseElement);
+
+              if (!freshIsInDropdownArea && !freshMouseIsInDropdown) {
+                dropdown.style.opacity = '0';
+                dropdown.style.pointerEvents = 'none';
+              }
+              hideTimeout = null;
+            }, 200); // Increased delay to allow mouse to reach dropdown when entering from below
+          } else {
+            // Mouse is in dropdown area or moving toward it - ensure dropdown stays visible
+            if (hideTimeout) {
+              clearTimeout(hideTimeout);
+              hideTimeout = null;
+            }
+            dropdown.style.opacity = '1';
+            dropdown.style.pointerEvents = 'auto';
+          }
+        });
+
+        // Also handle dropdown hover to keep it visible
+        // This is critical when entering from below - mouse can enter dropdown before group
+        dropdown.addEventListener('mouseenter', function () {
+          // Clear any pending hide
+          if (hideTimeout) {
+            clearTimeout(hideTimeout);
+            hideTimeout = null;
+          }
+
+          // Always show dropdown when mouse enters it (even if entering from below)
+          dropdown.style.opacity = '1';
+          dropdown.style.pointerEvents = 'auto';
+        });
+
+        // Also listen for mousemove over dropdown area to catch cases where mouseenter might not fire
+        // This helps when entering from below where dropdown might have pointer-events-none initially
+        dropdown.addEventListener('mousemove', function (e) {
+          const computed = window.getComputedStyle(dropdown);
+          if (computed.opacity === '0' || computed.pointerEvents === 'none') {
+            // Mouse is in dropdown area but dropdown is hidden - show it
+            if (hideTimeout) {
+              clearTimeout(hideTimeout);
+              hideTimeout = null;
+            }
+            dropdown.style.opacity = '1';
+            dropdown.style.pointerEvents = 'auto';
+          }
+        });
+
+        dropdown.addEventListener('mouseleave', function (e) {
+          const relatedTarget = e.relatedTarget;
+          const mouseY = e.clientY;
+          const mouseX = e.clientX;
+          const dropdownRect = dropdown.getBoundingClientRect();
+
+          // Check if mouse is moving back to group or still in dropdown area
+          const isMovingToGroup = relatedTarget && (group.contains(relatedTarget) || group === relatedTarget);
+          const isStillInDropdownArea =
+            mouseX >= dropdownRect.left &&
+            mouseX <= dropdownRect.right &&
+            mouseY >= dropdownRect.top &&
+            mouseY <= dropdownRect.bottom;
+
+          // Only hide if mouse is truly leaving (not moving to group and not still in dropdown area)
+          if (!isMovingToGroup && !isStillInDropdownArea) {
+            // Use a small delay to catch cases where mouse is moving between dropdown and group
+            setTimeout(function () {
+              const finalCheckRect = dropdown.getBoundingClientRect();
+              const finalCheckElement = document.elementFromPoint(mouseX, mouseY);
+              const finalIsInDropdownArea =
+                mouseX >= finalCheckRect.left &&
+                mouseX <= finalCheckRect.right &&
+                mouseY >= finalCheckRect.top &&
+                mouseY <= finalCheckRect.bottom;
+              const finalIsInGroup =
+                finalCheckElement && (group.contains(finalCheckElement) || group === finalCheckElement);
+
+              if (!finalIsInDropdownArea && !finalIsInGroup) {
+                dropdown.style.opacity = '0';
+                dropdown.style.pointerEvents = 'none';
+              }
+            }, 100);
+          }
+        });
+      });
 
       function openMenu() {
         if (!menu) return;

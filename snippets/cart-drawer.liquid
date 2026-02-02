@@ -134,7 +134,7 @@
                               {%- for option in item.options_with_values -%}
                                 {%- assign option_name_downcase = option.name | downcase -%}
                                 <div class='product-option text-xs'>
-                                  {%- unless option_name_downcase == 'size' -%}
+                                  {%- unless option_name_downcase == 'size' or option_name_downcase == 'title' -%}
                                     <dt>{{ option.name }}</dt>
                                   {%- endunless -%}
                                   <dd>
