@@ -110,6 +110,34 @@
     {% comment %}Load Tailwind CSS as primary stylesheet{% endcomment %}
     {{ 'app.css' | asset_url | stylesheet_tag }}
 
+    {% comment %}Font-face must be in layout so Liquid is processed (asset .css.liquid is served raw){% endcomment %}
+    <style>
+      @font-face {
+        font-family: 'Stanley';
+        src: url('{{ "fonts/Stanley-Regular.eot" | asset_url }}');
+        src: url('{{ "fonts/Stanley-Regular.eot" | asset_url }}#iefix') format('embedded-opentype'),
+          url('{{ "fonts/Stanley-Regular.woff2" | asset_url }}') format('woff2'),
+          url('{{ "fonts/Stanley-Regular.woff" | asset_url }}') format('woff');
+        font-weight: 400;
+        font-style: normal;
+      }
+      @font-face {
+        font-family: 'proxima-reg';
+        src: url('{{ "fonts/FontsFree-Net-proxima_nova_reg-webfont.ttf" | asset_url }}') format('truetype');
+      }
+      @font-face {
+        font-family: 'proxima-bold';
+        src: url('{{ "fonts/FontsFree-Net-proxima_nova_bold-webfont.ttf" | asset_url }}') format('truetype');
+      }
+      @font-face {
+        font-family: 'proxima-xbold';
+        src: url('{{ "fonts/FontsFree-Net-Proxima-Nova-Xbold.otf" | asset_url }}') format('opentype');
+      }
+      @font-face {
+        font-family: 'proxima-semi-bold';
+        src: url('{{ "fonts/FontsFree-Net-Proxima-Nova-Sbold.otf" | asset_url }}') format('opentype');
+      }
+    </style>
     {{ 'custom.css' | asset_url | stylesheet_tag }}
     <link rel='stylesheet' href='{{ 'component-cart-items.css' | asset_url }}' media='print' onload="this.media='all'">
 
@@ -169,13 +197,15 @@
       {%- render 'cart-drawer' -%}
     {%- endif -%}
 
-    {% sections 'header-group' %}
+    <div class='page-content-wrapper' id='PageContentWrapper'>
+      {% sections 'header-group' %}
 
-    <main id='MainContent' class='content-for-layout focus-none' role='main' tabindex='-1'>
-      {{ content_for_layout }}
-    </main>
+      <main id='MainContent' class='content-for-layout focus-none' role='main' tabindex='-1'>
+        {{ content_for_layout }}
+      </main>
 
-    {% sections 'footer-group' %}
+      {% sections 'footer-group' %}
+    </div>
 
     <ul hidden>
       <li id='a11y-refresh-page-message'>{{ 'accessibility.refresh_page' | t }}</li>

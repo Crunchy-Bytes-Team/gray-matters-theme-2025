@@ -59,6 +59,7 @@
 
             {% assign entry_gid = entry.gid | default: '' %}
             {% assign related_product = blank %}
+            {% assign resolved_by_handle = false %}
 
             {% if entry.product %}
               {% assign related_product = entry.product %}
@@ -71,6 +72,7 @@
               {% assign handle_from_url = handle_from_url | strip %}
               {% if handle_from_url != blank %}
                 {% assign related_product = all_products[handle_from_url] %}
+                {% assign resolved_by_handle = true %}
               {% endif %}
             {% endif %}
 
@@ -78,6 +80,7 @@
               {% assign handle_from_entry = entry.handle | strip %}
               {% if handle_from_entry != blank %}
                 {% assign related_product = all_products[handle_from_entry] %}
+                {% assign resolved_by_handle = true %}
               {% endif %}
             {% endif %}
 
@@ -88,7 +91,8 @@
                 {% continue %}
               {% endif %}
 
-              {% if entry_gid != '' and entry_gid != related_product_gid %}
+              {% comment %} Only enforce GID match when product came from entry.product; when resolved by handle, metafield GID may be from another store/env {% endcomment %}
+              {% if resolved_by_handle == false and entry_gid != '' and entry_gid != related_product_gid %}
                 {% continue %}
               {% endif %}
 

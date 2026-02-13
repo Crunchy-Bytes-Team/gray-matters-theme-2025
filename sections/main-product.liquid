@@ -155,9 +155,11 @@
                   >
                     {{ product.description }}
                   </div>
-                  <div class='color-variant flex py-4'>
-                    {% render 'color-variant' %}
-                  </div>
+                  {% unless product.vendor == 'GRAY ROOM' %}
+                    <div class='color-variant flex py-4'>
+                      {% render 'color-variant' %}
+                    </div>
+                  {% endunless %}
                   <div class='flex flex-col pt-0 lg:pt-8'>
                     <ul class='flex flex-row items-center mb-1'>
                       <li class='bg-black w-2.5 h-[1px] mr-2'></li>
@@ -821,9 +823,12 @@
 <div class='yotpo-review-snippet bg-white w-full px-4 pb-6 z-0 lg:z-50 relative'>
   <div id='yotpo-review-wrapper' style='height:600px'></div>
 </div>
-<div class='relative-products-snippet  bg-white w-full relative z-0 lg:z-50 px-0 lg:px-4 pb-6'>
-  {% render 'related-products' %}
-</div>
+{% assign related_metafield = product.metafields.module.related_products %}
+{% if product.vendor != 'GRAY ROOM' and related_metafield != blank %}
+  <div class='relative-products-snippet  bg-white w-full relative z-0 lg:z-50 px-0 lg:px-4 pb-6'>
+    {% render 'related-products' %}
+  </div>
+{% endif %}
 
 {% schema %}
 {

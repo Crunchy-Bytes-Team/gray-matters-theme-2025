@@ -191,6 +191,7 @@
           </ul>
 
           <ul class='mobile-sub wsmenu-list'>
+            {% comment %}GRAY ROOM MENU{% endcomment %}
             {% assign archiveMenu = linklists.archive %}
             {% if false %}
               <li class='mobile_menu_top_sapce archive-mainmenu'>
@@ -202,7 +203,11 @@
                     | append: '/collections/gray-room'
                   %}
                 {% endif %}
-                <a href='{{ gray_room_all_path }}' class='navtext navtext__accent'>
+                <a
+                  href='{{ gray_room_all_path }}'
+                  class='navtext navtext__accent'
+                  style='color: #ce71ed;font-size: 12.5px'
+                >
                   <b>ARCHIVE SALE</b>
                 </a>
                 {% comment %}
