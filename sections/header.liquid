@@ -136,7 +136,7 @@
               <div class='w-full px-4'>
                 <div class='border-t border-gray-300 mt-4 mb-2'></div>
               </div>
-              {% assign client_services_menu = linklists['top-client-services'] %}
+              {% assign client_services_menu = linklists['client-service'] %}
               {% if client_services_menu != blank and client_services_menu.links != blank %}
                 {% for link in client_services_menu.links %}
                   <a
@@ -151,6 +151,7 @@
           </div>
         </div>
       </nav>
+      
       <!-- icons -->
       <div class='flex items-center justify-end gap-0 lg:gap-8 text-black h-full w-full lg:w-auto'>
         <!-- Instagram -->
