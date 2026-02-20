@@ -136,7 +136,7 @@
               <div class='w-full px-4'>
                 <div class='border-t border-gray-300 mt-4 mb-2'></div>
               </div>
-              {% assign client_services_menu = linklists['top-client-services'] %}
+              {% assign client_services_menu = linklists.client_services_menu %}
               {% if client_services_menu != blank and client_services_menu.links != blank %}
                 {% for link in client_services_menu.links %}
                   <a
@@ -152,13 +152,13 @@
         </div>
       </nav>
       <!-- icons -->
-      <div class='flex items-center justify-end gap-0 lg:gap-8 text-black h-full w-full lg:w-auto'>
+      <div class='flex items-center justify-between text-black h-full w-full lg:w-auto'>
         <!-- Instagram -->
         <a
           href='https://instagram.com/graymattersnyc'
           target='_blank'
           aria-label='Instagram'
-          class='hover:opacity-70 transition-opacity duration-200 ease-out'
+          class='hidden px-1 lg:px-2 lg:block hover:opacity-70 transition-opacity duration-200 ease-out'
         >
           <img
             src='{{ 'icons/instagram-icon.png' | asset_url }}'
@@ -174,7 +174,7 @@
             <a
               href='{{ routes.account_url }}'
               aria-label='{{ 'customer.account_fallback' | t }}'
-              class='hidden lg:flex hover:opacity-70 transition-opacity duration-200 ease-out'
+              class='hidden px-1 lg:px-2 lg:flex hover:opacity-70 transition-opacity duration-200 ease-out'
             >
               <img
                 src='{{ 'icons/user_new.png' | asset_url }}'
@@ -188,7 +188,7 @@
             <a
               href='{{ routes.account_login_url }}'
               aria-label='{{ 'customer.log_in' | t }}'
-              class='hidden lg:flex hover:opacity-70 transition-opacity duration-200 ease-out'
+              class='hidden px-1 lg:px-2 lg:flex hover:opacity-70 transition-opacity duration-200 ease-out'
             >
               <img
                 src='{{ 'icons/user_new.png' | asset_url }}'
@@ -207,7 +207,7 @@
           aria-label='{{ 'general.search.search' | t }}'
           aria-expanded='false'
           aria-controls='HeaderSearchContainer'
-          class='hidden lg:flex hover:opacity-70 transition-opacity duration-200 ease-out bg-transparent border-none p-0'
+          class='hidden px-1 lg:px-2 lg:flex hover:opacity-70 transition-opacity duration-200 ease-out bg-transparent border-none p-0'
         >
           <i class='fa-solid fa-magnifying-glass' aria-hidden='true'></i>
         </button>
@@ -215,7 +215,7 @@
         <button
           id='cart-icon-bubble'
           type='button'
-          class='relative hover:opacity-70 transition-opacity duration-200 ease-out bg-transparent border-none p-0'
+          class='relative  px-1 lg:px-2 hover:opacity-70 transition-opacity duration-200 ease-out bg-transparent border-none p-0'
           aria-label='{{ 'templates.cart.cart' | t }}'
         >
           <img

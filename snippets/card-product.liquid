@@ -282,34 +282,37 @@
               {% endif %}
 
               {% assign printed_values = '' %}
-              <ul class='list-unstyled m-0 p-0 flex flex-wrap gap-1'>
-                {% for v in card_product.variants %}
-                  {% case size_option_index %}
-                    {% when 0 -%}
-                      {%- assign value = v.option1 | strip %}
-                    {% when 1 -%}
-                      {%- assign value = v.option2 | strip %}
-                    {% when 2 -%}
-                      {%- assign value = v.option3 | strip %}
-                  {% endcase %}
-                  {%- comment -%} Pulisci prefisso PREO e lascia solo il numero {%- endcomment -%}
-                  {% assign value_clean = value
-                    | remove: 'PREO - '
-                    | remove: 'PREO-'
-                    | remove: 'PREO '
-                    | remove: 'PREO'
-                    | strip
-                  %}
-                  {%- comment -%} Escludi la taglia 35 ed evita duplicati sul valore pulito {%- endcomment -%}
-                  {% if value_clean != blank and value_clean != '35' %}
-                    {% assign needle = '|' | append: value_clean | append: '|' %}
-                    {% unless printed_values contains needle %}
-                      <li class='pr-1.5 py-0.5 bg-transparent text-xs tracking-wide'>{{ value_clean }}</li>
-                      {% assign printed_values = printed_values | append: needle %}
-                    {% endunless %}
-                  {% endif %}
-                {% endfor %}
-              </ul>
+              {% assign size_values = '' %}
+              {% for v in card_product.variants %}
+                {% case size_option_index %}
+                  {% when 0 -%}
+                    {%- assign value = v.option1 | strip %}
+                  {% when 1 -%}
+                    {%- assign value = v.option2 | strip %}
+                  {% when 2 -%}
+                    {%- assign value = v.option3 | strip %}
+                {% endcase %}
+                {%- comment -%} Pulisci prefisso PREO e lascia solo il numero {%- endcomment -%}
+                {% assign value_clean = value
+                  | remove: 'PREO - '
+                  | remove: 'PREO-'
+                  | remove: 'PREO '
+                  | remove: 'PREO'
+                  | strip
+                %}
+                {%- comment -%} Escludi la taglia 35 ed evita duplicati sul valore pulito {%- endcomment -%}
+                {% if value_clean != blank and value_clean != '35' %}
+                  {% assign needle = '|' | append: value_clean | append: '|' %}
+                  {% unless printed_values contains needle %}
+                    {% if size_values != '' %}
+                      {% assign size_values = size_values | append: ', ' %}
+                    {% endif %}
+                    {% assign size_values = size_values | append: value_clean %}
+                    {% assign printed_values = printed_values | append: needle %}
+                  {% endunless %}
+                {% endif %}
+              {% endfor %}
+              <span class='text-xs tracking-wide'>{{ size_values }}</span>
             </div>
           {% endif %}
         </div>

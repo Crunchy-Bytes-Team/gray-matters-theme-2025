@@ -1,4 +1,4 @@
-<div class='section-{{ section.id }}-padding gradient color-{{ section.settings.color_scheme }}'>
+<div class='section-{{ section.id }} gradient color-{{ section.settings.color_scheme }}'>
   {%- paginate collection.products by 250 -%}
     {% comment %} Sort is the first tabbable element when filter type is vertical {% endcomment %}
     {%- if section.settings.enable_sorting and section.settings.filter_type == 'vertical' -%}
@@ -205,22 +205,30 @@
                     {% endif %}
                   {% endif %}
 
-                  <li class='hidden lg:block lg:col-span-2 lg:row-span-2 {% if place_right == 1 %}lg:col-start-3{% else %}lg:col-start-1{% endif %} relative overflow-hidden group'>
+                  <li class='block col-span-2 row-span-2 lg:col-span-2 lg:row-span-2 {% if place_right == 1 %}lg:col-start-3{% else %}lg:col-start-1{% endif %} relative overflow-hidden group'>
                     <a
                       href='{% if collection_for_card != blank %}{{ collection_for_card.url }}{% else %}{{ collection.url }}{% endif %}'
-                      class='block w-full h-full'
+                      class='block w-full h-full lg:absolute lg:inset-0'
                       aria-label='{% if collection_for_card != blank %}{{ collection_for_card.title | escape }}{% else %}Featured{% endif %}'
                     >
+                      <img
+                        src='{{ big_image_url }}'
+                        alt='{% if collection_for_card != blank %}{{ collection_for_card.title | escape }}{% else %}Featured{% endif %}'
+                        width='800'
+                        height='800'
+                        class='w-full aspect-square object-cover lg:hidden'
+                        loading='lazy'
+                      >
                       <div
-                        class='w-full h-full bg-center bg-cover'
+                        class='hidden lg:block w-full h-full bg-center bg-cover absolute inset-0'
                         style="background-image:url('{{ big_image_url }}');"
                       ></div>
                     </a>
                     <div
                       class='hidden lg:block absolute inset-0 bg-black opacity-0 group-hover:opacity-40 group-focus-within:opacity-40 transition-opacity duration-300 ease-out z-10 pointer-events-none'
                     ></div>
-                    <div class='hidden lg:flex absolute inset-0 z-20 items-center justify-center opacity-100 pointer-events-none'>
-                      <div class='px-6 text-center'>
+                    <div class='flex absolute inset-0 z-20 items-center justify-center text-center lg:justify-end lg:text-left opacity-100 pointer-events-none'>
+                      <div class='px-4'>
                         <h3 class='text-5xl tracking-wider font-accent text-dark-gray lg:group-hover:text-white transition-colors duration-300'>
                           {% if collection_for_card != blank -%}
                             {{- collection_for_card.title -}}
@@ -228,7 +236,7 @@
                             Classics
                           {%- endif %}
                         </h3>
-                        <p class='mt-2 text-base tracking-wide text-dark-gray lg:group-hover:text-white transition-colors duration-300'>
+                        <p class='mt-2 text-base tracking-wide text-dark-gray lg:group-hover:text-white transition-colors duration-300 max-w-xs'>
                           {% if collection_for_card != blank and collection_for_card.description != blank -%}
                             {{- collection_for_card.description | strip_html | truncate: 120 -}}
                           {%- else -%}
