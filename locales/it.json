@@ -163,6 +163,8 @@
       "choose_options": "Scegli opzioni",
       "choose_product_options": "Scegli opzioni per {{ product_name }}",
       "value_unavailable": "{{ option_value }} - Non disponibile",
+      "inquire": "Richiedi",
+      "value_inquire": "{{ option_value }} - Richiedi",
       "variant_sold_out_or_unavailable": "Variante esaurita o non disponibile",
       "inventory_in_stock": "Disponibile",
       "inventory_in_stock_show_count": "{{ quantity }} disponibile/i",
@@ -262,9 +264,13 @@
     "contact": {
       "form": {
         "name": "Nome",
+        "first_name": "Nome",
+        "last_name": "Cognome",
         "email": "Indirizzo email",
         "phone": "Numero di telefono",
         "comment": "Commenta",
+        "requested_size": "Taglia richiesta",
+        "inquire_intro": "Grazie per l'interesse per Gray Matters! Inserisci nome, email e taglia desiderata e ti contatteremo con maggiori informazioni.",
         "send": "Invia",
         "post_success": "Grazie per averci contattato. Risponderemo il prima possibile.",
         "error_heading": "Correggi gli errori seguenti:",

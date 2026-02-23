@@ -160,6 +160,8 @@
       "choose_options": "Pilih opsi",
       "choose_product_options": "Pilih opsi untuk {{ product_name }}",
       "value_unavailable": "{{ option_value }} - Tidak tersedia",
+      "inquire": "Tanya",
+      "value_inquire": "{{ option_value }} - Tanya",
       "variant_sold_out_or_unavailable": "Varian terjual habis atau tidak tersedia",
       "inventory_in_stock": "Tersedia",
       "inventory_in_stock_show_count": "{{ quantity }} tersedia",

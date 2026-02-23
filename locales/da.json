@@ -159,6 +159,8 @@
       "choose_options": "Vælg muligheder",
       "choose_product_options": "Vælg muligheder for {{ product_name }}",
       "value_unavailable": "{{ option_value }} - Ikke tilgængelig",
+      "inquire": "Forespørg",
+      "value_inquire": "{{ option_value }} - Forespørg",
       "variant_sold_out_or_unavailable": "Varianten er udsolgt eller utilgængelig",
       "inventory_in_stock": "På lager",
       "inventory_in_stock_show_count": "{{ quantity }} på lager",

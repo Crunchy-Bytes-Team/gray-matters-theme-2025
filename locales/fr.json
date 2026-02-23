@@ -164,6 +164,8 @@
       "choose_options": "Choisir des options",
       "choose_product_options": "Choisir des options pour {{ product_name }}",
       "value_unavailable": "{{ option_value }} – indisponible",
+      "inquire": "Demander",
+      "value_inquire": "{{ option_value }} – Demander",
       "variant_sold_out_or_unavailable": "Variante épuisée ou indisponible",
       "inventory_in_stock": "En stock",
       "inventory_in_stock_show_count": "{{ quantity }} en stock",

@@ -160,6 +160,8 @@
       "choose_options": "Válassz a lehetőségek közül",
       "choose_product_options": "Termékváltozatok – {{ product_name }}",
       "value_unavailable": "{{ option_value }} – Nincs készleten",
+      "inquire": "Érdeklődés",
+      "value_inquire": "{{ option_value }} - Érdeklődés",
       "variant_sold_out_or_unavailable": "A változat elfogyott vagy nincs készleten",
       "inventory_in_stock": "Raktáron",
       "inventory_in_stock_show_count": "{{ quantity }} raktáron",

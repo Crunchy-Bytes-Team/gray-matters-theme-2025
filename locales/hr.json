@@ -161,6 +161,8 @@
       "choose_options": "Odaberite opcije",
       "choose_product_options": "Odaberite željene opcije za {{ product_name }}",
       "value_unavailable": "{{ option_value }} – nedostupno",
+      "inquire": "Upit",
+      "value_inquire": "{{ option_value }} - Upit",
       "variant_sold_out_or_unavailable": "Model je prodan ili nedostupan",
       "inventory_in_stock": "Dostupno",
       "inventory_in_stock_show_count": "Br. dostupnih komada: {{ quantity }}",

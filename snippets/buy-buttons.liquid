@@ -67,33 +67,49 @@
               if product.selected_or_first_available_variant.inventory_management != 'shopify' or product.selected_or_first_available_variant.inventory_policy == 'continue'
                 assign check_against_inventory = false
               endif
+              assign quantity_rule_soldout = false
               if product.selected_or_first_available_variant.quantity_rule.min > product.selected_or_first_available_variant.inventory_quantity and check_against_inventory
                 assign quantity_rule_soldout = true
               endif
+              assign variant_available = false
+              if product.selected_or_first_available_variant != null and product.selected_or_first_available_variant.available and quantity_rule_soldout == false
+                assign variant_available = true
+              endif
+              assign size_option_value = ''
+              for option in product.options_with_values
+                assign opt_name_downcase = option.name | downcase
+                if opt_name_downcase contains 'size' or opt_name_downcase contains 'taglia'
+                  if option.position == 1
+                    assign size_option_value = product.selected_or_first_available_variant.option1
+                  elsif option.position == 2
+                    assign size_option_value = product.selected_or_first_available_variant.option2
+                  else
+                    assign size_option_value = product.selected_or_first_available_variant.option3
+                  endif
+                  break
+                endif
+              endfor
             -%}
-            <button
-              id='ProductSubmitButton-{{ section_id }}'
-              type='submit'
-              name='add'
-              class='uppercase add-to-cart-button btn-dark product-form__submit px-6 h-10 lg:h-8 transition-colors w-full {% if show_dynamic_checkout %}bg-gray-200 text-gray-900 hover:bg-gray-300 focus:ring-2 focus:ring-gray-500{% else %}bg-blue-600 text-white hover:bg-blue-700 focus:ring-2 focus:ring-blue-500{% endif %}'
-              {% if product.selected_or_first_available_variant.available == false
-                or quantity_rule_soldout
-                or product.selected_or_first_available_variant == null
-              %}
-                disabled
-              {% endif %}
-            >
-              <span>
-                {%- if product.selected_or_first_available_variant == null -%}
-                  {{ 'products.product.unavailable' | t }}
-                {%- elsif product.selected_or_first_available_variant.available == false or quantity_rule_soldout -%}
-                  {{ 'products.product.sold_out' | t }}
-                {%- else -%}
-                  {{ 'products.product.add_to_cart' | t }}
-                {%- endif -%}
-              </span>
-              {%- render 'loading-spinner' -%}
-            </button>
+            {%- if variant_available -%}
+              <button
+                id='ProductSubmitButton-{{ section_id }}'
+                type='submit'
+                name='add'
+                class='uppercase add-to-cart-button btn-dark product-form__submit px-6 h-10 lg:h-8 transition-colors w-full {% if show_dynamic_checkout %}bg-gray-200 text-gray-900 hover:bg-gray-300 focus:ring-2 focus:ring-gray-500{% else %}bg-blue-600 text-white hover:bg-blue-700 focus:ring-2 focus:ring-blue-500{% endif %}'
+              >
+                <span>{{ 'products.product.add_to_cart' | t }}</span>
+                {%- render 'loading-spinner' -%}
+              </button>
+            {%- else -%}
+              <button
+                type='button'
+                class='uppercase add-to-cart-button btn-dark product-form__submit px-6 h-10 lg:h-8 transition-colors w-full {% if show_dynamic_checkout %}bg-gray-200 text-gray-900 hover:bg-gray-300 focus:ring-2 focus:ring-gray-500{% else %}bg-blue-600 text-white hover:bg-blue-700 focus:ring-2 focus:ring-blue-500{% endif %}'
+                data-modal-trigger='inquire-modal'
+                {% if size_option_value != '' %}data-inquire-size='{{ size_option_value | escape }}'{% endif %}
+              >
+                <span>{{ 'products.product.inquire' | t }}</span>
+              </button>
+            {%- endif -%}
             <!--
               >
               {%- if show_dynamic_checkout -%}

@@ -163,6 +163,8 @@
       "choose_options": "オプションを選択",
       "choose_product_options": "{{ product_name }}のオプションを選択する",
       "value_unavailable": "{{ option_value }}は利用できません",
+      "inquire": "お問い合わせ",
+      "value_inquire": "{{ option_value }} - お問い合わせ",
       "variant_sold_out_or_unavailable": "バリエーションは売り切れているか販売できません",
       "inventory_in_stock": "在庫あり",
       "inventory_in_stock_show_count": "{{ quantity }}個の在庫",
