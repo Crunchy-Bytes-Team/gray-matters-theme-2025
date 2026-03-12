@@ -68,6 +68,11 @@ select:focus {
   margin-bottom: 10px;
 }
 
+/* Grassetto nella descrizione: usa il font semi-bold per compatibilità Chrome */
+.product_desc strong {
+  font-family: 'proxima-semi-bold', sans-serif;
+}
+
 /* Sotto i 1024px */
 @media (max-width: 1023px) {
   .my-z-index {
