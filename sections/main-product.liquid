@@ -110,14 +110,14 @@
 
               {%- when 'title' -%}
                 <div id='riga1' class='w-full flex flex-row justify-between items-center lg:items-start'>
-                  <div class='mb-0 lg:mb-6 w-auto product__title' {{ block.shopify_attributes }}>
+                  <div class='mb-0 lg:mb-6 w-full lg:w-10/12 product__title' {{ block.shopify_attributes }}>
                     <h1 class='uppercase text-lg tracking-wider proxima-semi-bold'>
                       {{ product.title | escape }}
                     </h1>
                   </div>
               {%- when 'price' -%}
                 <div
-                  class='flex items-center w-auto gap-7 lg:gap-3'
+                  class='flex items-center justify-center w-full lg:w-2/12 gap-7 lg:gap-3'
                   id='price-{{ section.id }}'
                   role='status'
                   {{ block.shopify_attributes }}
