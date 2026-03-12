@@ -26,9 +26,16 @@
   assign price_min = product.price_min
   assign price_max = product.price_max
   assign available = target.available | default: false
-  assign money_price = price | money
-  assign money_price_min = price_min | money
-  assign money_price_max = price_max | money
+  comment
+    Troncamento a livello visualizzazione: niente decimali (il gestore inserisce sempre prezzi interi)
+  endcomment
+  assign price_truncated = price | divided_by: 100 | times: 100
+  assign price_min_truncated = price_min | divided_by: 100 | times: 100
+  assign price_max_truncated = price_max | divided_by: 100 | times: 100
+  assign money_price = price_truncated | money_without_trailing_zeros
+  assign money_price_min = price_min_truncated | money_without_trailing_zeros
+  assign money_price_max = price_max_truncated | money_without_trailing_zeros
+  assign compare_at_truncated = compare_at_price | divided_by: 100 | times: 100
 
   if target == product and product.price_varies
     assign money_price = 'products.product.price.from_price_html' | t: price: money_price
@@ -63,9 +70,9 @@
               <span class='proxima-reg uppercase tracking-wider text-sm'>
                 <s class='price-item price-item--regular variant-item__old-price proxima-reg uppercase tracking-wider text-sm 1'>
                   {% if settings.currency_code_enabled %}
-                    {{ compare_at_price | money_with_currency }}
+                    {{ compare_at_truncated | money_with_currency | replace: '.00', '' | replace: ',00', '' }}
                   {% else %}
-                    {{ compare_at_price | money }}
+                    {{ compare_at_truncated | money_without_trailing_zeros }}
                   {% endif %}
                 </s>
               </span>
@@ -95,9 +102,9 @@
           <span>
             <s class='price-item price-item--regular tracking-wider'>
               {% if settings.currency_code_enabled %}
-                {{ compare_at_price | money_with_currency }}
+                {{ compare_at_truncated | money_with_currency | replace: '.00', '' | replace: ',00', '' }}
               {% else %}
-                {{ compare_at_price | money }}
+                {{ compare_at_truncated | money_without_trailing_zeros }}
               {% endif %}
             </s>
           </span>
