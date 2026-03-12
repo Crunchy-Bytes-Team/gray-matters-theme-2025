@@ -149,6 +149,21 @@
       if (Shopify.designMode) {
         document.documentElement.classList.add('shopify-design-mode');
       }
+      // Hide shopify-pc__banner in local environment
+      if (window.location.hostname === '127.0.0.1' || window.location.hostname === 'localhost') {
+        const style = document.createElement('style');
+        style.textContent = '#shopify-pc__banner { display: none !important; }';
+        document.head.appendChild(style);
+        
+        // Also hide if element is added dynamically
+        const observer = new MutationObserver(function(mutations) {
+          const banner = document.getElementById('shopify-pc__banner');
+          if (banner) {
+            banner.style.display = 'none';
+          }
+        });
+        observer.observe(document.body, { childList: true, subtree: true });
+      }
     </script>
     <script>
       document.addEventListener('DOMContentLoaded', function () {
