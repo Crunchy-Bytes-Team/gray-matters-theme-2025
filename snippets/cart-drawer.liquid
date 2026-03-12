@@ -29,24 +29,6 @@
     >
       {%- if cart == empty -%}
         <div class='drawer__inner-empty'>
-          <div class='cart-drawer__warnings{% if settings.cart_drawer_collection != blank %} cart-drawer__warnings--has-collection{% endif %}'>
-            <div class='cart-drawer__empty-content'>
-              <h2 class='cart__empty-text'>{{ 'sections.cart.empty' | t }}</h2>
-              <button
-                class='drawer__close'
-                type='button'
-                onclick="this.closest('cart-drawer').close()"
-                aria-label='{{ 'accessibility.close' | t }}'
-              >
-                <span class='svg-wrapper'>
-                  {{- 'icon-close.svg' | inline_asset_content -}}
-                </span>
-              </button>
-              <a href='{{ routes.all_products_collection_url }}' class='button'>
-                {{ 'general.continue_shopping' | t }}
-              </a>
-            </div>
-          </div>
           {%- if settings.cart_drawer_collection != blank -%}
             <div class='cart-drawer__collection'>
               {% render 'card-collection', card_collection: settings.cart_drawer_collection, columns: 1 %}
@@ -54,7 +36,7 @@
           {%- endif -%}
         </div>
       {%- endif -%}
-      <div class='drawer__header justify-between items-center flex p-8 border-b border-gray-200'>
+      <div class='drawer__header justify-between items-center flex p-4 border-b border-gray-200'>
         <h2 class='uppercase tracking-wide text-base proxima-semi-bold drawer__heading'>
           {{ 'sections.cart.title' | t }}
         </h2>
@@ -80,8 +62,10 @@
           class='cart__contents cart-drawer__form'
           method='post'
         >
-          <div id='CartDrawer-CartItems' class='drawer__contents js-contents'>
-            {%- if cart != empty -%}
+          <div id='CartDrawer-CartItems' class='text-sm p-4 overflow-y-auto js-contents'>
+            {%- if cart == empty -%}
+              <p class='cart__empty-text'>{{ 'sections.cart.empty' | t }}</p>
+            {%- else -%}
               <div class='drawer__cart-items-wrapper'>
                 <div class='cart-items flex flex-col' role='list'>
                   {%- for item in cart.items -%}

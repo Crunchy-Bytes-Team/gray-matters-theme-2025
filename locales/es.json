@@ -160,6 +160,8 @@
       "choose_options": "Seleccionar opciones",
       "choose_product_options": "Elegir opciones para {{ product_name }}",
       "value_unavailable": "{{ option_value }}: no disponible",
+      "inquire": "Consultar",
+      "value_inquire": "{{ option_value }} - Consultar",
       "variant_sold_out_or_unavailable": "Variante agotada o no disponible",
       "inventory_in_stock": "En existencias",
       "inventory_in_stock_show_count": "{{ quantity }} en existencias",

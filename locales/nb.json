@@ -159,6 +159,8 @@
       "choose_options": "Velg alternativer",
       "choose_product_options": "Velg alternativer for {{ product_name }}",
       "value_unavailable": "{{ option_value }} – utilgjengelig",
+      "inquire": "Forespør",
+      "value_inquire": "{{ option_value }} - Forespør",
       "variant_sold_out_or_unavailable": "Varianten er utsolgt eller utilgjengelig",
       "inventory_in_stock": "På lager",
       "inventory_in_stock_show_count": "{{ quantity }} på lager",

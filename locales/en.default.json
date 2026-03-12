@@ -174,6 +174,8 @@
       "unavailable": "Unavailable",
       "vendor": "Vendor",
       "value_unavailable": "{{ option_value }} - Unavailable",
+      "inquire": "Inquire",
+      "value_inquire": "{{ option_value }} - Inquire",
       "variant_sold_out_or_unavailable": "Variant sold out or unavailable",
       "video_exit_message": "{{ title }} opens full screen video in same window.",
       "view_full_details": "View full details",
@@ -256,9 +258,13 @@
       "form": {
         "title": "Contact form",
         "name": "Name",
+        "first_name": "First name",
+        "last_name": "Last name",
         "email": "Email",
         "phone": "Phone number",
         "comment": "Comment",
+        "requested_size": "Requested size",
+        "inquire_intro": "Thank you for your interest in Gray Matters! Please leave your name, email address and desired shoe size, and we'll contact you with more information.",
         "send": "Send",
         "post_success": "Thanks for contacting us. We'll get back to you as soon as possible.",
         "error_heading": "Please adjust the following:"

@@ -159,6 +159,8 @@
       "choose_options": "Opties kiezen",
       "choose_product_options": "Opties kiezen voor {{ product_name }}",
       "value_unavailable": "{{ option_value }} - Niet beschikbaar",
+      "inquire": "Informatie aanvragen",
+      "value_inquire": "{{ option_value }} - Informatie aanvragen",
       "variant_sold_out_or_unavailable": "Variant uitverkocht of niet beschikbaar",
       "inventory_in_stock": "Op voorraad",
       "inventory_in_stock_show_count": "{{ quantity }} op voorraad",

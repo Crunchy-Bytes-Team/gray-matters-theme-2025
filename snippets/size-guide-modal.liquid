@@ -1,6 +1,6 @@
 <div
   id='size-guide-modal'
-  class='fixed inset-0 z-50 hidden overflow-y-auto bg-slate-900/60'
+  class='fixed inset-0 top-24 z-50 hidden overflow-y-auto bg-slate-900/60'
   data-modal='size-guide'
   role='dialog'
   aria-modal='true'
@@ -21,13 +21,15 @@
         <span class='text-xl leading-none' aria-hidden='true'>&times;</span>
       </button>
 
-      <div class='max-h-[80vh] overflow-y-auto p-6'>
-        <header class='mb-6 text-center'>
-          <h2 class='uppercase'>Guida alle taglie</h2>
-        </header>
+      <div class='max-h-[80vh] p-6 overflow-hidden flex flex-col'>
+        <div class='size-guide-modal__scroll overflow-y-auto min-h-0 flex-1'>
+          <header class='mb-6 text-center'>
+            <h2 class='uppercase'>Guida alle taglie</h2>
+          </header>
 
-        <div class='overflow-hidden'>
-          <img src='https://cdn.shopify.com/s/files/1/0012/4079/3193/files/Shoe-Size-Guide-Horizontal.jpg?v=1641500829'>
+          <div class='overflow-hidden'>
+            <img src='https://cdn.shopify.com/s/files/1/0012/4079/3193/files/Shoe-Size-Guide-Horizontal.jpg?v=1641500829'>
+          </div>
         </div>
       </div>
     </div>

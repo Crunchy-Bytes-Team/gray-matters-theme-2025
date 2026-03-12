@@ -161,6 +161,8 @@
       "choose_options": "Выберите варианты",
       "choose_product_options": "Выберите варианты для {{ product_name }}",
       "value_unavailable": "{{ option_value }} — Недоступно",
+      "inquire": "Узнать",
+      "value_inquire": "{{ option_value }} — Узнать",
       "variant_sold_out_or_unavailable": "Вариант распродан или недоступен",
       "inventory_in_stock": "В наличии",
       "inventory_in_stock_show_count": "В наличии: {{ quantity }}",

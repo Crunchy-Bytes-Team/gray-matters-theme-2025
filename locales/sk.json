@@ -162,6 +162,8 @@
       "choose_options": "Vybrať možnosti",
       "choose_product_options": "Vyberte možnosti pre: {{ product_name }}",
       "value_unavailable": "{{ option_value }} – nedostupné",
+      "inquire": "Opýtať sa",
+      "value_inquire": "{{ option_value }} - Opýtať sa",
       "variant_sold_out_or_unavailable": "Variant je vypredaný alebo nedostupný",
       "inventory_in_stock": "Skladom",
       "inventory_in_stock_show_count": "{{ quantity }} skladom",

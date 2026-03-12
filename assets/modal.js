@@ -124,6 +124,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
         event.preventDefault();
         openModal(targetModal, triggerElement);
+        document.dispatchEvent(
+          new CustomEvent('modal:opened', {
+            detail: { modal: targetModal, trigger: triggerElement },
+          }),
+        );
       });
     });
 
