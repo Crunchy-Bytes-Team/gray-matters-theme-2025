@@ -45,7 +45,7 @@
 {%- unless target == null and placeholder == null -%}
   <div
     class='
-      price items-center flex
+      price text-15 items-center flex
       {%- if price_class %} {{ price_class }}{% endif -%}
       {%- if available == false %} price--sold-out{% endif -%}
       {%- if compare_at_price > price and product.quantity_price_breaks_configured? != true %} price--on-sale{% endif -%}
@@ -67,8 +67,8 @@
               <span class='visually-hidden visually-hidden--inline'>
                 {{- 'products.product.price.regular_price' | t -}}
               </span>
-              <span class='proxima-reg uppercase tracking-wider text-sm'>
-                <s class='price-item price-item--regular variant-item__old-price proxima-reg uppercase tracking-wider text-sm 1'>
+              <span class='proxima-reg uppercase tracking-wider text-15'>
+                <s class='price-item price-item--regular variant-item__old-price proxima-reg uppercase tracking-wider text-15'>
                   {% if settings.currency_code_enabled %}
                     {{ compare_at_truncated | money_with_currency | replace: '.00', '' | replace: ',00', '' }}
                   {% else %}
@@ -81,7 +81,7 @@
           <span class='visually-hidden visually-hidden--inline'>
             {{- 'products.product.price.regular_price' | t -}}
           </span>
-          <span class='price-item price-item--regular proxima-reg uppercase tracking-wider text-sm 2'>
+          <span class='price-item price-item--regular proxima-reg uppercase tracking-wider text-15'>
             {{-
               'products.product.volume_pricing.price_range'
               | t: minimum: money_price_min, maximum: money_price_max
@@ -91,7 +91,7 @@
           <span class='hidden visually-hidden visually-hidden--inline'>
             {{- 'products.product.price.regular_price' | t -}}
           </span>
-          <span class='price-item price-item--regular proxima-reg uppercase tracking-wider text-sm 3'>
+          <span class='price-item price-item--regular proxima-reg uppercase tracking-wider text-15'>
             {{ money_price }}
           </span>
         {%- endif -%}
@@ -100,7 +100,7 @@
         {%- unless product.price_varies == false and product.compare_at_price_varies %}
           <span class='visually-hidden visually-hidden--inline'>{{ 'products.product.price.regular_price' | t }}</span>
           <span>
-            <s class='price-item price-item--regular tracking-wider'>
+            <s class='price-item price-item--regular proxima-reg uppercase tracking-wider text-15'>
               {% if settings.currency_code_enabled %}
                 {{ compare_at_truncated | money_with_currency | replace: '.00', '' | replace: ',00', '' }}
               {% else %}
@@ -110,7 +110,7 @@
           </span>
         {%- endunless -%}
         <span class='visually-hidden visually-hidden--inline'>{{ 'products.product.price.sale_price' | t }}</span>
-        <span class='price-item price-item--sale price-item--last'>
+        <span class='price-item price-item--sale price-item--last proxima-reg uppercase tracking-wider text-15'>
           {{ money_price }}
         </span>
       </div>

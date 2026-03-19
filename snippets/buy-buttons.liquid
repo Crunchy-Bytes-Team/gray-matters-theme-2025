@@ -95,7 +95,7 @@
                 id='ProductSubmitButton-{{ section_id }}'
                 type='submit'
                 name='add'
-                class='capitalize add-to-cart-button btn-dark product-form__submit px-6 h-10 lg:h-8 transition-colors w-full {% if show_dynamic_checkout %}bg-gray-200 text-gray-900 hover:bg-gray-300 focus:ring-2 focus:ring-gray-500{% else %}bg-blue-600 text-white hover:bg-blue-700 focus:ring-2 focus:ring-blue-500{% endif %}'
+                class='uppercase add-to-cart-button btn-dark product-form__submit px-6 h-10 lg:h-8 transition-colors w-full {% if show_dynamic_checkout %}bg-gray-200 text-gray-900 hover:bg-gray-300 focus:ring-2 focus:ring-gray-500{% else %}bg-blue-600 text-white hover:bg-blue-700 focus:ring-2 focus:ring-blue-500{% endif %}'
               >
                 <span class='text-15'>{{ 'products.product.add_to_cart' | t }}</span>
                 {%- render 'loading-spinner' -%}
@@ -103,7 +103,7 @@
             {%- else -%}
               <button
                 type='button'
-                class='capitalize add-to-cart-button btn-dark product-form__submit px-6 h-10 lg:h-8 transition-colors w-full {% if show_dynamic_checkout %}bg-gray-200 text-gray-900 hover:bg-gray-300 focus:ring-2 focus:ring-gray-500{% else %}bg-blue-600 text-white hover:bg-blue-700 focus:ring-2 focus:ring-blue-500{% endif %}'
+                class='uppercase add-to-cart-button btn-dark product-form__submit px-6 h-10 lg:h-8 transition-colors w-full {% if show_dynamic_checkout %}bg-gray-200 text-gray-900 hover:bg-gray-300 focus:ring-2 focus:ring-gray-500{% else %}bg-blue-600 text-white hover:bg-blue-700 focus:ring-2 focus:ring-blue-500{% endif %}'
                 data-modal-trigger='inquire-modal'
                 {% if size_option_value != '' %}data-inquire-size='{{ size_option_value | escape }}'{% endif %}
               >
@@ -118,7 +118,7 @@
             -->
           </div>
           <div class='w-5/12 lg:w-2/12 flex flex-col items-start justify-end'>
-            <span class='uppercase text-xs text-dark-gray tracking-wide hidden lg:block block w-full text-center'>Size</span>
+            <span class='uppercase text-xs text-dark-gray tracking-wide hidden lg:block block w-full text-left'>Size</span>
             <div
               style=''
               class='size-selector bg-gray-100 bg-opacity-70 hover:bg-black hover:text-white transition-colors duration-700 ease-in-out flex items-center h-10 lg:h-auto w-full'
