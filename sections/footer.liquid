@@ -6,7 +6,7 @@
       <!-- col 01 footer -->
       <div class='flex flex-col w-full lg:w-1/4 mb-6 lg:mb-0 border-b border-gray-300 lg:border-b-0 lg:border-r lg:border-r-200 lg:mr-3'>
         <button
-          class='flex items-center justify-between w-full text-xs text-light-gray uppercase mb-6 lg:cursor-default'
+          class='flex items-center justify-between w-full text-sm text-light-gray uppercase mb-6 lg:cursor-default'
           type='button'
           aria-expanded='false'
           aria-controls='footer-company-links'
@@ -23,7 +23,7 @@
         >
           <ul class='mb-6 lg:mb-0'>
             {% for link in linklists.company.links %}
-              <li class='text-xs text-dark-gray mb-3'>
+              <li class='text-sm text-dark-gray mb-3'>
                 <a href='{{ link.url }}'>{{ link.title }}</a>
               </li>
             {% endfor %}
@@ -34,7 +34,7 @@
       <!-- col 02 footer -->
       <div class='flex flex-col w-full lg:w-1/4 mb-6 lg:mb-0 border-b border-gray-300 lg:border-b-0 lg:border-r lg:border-r-200 lg:mr-3'>
         <button
-          class='flex items-center justify-between w-full text-xs text-light-gray uppercase mb-6 lg:cursor-default'
+          class='flex items-center justify-between w-full text-sm text-light-gray uppercase mb-6 lg:cursor-default'
           type='button'
           aria-expanded='false'
           aria-controls='footer-client-links'
@@ -51,7 +51,7 @@
         >
           <ul class='mb-6 lg:mb-0'>
             {% for link in linklists['client-services'].links %}
-              <li class='text-xs text-dark-gray mb-3'>
+              <li class='text-sm text-dark-gray mb-3'>
                 <a href='{{ link.url }}'>{{ link.title }}</a>
               </li>
             {% endfor %}
@@ -62,7 +62,7 @@
       <!-- col 03 footer -->
       <div class='flex flex-col w-full lg:w-1/4 mb-6 lg:mb-0 border-b border-gray-300 lg:border-b-0 lg:border-r lg:border-r-200 lg:mr-3'>
         <button
-          class='flex items-center justify-between w-full text-xs text-light-gray uppercase mb-6 lg:cursor-default'
+          class='flex items-center justify-between w-full text-sm text-light-gray uppercase mb-6 lg:cursor-default'
           type='button'
           aria-expanded='false'
           aria-controls='footer-connect-links'
@@ -78,7 +78,7 @@
           id='footer-connect-links'
         >
           <ul class='mb-6 lg:mb-0'>
-            <li class='text-xs text-dark-gray mb-3'>
+            <li class='text-sm text-dark-gray mb-3'>
               {% if request.locale.iso_code == 'en' %}
                 <a href='/pages/brand-stories'>{{ 'sections.footer.brand-stories' | t }}</a>
               {% else %}
@@ -87,11 +87,11 @@
                 </a>
               {% endif %}
             </li>
-            <li class='text-xs text-dark-gray mb-3'>
+            <li class='text-sm text-dark-gray mb-3'>
               <a href='https://www.instagram.com/graymattersnyc/?hl=en'>Instagram</a>
             </li>
-            <li class='text-xs text-dark-gray mb-3'><a href='https://www.facebook.com/graymattersnyc/'>Facebook</a></li>
-            <li class='text-xs text-dark-gray mb-3'>
+            <li class='text-sm text-dark-gray mb-3'><a href='https://www.facebook.com/graymattersnyc/'>Facebook</a></li>
+            <li class='text-sm text-dark-gray mb-3'>
               <a href='https://www.graymattersnyc.com/pages/ladygray'>LadyGray Club</a>
             </li>
           </ul>
@@ -101,7 +101,7 @@
       <!-- col 04 footer -->
       <div class='flex flex-col w-full lg:w-1/4 mb-6 lg:mb-0'>
         <div class='contact-footer'>
-          <h4 class='text-xs text-light-gray uppercase mb-6'>
+          <h4 class='text-sm text-light-gray uppercase mb-6'>
             {{ 'sections.footer.news' | t }}
           </h4>
           <!-- 2023-01-25 - embedded Yotpo SMSBump form -->
@@ -110,7 +110,7 @@
           {% endif %}
           {% if true %}
             <div class='about-footer newsletter'>
-              <p class='text-xs text-dark-gray mb-3'>
+              <p class='text-sm text-dark-gray mb-3'>
                 Receive 10% off your first order and be the first to know about new products, sales and events.
               </p>
 
@@ -123,7 +123,7 @@
                 {%- endif -%}
 
                 <div class='form-group flex flex-row items-end mb-3'>
-                  <label class='text-xs text-dark-gray mr-4'>Name</label>
+                  <label class='text-sm text-dark-gray mr-4'>Name</label>
                   <input
                     type='text'
                     class='form-control bg-transparent border-b border-gray-300 flex-1'
@@ -147,7 +147,7 @@
                 {% endif %}
 
                 <div class='form-group flex flex-row flex-nowrap items-end mb-3'>
-                  <label class='text-xs text-dark-gray mr-4 '>Shoe Size</label>
+                  <label class='text-sm text-dark-gray mr-4 '>Shoe Size</label>
                   <input
                     type='text'
                     class='form-control bg-transparent border-b border-gray-300 flex-1'
@@ -161,7 +161,7 @@
                 <input type='hidden' name='contact[domain]' id='{{ footer_form_id }}-domain' value='{{ shop.domain }}'>
 
                 <div class='form-group flex flex-row items-end mb-5'>
-                  <label class='text-xs text-dark-gray mr-4'>Email</label>
+                  <label class='text-sm text-dark-gray mr-4'>Email</label>
                   <input
                     type='email'
                     name='contact[email]'
@@ -196,7 +196,7 @@
                 <span class='input-group__btn'>
                   <button
                     type='submit'
-                    class='py-4 text-xs btn btn-dark uppercase w-full newsletter__submit'
+                    class='py-4 text-sm btn btn-dark uppercase w-full newsletter__submit'
                     name='commit'
                     id='Subscribe'
                   >
