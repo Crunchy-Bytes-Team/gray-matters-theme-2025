@@ -1,53 +1,6 @@
-{%- liquid
-  assign show_message = false
-  assign slide_animation = true
-  assign fade_animation = true
-  assign message_text = ''
-  assign message_link = ''
-  assign message_text_alt = ''
-  assign message_link_alt = ''
-  assign color_bg = '#ce71ed'
-  assign color_text = '#ffffff'
-  assign show_on_home_only = false
-
-  if section and section.settings
-    assign show_message = section.settings.message
-    assign slide_animation = section.settings.slide_animation
-    assign fade_animation = section.settings.fade_animation
-    assign message_text = section.settings.message_text
-    assign message_link = section.settings.message_link
-    assign message_text_alt = section.settings.message_text_alt
-    assign message_link_alt = section.settings.message_link_alt
-    assign color_bg = section.settings.color_bg | default: color_bg
-    assign color_text = section.settings.color_text | default: color_text
-    assign show_on_home_only = section.settings.home_page_only
-  endif
-
-  if show_message == blank and settings.message_bar_enabled
-    assign show_message = settings.message_bar_enabled
-    assign slide_animation = settings.message_bar_slide_animation
-    assign fade_animation = settings.message_bar_fade_animation
-    assign message_text = settings.message_bar_text | default: message_text
-    assign message_link = settings.message_bar_link | default: message_link
-    assign message_text_alt = settings.message_bar_text_alt | default: message_text_alt
-    assign message_link_alt = settings.message_bar_link_alt | default: message_link_alt
-    assign color_bg = settings.message_bar_color_bg | default: color_bg
-    assign color_text = settings.message_bar_color_text | default: color_text
-  endif
-
-  assign message_text = message_text | default: '' | strip
-  assign message_text_alt = message_text_alt | default: '' | strip
-  assign show_message = show_message | default: false
-  assign slide_animation = slide_animation | default: true
-  assign fade_animation = fade_animation | default: true
-
-  if show_on_home_only and template.name != 'index'
-    assign show_message = false
-  endif
--%}
-
-{% if show_message and message_text != blank %}
+{% if section.settings.message %}
   <style>
+
       @keyframes full-x-translate {
         from {
           transform:translateX(400%);
@@ -57,21 +10,15 @@
         }
       }
 
-      .announcement-bar-link {
-        {% if slide_animation %}
+      .announsment_bar_top {
+        {% if section.settings.slide_animation %}
           display: flex !important;
         {% endif %}
-        background-color: {{ color_bg }};
-        color: {{ color_text }};
-        width: 100%;
-        text-align: center;
-        padding: 0.25rem 0;
-        text-decoration: none;
-        font-size: 0.75rem;
-        line-height: 1.5;
+        background-color: {{ section.settings.color_bg }};
+        color: {{ section.settings.color_text }};
       }
 
-      .announcement-bar-link > span {
+      .announsment_bar_top > span {
         transition: opacity 500ms ease-in-out;
       }
 
@@ -98,54 +45,55 @@
     }
   </style>
 
-  {% if message_text_alt != blank and message_link_alt != blank and fade_animation %}
+  {% comment %}
+    ---------------------------------------------------------
+
+     Show alternate messages in announcement bar if present
+
+    ---------------------------------------------------------
+  {% endcomment %}
+
+  {% if section.settings.message_text_alt and section.settings.message_link_alt and section.settings.fade_animation %}
     <script>
-      (function() {
-        const messages = [
-          { text: {{ message_text_alt | escape | json }}, link: {{ message_link_alt | json }} },
-          { text: {{ message_text | escape | json }}, link: {{ message_link | json }} },
-        ];
+      const messages = [
+        { text: `{{ section.settings.message_text_alt }}`, link: `{{ section.settings.message_link_alt }}` },
+        { text: `{{ section.settings.message_text }}`, link: `{{ section.settings.message_link }}` },
+      ];
 
-        function updateMessage(index) {
-          const messageSpan = document.querySelector('#announcement-bar-message');
-          const messageLink = document.querySelector('#announcement-bar-link');
-          if (messageSpan && messageLink) {
-            messageSpan.style.opacity = '1';
-            messageSpan.textContent = messages[index].text;
-            messageLink.href = messages[index].link;
-          }
-        }
+      messages.forEach((msg, i) => {
+        setTimeout(() => {
+          $('.announsment_bar_top > span').css('opacity', 1);
+          $('#announcement-bar-message').text(msg.text);
+          $('#announcement-bar-link').attr('href', msg.link);
+        }, 4000 * (i + 2));
+        setTimeout(() => {
+          $('.announsment_bar_top > span').css('opacity', 0);
+        }, 3500 * (i + 2));
+      });
 
-        function fadeOutMessage() {
-          const messageSpan = document.querySelector('#announcement-bar-message');
-          if (messageSpan) {
-            messageSpan.style.opacity = '0';
-          }
-        }
-
+      setInterval(() => {
         messages.forEach((msg, i) => {
-          setTimeout(() => updateMessage(i), 4000 * (i + 2));
-          setTimeout(() => fadeOutMessage(), 3500 * (i + 2));
+          setTimeout(() => {
+            $('.announsment_bar_top > span').css('opacity', 1);
+            $('#announcement-bar-message').text(msg.text);
+            $('#announcement-bar-link').attr('href', msg.link);
+          }, 4000 * (i + 2));
+          setTimeout(() => {
+            $('.announsment_bar_top > span').css('opacity', 0);
+          }, 3500 * (i + 2));
         });
-
-        setInterval(() => {
-          messages.forEach((msg, i) => {
-            setTimeout(() => updateMessage(i), 4000 * (i + 2));
-            setTimeout(() => fadeOutMessage(), 3500 * (i + 2));
-          });
-        }, 10000);
-      })();
+      }, 10000);
     </script>
   {% endif %}
 
-  <a id='announcement-bar-link' href='{{ message_link | default: '#' }}' class='announcement-bar-link'>
+  <a id='announcement-bar-link' href='{{ section.settings.message_link }}' class='announsment_bar_top'>
     <span
       id='announcement-bar-message'
-      {% if slide_animation %}
+      {% if section.settings.slide_animation %}
         class='animate-translate-x'
       {% endif %}
     >
-      {{ message_text | escape }}
+      {{ section.settings.message_text | escape }}
     </span>
   </a>
 {% endif %}
