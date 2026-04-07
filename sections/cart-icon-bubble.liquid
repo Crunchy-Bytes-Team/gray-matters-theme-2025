@@ -1,15 +1,28 @@
-{% if cart == empty %}
-  <span class="svg-wrapper">{{ 'icon-cart-empty.svg' | inline_asset_content }}</span>
-{% else %}
-  <span class="svg-wrapper">{{ 'icon-cart.svg' | inline_asset_content }}</span>
-{% endif %}
-
-<span class="visually-hidden">{{ 'templates.cart.cart' | t }}</span>
+{% comment %}
+  Must match the inner HTML of #cart-icon-bubble in sections/header.liquid.
+  Cart add / drawer / notification JS replaces the button contents with this section;
+  if markup diverges, the badge loses positioning and the icon disappears (only the count shows).
+{% endcomment %}
+<img
+  src="{{ 'icons/cart_icon_empty.png' | asset_url }}"
+  alt="{{ 'templates.cart.cart' | t }}"
+  width="20"
+  height="20"
+  class="w-5 h-5"
+  loading="lazy"
+>
 {%- if cart != empty -%}
-  <div class="cart-count-bubble">
+  <div class="cart-count-bubble absolute -top-2 -right-2 bg-black text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
     {%- if cart.item_count < 100 -%}
       <span aria-hidden="true">{{ cart.item_count }}</span>
     {%- endif -%}
     <span class="visually-hidden">{{ 'sections.header.cart_count' | t: count: cart.item_count }}</span>
   </div>
 {%- endif -%}
+
+{% schema %}
+{
+  "name": "Cart icon bubble",
+  "settings": []
+}
+{% endschema %}
