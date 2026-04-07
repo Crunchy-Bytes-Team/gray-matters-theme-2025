@@ -71,7 +71,22 @@
     <!-- Right Column: Edit Account Form -->
     <div class="order-1 md:order-2">
       <div class="md:pl-12">
-        {%- form 'customer', class: 'account-edit-form' -%}
+        {%- comment -%}
+          {% form 'customer' %} posts to /contact and does not update the logged-in customer profile.
+          Profile updates POST to routes.account_url; data-shopify-captcha wires hCaptcha for /account + form_type customer.
+          https://shopify.dev/docs/storefronts/themes/trust-security/captcha
+        {%- endcomment -%}
+        <form
+          method="post"
+          action="{{ routes.account_url }}"
+          accept-charset="UTF-8"
+          class="account-edit-form"
+          id="AccountEditCustomerForm"
+          data-shopify-captcha="true"
+        >
+          <input type="hidden" name="form_type" value="customer">
+          <input type="hidden" name="utf8" value="✓">
+          <input type="hidden" name="return_to" value="{{ routes.account_edit_url }}">
           {%- if form.errors -%}
             <div class="mb-6 p-4 bg-red-50 border border-red-200 text-red-700 text-base">
               <h3 class="font-semibold mb-2">{{ 'templates.contact.form.error_heading' | t }}</h3>
@@ -143,29 +158,29 @@
               >
             </div>
 
-            <!-- Shoe Size -->
+            <!-- Shoe size: display only (no name; storefront note updates are unreliable here) -->
             <div>
               <label for="AccountEditShoeSize" class="block text-base font-medium mb-2">
                 Shoe Size
               </label>
               <input
                 type="text"
-                name="customer[note]"
                 id="AccountEditShoeSize"
                 value="{{ customer.note }}"
-                class="w-full px-4 py-4 bg-gray-50 focus:outline-none"
-                placeholder="Enter shoe size"
+                readonly
+                class="w-full px-4 py-4 bg-gray-50 focus:outline-none opacity-80 cursor-default"
+                tabindex="0"
+                autocomplete="off"
               >
             </div>
           </div>
 
-          <!-- Update Password Checkbox -->
+          <!-- Update Password: checkbox has no name (UI only); disabled password fields are omitted from POST until enabled -->
           <div class="mb-4">
             <label class="flex items-center">
               <input
                 type="checkbox"
                 id="UpdatePasswordCheckbox"
-                name="customer[password_update]"
                 class="mr-2"
                 onchange="togglePasswordField(this)"
               >
@@ -173,7 +188,6 @@
             </label>
           </div>
 
-          <!-- Password Field (hidden by default) -->
           <div id="PasswordField" class="mb-4 hidden">
             <label for="AccountEditPassword" class="block text-base font-medium mb-2">
               {{ 'customer.login_page.password' | t }}
@@ -182,9 +196,22 @@
               type="password"
               name="customer[password]"
               id="AccountEditPassword"
+              disabled
               autocomplete="new-password"
               class="w-full px-4 py-4 bg-gray-50 focus:outline-none"
               placeholder="{{ 'customer.login_page.password' | t }}"
+            >
+            <label for="AccountEditPasswordConfirm" class="block text-base font-medium mb-2 mt-4">
+              {{ 'customer.reset_password.password_confirm' | t }}
+            </label>
+            <input
+              type="password"
+              name="customer[password_confirmation]"
+              id="AccountEditPasswordConfirm"
+              disabled
+              autocomplete="new-password"
+              class="w-full px-4 py-4 bg-gray-50 focus:outline-none"
+              placeholder="{{ 'customer.reset_password.password_confirm' | t }}"
             >
           </div>
 
@@ -203,7 +230,7 @@
               CANCEL
             </a>
           </div>
-        {%- endform -%}
+        </form>
       </div>
     </div>
   </div>
@@ -213,14 +240,26 @@
   function togglePasswordField(checkbox) {
     const passwordField = document.getElementById('PasswordField');
     const passwordInput = document.getElementById('AccountEditPassword');
-    
+    const passwordConfirmInput = document.getElementById('AccountEditPasswordConfirm');
+
     if (checkbox.checked) {
       passwordField.classList.remove('hidden');
+      passwordInput.removeAttribute('disabled');
       passwordInput.setAttribute('required', 'required');
+      if (passwordConfirmInput) {
+        passwordConfirmInput.removeAttribute('disabled');
+        passwordConfirmInput.setAttribute('required', 'required');
+      }
     } else {
       passwordField.classList.add('hidden');
+      passwordInput.setAttribute('disabled', 'disabled');
       passwordInput.removeAttribute('required');
       passwordInput.value = '';
+      if (passwordConfirmInput) {
+        passwordConfirmInput.setAttribute('disabled', 'disabled');
+        passwordConfirmInput.removeAttribute('required');
+        passwordConfirmInput.value = '';
+      }
     }
   }
 </script>
