@@ -20,9 +20,11 @@
         <div class="space-y-2 text-base">
           <p class="font-semibold">{{ customer.name }}</p>
           <p>{{ customer.email }}</p>
-          <a href="{{ routes.account_edit_url }}" class="underline">
-            Edit
-          </a>
+          {%- if template.name != 'account_edit' -%}
+            <a href="{{ routes.account_edit_url }}" class="underline">
+              Edit
+            </a>
+          {%- endif -%}
         </div>
       </div>
 
@@ -68,201 +70,79 @@
       </div>
     </div>
 
-    <!-- Right Column: Edit Account Form -->
+    <!-- Right Column: read-only details + password change via Shopify recover flow -->
     <div class="order-1 md:order-2">
       <div class="md:pl-12">
+        <h1 class="text-lg md:text-xl font-bold uppercase tracking-wider mb-6">
+          {{ 'customer.account.details' | t }}
+        </h1>
+
+        <dl class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10 text-base">
+          <div>
+            <dt class="font-semibold uppercase tracking-wider text-sm mb-1">{{ 'customer.register.first_name' | t }}</dt>
+            <dd>{{ customer.first_name }}</dd>
+          </div>
+          <div>
+            <dt class="font-semibold uppercase tracking-wider text-sm mb-1">{{ 'customer.register.last_name' | t }}</dt>
+            <dd>{{ customer.last_name }}</dd>
+          </div>
+          <div>
+            <dt class="font-semibold uppercase tracking-wider text-sm mb-1">{{ 'customer.login_page.email' | t }}</dt>
+            <dd>{{ customer.email }}</dd>
+          </div>
+          <div>
+            <dt class="font-semibold uppercase tracking-wider text-sm mb-1">Shoe Size</dt>
+            <dd>{{ customer.note | default: '—' }}</dd>
+          </div>
+        </dl>
+
         {%- comment -%}
-          {% form 'customer' %} posts to /contact and does not update the logged-in customer profile.
-          Profile updates POST to routes.account_url; data-shopify-captcha wires hCaptcha for /account + form_type customer.
-          https://shopify.dev/docs/storefronts/themes/trust-security/captcha
+          Password: use {% form 'recover_customer_password' %} (POST /account/recover). Shopify emails a link;
+          the customer sets a new password on the reset_password template ({% form 'reset_customer_password' %}).
+          Inline password + POST /account is not a supported profile update on legacy Liquid storefronts.
         {%- endcomment -%}
-        <form
-          method="post"
-          action="{{ routes.account_url }}"
-          accept-charset="UTF-8"
-          class="account-edit-form"
-          id="AccountEditCustomerForm"
-          data-shopify-captcha="true"
-        >
-          <input type="hidden" name="form_type" value="customer">
-          <input type="hidden" name="utf8" value="✓">
-          <input type="hidden" name="return_to" value="{{ routes.account_edit_url }}">
-          {%- if form.errors -%}
-            <div class="mb-6 p-4 bg-red-50 border border-red-200 text-red-700 text-base">
-              <h3 class="font-semibold mb-2">{{ 'templates.contact.form.error_heading' | t }}</h3>
-              <ul class="list-disc list-inside">
-                {%- for field in form.errors -%}
-                  <li>
-                    {%- if field == 'form' -%}
-                      {{ form.errors.messages[field] }}
-                    {%- else -%}
-                      {{ form.errors.translated_fields[field] | capitalize }} {{ form.errors.messages[field] }}
-                    {%- endif -%}
-                  </li>
-                {%- endfor -%}
-              </ul>
-            </div>
-          {%- endif -%}
+        <div class="border-t border-gray-200 pt-10">
+          <h2 class="text-base font-bold uppercase tracking-wider mb-2">
+            {{ 'customer.recover_password.title' | t }}
+          </h2>
+          <p class="text-base text-gray-600 mb-6 max-w-xl">
+            {{ 'customer.recover_password.subtext' | t }}
+          </p>
 
-          {%- if form.posted_successfully? -%}
-            <div class="mb-6 p-4 bg-green-50 border border-green-200 text-green-700 text-base">
-              {{ 'customer.account.details_updated' | t | default: 'Account details updated successfully.' }}
-            </div>
-          {%- endif -%}
+          {%- form 'recover_customer_password', class: 'account-recover-password-form', return_to: routes.account_edit_url -%}
+            {%- if form.posted_successfully? -%}
+              <div class="mb-6 p-4 bg-green-50 border border-green-200 text-green-700 text-base" role="status">
+                {{ 'customer.recover_password.success' | t }}
+              </div>
+            {%- endif -%}
+            {%- if form.errors -%}
+              <div class="mb-6 p-4 bg-red-50 border border-red-200 text-red-700 text-base">
+                <p>{{ form.errors.messages.form }}</p>
+              </div>
+            {%- endif -%}
 
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-            <!-- First Name -->
-            <div>
-              <label for="AccountEditFirstName" class="block text-base font-medium mb-2">
-                {{ 'customer.register.first_name' | t }}
-              </label>
-              <input
-                type="text"
-                name="customer[first_name]"
-                id="AccountEditFirstName"
-                value="{{ form.first_name | default: customer.first_name }}"
-                autocomplete="given-name"
-                class="w-full px-4 py-4 bg-gray-50 focus:outline-none"
+            <input type="hidden" name="email" value="{{ customer.email | escape }}">
+
+            <div class="flex flex-wrap gap-4 mt-6">
+              <button
+                type="submit"
+                class="bg-black text-white py-3 px-8 uppercase tracking-wider text-base font-semibold hover:opacity-90 transition-opacity"
               >
-            </div>
-
-            <!-- Last Name -->
-            <div>
-              <label for="AccountEditLastName" class="block text-base font-medium mb-2">
-                {{ 'customer.register.last_name' | t }}
-              </label>
-              <input
-                type="text"
-                name="customer[last_name]"
-                id="AccountEditLastName"
-                value="{{ form.last_name | default: customer.last_name }}"
-                autocomplete="family-name"
-                class="w-full px-4 py-4 bg-gray-50 focus:outline-none"
+                {{ 'customer.login_page.submit' | t }}
+              </button>
+              <a
+                href="{{ routes.account_url }}"
+                class="bg-white text-black border border-black py-3 px-8 uppercase tracking-wider text-base font-semibold hover:opacity-90 transition-opacity inline-block text-center"
               >
+                {{ 'customer.account.return' | t }}
+              </a>
             </div>
-          </div>
-
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-            <!-- Email -->
-            <div>
-              <label for="AccountEditEmail" class="block text-base font-medium mb-2">
-                {{ 'customer.login_page.email' | t }}
-              </label>
-              <input
-                type="email"
-                name="customer[email]"
-                id="AccountEditEmail"
-                value="{{ form.email | default: customer.email }}"
-                autocomplete="email"
-                class="w-full px-4 py-4 bg-gray-50 focus:outline-none"
-              >
-            </div>
-
-            <!-- Shoe size: display only (no name; storefront note updates are unreliable here) -->
-            <div>
-              <label for="AccountEditShoeSize" class="block text-base font-medium mb-2">
-                Shoe Size
-              </label>
-              <input
-                type="text"
-                id="AccountEditShoeSize"
-                value="{{ customer.note }}"
-                readonly
-                class="w-full px-4 py-4 bg-gray-50 focus:outline-none opacity-80 cursor-default"
-                tabindex="0"
-                autocomplete="off"
-              >
-            </div>
-          </div>
-
-          <!-- Update Password: checkbox has no name (UI only); disabled password fields are omitted from POST until enabled -->
-          <div class="mb-4">
-            <label class="flex items-center">
-              <input
-                type="checkbox"
-                id="UpdatePasswordCheckbox"
-                class="mr-2"
-                onchange="togglePasswordField(this)"
-              >
-              <span class="text-base">Update Password</span>
-            </label>
-          </div>
-
-          <div id="PasswordField" class="mb-4 hidden">
-            <label for="AccountEditPassword" class="block text-base font-medium mb-2">
-              {{ 'customer.login_page.password' | t }}
-            </label>
-            <input
-              type="password"
-              name="customer[password]"
-              id="AccountEditPassword"
-              disabled
-              autocomplete="new-password"
-              class="w-full px-4 py-4 bg-gray-50 focus:outline-none"
-              placeholder="{{ 'customer.login_page.password' | t }}"
-            >
-            <label for="AccountEditPasswordConfirm" class="block text-base font-medium mb-2 mt-4">
-              {{ 'customer.reset_password.password_confirm' | t }}
-            </label>
-            <input
-              type="password"
-              name="customer[password_confirmation]"
-              id="AccountEditPasswordConfirm"
-              disabled
-              autocomplete="new-password"
-              class="w-full px-4 py-4 bg-gray-50 focus:outline-none"
-              placeholder="{{ 'customer.reset_password.password_confirm' | t }}"
-            >
-          </div>
-
-          <!-- Buttons -->
-          <div class="flex gap-4 mt-6">
-            <button
-              type="submit"
-              class="bg-black text-white py-3 px-8 uppercase tracking-wider text-base font-semibold hover:opacity-90 transition-opacity"
-            >
-              UPDATE
-            </button>
-            <a
-              href="{{ routes.account_url }}"
-              class="bg-white text-black border border-black py-3 px-8 uppercase tracking-wider text-base font-semibold hover:opacity-90 transition-opacity inline-block text-center"
-            >
-              CANCEL
-            </a>
-          </div>
-        </form>
+          {%- endform -%}
+        </div>
       </div>
     </div>
   </div>
 </div>
-
-<script>
-  function togglePasswordField(checkbox) {
-    const passwordField = document.getElementById('PasswordField');
-    const passwordInput = document.getElementById('AccountEditPassword');
-    const passwordConfirmInput = document.getElementById('AccountEditPasswordConfirm');
-
-    if (checkbox.checked) {
-      passwordField.classList.remove('hidden');
-      passwordInput.removeAttribute('disabled');
-      passwordInput.setAttribute('required', 'required');
-      if (passwordConfirmInput) {
-        passwordConfirmInput.removeAttribute('disabled');
-        passwordConfirmInput.setAttribute('required', 'required');
-      }
-    } else {
-      passwordField.classList.add('hidden');
-      passwordInput.setAttribute('disabled', 'disabled');
-      passwordInput.removeAttribute('required');
-      passwordInput.value = '';
-      if (passwordConfirmInput) {
-        passwordConfirmInput.setAttribute('disabled', 'disabled');
-        passwordConfirmInput.removeAttribute('required');
-        passwordConfirmInput.value = '';
-      }
-    }
-  }
-</script>
 
 {% schema %}
 {
