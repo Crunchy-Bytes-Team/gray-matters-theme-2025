@@ -43,6 +43,10 @@
 
     {% render 'meta-tags' %}
 
+    {% if scripts_enabled %}
+      {% render 'mailchimp_js_alt' %}
+    {% endif %}
+
     <script>
       // Immediate sandbox protection - must run before any other scripts
       (function () {
@@ -154,9 +158,9 @@
         const style = document.createElement('style');
         style.textContent = '#shopify-pc__banner { display: none !important; }';
         document.head.appendChild(style);
-        
+
         // Also hide if element is added dynamically
-        const observer = new MutationObserver(function(mutations) {
+        const observer = new MutationObserver(function (mutations) {
           const banner = document.getElementById('shopify-pc__banner');
           if (banner) {
             banner.style.display = 'none';

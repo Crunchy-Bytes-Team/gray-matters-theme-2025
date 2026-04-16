@@ -1465,5 +1465,120 @@
         "default": "scheme-1"
       }
     ]
+  },
+  {
+    "name": {
+      "de": "Mailchimp config",
+      "en": "Mailchimp config",
+      "es": "Mailchimp config",
+      "fr": "Mailchimp config",
+      "it": "Mailchimp config",
+      "ja": "Mailchimp config",
+      "nl": "Mailchimp config",
+      "pt-BR": "Mailchimp config",
+      "zh-CN": "Mailchimp config",
+      "zh-TW": "Mailchimp config"
+    },
+    "settings": [
+      {
+        "type": "header",
+        "content": {
+          "de": "Mailchimp config options",
+          "en": "Mailchimp config options",
+          "es": "Mailchimp config options",
+          "fr": "Mailchimp config options",
+          "it": "Mailchimp config options",
+          "ja": "Mailchimp config options",
+          "nl": "Mailchimp config options",
+          "pt-BR": "Mailchimp config options",
+          "zh-CN": "Mailchimp config options",
+          "zh-TW": "Mailchimp config options"
+        }
+      },
+      {
+        "type": "text",
+        "id": "mailchimp_UID",
+        "label": {
+          "de": "Mailchimp uID",
+          "en": "Mailchimp uID",
+          "es": "Mailchimp uID",
+          "fr": "Mailchimp uID",
+          "it": "Mailchimp uID",
+          "ja": "Mailchimp uID",
+          "nl": "Mailchimp uID",
+          "pt-BR": "Mailchimp uID",
+          "zh-CN": "Mailchimp uID",
+          "zh-TW": "Mailchimp uID"
+        },
+        "info": {
+          "de": "https://github.com/input-output-hk/mailchimp-subscribe",
+          "en": "https://github.com/input-output-hk/mailchimp-subscribe",
+          "es": "https://github.com/input-output-hk/mailchimp-subscribe",
+          "fr": "https://github.com/input-output-hk/mailchimp-subscribe",
+          "it": "https://github.com/input-output-hk/mailchimp-subscribe",
+          "ja": "https://github.com/input-output-hk/mailchimp-subscribe",
+          "nl": "https://github.com/input-output-hk/mailchimp-subscribe",
+          "pt-BR": "https://github.com/input-output-hk/mailchimp-subscribe",
+          "zh-CN": "https://github.com/input-output-hk/mailchimp-subscribe",
+          "zh-TW": "https://github.com/input-output-hk/mailchimp-subscribe"
+        }
+      },
+      {
+        "type": "text",
+        "id": "mailchimp_audienceID",
+        "label": {
+          "de": "Mailchimp audienceID",
+          "en": "Mailchimp audienceID",
+          "es": "Mailchimp audienceID",
+          "fr": "Mailchimp audienceID",
+          "it": "Mailchimp audienceID",
+          "ja": "Mailchimp audienceID",
+          "nl": "Mailchimp audienceID",
+          "pt-BR": "Mailchimp audienceID",
+          "zh-CN": "Mailchimp audienceID",
+          "zh-TW": "Mailchimp audienceID"
+        },
+        "info": {
+          "de": "https://github.com/input-output-hk/mailchimp-subscribe",
+          "en": "https://github.com/input-output-hk/mailchimp-subscribe",
+          "es": "https://github.com/input-output-hk/mailchimp-subscribe",
+          "fr": "https://github.com/input-output-hk/mailchimp-subscribe",
+          "it": "https://github.com/input-output-hk/mailchimp-subscribe",
+          "ja": "https://github.com/input-output-hk/mailchimp-subscribe",
+          "nl": "https://github.com/input-output-hk/mailchimp-subscribe",
+          "pt-BR": "https://github.com/input-output-hk/mailchimp-subscribe",
+          "zh-CN": "https://github.com/input-output-hk/mailchimp-subscribe",
+          "zh-TW": "https://github.com/input-output-hk/mailchimp-subscribe"
+        }
+      },
+      {
+        "type": "text",
+        "id": "mailchimp_listName",
+        "label": {
+          "de": "Mailchimp listName",
+          "en": "Mailchimp listName",
+          "es": "Mailchimp listName",
+          "fr": "Mailchimp listName",
+          "it": "Mailchimp listName",
+          "ja": "Mailchimp listName",
+          "nl": "Mailchimp listName",
+          "pt-BR": "Mailchimp listName",
+          "zh-CN": "Mailchimp listName",
+          "zh-TW": "Mailchimp listName"
+        },
+        "info": {
+          "de": "https://github.com/input-output-hk/mailchimp-subscribe",
+          "en": "https://github.com/input-output-hk/mailchimp-subscribe",
+          "es": "https://github.com/input-output-hk/mailchimp-subscribe",
+          "fr": "https://github.com/input-output-hk/mailchimp-subscribe",
+          "it": "https://github.com/input-output-hk/mailchimp-subscribe",
+          "ja": "https://github.com/input-output-hk/mailchimp-subscribe",
+          "nl": "https://github.com/input-output-hk/mailchimp-subscribe",
+          "pt-BR": "https://github.com/input-output-hk/mailchimp-subscribe",
+          "zh-CN": "https://github.com/input-output-hk/mailchimp-subscribe",
+          "zh-TW": "https://github.com/input-output-hk/mailchimp-subscribe"
+        }
+      }
+    ]
   }
 ]

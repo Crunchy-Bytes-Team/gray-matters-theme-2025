@@ -114,6 +114,7 @@
                 Receive 10% off your first order and be the first to know about new products, sales and events.
               </p>
 
+              <!-- [Shopify newsletter] -->
               {% assign footer_form_id = 'footer_form' %}
               {% form 'customer', id: footer_form_id, novalidate: 'novalidate' %}
                 {%- if form.posted_successfully? -%}
@@ -122,11 +123,11 @@
                   </p>
                 {%- endif -%}
 
-                <div class='form-group flex flex-row items-end mb-3'>
-                  <label class='text-sm text-dark-gray mr-4'>Name</label>
+                <div class='form-group'>
+                  <label>Name</label>
                   <input
                     type='text'
-                    class='form-control bg-transparent border-b border-gray-300 flex-1'
+                    class='form-control'
                     id='{{ footer_form_id }}-name'
                     value='{{ form.name }}'
                     placeholder=''
@@ -146,11 +147,11 @@
                   </div>
                 {% endif %}
 
-                <div class='form-group flex flex-row flex-nowrap items-end mb-3'>
-                  <label class='text-sm text-dark-gray mr-4 '>Shoe Size</label>
+                <div class='form-group'>
+                  <label class='footer-label--size'>Shoe Size</label>
                   <input
                     type='text'
-                    class='form-control bg-transparent border-b border-gray-300 flex-1'
+                    class='form-control'
                     id='{{ footer_form_id }}-size'
                     value=''
                     name='contact[merge_fields][MMERGE7]'
@@ -160,13 +161,13 @@
                 <input type='hidden' name='contact[tags]' value='newsletter'>
                 <input type='hidden' name='contact[domain]' id='{{ footer_form_id }}-domain' value='{{ shop.domain }}'>
 
-                <div class='form-group flex flex-row items-end mb-5'>
-                  <label class='text-sm text-dark-gray mr-4'>Email</label>
+                <div class='form-group'>
+                  <label>Email</label>
                   <input
                     type='email'
                     name='contact[email]'
                     id='{{ footer_form_id }}-email2343298894032'
-                    class='form-control bg-transparent border-b border-gray-300 flex-1'
+                    class='form-control'
                     value='{{ form.email }}'
                     aria-label='{{ 'general.newsletter_form.email_placeholder' | t }}'
                     aria-required='true'
@@ -180,11 +181,8 @@
                     {% endif %}
                   >
                   <label class='tripwire' for='email'></label>
-                  <!--
-                    ho aggiunto la classe hidden, nel tema vecchio questo input veniva nascosto da css con opacity 0
-                  -->
                   <input
-                    class='tripwire hidden'
+                    class='tripwire'
                     autocomplete='off'
                     type='email'
                     id='{{ footer_form_id }}-email'
@@ -196,11 +194,11 @@
                 <span class='input-group__btn'>
                   <button
                     type='submit'
-                    class='py-4 text-sm btn btn-dark uppercase w-full newsletter__submit'
+                    class='dark-btn btn-block newsletter__submit'
                     name='commit'
                     id='Subscribe'
                   >
-                    {{ 'newsletter.submit' | t }}
+                    SIGN UP
                   </button>
                 </span>
 
@@ -223,7 +221,7 @@
   <!-- main footer end -->
 
   <!-- copyright -->
-  <div class='w-full flex flex-row items-start text-dark-gray text-xs pt-4'>© 2025 Gray Matters</div>
+  <div class='w-full flex flex-row items-start text-dark-gray text-xs pt-4'>© 2026 Gray Matters</div>
 </footer>
 
 {% schema %}
