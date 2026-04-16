@@ -195,6 +195,39 @@
   color: #1c1c1c;
 }
 
+.cart-item__details-with-remove {
+  position: relative;
+  padding-right: 24px;
+}
+
+.cart-item__remove-button {
+  position: absolute;
+  top: 0;
+  right: 0;
+  line-height: 1;
+  z-index: 2;
+}
+
+.cart-item__remove-button .button {
+  min-height: 0;
+  padding: 0;
+  line-height: 1;
+  font-size: 0;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+.cart-item__remove-button .svg-wrapper {
+  width: 12px;
+  height: 12px;
+}
+
+.cart-item__remove-button .svg-wrapper svg {
+  width: 12px;
+  height: 12px;
+  display: block;
+}
+
 .cart-item__name:hover,
 .cart-item__name:focus {
   opacity: 0.7;
@@ -342,6 +375,37 @@
   width: 14px;
   height: 14px;
   display: inline-flex;
+}
+
+/* Mini cart line errors (availability, etc.) — match body text scale; base theme uses 1.3rem here */
+.cart-drawer .cart-item__error {
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+  margin-top: 6px;
+  width: 100%;
+  min-width: 0;
+}
+
+.cart-drawer .cart-item__error-text {
+  font-size: 12px;
+  line-height: 1.35;
+  letter-spacing: 0.06em;
+  font-weight: 400;
+  color: #1c1c1c;
+}
+
+.cart-drawer .cart-item__error .svg-wrapper {
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.cart-drawer .cart-item__error .svg-wrapper svg {
+  width: 14px;
+  height: 14px;
+  display: block;
 }
 
 .drawer__contents {

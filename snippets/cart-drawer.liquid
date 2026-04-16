@@ -97,7 +97,22 @@
                         {% endif %}
                       </div>
 
-                      <div class='flex flex-col gap-1 py-1 lg:py-0'>
+                      <div class='cart-item__details-with-remove flex flex-col gap-1 py-1 lg:py-0'>
+                        <cart-remove-button
+                          id='Remove-{{ forloop.index }}'
+                          data-index='{{ forloop.index }}'
+                          class='cart-item__remove-button'
+                        >
+                          <a
+                            href='{{ item.url_to_remove }}'
+                            class='button button--tertiary'
+                            aria-label='{{ 'sections.cart.remove_title' | t: title: item.title | escape }}'
+                          >
+                            <span class='svg-wrapper'>
+                              {{- 'icon-close.svg' | inline_asset_content -}}
+                            </span>
+                          </a>
+                        </cart-remove-button>
                         {%- if settings.show_vendor -%}
                           <p class='caption-with-letter-spacing light'>{{ item.product.vendor }}</p>
                         {%- endif -%}

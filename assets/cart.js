@@ -6,7 +6,15 @@ class CartRemoveButton extends HTMLElement {
       event.preventDefault();
       const cartItems =
         this.closest('cart-items') || this.closest('cart-drawer-items');
-      cartItems.updateQuantity(this.dataset.index, 0);
+      const variantInput = this.closest('.cart-item')?.querySelector(
+        'input[data-quantity-variant-id]',
+      );
+      cartItems.updateQuantity(
+        this.dataset.index,
+        0,
+        'updates[]',
+        variantInput?.dataset?.quantityVariantId,
+      );
     });
   }
 }
@@ -66,6 +74,18 @@ class CartItems extends HTMLElement {
     const inputValue = parseInt(event.target.value);
     const index = event.target.dataset.index;
     let message = '';
+
+    if (inputValue === 0) {
+      event.target.setCustomValidity('');
+      event.target.reportValidity();
+      this.updateQuantity(
+        index,
+        0,
+        document.activeElement.getAttribute('name'),
+        event.target.dataset.quantityVariantId,
+      );
+      return;
+    }
 
     if (inputValue < event.target.dataset.min) {
       message = window.quickOrderListStrings.min_error.replace(
@@ -220,8 +240,9 @@ class CartItems extends HTMLElement {
           : undefined;
         let message = '';
         if (
+          quantityElement &&
           items.length === parsedState.items.length &&
-          updatedValue !== parseInt(quantityElement.value)
+          updatedValue !== parseInt(quantityElement.value, 10)
         ) {
           if (typeof updatedValue === 'undefined') {
             message = window.cartStrings.error;
@@ -237,7 +258,7 @@ class CartItems extends HTMLElement {
         const lineItem =
           document.getElementById(`CartItem-${line}`) ||
           document.getElementById(`CartDrawer-Item-${line}`);
-        if (lineItem && lineItem.querySelector(`[name="${name}"]`)) {
+        if (lineItem && name && lineItem.querySelector(`[name="${name}"]`)) {
           cartDrawerWrapper
             ? trapFocus(
                 cartDrawerWrapper,
@@ -245,10 +266,17 @@ class CartItems extends HTMLElement {
               )
             : lineItem.querySelector(`[name="${name}"]`).focus();
         } else if (parsedState.item_count === 0 && cartDrawerWrapper) {
-          trapFocus(
-            cartDrawerWrapper.querySelector('.drawer__inner-empty'),
-            cartDrawerWrapper.querySelector('a'),
+          const emptyRegion = cartDrawerWrapper.querySelector(
+            '.drawer__inner-empty',
           );
+          const focusTarget =
+            cartDrawerWrapper.querySelector('.drawer__close') ||
+            cartDrawerWrapper.querySelector('a[href]');
+          if (emptyRegion && focusTarget) {
+            trapFocus(emptyRegion, focusTarget);
+          } else if (focusTarget) {
+            trapFocus(cartDrawerWrapper, focusTarget);
+          }
         } else if (document.querySelector('.cart-item') && cartDrawerWrapper) {
           trapFocus(
             cartDrawerWrapper,
