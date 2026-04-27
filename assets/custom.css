@@ -517,3 +517,7 @@ select:focus {
 .announsment_bar_top {
   width: 100% !important;
 }
+
+.ly-switcher-wrapper {
+  display: none;
+}

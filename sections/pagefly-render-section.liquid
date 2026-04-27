@@ -1,0 +1,18 @@
+{% comment %}
+  Renders PageFly-injected layout (`pagefly_content_for_layout`).
+  Use the "pagefly" page template in the theme editor for PageFly-managed pages, or publish from PageFly
+  so it generates `page.pf-*` templates for this theme.
+{% endcomment %}
+
+<div class='pagefly-render-root'>
+  {{ pagefly_content_for_layout }}
+</div>
+
+{% schema %}
+{
+  "name": "PageFly content",
+  "tag": "section",
+  "class": "section pagefly-render-section",
+  "settings": []
+}
+{% endschema %}

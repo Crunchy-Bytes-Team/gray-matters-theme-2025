@@ -1,0 +1,9 @@
+{
+  "sections": {
+    "main": {
+      "type": "pagefly-render-section",
+      "settings": {}
+    }
+  },
+  "order": ["main"]
+}

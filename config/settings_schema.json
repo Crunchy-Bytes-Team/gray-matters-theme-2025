@@ -1521,7 +1521,8 @@
           "pt-BR": "https://github.com/input-output-hk/mailchimp-subscribe",
           "zh-CN": "https://github.com/input-output-hk/mailchimp-subscribe",
           "zh-TW": "https://github.com/input-output-hk/mailchimp-subscribe"
-        }
+        },
+        "default": "abe27aec3bc9a849c75e74514"
       },
       {
         "type": "text",
@@ -1549,7 +1550,8 @@
           "pt-BR": "https://github.com/input-output-hk/mailchimp-subscribe",
           "zh-CN": "https://github.com/input-output-hk/mailchimp-subscribe",
           "zh-TW": "https://github.com/input-output-hk/mailchimp-subscribe"
-        }
+        },
+        "default": "23ebe051fd"
       },
       {
         "type": "text",
@@ -1577,7 +1579,8 @@
           "pt-BR": "https://github.com/input-output-hk/mailchimp-subscribe",
           "zh-CN": "https://github.com/input-output-hk/mailchimp-subscribe",
           "zh-TW": "https://github.com/input-output-hk/mailchimp-subscribe"
-        }
+        },
+        "default": "graymattersnyc.us11"
       }
     ]
   }
