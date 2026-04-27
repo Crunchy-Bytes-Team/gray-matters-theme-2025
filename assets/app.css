@@ -815,6 +815,10 @@ video {
   z-index: 70;
 }
 
+.z-\[80\] {
+  z-index: 80;
+}
+
 .order-1 {
   order: 1;
 }
@@ -1036,6 +1040,10 @@ video {
   height: 100vh;
 }
 
+.h-9 {
+  height: 2.25rem;
+}
+
 .max-h-0 {
   max-height: 0px;
 }
@@ -1118,6 +1126,10 @@ video {
 
 .w-px {
   width: 1px;
+}
+
+.w-9 {
+  width: 2.25rem;
 }
 
 .min-w-\[120px\] {

@@ -1,4 +1,5 @@
 {% assign mobile_collection_menu = linklists.collection %}
+{% assign mobile_client_services_menu = linklists['top-client-services'] %}
 
 <nav class='mobile-menu space-y-2' aria-label='Mobile menu'>
   <div data-accordion-item>
@@ -118,48 +119,33 @@
       <div class='w-full px-4'>
         <div class='border-t border-gray-300 mt-4 mb-2'></div>
       </div>
-      <a
-        href='#'
-        class='block py-2 proxima-reg text-xs tracking-wider uppercase hover:opacity-70 transition-opacity text-dark-gray'
-      >
-        spedizioni e resi
-      </a>
-      <a
-        href='#'
-        class='block py-2 proxima-reg text-xs tracking-wider uppercase hover:opacity-70 transition-opacity text-dark-gray'
-      >
-        FAQ
-      </a>
-      <a
-        href='#'
-        class='block py-2 proxima-reg text-xs tracking-wider uppercase hover:opacity-70 transition-opacity text-dark-gray'
-      >
-        cura delle scarpe
-      </a>
-      <a
-        href='#'
-        class='block py-2 proxima-reg text-xs tracking-wider uppercase hover:opacity-70 transition-opacity text-dark-gray'
-      >
-        stampa
-      </a>
-      <a
-        href='#'
-        class='block py-2 proxima-reg text-xs tracking-wider uppercase hover:opacity-70 transition-opacity text-dark-gray'
-      >
-        ladygrayu club
-      </a>
-      <a
-        href='#'
-        class='block py-2 proxima-reg text-xs tracking-wider uppercase hover:opacity-70 transition-opacity text-dark-gray'
-      >
-        brand stories
-      </a>
+      {% if mobile_client_services_menu != blank and mobile_client_services_menu.links != blank %}
+        {% for link in mobile_client_services_menu.links %}
+          <a
+            href='{{ link.url }}'
+            class='block py-2 proxima-reg text-xs tracking-wider uppercase hover:opacity-70 transition-opacity text-dark-gray'
+          >
+            {{- link.title | escape -}}
+          </a>
+        {% endfor %}
+      {% endif %}
     </div>
   </div>
   <ul class='space-y-2 mt-4'>
     <li>
-      <span class='menu-drawer__menu-item flex items-center gap-2 py-1 proxima-reg text-sm tracking-wider uppercase hover:opacity-70 transition-opacity duration-200 ease-out'>
-        <i class='fa-solid fa-magnifying-glass text-gray-400' aria-hidden='true'></i>
+      <form
+        action='{{ routes.search_url }}'
+        method='get'
+        role='search'
+        class='menu-drawer__menu-item flex items-center gap-2 py-1 proxima-reg text-sm tracking-wider uppercase hover:opacity-70 transition-opacity duration-200 ease-out'
+      >
+        <button
+          type='submit'
+          class='bg-transparent border-0 p-0 text-gray-400 hover:text-black transition-colors duration-200 ease-out'
+          aria-label='{{ 'general.search.search' | t }}'
+        >
+          <i class='fa-solid fa-magnifying-glass' aria-hidden='true'></i>
+        </button>
         <input
           class='search-header__input1 search__input1 form-control bg-transparent placeholder:text-black'
           type='search'
@@ -168,7 +154,8 @@
           placeholder='SEARCH'
           aria-label='{{ 'general.search.placeholder' | t }}'
         >
-      </span>
+        <input type='hidden' name='options[prefix]' value='last'>
+      </form>
     </li>
     <li>
       <span class='menu-drawer__menu-item flex items-center gap-2 py-1 proxima-reg text-sm tracking-wider hover:opacity-70 transition-opacity duration-200 ease-out'>

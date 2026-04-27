@@ -38,6 +38,19 @@
     if value.available
       assign option_disabled = false
     endif
+
+    assign option_variant = value.variant
+    assign compare_at_price = product.compare_at_price
+    assign price = product.price
+    if option_variant
+      assign compare_at_price = option_variant.compare_at_price
+      assign price = option_variant.price
+    endif
+
+    assign option_on_sale = false
+    if compare_at_price > price
+      assign option_on_sale = true
+    endif
   -%}
 
   {%- capture input_id -%}
@@ -112,7 +125,11 @@
       {{ input_dataset }}
     >
       {% if option_disabled -%}
-        {{- 'products.product.value_inquire' | t: option_value: value -}}
+        {%- if option_on_sale -%}
+          {{- value }} - {{ 'products.product.inventory_out_of_stock' | t -}}
+        {%- else -%}
+          {{- 'products.product.value_inquire' | t: option_value: value -}}
+        {%- endif -%}
       {%- else -%}
         {{- value -}}
       {%- endif %}

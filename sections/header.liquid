@@ -136,7 +136,7 @@
               <div class='w-full px-4'>
                 <div class='border-t border-gray-300 mt-4 mb-2'></div>
               </div>
-              {% assign client_services_menu = linklists.client_services_menu %}
+              {% assign client_services_menu = linklists['top-client-services'] %}
               {% if client_services_menu != blank and client_services_menu.links != blank %}
                 {% for link in client_services_menu.links %}
                   <a
@@ -242,7 +242,7 @@
 <!-- Mobile menu drawer -->
 <div
   id='MobileMenu'
-  class='fixed inset-0 z-[60] lg:hidden hidden opacity-0 pointer-events-none transition-opacity duration-300 ease-out'
+  class='fixed inset-0 z-[80] lg:hidden hidden opacity-0 pointer-events-none transition-opacity duration-300 ease-out'
   aria-hidden='true'
 >
   <!-- overlay -->
@@ -267,11 +267,16 @@
     class='absolute left-0 top-0 h-full w-[285px] max-w-[85%] bg-gray shadow-xl px-6 py-16 overflow-y-auto transition-transform duration-300 ease-out -translate-x-full'
     data-menu-drawer
   >
-    <button class='absolute top-3 right-3 p-2' data-close-mobile-menu aria-label='Chiudi menu'>
-      <i class='fa-solid fa-xmark text-xl' aria-hidden='true'></i>
-    </button>
     {% render 'mobile-menu' %}
   </aside>
+  <button
+    class='absolute z-[80] flex h-9 w-9 items-center justify-center text-black hover:opacity-70 transition-opacity duration-200 ease-out'
+    style='top: 50px; left: min(calc(85vw + 20px), 305px);'
+    data-close-mobile-menu
+    aria-label='Chiudi menu'
+  >
+    <i class='fa-solid fa-xmark text-2xl' aria-hidden='true'></i>
+  </button>
   <script>
     document.addEventListener('DOMContentLoaded', function () {
       var openBtn = document.querySelector('[data-open-mobile-menu]');
