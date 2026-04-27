@@ -1,7 +1,9 @@
+{% assign video_mobile_enabled = product.metafields.module.video_module_enabled.value %}
 {% assign video_mobile_url = product.metafields.module.video_module_video_mobile.value %}
 {% assign module_image_val = product.metafields.module.image_text_module_image.value %}
 
 {% if video_mobile_url != blank %}
+  {% if video_mobile_enabled == true or video_mobile_enabled == 'true' %}
   <div class='w-full flex'>
     <div class='w-full lg:w-1/2'>
       <div class='relative w-full' style='padding-top: 177.78%;'>
@@ -27,4 +29,5 @@
       </div>
     </div>
   </div>
+  {% endif %}
 {% endif %}

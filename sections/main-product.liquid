@@ -814,7 +814,15 @@
 <div class='vertical-video-snippet bg-white w-full relative z-0 lg:z-50 px-0 lg:px-4 pb-6'>
   {% render 'vertical-video' %}
 </div>
-<div class='landscape-video-snippet bg-white w-full relative z-0 lg:z-50 hidden lg:block px-0 lg:px-4 pb-6'>
+{% liquid
+  assign video_module_enabled_mf = product.metafields.module.video_module_enabled.value
+  if video_module_enabled_mf == true or video_module_enabled_mf == 'true'
+    assign landscape_only_lg_classes = 'hidden lg:block'
+  else
+    assign landscape_only_lg_classes = ''
+  endif
+%}
+<div class='landscape-video-snippet bg-white w-full relative z-0 lg:z-50 {{ landscape_only_lg_classes }} px-0 lg:px-4 pb-6'>
   {% render 'landscape-video' %}
 </div>
 <div class='ugc-snippet w-full bg-white relative z-0 lg:z-50 px-0 lg:px-4 pb-6'>
