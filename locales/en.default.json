@@ -59,6 +59,18 @@
       "next_slide": "Slide right",
       "previous_slide": "Slide left",
       "name": "Slider"
+    },
+    "newsletter_form": {
+      "confirmation": "Thanks for subscribing to our mailing list.",
+      "email_placeholder": "Email address",
+      "submit": "Sign up"
+    },
+    "newsletter_popup": {
+      "title": "Subscribe to our newsletter",
+      "subtitle": "Receive 10% off your first order and be the first to know about new products, sales and events.",
+      "name": "Name",
+      "shoe_size": "Shoe size",
+      "honeypot_placeholder": "Your e-mail here"
     }
   },
   "newsletter": {

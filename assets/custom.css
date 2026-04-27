@@ -273,6 +273,227 @@ select:focus {
   }
 }
 
+/* Newsletter popup (flush bottom-right, slides in from right; delayed via newsletter-popup.js) */
+.newsletter-modal {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  z-index: 100;
+  max-width: 100%;
+  padding: 0;
+  margin: 0;
+  pointer-events: none;
+  transform: translateX(100%);
+  transition: transform 0.4s ease;
+}
+
+.newsletter-modal.newsletter-popup--visible {
+  pointer-events: auto;
+  transform: translateX(0);
+}
+
+.newsletter-modal .newsletter-content {
+  width: min(100vw, 22rem);
+  max-height: min(85vh, 32rem);
+  overflow: auto;
+  background: #fff;
+  border: 1px solid #e5e5e5;
+  border-right: none;
+  border-bottom: none;
+  box-shadow: -0.25rem -0.25rem 1.5rem rgba(0, 0, 0, 0.1);
+}
+
+@media (min-width: 640px) {
+  .newsletter-modal .newsletter-content {
+    width: 480px;
+    max-width: 100vw;
+  }
+}
+
+.newsletter-modal .newsletter-header {
+  position: relative;
+  padding: 1.5rem 2.75rem 1.25rem 1.5rem;
+  border-bottom: 1px solid #eee;
+}
+
+.newsletter-modal .newsletter-title {
+  margin: 0 0 0.5rem;
+  font-family: 'proxima-bold', sans-serif;
+  font-size: 0.9375rem;
+  line-height: 1.3;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #222323;
+}
+
+.newsletter-modal .newsletter-subtitle {
+  margin: 0;
+  font-size: 0.8125rem;
+  line-height: 1.45;
+  color: #222323;
+}
+
+.newsletter-modal .newsletter-modal--close {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  margin: 0;
+  padding: 0;
+  font-size: 1.5rem;
+  line-height: 1;
+  color: #222323;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.newsletter-modal .newsletter-modal--close:hover {
+  color: #000;
+}
+
+.newsletter-modal .newsletter-body {
+  padding: 1.5rem 1.5rem 1.75rem;
+}
+
+.newsletter-modal .form-message {
+  margin: 0 0 1rem;
+  font-size: 0.875rem;
+  line-height: 1.4;
+}
+
+.newsletter-modal .form-message--success {
+  color: #222323;
+}
+
+.newsletter-modal .form-group {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  flex-wrap: nowrap;
+  gap: 0.75rem 1rem;
+  margin-bottom: 1.25rem;
+}
+
+.newsletter-modal .form-group:last-of-type {
+  margin-bottom: 1rem;
+}
+
+.newsletter-modal .form-group label:not(.tripwire) {
+  flex: 0 0 auto;
+  align-self: flex-end;
+  margin: 0;
+  padding-bottom: 0.35rem;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  color: #222323;
+  white-space: nowrap;
+}
+
+.newsletter-modal .form-group .form-control {
+  flex: 1 1 auto;
+  min-width: 0;
+  width: auto;
+  margin: 0;
+  padding: 0.35rem 0 0.5rem;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  color: #222323;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid #ccc;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+.newsletter-modal .form-group .form-control::placeholder {
+  color: #a5a5a5;
+}
+
+.newsletter-modal .form-group .form-control:focus {
+  border-bottom-color: #222323;
+}
+
+.newsletter-modal .form-group .form-control[aria-invalid='true'] {
+  border-bottom-color: #b00020;
+}
+
+.newsletter-modal .tripwire {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.newsletter-modal .input-group__btn {
+  display: block;
+  width: 100%;
+  margin-top: 0.25rem;
+}
+
+.newsletter-modal .newsletter__submit.dark-btn,
+.newsletter-modal button.newsletter__submit {
+  width: 100%;
+  display: block;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 1rem 1.25rem;
+  font-family: 'proxima-bold', sans-serif;
+  font-size: 0.875rem;
+  line-height: 1.2;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #fff;
+  background-color: #000;
+  border: 1px solid #000;
+  border-radius: 0;
+  cursor: pointer;
+  transition: background-color 0.25s ease, color 0.25s ease,
+    border-color 0.25s ease;
+}
+
+.newsletter-modal .newsletter__submit:hover,
+.newsletter-modal button.newsletter__submit:hover {
+  background-color: #222323;
+  color: #fff;
+  border-color: #222323;
+}
+
+.newsletter-modal .input-error-message {
+  display: block;
+  margin-top: 0.75rem;
+  font-size: 0.8125rem;
+  line-height: 1.4;
+  color: #b00020;
+}
+
+@media (max-width: 639px) {
+  .newsletter-modal .form-group {
+    flex-wrap: wrap;
+  }
+
+  .newsletter-modal .form-group label:not(.tripwire) {
+    flex: 1 1 100%;
+    padding-bottom: 0.15rem;
+  }
+
+  .newsletter-modal .form-group .form-control {
+    flex: 1 1 100%;
+  }
+}
+
 .announsment_bar_top {
   text-align: center;
   background-color: #0000004d;

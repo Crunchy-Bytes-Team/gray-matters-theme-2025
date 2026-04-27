@@ -58,6 +58,18 @@
       "next_slide": "Scorri verso destra",
       "previous_slide": "Scorri verso sinistra",
       "name": "Cursore"
+    },
+    "newsletter_form": {
+      "confirmation": "Grazie per l'iscrizione alla nostra newsletter.",
+      "email_placeholder": "Indirizzo email",
+      "submit": "Iscriviti"
+    },
+    "newsletter_popup": {
+      "title": "Iscriviti alla nostra newsletter",
+      "subtitle": "Ricevi il 10% di sconto sul tuo primo ordine e resta sempre informato sui nuovi prodotti, saldi ed eventi.",
+      "name": "Nome",
+      "shoe_size": "Taglia",
+      "honeypot_placeholder": "La tua email"
     }
   },
   "newsletter": {

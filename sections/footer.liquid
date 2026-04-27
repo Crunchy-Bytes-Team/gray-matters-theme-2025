@@ -224,6 +224,121 @@
   <div class='w-full flex flex-row items-start text-dark-gray text-xs pt-4'>© 2026 Gray Matters</div>
 </footer>
 
+{% if section.settings.newsletter_enable %}
+  <div
+    id='newsletter-modal'
+    class='newsletter-modal'
+    role='dialog'
+    aria-modal='true'
+    aria-labelledby='newsletter-modal-title'
+    aria-hidden='true'
+  >
+    <div class='newsletter-content'>
+      <div class='newsletter-header'>
+        <h4 id='newsletter-modal-title' class='newsletter-title'>
+          {{ 'general.newsletter_popup.title' | t }}
+        </h4>
+        <p class='newsletter-subtitle'>{{ 'general.newsletter_popup.subtitle' | t }}</p>
+        <button
+          type='button'
+          class='newsletter-modal--close'
+          data-newsletter-popup-close
+          aria-label='{{ 'accessibility.close' | t }}'
+        >
+          ×
+        </button>
+      </div>
+      <div class='newsletter-body'>
+        {% assign popup_form_id = 'newsletter-popup-form' %}
+        {% form 'customer', id: popup_form_id, class: 'contact-form', novalidate: 'novalidate' %}
+          {%- if form.posted_successfully? -%}
+            <p class='form-message form-message--success' tabindex='-1' data-form-status>
+              {{ 'general.newsletter_form.confirmation' | t }}
+            </p>
+          {%- endif -%}
+
+          <div class='form-group'>
+            <label for='{{ popup_form_id }}-name'>{{ 'general.newsletter_popup.name' | t }}</label>
+            <input
+              type='text'
+              class='form-control'
+              id='{{ popup_form_id }}-name'
+              value='{{ form.name }}'
+              placeholder=''
+              name='contact[name]'
+            >
+          </div>
+
+          <div class='form-group'>
+            <label class='footer-label--size' for='{{ popup_form_id }}-size'>
+              {{- 'general.newsletter_popup.shoe_size' | t -}}
+            </label>
+            <input
+              type='text'
+              class='form-control'
+              id='{{ popup_form_id }}-size'
+              value=''
+              name='contact[merge_fields][MMERGE7]'
+            >
+          </div>
+
+          <input type='hidden' name='contact[tags]' value='newsletter'>
+          <input type='hidden' name='contact[domain]' id='{{ popup_form_id }}-domain' value='{{ shop.domain }}'>
+
+          <div class='form-group'>
+            <label for='{{ popup_form_id }}-email-real'>{{ 'newsletter.label' | t }}</label>
+            <input
+              type='email'
+              name='contact[email]'
+              id='{{ popup_form_id }}-email-real'
+              class='form-control'
+              value='{{ form.email }}'
+              aria-label='{{ 'general.newsletter_form.email_placeholder' | t }}'
+              aria-required='true'
+              required
+              autocorrect='off'
+              autocapitalize='off'
+              {% if form.errors %}
+                aria-invalid='true'
+                aria-describedby='{{ popup_form_id }}-email-error'
+                data-form-status
+              {% endif %}
+            >
+            <label class='tripwire' for='email'></label>
+            <input
+              class='tripwire'
+              autocomplete='off'
+              type='email'
+              id='{{ popup_form_id }}-email-honeypot'
+              name='email'
+              placeholder='{{ 'general.newsletter_popup.honeypot_placeholder' | t }}'
+            >
+          </div>
+
+          <span class='input-group__btn'>
+            <button
+              type='submit'
+              class='dark-btn btn-block newsletter__submit'
+              name='commit'
+              id='newsletter-popup-subscribe'
+            >
+              {{ 'general.newsletter_form.submit' | t }}
+            </button>
+          </span>
+
+          {% if form.errors contains 'email' %}
+            <span id='{{ popup_form_id }}-email-error' class='input-error-message'>
+              {% include 'icon-error' %}
+              {{ form.errors.translated_fields.email | capitalize }}
+              {{ form.errors.messages.email }}.
+            </span>
+          {% endif %}
+        {% endform %}
+      </div>
+    </div>
+  </div>
+{% endif %}
+
 {% schema %}
 {
   "name": "Footer",
