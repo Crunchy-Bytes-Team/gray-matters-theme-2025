@@ -273,11 +273,12 @@ select:focus {
   }
 }
 
-/* Newsletter popup (flush bottom-right, slides in from right; delayed via newsletter-popup.js) */
+/* Newsletter popup (flush bottom-right on large screens; inset on small; delayed via newsletter-popup.js) */
 .newsletter-modal {
   position: fixed;
-  right: 0;
-  bottom: 0;
+  right: 20px;
+  bottom: 20px;
+  left: 20px;
   z-index: 100;
   max-width: 100%;
   padding: 0;
@@ -293,7 +294,8 @@ select:focus {
 }
 
 .newsletter-modal .newsletter-content {
-  width: min(100vw, 22rem);
+  width: 100%;
+  max-width: 100%;
   max-height: min(85vh, 32rem);
   overflow: auto;
   background: #fff;
@@ -303,7 +305,13 @@ select:focus {
   box-shadow: -0.25rem -0.25rem 1.5rem rgba(0, 0, 0, 0.1);
 }
 
-@media (min-width: 640px) {
+@media (min-width: 761px) {
+  .newsletter-modal {
+    left: auto;
+    right: 0;
+    bottom: 0;
+  }
+
   .newsletter-modal .newsletter-content {
     width: 480px;
     max-width: 100vw;
