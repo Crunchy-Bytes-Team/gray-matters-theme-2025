@@ -36,31 +36,55 @@
 
 {% assign border_class = 'cursor-pointer' %}
 {% assign margin_class = 'mr-2' %}
-{% assign primary_color = product.metafields.custom.primary_color | default: '' %}
-{% assign secondary_color = product.metafields.custom.secondary_color | default: '' %}
+{% assign blank_color_hex = '#ff00bb' %}
+{% assign default_color_hex = '#ffffff' %}
+
+{% comment %} Current product: image metafield `module.product_color_img1` {% endcomment %}
+{% assign current_color_image_raw = product.metafields.module.product_color_img1.value %}
+{% assign current_color_image_url = '' %}
+{% if current_color_image_raw != blank %}
+  {% if current_color_image_raw.url != blank %}
+    {% assign current_color_image_url = current_color_image_raw.url %}
+  {% else %}
+    {% assign current_color_image_url = current_color_image_raw %}
+  {% endif %}
+{% endif %}
+
+{% comment %} Current product: colors (sentinel `#ff00bb` = empty) {% endcomment %}
+{% assign raw_primary = product.metafields.custom.primary_color.value | default: product.metafields.custom.primary_color | default: '' | strip %}
+{% assign raw_secondary = product.metafields.custom.secondary_color.value | default: product.metafields.custom.secondary_color | default: '' | strip %}
 {% assign primary_hex = '' %}
 {% assign secondary_hex = '' %}
-{% if primary_color != blank %}
-  {% assign primary_hex = primary_color %}
-{% else %}
-  {% assign primary_hex = '#ffffff' %}
+{% assign blank_cmp = blank_color_hex | downcase %}
+{% if raw_primary != blank %}
+  {% assign raw_primary_lc = raw_primary | downcase %}
+  {% if raw_primary_lc != blank_cmp %}
+    {% assign primary_hex = raw_primary %}
+  {% endif %}
 {% endif %}
-{% if secondary_color != blank %}
-  {% assign secondary_hex = secondary_color %}
+{% if raw_secondary != blank %}
+  {% assign raw_secondary_lc = raw_secondary | downcase %}
+  {% if raw_secondary_lc != blank_cmp %}
+    {% assign secondary_hex = raw_secondary %}
+  {% endif %}
 {% endif %}
 
 <div class='flex flex-row'>
   {% comment %} Render current product pill {% endcomment %}
-  {% if primary_hex != blank %}
-    <div class='w-5 h-5 rounded-full overflow-hidden flex flex-col {{ border_class }} {{ margin_class }}'>
-      {% if secondary_hex != blank %}
-        <div class='w-full h-1/2' style='background-color: {{ primary_hex }};'></div>
-        <div class='w-full h-1/2' style='background-color: {{ secondary_hex }};'></div>
-      {% else %}
-        <div class='w-full h-full' style='background-color: {{ primary_hex }};'></div>
-      {% endif %}
-    </div>
-  {% endif %}
+  <div class='w-5 h-5 rounded-full overflow-hidden flex flex-col {{ border_class }} {{ margin_class }}'>
+    {% if current_color_image_url != blank %}
+      <div class='w-full h-full bg-cover bg-center' style='background-image: url({{ current_color_image_url | escape }});'></div>
+    {% elsif primary_hex != blank and secondary_hex != blank %}
+      <div class='w-full h-1/2' style='background-color: {{ primary_hex }};'></div>
+      <div class='w-full h-1/2' style='background-color: {{ secondary_hex }};'></div>
+    {% elsif primary_hex != blank %}
+      <div class='w-full h-full' style='background-color: {{ primary_hex }};'></div>
+    {% elsif secondary_hex != blank %}
+      <div class='w-full h-full' style='background-color: {{ secondary_hex }};'></div>
+    {% else %}
+      <div class='w-full h-full' style='background-color: {{ default_color_hex }};'></div>
+    {% endif %}
+  </div>
 
   {% if variant_entries != blank %}
     {% for entry in variant_entries %}
@@ -84,48 +108,56 @@
           {% continue %}
         {% endif %}
 
-        {% comment %} Check if entry has product_color_image - this takes priority over color metafields {% endcomment %}
-        {% assign entry_color_image = entry.product_color_image | default: '' %}
+        {% assign variant_product = all_products[variant_handle] %}
 
-        {% if entry_color_image != blank %}
-          {% comment %} Render variant link with background-image from entry {% endcomment %}
+        {% if variant_product != blank %}
+          {% assign variant_color_image_raw = variant_product.metafields.module.product_color_img1.value %}
+          {% assign variant_color_image_url = '' %}
+          {% if variant_color_image_raw != blank %}
+            {% if variant_color_image_raw.url != blank %}
+              {% assign variant_color_image_url = variant_color_image_raw.url %}
+            {% else %}
+              {% assign variant_color_image_url = variant_color_image_raw %}
+            {% endif %}
+          {% endif %}
+
+          {% assign v_raw_primary = variant_product.metafields.custom.primary_color.value | default: variant_product.metafields.custom.primary_color | default: '' | strip %}
+          {% assign v_raw_secondary = variant_product.metafields.custom.secondary_color.value | default: variant_product.metafields.custom.secondary_color | default: '' | strip %}
+          {% assign variant_primary_hex = '' %}
+          {% assign variant_secondary_hex = '' %}
+          {% if v_raw_primary != blank %}
+            {% assign v_raw_primary_lc = v_raw_primary | downcase %}
+            {% if v_raw_primary_lc != blank_cmp %}
+              {% assign variant_primary_hex = v_raw_primary %}
+            {% endif %}
+          {% endif %}
+          {% if v_raw_secondary != blank %}
+            {% assign v_raw_secondary_lc = v_raw_secondary | downcase %}
+            {% if v_raw_secondary_lc != blank_cmp %}
+              {% assign variant_secondary_hex = v_raw_secondary %}
+            {% endif %}
+          {% endif %}
+
           <a
             href='{{ variant_relative_url }}'
             class='w-5 h-5 rounded-full overflow-hidden flex flex-col border border-gray-200 mr-2'
-            style='background-image: url({{ entry_color_image | escape }}); background-size: cover; background-position: center;'
           >
+            {% if variant_color_image_url != blank %}
+              <div
+                class='w-full h-full bg-cover bg-center'
+                style='background-image: url({{ variant_color_image_url | escape }});'
+              ></div>
+            {% elsif variant_primary_hex != blank and variant_secondary_hex != blank %}
+              <div class='w-full h-1/2' style='background-color: {{ variant_primary_hex }};'></div>
+              <div class='w-full h-1/2' style='background-color: {{ variant_secondary_hex }};'></div>
+            {% elsif variant_primary_hex != blank %}
+              <div class='w-full h-full' style='background-color: {{ variant_primary_hex }};'></div>
+            {% elsif variant_secondary_hex != blank %}
+              <div class='w-full h-full' style='background-color: {{ variant_secondary_hex }};'></div>
+            {% else %}
+              <div class='w-full h-full' style='background-color: {{ default_color_hex }};'></div>
+            {% endif %}
           </a>
-        {% else %}
-          {% comment %} Fall back to color metafields from variant product {% endcomment %}
-          {% assign variant_product = all_products[variant_handle] %}
-
-          {% if variant_product != blank %}
-            {% assign variant_primary_color = variant_product.metafields.custom.primary_color | default: '' %}
-            {% assign variant_secondary_color = variant_product.metafields.custom.secondary_color | default: '' %}
-            {% assign variant_primary_hex = '' %}
-            {% assign variant_secondary_hex = '' %}
-
-            {% if variant_primary_color != blank %}
-              {% assign variant_primary_hex = variant_primary_color %}
-            {% endif %}
-            {% if variant_secondary_color != blank %}
-              {% assign variant_secondary_hex = variant_secondary_color %}
-            {% endif %}
-
-            {% if variant_primary_hex != blank %}
-              <a
-                href='{{ variant_relative_url }}'
-                class='w-5 h-5 rounded-full overflow-hidden flex flex-col border border-gray-200 mr-2'
-              >
-                {% if variant_secondary_hex != blank %}
-                  <div class='w-full h-1/2' style='background-color: {{ variant_primary_hex }};'></div>
-                  <div class='w-full h-1/2' style='background-color: {{ variant_secondary_hex }};'></div>
-                {% else %}
-                  <div class='w-full h-full' style='background-color: {{ variant_primary_hex }};'></div>
-                {% endif %}
-              </a>
-            {% endif %}
-          {% endif %}
         {% endif %}
       {% endif %}
     {% endfor %}
