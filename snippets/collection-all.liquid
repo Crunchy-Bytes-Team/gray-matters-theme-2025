@@ -151,6 +151,7 @@
               {% assign smalls_seen = 0 %}
               {% assign place_right = 1 %}
               {% assign big_card_index = 0 %}
+              {% assign last_big_card_index = display_order_size | minus: 1 %}
               {%- comment -%} 1=destra, 0=sinistra {%- endcomment -%}
 
               {%- for product in collection.products -%}
@@ -170,11 +171,16 @@
                 -%}
 
                 {%- if insert_big -%}
+                  {% if display_order_size > 0 and big_card_index >= display_order_size %}
+                    {% break %}
+                  {% endif %}
+
                   {%- comment -%} Card grande 2x2: collection e immagine da display_order + collection_image metafield {%- endcomment -%}
                   {% assign collection_for_card = '' %}
                   {% assign effective_index = big_card_index %}
-                  {% if display_order_size > 0 %}
-                    {% assign effective_index = big_card_index | modulo: display_order_size %}
+                  {% assign stop_after_last_big_card = false %}
+                  {% if display_order_size > 0 and big_card_index == last_big_card_index %}
+                    {% assign stop_after_last_big_card = true %}
                   {% endif %}
                   {% if display_order_metafield != blank and display_order_metafield.value != blank %}
                     {% assign valid_index = 0 %}
@@ -198,7 +204,15 @@
                   {% endif %}
 
                   {% assign big_image_url = default_big_image_url %}
+                  {% assign big_card_url = collection.url %}
+                  {% assign big_card_title = 'Classics' %}
+                  {% assign big_card_description = 'i nostri classici estremamente versatili e senza tempo' %}
                   {% if collection_for_card != blank %}
+                    {% assign big_card_url = collection_for_card.url %}
+                    {% assign collection_label_metafield = collection_for_card.metafields.custom.collection_label %}
+                    {% assign collection_description_metafield = collection_for_card.metafields.custom.collection_description %}
+                    {% assign big_card_title = collection_label_metafield.value | default: collection_label_metafield | default: collection_for_card.title %}
+                    {% assign big_card_description = collection_description_metafield.value | default: collection_description_metafield | default: collection_for_card.description %}
                     {% assign collection_image_metafield = collection_for_card.metafields.custom.collection_image %}
                     {% if collection_image_metafield != blank and collection_image_metafield.value != blank %}
                       {% assign big_image_url = collection_image_metafield.value | replace: '\/', '/' %}
@@ -207,13 +221,13 @@
 
                   <li class='block col-span-2 row-span-2 lg:col-span-2 lg:row-span-2 {% if place_right == 1 %}lg:col-start-3{% else %}lg:col-start-1{% endif %} relative overflow-hidden group'>
                     <a
-                      href='{% if collection_for_card != blank %}{{ collection_for_card.url }}{% else %}{{ collection.url }}{% endif %}'
+                      href='{{ big_card_url }}'
                       class='block w-full h-full lg:absolute lg:inset-0'
-                      aria-label='{% if collection_for_card != blank %}{{ collection_for_card.title | escape }}{% else %}Featured{% endif %}'
+                      aria-label='{{ big_card_title | strip_html | escape }}'
                     >
                       <img
                         src='{{ big_image_url }}'
-                        alt='{% if collection_for_card != blank %}{{ collection_for_card.title | escape }}{% else %}Featured{% endif %}'
+                        alt='{{ big_card_title | strip_html | escape }}'
                         width='800'
                         height='800'
                         class='w-full aspect-square object-cover lg:hidden'
@@ -230,18 +244,10 @@
                     <div class='flex absolute inset-0 z-20 items-center justify-center text-center lg:justify-end lg:text-left opacity-100 pointer-events-none'>
                       <div class='px-4'>
                         <h3 class='text-5xl tracking-wider font-accent text-dark-gray lg:group-hover:text-white transition-colors duration-300'>
-                          {% if collection_for_card != blank -%}
-                            {{- collection_for_card.title -}}
-                          {%- else -%}
-                            Classics
-                          {%- endif %}
+                          {{- big_card_title -}}
                         </h3>
                         <p class='mt-2 text-base tracking-wide text-dark-gray lg:group-hover:text-white transition-colors duration-300 max-w-xs'>
-                          {% if collection_for_card != blank and collection_for_card.description != blank -%}
-                            {{- collection_for_card.description | strip_html | truncate: 120 -}}
-                          {%- else -%}
-                            i nostri classici estremamente versatili e senza tempo
-                          {%- endif %}
+                          {{- big_card_description | strip_html | truncate: 120 -}}
                         </p>
                       </div>
                     </div>
@@ -283,6 +289,9 @@
                 </li>
                 {% assign smalls_seen = smalls_seen | plus: 1 %}
                 {%- assign skip_card_product_styles = true -%}
+                {% if stop_after_last_big_card and smalls_seen >= 8 %}
+                  {% break %}
+                {% endif %}
               {%- endfor -%}
             </ul>
           </div>

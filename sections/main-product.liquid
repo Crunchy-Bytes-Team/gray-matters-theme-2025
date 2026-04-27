@@ -825,15 +825,21 @@
 <div class='landscape-video-snippet bg-white w-full relative z-0 lg:z-50 {{ landscape_only_lg_classes }} px-0 lg:px-4 pb-6'>
   {% render 'landscape-video' %}
 </div>
-<div class='ugc-snippet w-full bg-white relative z-0 lg:z-50 px-0 lg:px-4 pb-6'>
-  {% render 'ugc' %}
-</div>
+{% assign ugc_module_enabled_mf = product.metafields.module.ugc_module_enabled.value %}
+{% unless ugc_module_enabled_mf == false or ugc_module_enabled_mf == 'false' %}
+  <div class='ugc-snippet w-full bg-white relative z-0 lg:z-50 px-0 lg:px-4 pb-6'>
+    {% render 'ugc' %}
+  </div>
+{% endunless %}
 <div class='w-full bg-white relative z-0 lg:z-50 px-0 lg:px-4 pb-6'>
   {% render 'vertical-image-with-text' %}
 </div>
-<div class='full-width-image-snippet bg-white w-full relative z-0 lg:z-50 px-0 lg:px-4 hidden lg:flex'>
-  {% render 'full-width-image' %}
-</div>
+{% assign image_full_module_enabled_mf = product.metafields.module.image_full_module_enabled.value %}
+{% unless image_full_module_enabled_mf == false or image_full_module_enabled_mf == 'false' %}
+  <div class='full-width-image-snippet bg-white w-full relative z-0 lg:z-50 px-0 lg:px-4 hidden lg:flex'>
+    {% render 'full-width-image' %}
+  </div>
+{% endunless %}
 <div class='yotpo-review-snippet bg-white w-full px-4 pb-6 z-0 lg:z-50 relative'>
   <div id='yotpo-review-wrapper' style='height:600px'></div>
 </div>

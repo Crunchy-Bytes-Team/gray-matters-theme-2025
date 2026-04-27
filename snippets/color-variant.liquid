@@ -72,15 +72,15 @@
 <div class='flex flex-row'>
   {% comment %} Render current product pill {% endcomment %}
   <div class='w-5 h-5 rounded-full overflow-hidden flex flex-col {{ border_class }} {{ margin_class }}'>
-    {% if current_color_image_url != blank %}
-      <div class='w-full h-full bg-cover bg-center' style='background-image: url({{ current_color_image_url | escape }});'></div>
-    {% elsif primary_hex != blank and secondary_hex != blank %}
+    {% if primary_hex != blank and secondary_hex != blank %}
       <div class='w-full h-1/2' style='background-color: {{ primary_hex }};'></div>
       <div class='w-full h-1/2' style='background-color: {{ secondary_hex }};'></div>
     {% elsif primary_hex != blank %}
       <div class='w-full h-full' style='background-color: {{ primary_hex }};'></div>
     {% elsif secondary_hex != blank %}
       <div class='w-full h-full' style='background-color: {{ secondary_hex }};'></div>
+    {% elsif current_color_image_url != blank %}
+      <div class='w-full h-full bg-cover bg-center' style='background-image: url({{ current_color_image_url | escape }});'></div>
     {% else %}
       <div class='w-full h-full' style='background-color: {{ default_color_hex }};'></div>
     {% endif %}
@@ -142,18 +142,18 @@
             href='{{ variant_relative_url }}'
             class='w-5 h-5 rounded-full overflow-hidden flex flex-col border border-gray-200 mr-2'
           >
-            {% if variant_color_image_url != blank %}
-              <div
-                class='w-full h-full bg-cover bg-center'
-                style='background-image: url({{ variant_color_image_url | escape }});'
-              ></div>
-            {% elsif variant_primary_hex != blank and variant_secondary_hex != blank %}
+            {% if variant_primary_hex != blank and variant_secondary_hex != blank %}
               <div class='w-full h-1/2' style='background-color: {{ variant_primary_hex }};'></div>
               <div class='w-full h-1/2' style='background-color: {{ variant_secondary_hex }};'></div>
             {% elsif variant_primary_hex != blank %}
               <div class='w-full h-full' style='background-color: {{ variant_primary_hex }};'></div>
             {% elsif variant_secondary_hex != blank %}
               <div class='w-full h-full' style='background-color: {{ variant_secondary_hex }};'></div>
+            {% elsif variant_color_image_url != blank %}
+              <div
+                class='w-full h-full bg-cover bg-center'
+                style='background-image: url({{ variant_color_image_url | escape }});'
+              ></div>
             {% else %}
               <div class='w-full h-full' style='background-color: {{ default_color_hex }};'></div>
             {% endif %}
