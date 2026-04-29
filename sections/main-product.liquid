@@ -151,8 +151,8 @@
                   aria-hidden='true'
                 >
                   <div
-                    class='w-full lg:w-3/4 h-40 lg:h-auto overflow-auto text-base pt-2 lg:pt-0'
-                    style='padding-right:10px'
+                    class='product-desc-scrollbar w-full lg:w-3/4 text-base pt-2 lg:pt-0'
+                    style='padding-right:10px; overflow-y:auto; max-height:25vh;'
                   >
                     {{ product.description }}
                   </div>
@@ -165,9 +165,9 @@
                     <ul class='flex flex-row items-center mb-1'>
                       <li class='bg-black w-2.5 h-[1px] mr-2'></li>
                       <li>
-                        <a class='text-xs tracking-wider uppercase' href='/pages/client-services' target='_blank'
-                          >{{ 'products.product.shipping_and_returns' | t }}</a
-                        >
+                        <a class='text-xs tracking-wider uppercase' href='/pages/client-services' target='_blank'>
+                          {{- 'products.product.shipping_and_returns' | t -}}
+                        </a>
                       </li>
                     </ul>
                     <ul class='flex flex-row items-center'>
@@ -182,7 +182,11 @@
                         </a>
                       </li>
                       <li class='mx-2'>|</li>
-                      <li><a class='text-xs tracking-wider uppercase' href='/pages/contact-us'>{{ 'products.product.contact_us' | t }}</a></li>
+                      <li>
+                        <a class='text-xs tracking-wider uppercase' href='/pages/contact-us'>
+                          {{- 'products.product.contact_us' | t -}}
+                        </a>
+                      </li>
                     </ul>
                   </div>
                 </div>

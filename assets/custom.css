@@ -68,6 +68,29 @@ select:focus {
   margin-bottom: 10px;
 }
 
+.product-desc-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-gutter: stable;
+}
+
+.product-desc-scrollbar::-webkit-scrollbar {
+  width: 8px;
+}
+
+.product-desc-scrollbar::-webkit-scrollbar-track {
+  background-color: #e6e6e6;
+  border-radius: 999px;
+}
+
+.product-desc-scrollbar::-webkit-scrollbar-track-piece {
+  background-color: #e6e6e6;
+}
+
+.product-desc-scrollbar::-webkit-scrollbar-thumb {
+  background-color: #222323;
+  border-radius: 999px;
+}
+
 /* Grassetto nella descrizione: usa il font semi-bold per compatibilità Chrome */
 .product_desc strong {
   font-family: 'proxima-semi-bold', sans-serif;
@@ -520,4 +543,8 @@ select:focus {
 
 .ly-switcher-wrapper {
   display: none;
+}
+
+.relative-products-snippet {
+  display: none !important;
 }

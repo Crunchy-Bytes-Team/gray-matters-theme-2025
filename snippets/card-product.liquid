@@ -269,7 +269,7 @@
 
           {% if card_product.has_only_default_variant == false %}
             <div class='card-variants text-xs mb-2 hidden lg:block'>
-              {%- comment -%} Elenco valori variante (es. 35, 36, 37) al posto di "tot varianti disponibili" {%- endcomment -%}
+              {%- comment -%} Taglie con almeno una variante acquistabile (available); nascoste quelle esaurite {%- endcomment -%}
               {% assign size_option_index = 0 %}
               {% for opt in card_product.options %}
                 {% assign opt_down = opt | downcase %}
@@ -300,8 +300,8 @@
                   | remove: 'PREO'
                   | strip
                 %}
-                {%- comment -%} Escludi la taglia 35 ed evita duplicati sul valore pulito {%- endcomment -%}
-                {% if value_clean != blank and value_clean != '35' %}
+                {%- comment -%} Escludi la taglia 35, solo varianti disponibili; evita duplicati sul valore pulito {%- endcomment -%}
+                {% if v.available and value_clean != blank and value_clean != '35' %}
                   {% assign needle = '|' | append: value_clean | append: '|' %}
                   {% unless printed_values contains needle %}
                     {% if size_values != '' %}

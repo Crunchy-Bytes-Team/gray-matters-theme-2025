@@ -117,13 +117,9 @@
               {% assign skip_card_product_styles = false %}
 
               {%- comment -%}
-                Inserisce una card grande 2x2 con immagine dedicata a intervalli regolari:
-                - Prima card grande: in alto a destra (lg:col-start-3)
-                - Poi due righe complete (8 card piccole)
-                - Poi card grande a sinistra (lg:col-start-1)
-                - Poi di nuovo due righe piccole e si alterna.
-                Immagini e link/titolo per le card grandi provengono da shop metafield
-                gray_matters.collections_display_order e da custom.collection_image (big_image_url) su ogni collection.
+                Card 2x2 da shop metafield gray_matters.collections_display_order + custom.collection_image:
+                12 product card tra un 2x2 e il successivo; dopo l'ultimo 2x2 tutti i product rimanenti.
+                Alternanza sinistra/destra (lg:col-start-1 / lg:col-start-3).
               {%- endcomment -%}
 
               {% assign display_order_metafield = shop.metafields.gray_matters.collections_display_order %}
@@ -146,13 +142,11 @@
 
               {% assign default_big_image_url = 'https://cdn.shopify.com/s/files/1/0012/4079/3193/files/RSQ_FW23_LookBook_Clara_Pumps_Cacao_018.jpg?v=1715089721' %}
               {% assign smalls_per_block = 12 %}
-              {%- comment -%} 4 per chiudere i buchi lasciati dal 2x2 + 8 per due righe complete = 12 {%- endcomment -%}
 
               {% assign smalls_seen = 0 %}
               {% assign place_right = 1 %}
               {% assign big_card_index = 0 %}
-              {% assign last_big_card_index = display_order_size | minus: 1 %}
-              {%- comment -%} 1=destra, 0=sinistra {%- endcomment -%}
+              {%- comment -%} place_right: 1=destra, 0=sinistra {%- endcomment -%}
 
               {%- for product in collection.products -%}
                 {% assign lazy_load = false %}
@@ -164,24 +158,15 @@
                   assign insert_big = false
                   if forloop.first
                     assign insert_big = true
-                  endif
-                  if insert_big == false and smalls_seen >= smalls_per_block
+                  elsif smalls_seen >= smalls_per_block and display_order_size > 0 and big_card_index < display_order_size
                     assign insert_big = true
                   endif
                 -%}
 
                 {%- if insert_big -%}
-                  {% if display_order_size > 0 and big_card_index >= display_order_size %}
-                    {% break %}
-                  {% endif %}
-
                   {%- comment -%} Card grande 2x2: collection e immagine da display_order + collection_image metafield {%- endcomment -%}
                   {% assign collection_for_card = '' %}
                   {% assign effective_index = big_card_index %}
-                  {% assign stop_after_last_big_card = false %}
-                  {% if display_order_size > 0 and big_card_index == last_big_card_index %}
-                    {% assign stop_after_last_big_card = true %}
-                  {% endif %}
                   {% if display_order_metafield != blank and display_order_metafield.value != blank %}
                     {% assign valid_index = 0 %}
                     {% for item in display_order_metafield.value %}
@@ -289,9 +274,6 @@
                 </li>
                 {% assign smalls_seen = smalls_seen | plus: 1 %}
                 {%- assign skip_card_product_styles = true -%}
-                {% if stop_after_last_big_card and smalls_seen >= 8 %}
-                  {% break %}
-                {% endif %}
               {%- endfor -%}
             </ul>
           </div>
