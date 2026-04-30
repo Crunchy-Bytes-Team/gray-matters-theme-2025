@@ -6,7 +6,9 @@ if (!customElements.get('product-form')) {
         super();
 
         this.form = this.querySelector('form');
-        this.submitButton = this.querySelector('[type="submit"]');
+        this.submitButton = this.form?.querySelector(
+          '.add-to-cart-button button',
+        );
 
         if (!this.form || !this.submitButton) return;
 
@@ -14,15 +16,23 @@ if (!customElements.get('product-form')) {
         if (variantInput) variantInput.disabled = false;
 
         this.submitButtonText = this.submitButton.querySelector('span');
-        this.loadingSpinner = this.querySelector('.loading__spinner');
+        this.loadingSpinner =
+          this.submitButton.querySelector('.loading__spinner') ||
+          this.querySelector('.loading__spinner');
 
         this.cart =
           document.querySelector('cart-notification') ||
           document.querySelector('cart-drawer');
         this.form.addEventListener('submit', this.onSubmitHandler.bind(this));
 
-        if (document.querySelector('cart-drawer'))
-          this.submitButton.setAttribute('aria-haspopup', 'dialog');
+        if (document.querySelector('cart-drawer')) {
+          const inquireTrigger =
+            this.submitButton.getAttribute('data-modal-trigger') !==
+            'inquire-modal';
+          if (inquireTrigger && this.submitButton.matches('[type="submit"]')) {
+            this.submitButton.setAttribute('aria-haspopup', 'dialog');
+          }
+        }
 
         this.hideErrors = this.dataset.hideErrors === 'true';
       }
@@ -142,14 +152,27 @@ if (!customElements.get('product-form')) {
 
       toggleSubmitButton(disable = true, text) {
         if (!this.submitButton) return;
+        const isInquire =
+          this.submitButton.getAttribute('data-modal-trigger') ===
+          'inquire-modal';
+
         if (disable) {
-          this.submitButton.setAttribute('disabled', 'disabled');
-          if (text && this.submitButtonText)
-            this.submitButtonText.textContent = text;
+          if (isInquire) {
+            this.submitButton.removeAttribute('disabled');
+            if (text && this.submitButtonText) {
+              this.submitButtonText.textContent = text;
+            }
+          } else {
+            this.submitButton.setAttribute('disabled', 'disabled');
+            if (text && this.submitButtonText) {
+              this.submitButtonText.textContent = text;
+            }
+          }
         } else {
           this.submitButton.removeAttribute('disabled');
-          if (this.submitButtonText)
+          if (this.submitButtonText) {
             this.submitButtonText.textContent = window.variantStrings.addToCart;
+          }
         }
       }
 

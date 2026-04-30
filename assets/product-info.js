@@ -247,11 +247,26 @@ if (!customElements.get('product-info')) {
             `#Volume-Note-${this.dataset.section}`,
           )?.classList.remove('hidden');
 
+          const submitEl = html.getElementById(
+            `ProductSubmitButton-${this.sectionId}`,
+          );
+          const disable = submitEl ? submitEl.hasAttribute('disabled') : true;
+
+          let disabledLabel = window.variantStrings.inquire;
+          if (submitEl?.hasAttribute('disabled')) {
+            disabledLabel = window.variantStrings.inventoryOutOfStock;
+          } else if (variant && variant.available === false) {
+            const onSale =
+              variant.compare_at_price != null &&
+              variant.compare_at_price > variant.price;
+            disabledLabel = onSale
+              ? window.variantStrings.inventoryOutOfStock
+              : window.variantStrings.inquire;
+          }
+
           this.productForm?.toggleSubmitButton(
-            html
-              .getElementById(`ProductSubmitButton-${this.sectionId}`)
-              ?.hasAttribute('disabled') ?? true,
-            window.variantStrings.soldOut,
+            disable,
+            disable ? disabledLabel : undefined,
           );
 
           publish(PUB_SUB_EVENTS.variantChange, {

@@ -89,6 +89,13 @@
                   break
                 endif
               endfor
+              assign variant_on_sale = false
+              if product.selected_or_first_available_variant != null
+                assign v_for_sale = product.selected_or_first_available_variant
+                if v_for_sale.compare_at_price > v_for_sale.price
+                  assign variant_on_sale = true
+                endif
+              endif
             -%}
             {%- if variant_available -%}
               <button
@@ -101,14 +108,26 @@
                 {%- render 'loading-spinner' -%}
               </button>
             {%- else -%}
-              <button
-                type='button'
-                class='uppercase add-to-cart-button btn-dark product-form__submit px-6 h-10 lg:h-8 transition-colors w-full {% if show_dynamic_checkout %}bg-gray-200 text-gray-900 hover:bg-gray-300 focus:ring-2 focus:ring-gray-500{% else %}bg-blue-600 text-white hover:bg-blue-700 focus:ring-2 focus:ring-blue-500{% endif %}'
-                data-modal-trigger='inquire-modal'
-                {% if size_option_value != '' %}data-inquire-size='{{ size_option_value | escape }}'{% endif %}
-              >
-                <span class='text-15'>{{ 'products.product.inquire' | t }}</span>
-              </button>
+              {%- if variant_on_sale -%}
+                <button
+                  id='ProductSubmitButton-{{ section_id }}'
+                  type='submit'
+                  name='add'
+                  disabled
+                  class='uppercase add-to-cart-button btn-dark product-form__submit px-6 h-10 lg:h-8 transition-colors w-full {% if show_dynamic_checkout %}bg-gray-200 text-gray-900 hover:bg-gray-300 focus:ring-2 focus:ring-gray-500{% else %}bg-blue-600 text-white hover:bg-blue-700 focus:ring-2 focus:ring-blue-500{% endif %}'
+                >
+                  <span class='text-15'>{{ 'products.product.inventory_out_of_stock' | t }}</span>
+                </button>
+              {%- else -%}
+                <button
+                  type='button'
+                  class='uppercase add-to-cart-button btn-dark product-form__submit px-6 h-10 lg:h-8 transition-colors w-full {% if show_dynamic_checkout %}bg-gray-200 text-gray-900 hover:bg-gray-300 focus:ring-2 focus:ring-gray-500{% else %}bg-blue-600 text-white hover:bg-blue-700 focus:ring-2 focus:ring-blue-500{% endif %}'
+                  data-modal-trigger='inquire-modal'
+                  {% if size_option_value != '' %}data-inquire-size='{{ size_option_value | escape }}'{% endif %}
+                >
+                  <span class='text-15'>{{ 'products.product.inquire' | t }}</span>
+                </button>
+              {%- endif -%}
             {%- endif -%}
             <!--
               >
