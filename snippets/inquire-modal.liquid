@@ -118,7 +118,7 @@
                 <option value=''>{{ 'templates.contact.form.requested_size' | t }}</option>
                 {%- for size_val in size_values_array -%}
                   {%- if size_val != '' -%}
-                    <option value='{{ size_val | escape }}'>{{ size_val }} - {{ 'products.product.inquire' | t }}</option>
+                    <option value='{{ size_val | escape }}'>{{ size_val }} - {{ 'products.product.inquire' | t | upcase }}</option>
                   {%- endif -%}
                 {%- endfor -%}
               </select>
