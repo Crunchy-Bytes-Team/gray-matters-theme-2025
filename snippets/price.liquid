@@ -32,9 +32,12 @@
   assign price_truncated = price | divided_by: 100 | times: 100
   assign price_min_truncated = price_min | divided_by: 100 | times: 100
   assign price_max_truncated = price_max | divided_by: 100 | times: 100
-  assign money_price = price_truncated | money_without_trailing_zeros
-  assign money_price_min = price_min_truncated | money_without_trailing_zeros
-  assign money_price_max = price_max_truncated | money_without_trailing_zeros
+  comment
+    Mostra solo simbolo + importo: i filtri money possono includere il codice ISO (es. "€472 EUR").
+  endcomment
+  assign money_price = price_truncated | money_without_trailing_zeros | remove: cart.currency.iso_code | strip
+  assign money_price_min = price_min_truncated | money_without_trailing_zeros | remove: cart.currency.iso_code | strip
+  assign money_price_max = price_max_truncated | money_without_trailing_zeros | remove: cart.currency.iso_code | strip
   assign compare_at_truncated = compare_at_price | divided_by: 100 | times: 100
 
   if target == product and product.price_varies
@@ -68,11 +71,14 @@
               </span>
               <span class='proxima-reg uppercase tracking-wider text-15'>
                 <s class='price-item price-item--regular variant-item__old-price proxima-reg uppercase tracking-wider text-15'>
-                  {% if settings.currency_code_enabled %}
-                    {{ compare_at_truncated | money_with_currency | replace: '.00', '' | replace: ',00', '' }}
-                  {% else %}
-                    {{ compare_at_truncated | money_without_trailing_zeros }}
-                  {% endif %}
+                  {{-
+                    compare_at_truncated
+                    | money_without_trailing_zeros
+                    | remove: cart.currency.iso_code
+                    | strip
+                    | replace: '.00', ''
+                    | replace: ',00', ''
+                  -}}
                 </s>
               </span>
             {%- endunless -%}
@@ -100,11 +106,14 @@
           <span class='visually-hidden visually-hidden--inline'>{{ 'products.product.price.regular_price' | t }}</span>
           <span>
             <s class='price-item price-item--regular proxima-reg uppercase tracking-wider text-15'>
-              {% if settings.currency_code_enabled %}
-                {{ compare_at_truncated | money_with_currency | replace: '.00', '' | replace: ',00', '' }}
-              {% else %}
-                {{ compare_at_truncated | money_without_trailing_zeros }}
-              {% endif %}
+              {{-
+                compare_at_truncated
+                | money_without_trailing_zeros
+                | remove: cart.currency.iso_code
+                | strip
+                | replace: '.00', ''
+                | replace: ',00', ''
+              -}}
             </s>
           </span>
         {%- endunless -%}
