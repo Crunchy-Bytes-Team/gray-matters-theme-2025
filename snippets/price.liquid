@@ -5,7 +5,7 @@
   - product: {Object} Product Liquid object (optional)
   - placeholder: {Boolean} Renders a placeholder price (optional)
   - use_variant: {Boolean} Renders selected or first variant price instead of overall product pricing (optional)
-  - show_badges: {Boolean} Renders 'Sale' and 'Sold Out' tags if the product matches the condition (optional)
+  - show_badges: {Boolean} Reserved; sale/sold-out labels next to the price are not rendered (optional)
   - price_class: {String} Adds a price class to the price element (optional)
   - show_compare_at_price: {Boolean} Renders the compare at price if the product matches the condition (optional)
 
@@ -51,7 +51,6 @@
       {%- if compare_at_price > price and product.quantity_price_breaks_configured? != true %} price--on-sale{% endif -%}
       {%- if compare_at_price > price and product.quantity_price_breaks_configured? %} volume-pricing--sale-badge{% endif -%}
       {%- if product.price_varies == false and product.compare_at_price_varies %} price--no-compare{% endif -%}
-      {%- if show_badges %} price--show-badge{% endif -%}
     '
   >
     <div class='price__container flex flex-row items-center lg:items-start mb-0 lg:mb-1'>
@@ -132,16 +131,5 @@
         </small>
       -->
     </div>
-    {%- if show_badges -%}
-      <span class='badge price__badge-sale color-{{ settings.sale_badge_color_scheme }}'>
-        {{ 'products.product.on_sale' | t }}
-      </span>
-
-      {% comment %}
-        <span class='badge price__badge-sold-out color-{{ settings.sold_out_badge_color_scheme }}'>
-          {{ 'products.product.sold_out' | t }}
-        </span>
-      {% endcomment %}
-    {%- endif -%}
   </div>
 {% endunless %}
