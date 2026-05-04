@@ -1,0 +1,25 @@
+{%- comment -%}
+  Outputs a relative URL for the given `language` (shop_locale) so the visitor
+  stays on the same path when switching language (locale prefix only changes).
+{%- endcomment -%}
+{%- liquid
+  assign current_lang_root = localization.language.root_url | default: '/'
+  assign req_path = request.path | default: '/'
+
+  if current_lang_root == '/' or current_lang_root == blank
+    assign lang_path_suffix = req_path
+  else
+    assign lang_path_suffix = req_path | remove_first: current_lang_root
+    if lang_path_suffix == blank
+      assign lang_path_suffix = '/'
+    endif
+  endif
+
+  assign target_root = language.root_url | default: '/'
+  if target_root == '/' or target_root == blank
+    assign lang_url = lang_path_suffix
+  else
+    assign lang_url = target_root | append: lang_path_suffix | replace: '//', '/'
+  endif
+-%}
+{{- lang_url -}}
