@@ -6,7 +6,7 @@
   <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-20 relative">
     <!-- Left Column: LOGIN -->
     <div class="order-2 md:order-1 mt-20 md:mt-0">
-      <h1 id="login" class="text-2xl md:text-3xl font-bold uppercase tracking-wider mb-6 pb-8 md:pb-20 text-center" tabindex="-1">
+      <h1 id="login" class="text-lg md:text-xl font-bold uppercase tracking-wider mb-4 pb-6 md:pb-14 text-center" tabindex="-1">
         {{ 'customer.login_page.title' | t }}
       </h1>
 
@@ -27,7 +27,7 @@
               autocorrect="off"
               autocapitalize="off"
               autocomplete="email"
-              class="w-full px-4 py-4 bg-gray-50 focus:outline-none"
+              class="w-full px-4 py-4 bg-gray-50 placeholder:text-black focus:outline-none"
               {% if form.errors %}
                 aria-invalid="true"
                 aria-describedby="RecoverEmail-email-error"
@@ -94,7 +94,7 @@
               autocomplete="email"
               autocorrect="off"
               autocapitalize="off"
-              class="w-full px-4 py-4 bg-gray-50 focus:outline-none"
+              class="w-full px-4 py-4 bg-gray-50 placeholder:text-black focus:outline-none"
               {% if form.errors contains 'form' %}
                 aria-invalid="true"
               {% endif %}
@@ -110,7 +110,7 @@
                 name="customer[password]"
                 id="CustomerPassword"
                 autocomplete="current-password"
-                class="w-full px-4 py-4 pr-12 bg-gray-50 focus:outline-none"
+                class="w-full px-4 py-4 pr-12 bg-gray-50 placeholder:text-black focus:outline-none"
                 {% if form.errors contains 'form' %}
                   aria-invalid="true"
                 {% endif %}
@@ -154,7 +154,7 @@
     <!-- Right Column: CREATE ACCOUNT -->
     <div class="order-1 md:order-2">
       <div class="md:border-l md:border-gray-200 md:pl-12">
-        <h1 class="text-2xl md:text-3xl font-bold uppercase tracking-wider mb-6 pb-8 md:pb-20 text-center">
+        <h1 class="text-lg md:text-xl font-bold uppercase tracking-wider mb-4 pb-6 md:pb-14 text-center">
           {{ 'customer.register.title' | t }}
         </h1>
 
@@ -177,7 +177,7 @@
               id="RegisterForm-FirstName"
               {% if form.first_name %}value="{{ form.first_name }}"{% endif %}
               autocomplete="given-name"
-              class="w-full px-4 py-4 bg-gray-50 focus:outline-none"
+              class="w-full px-4 py-4 bg-gray-50 placeholder:text-black focus:outline-none"
               placeholder="{{ 'customer.register.first_name' | t }}"
             >
           </div>
@@ -189,7 +189,7 @@
               id="RegisterForm-LastName"
               {% if form.last_name %}value="{{ form.last_name }}"{% endif %}
               autocomplete="family-name"
-              class="w-full px-4 py-4 bg-gray-50 focus:outline-none"
+              class="w-full px-4 py-4 bg-gray-50 placeholder:text-black focus:outline-none"
               placeholder="{{ 'customer.register.last_name' | t }}"
             >
           </div>
@@ -208,7 +208,7 @@
                 aria-invalid="true"
                 aria-describedby="RegisterForm-email-error"
               {% endif %}
-              class="w-full px-4 py-4 bg-gray-50 focus:outline-none"
+              class="w-full px-4 py-4 bg-gray-50 placeholder:text-black focus:outline-none"
               placeholder="{{ 'customer.register.email' | t }}"
             >
             {%- if form.errors contains 'email' -%}
@@ -223,7 +223,7 @@
               type="text"
               name="customer[note][Shoe Size]"
               id="RegisterForm-ShoeSize"
-              class="w-full px-4 py-4 bg-gray-50 focus:outline-none"
+              class="w-full px-4 py-4 bg-gray-50 placeholder:text-black focus:outline-none"
               placeholder="Shoe Size"
             >
           </div>
@@ -238,7 +238,7 @@
                 aria-invalid="true"
                 aria-describedby="RegisterForm-password-error"
               {% endif %}
-              class="w-full px-4 py-4 pr-12 bg-gray-50 focus:outline-none"
+              class="w-full px-4 py-4 pr-12 bg-gray-50 placeholder:text-black focus:outline-none"
               placeholder="{{ 'customer.register.password' | t }}"
             >
             <button
