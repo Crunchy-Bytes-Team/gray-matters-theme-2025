@@ -13,63 +13,80 @@
     -webkit-text-fill-color: inherit;
     caret-color: auto;
   }
+
+  /* Bordo sopra il blocco login solo < breakpoint md del tema (750px), indipendente dal build Tailwind */
+  @media not all and (min-width: 750px) {
+    .main-login-section .main-login__login-col {
+      border-top: 1px solid rgb(229 231 235);
+      padding-top: 1rem;
+    }
+  }
 </style>
 
-<div class="main-login-section max-w-7xl mx-auto px-6 md:px-20 py-20 md:py-40">
-  <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-20 relative">
+<div class='main-login-section max-w-7xl mx-auto px-6 md:px-20 py-20 md:py-40'>
+  <div class='grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-20 relative'>
     <!-- Left Column: LOGIN -->
-    <div class="order-2 md:order-1 mt-20 md:mt-0">
-      <h1 id="login" class="text-lg md:text-xl font-bold uppercase tracking-wider mb-4 pb-6 md:pb-14 text-center" tabindex="-1">
+    <div
+      class='main-login__login-col order-2 md:order-1 mt-1 md:mt-0'
+    >
+      <h1
+        id='login'
+        class='max-md:mt-5 text-lg md:text-xl font-bold uppercase tracking-wider mb-4 pb-6 md:pb-14 text-center md:pt-0 pt-1'
+        tabindex='-1'
+      >
         {{ 'customer.login_page.title' | t }}
       </h1>
 
       <!-- Recover Password Form (hidden by default, shown when #recover link is clicked) -->
-      <div id="recover" class="hidden mb-8">
-        <p class="mb-4 text-sm">
+      <div id='recover' class='hidden mb-8'>
+        <p class='mb-4 text-sm'>
           {{ 'customer.recover_password.subtext' | t }}
         </p>
 
         {%- form 'recover_customer_password' -%}
           {% assign recover_success = form.posted_successfully? %}
-          <div class="mb-4">
+          <div class='mb-4'>
             <input
-              type="email"
-              value=""
-              name="email"
-              id="RecoverEmail"
-              autocorrect="off"
-              autocapitalize="off"
-              autocomplete="email"
-              class="w-full px-4 py-4 bg-gray-50 placeholder:text-black focus:outline-none"
+              type='email'
+              value=''
+              name='email'
+              id='RecoverEmail'
+              autocorrect='off'
+              autocapitalize='off'
+              autocomplete='email'
+              class='w-full px-4 py-4 bg-gray-50 placeholder:text-black focus:outline-none'
               {% if form.errors %}
-                aria-invalid="true"
-                aria-describedby="RecoverEmail-email-error"
+                aria-invalid='true'
+                aria-describedby='RecoverEmail-email-error'
                 autofocus
               {% endif %}
-              placeholder="{{ 'customer.login_page.email' | t }}"
+              placeholder='{{ 'customer.login_page.email' | t }}'
             >
             {%- if form.errors -%}
-              <small id="RecoverEmail-email-error" class="block mt-2 text-sm text-red-600">
+              <small id='RecoverEmail-email-error' class='block mt-2 text-sm text-red-600'>
                 {{ form.errors.messages.form }}
               </small>
             {%- endif -%}
           </div>
 
-          <button type="submit" class="w-full bg-black text-white py-3 px-6 uppercase tracking-wider text-sm font-semibold hover:opacity-90 transition-opacity">
+          <button
+            type='submit'
+            class='w-full bg-black text-white py-3 px-6 uppercase tracking-wider text-sm font-semibold hover:opacity-90 transition-opacity'
+          >
             {{ 'customer.login_page.submit' | t }}
           </button>
 
-          <a href="#login" class="block mt-4 text-sm underline text-center">
+          <a href='#login' class='block mt-4 text-sm underline text-center'>
             {{ 'customer.login_page.cancel' | t }}
           </a>
         {%- endform -%}
       </div>
 
       <!-- Login Form -->
-      <div id="login-form">
+      <div id='login-form'>
         {%- if recover_success == true -%}
-          <div class="mb-6 p-4 bg-green-50 border border-green-200 rounded">
-            <p class="text-sm text-green-800">
+          <div class='mb-6 p-4 bg-green-50 border border-green-200 rounded'>
+            <p class='text-sm text-green-800'>
               {{ 'customer.recover_password.success' | t }}
             </p>
           </div>
@@ -77,71 +94,74 @@
 
         {%- form 'customer_login', novalidate: 'novalidate' -%}
           {%- if form.errors -%}
-            <div class="mb-6 p-4 bg-red-50 border border-red-200 rounded">
-              <h2 class="text-sm font-semibold text-red-800 mb-2" tabindex="-1" autofocus>
+            <div class='mb-6 p-4 bg-red-50 border border-red-200 rounded'>
+              <h2 class='text-sm font-semibold text-red-800 mb-2' tabindex='-1' autofocus>
                 {{ 'templates.contact.form.error_heading' | t }}
               </h2>
-              <div class="text-sm text-red-600">
+              <div class='text-sm text-red-600'>
                 {{ form.errors | default_errors }}
               </div>
             </div>
           {%- endif -%}
 
-          <div class="mb-4">
+          <div class='mb-4'>
             <input
-              type="email"
-              name="customer[email]"
-              id="CustomerEmail"
-              autocomplete="email"
-              autocorrect="off"
-              autocapitalize="off"
-              class="w-full px-4 py-4 bg-gray-50 placeholder:text-black focus:outline-none"
+              type='email'
+              name='customer[email]'
+              id='CustomerEmail'
+              autocomplete='email'
+              autocorrect='off'
+              autocapitalize='off'
+              class='w-full px-4 py-4 bg-gray-50 placeholder:text-black focus:outline-none'
               {% if form.errors contains 'form' %}
-                aria-invalid="true"
+                aria-invalid='true'
               {% endif %}
-              placeholder="{{ 'customer.login_page.email' | t }}"
+              placeholder='{{ 'customer.login_page.email' | t }}'
             >
           </div>
 
           {%- if form.password_needed -%}
-            <div class="mb-4 relative">
+            <div class='mb-4 relative'>
               <input
-                type="password"
-                value=""
-                name="customer[password]"
-                id="CustomerPassword"
-                autocomplete="current-password"
-                class="w-full px-4 py-4 pr-12 bg-gray-50 placeholder:text-black focus:outline-none"
+                type='password'
+                value=''
+                name='customer[password]'
+                id='CustomerPassword'
+                autocomplete='current-password'
+                class='w-full px-4 py-4 pr-12 bg-gray-50 placeholder:text-black focus:outline-none'
                 {% if form.errors contains 'form' %}
-                  aria-invalid="true"
+                  aria-invalid='true'
                 {% endif %}
-                placeholder="{{ 'customer.login_page.password' | t }}"
+                placeholder='{{ 'customer.login_page.password' | t }}'
               >
               <button
-                type="button"
-                class="absolute right-4 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700 focus:outline-none"
-                aria-label="Toggle password visibility"
+                type='button'
+                class='absolute right-4 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700 focus:outline-none'
+                aria-label='Toggle password visibility'
                 onclick="togglePasswordVisibility('CustomerPassword', this)"
               >
-                <i class="fa-solid fa-eye"></i>
+                <i class='fa-solid fa-eye'></i>
               </button>
             </div>
           {%- endif -%}
 
-          <button type="submit" class="w-full bg-black text-white py-3 px-6 uppercase tracking-wider text-sm font-semibold hover:opacity-90 transition-opacity mb-12">
+          <button
+            type='submit'
+            class='w-full bg-black text-white py-3 px-6 uppercase tracking-wider text-sm font-semibold hover:opacity-90 transition-opacity mb-12'
+          >
             {{ 'customer.login_page.sign_in' | t }}
           </button>
 
           {%- if form.password_needed -%}
-            <a href="#recover" class="block text-sm text-center hover:opacity-70 transition-opacity">
+            <a href='#recover' class='block text-sm text-center hover:opacity-70 transition-opacity'>
               {{ 'customer.login_page.forgot_password' | t }}
             </a>
           {%- endif -%}
 
           {%- if shop.features.login_with_shop_classic_customer_accounts? -%}
-            <section name="sign-in-with-shop-provider" class="mt-6">
+            <section name='sign-in-with-shop-provider' class='mt-6'>
               {%- unless hide_shop_login_button -%}
-                <p class="text-sm text-center my-4 text-gray-600">
+                <p class='text-sm text-center my-4 text-gray-600'>
                   {{ 'customer.login_page.alternate_provider_separator' | t }}
                 </p>
               {%- endunless -%}
@@ -152,10 +172,15 @@
       </div>
 
       {%- if shop.checkout.guest_login -%}
-        <div class="mt-8 pt-8 border-t border-gray-200">
-          <h2 class="text-lg font-semibold uppercase tracking-wider mb-4">{{ 'customer.login_page.guest_title' | t }}</h2>
+        <div class='mt-8 pt-8 border-t border-gray-200 bordo1'>
+          <h2 class='text-lg font-semibold uppercase tracking-wider mb-4'>
+            {{ 'customer.login_page.guest_title' | t }}
+          </h2>
           {%- form 'guest_login' -%}
-            <button type="submit" class="w-full bg-black text-white py-3 px-6 uppercase tracking-wider text-sm font-semibold hover:opacity-90 transition-opacity">
+            <button
+              type='submit'
+              class='w-full bg-black text-white py-3 px-6 uppercase tracking-wider text-sm font-semibold hover:opacity-90 transition-opacity'
+            >
               {{ 'customer.login_page.guest_continue' | t }}
             </button>
           {%- endform -%}
@@ -164,111 +189,122 @@
     </div>
 
     <!-- Right Column: CREATE ACCOUNT -->
-    <div class="order-1 md:order-2">
-      <div class="md:border-l md:border-gray-200 md:pl-12">
-        <h1 class="text-lg md:text-xl font-bold uppercase tracking-wider mb-4 pb-6 md:pb-14 text-center">
+    <div class='order-1 md:order-2'>
+      <div class='md:border-l md:border-gray-200 md:pl-12 bordo2'>
+        <h1 class='text-lg md:text-xl font-bold uppercase tracking-wider mb-4 pb-6 md:pb-14 text-center'>
           {{ 'customer.register.title' | t }}
         </h1>
 
         {%- form 'create_customer' -%}
           {%- if form.errors -%}
-            <div class="mb-6 p-4 bg-red-50 border border-red-200 rounded">
-              <h2 class="text-sm font-semibold text-red-800 mb-2" tabindex="-1" autofocus>
+            <div class='mb-6 p-4 bg-red-50 border border-red-200 rounded'>
+              <h2 class='text-sm font-semibold text-red-800 mb-2' tabindex='-1' autofocus>
                 {{ 'templates.contact.form.error_heading' | t }}
               </h2>
-              <div class="text-sm text-red-600">
+              <div class='text-sm text-red-600'>
                 {{ form.errors | default_errors }}
               </div>
             </div>
           {%- endif -%}
 
-          <div class="mb-4">
+          <div class='mb-4'>
             <input
-              type="text"
-              name="customer[first_name]"
-              id="RegisterForm-FirstName"
-              {% if form.first_name %}value="{{ form.first_name }}"{% endif %}
-              autocomplete="given-name"
-              class="w-full px-4 py-4 bg-gray-50 placeholder:text-black focus:outline-none"
-              placeholder="{{ 'customer.register.first_name' | t }}"
-            >
-          </div>
-
-          <div class="mb-4">
-            <input
-              type="text"
-              name="customer[last_name]"
-              id="RegisterForm-LastName"
-              {% if form.last_name %}value="{{ form.last_name }}"{% endif %}
-              autocomplete="family-name"
-              class="w-full px-4 py-4 bg-gray-50 placeholder:text-black focus:outline-none"
-              placeholder="{{ 'customer.register.last_name' | t }}"
-            >
-          </div>
-
-          <div class="mb-4">
-            <input
-              type="email"
-              name="customer[email]"
-              id="RegisterForm-email"
-              {% if form.email %}value="{{ form.email }}"{% endif %}
-              spellcheck="false"
-              autocapitalize="off"
-              autocomplete="email"
-              aria-required="true"
-              {% if form.errors contains 'email' %}
-                aria-invalid="true"
-                aria-describedby="RegisterForm-email-error"
+              type='text'
+              name='customer[first_name]'
+              id='RegisterForm-FirstName'
+              {% if form.first_name %}
+                value='{{ form.first_name }}'
               {% endif %}
-              class="w-full px-4 py-4 bg-gray-50 placeholder:text-black focus:outline-none"
-              placeholder="{{ 'customer.register.email' | t }}"
+              autocomplete='given-name'
+              class='w-full px-4 py-4 bg-gray-50 placeholder:text-black focus:outline-none'
+              placeholder='{{ 'customer.register.first_name' | t }}'
+            >
+          </div>
+
+          <div class='mb-4'>
+            <input
+              type='text'
+              name='customer[last_name]'
+              id='RegisterForm-LastName'
+              {% if form.last_name %}
+                value='{{ form.last_name }}'
+              {% endif %}
+              autocomplete='family-name'
+              class='w-full px-4 py-4 bg-gray-50 placeholder:text-black focus:outline-none'
+              placeholder='{{ 'customer.register.last_name' | t }}'
+            >
+          </div>
+
+          <div class='mb-4'>
+            <input
+              type='email'
+              name='customer[email]'
+              id='RegisterForm-email'
+              {% if form.email %}
+                value='{{ form.email }}'
+              {% endif %}
+              spellcheck='false'
+              autocapitalize='off'
+              autocomplete='email'
+              aria-required='true'
+              {% if form.errors contains 'email' %}
+                aria-invalid='true'
+                aria-describedby='RegisterForm-email-error'
+              {% endif %}
+              class='w-full px-4 py-4 bg-gray-50 placeholder:text-black focus:outline-none'
+              placeholder='{{ 'customer.register.email' | t }}'
             >
             {%- if form.errors contains 'email' -%}
-              <small id="RegisterForm-email-error" class="block mt-2 text-sm text-red-600">
-                {{ form.errors.translated_fields['email'] | capitalize }} {{ form.errors.messages['email'] }}.
+              <small id='RegisterForm-email-error' class='block mt-2 text-sm text-red-600'>
+                {{ form.errors.translated_fields.email | capitalize }}
+                {{ form.errors.messages.email }}.
               </small>
             {%- endif -%}
           </div>
 
-          <div class="mb-4">
+          <div class='mb-4'>
             <input
-              type="text"
-              name="customer[note][Shoe Size]"
-              id="RegisterForm-ShoeSize"
-              class="w-full px-4 py-4 bg-gray-50 placeholder:text-black focus:outline-none"
-              placeholder="Shoe Size"
+              type='text'
+              name='customer[note][Shoe Size]'
+              id='RegisterForm-ShoeSize'
+              class='w-full px-4 py-4 bg-gray-50 placeholder:text-black focus:outline-none'
+              placeholder='Shoe Size'
             >
           </div>
 
-          <div class="mb-4 relative">
+          <div class='mb-4 relative'>
             <input
-              type="password"
-              name="customer[password]"
-              id="RegisterForm-password"
-              aria-required="true"
+              type='password'
+              name='customer[password]'
+              id='RegisterForm-password'
+              aria-required='true'
               {% if form.errors contains 'password' %}
-                aria-invalid="true"
-                aria-describedby="RegisterForm-password-error"
+                aria-invalid='true'
+                aria-describedby='RegisterForm-password-error'
               {% endif %}
-              class="w-full px-4 py-4 pr-12 bg-gray-50 placeholder:text-black focus:outline-none"
-              placeholder="{{ 'customer.register.password' | t }}"
+              class='w-full px-4 py-4 pr-12 bg-gray-50 placeholder:text-black focus:outline-none'
+              placeholder='{{ 'customer.register.password' | t }}'
             >
             <button
-              type="button"
-              class="absolute right-4 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700 focus:outline-none"
-              aria-label="Toggle password visibility"
+              type='button'
+              class='absolute right-4 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700 focus:outline-none'
+              aria-label='Toggle password visibility'
               onclick="togglePasswordVisibility('RegisterForm-password', this)"
             >
-              <i class="fa-solid fa-eye"></i>
+              <i class='fa-solid fa-eye'></i>
             </button>
             {%- if form.errors contains 'password' -%}
-              <small id="RegisterForm-password-error" class="block mt-2 text-sm text-red-600">
-                {{ form.errors.translated_fields['password'] | capitalize }} {{ form.errors.messages['password'] }}.
+              <small id='RegisterForm-password-error' class='block mt-2 text-sm text-red-600'>
+                {{ form.errors.translated_fields.password | capitalize }}
+                {{ form.errors.messages.password }}.
               </small>
             {%- endif -%}
           </div>
 
-          <button type="submit" class="w-full bg-black text-white py-3 px-6 uppercase tracking-wider text-sm font-semibold hover:opacity-90 transition-opacity">
+          <button
+            type='submit'
+            class='w-full bg-black text-white py-3 px-6 uppercase tracking-wider text-sm font-semibold hover:opacity-90 transition-opacity'
+          >
             {{ 'customer.register.submit' | t }}
           </button>
         {%- endform -%}
@@ -279,14 +315,14 @@
 
 <script>
   // Handle recover password link
-  document.addEventListener('DOMContentLoaded', function() {
+  document.addEventListener('DOMContentLoaded', function () {
     const recoverLink = document.querySelector('a[href="#recover"]');
     const loginForm = document.getElementById('login-form');
     const recoverForm = document.getElementById('recover');
     const cancelLink = document.querySelector('a[href="#login"]');
 
     if (recoverLink && recoverForm && loginForm) {
-      recoverLink.addEventListener('click', function(e) {
+      recoverLink.addEventListener('click', function (e) {
         e.preventDefault();
         loginForm.classList.add('hidden');
         recoverForm.classList.remove('hidden');
@@ -295,7 +331,7 @@
     }
 
     if (cancelLink && recoverForm && loginForm) {
-      cancelLink.addEventListener('click', function(e) {
+      cancelLink.addEventListener('click', function (e) {
         e.preventDefault();
         recoverForm.classList.add('hidden');
         loginForm.classList.remove('hidden');
@@ -303,7 +339,6 @@
       });
     }
   });
-
 </script>
 <script src='{{ 'password-toggle.js' | asset_url }}' defer></script>
 
