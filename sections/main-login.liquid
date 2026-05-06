@@ -74,18 +74,6 @@
             </div>
           {%- endif -%}
 
-          {%- if shop.features.login_with_shop_classic_customer_accounts? -%}
-            <section name="sign-in-with-shop-provider" class="mb-6">
-              {{ shop | login_button: hide_button: hide_shop_login_button }}
-
-              {%- unless hide_shop_login_button -%}
-                <p class="text-sm text-center my-4 text-gray-600">
-                  {{ 'customer.login_page.alternate_provider_separator' | t }}
-                </p>
-              {%- endunless -%}
-            </section>
-          {%- endif -%}
-
           <div class="mb-4">
             <input
               type="email"
@@ -135,6 +123,17 @@
             <a href="#recover" class="block text-sm text-center hover:opacity-70 transition-opacity">
               {{ 'customer.login_page.forgot_password' | t }}
             </a>
+          {%- endif -%}
+
+          {%- if shop.features.login_with_shop_classic_customer_accounts? -%}
+            <section name="sign-in-with-shop-provider" class="mt-6">
+              {%- unless hide_shop_login_button -%}
+                <p class="text-sm text-center my-4 text-gray-600">
+                  {{ 'customer.login_page.alternate_provider_separator' | t }}
+                </p>
+              {%- endunless -%}
+              {{ shop | login_button: hide_button: hide_shop_login_button }}
+            </section>
           {%- endif -%}
         {%- endform -%}
       </div>
