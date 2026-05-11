@@ -809,12 +809,15 @@
   </div>
 </product-info>
 
-<div class='image-row-snippet bg-white w-full relative z-0 lg:z-50 px-0 lg:px-4 pb-6'>
-  {% render 'image-row' %}
-</div>
-<div class='image-row-snippet bg-white w-full relative z-0 lg:z-50 px-0 lg:px-4 pb-6'>
-  {% render 'image-row-2' %}
-</div>
+{% assign image_row_module_enabled_mf = product.metafields.module.image_row_module_enabled.value %}
+{% unless image_row_module_enabled_mf == false or image_row_module_enabled_mf == 'false' %}
+  <div class='image-row-snippet bg-white w-full relative z-0 lg:z-50 px-0 lg:px-4 pb-6'>
+    {% render 'image-row' %}
+  </div>
+  <div class='image-row-snippet bg-white w-full relative z-0 lg:z-50 px-0 lg:px-4 pb-6'>
+    {% render 'image-row-2' %}
+  </div>
+{% endunless %}
 <div class='vertical-video-snippet bg-white w-full relative z-0 lg:z-50 px-0 lg:px-4 pb-6'>
   {% render 'vertical-video' %}
 </div>
