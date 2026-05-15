@@ -1,3 +1,19 @@
+{% assign video_desktop_landscape = product.metafields.module.video_module_video_landscape.value %}
+
+{% if video_desktop_landscape != blank %}
+  <div class='w-full aspect-video'>
+    <iframe
+      class='w-full h-full'
+      src='{{ video_desktop_landscape }}'
+      frameborder='0'
+      allow='autoplay; fullscreen; picture-in-picture'
+      allowfullscreen
+      title='Landscape video'
+      loading='lazy'
+    ></iframe>
+  </div>
+{% endif %}
+
 {% assign video_desktop_url = product.metafields.module.video_module_video.value %}
 
 {% if video_desktop_url != blank %}

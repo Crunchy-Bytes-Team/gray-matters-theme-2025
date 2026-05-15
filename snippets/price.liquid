@@ -5,7 +5,7 @@
   - product: {Object} Product Liquid object (optional)
   - placeholder: {Boolean} Renders a placeholder price (optional)
   - use_variant: {Boolean} Renders selected or first variant price instead of overall product pricing (optional)
-  - show_badges: {Boolean} Renders 'Sale' and 'Sold Out' tags if the product matches the condition (optional)
+  - show_badges: {Boolean} Reserved; sale/sold-out labels next to the price are not rendered (optional)
   - price_class: {String} Adds a price class to the price element (optional)
   - show_compare_at_price: {Boolean} Renders the compare at price if the product matches the condition (optional)
 
@@ -32,9 +32,12 @@
   assign price_truncated = price | divided_by: 100 | times: 100
   assign price_min_truncated = price_min | divided_by: 100 | times: 100
   assign price_max_truncated = price_max | divided_by: 100 | times: 100
-  assign money_price = price_truncated | money_without_trailing_zeros
-  assign money_price_min = price_min_truncated | money_without_trailing_zeros
-  assign money_price_max = price_max_truncated | money_without_trailing_zeros
+  comment
+    Mostra solo simbolo + importo: i filtri money possono includere il codice ISO (es. "€472 EUR").
+  endcomment
+  assign money_price = price_truncated | money_without_trailing_zeros | remove: cart.currency.iso_code | strip
+  assign money_price_min = price_min_truncated | money_without_trailing_zeros | remove: cart.currency.iso_code | strip
+  assign money_price_max = price_max_truncated | money_without_trailing_zeros | remove: cart.currency.iso_code | strip
   assign compare_at_truncated = compare_at_price | divided_by: 100 | times: 100
 
   if target == product and product.price_varies
@@ -51,7 +54,6 @@
       {%- if compare_at_price > price and product.quantity_price_breaks_configured? != true %} price--on-sale{% endif -%}
       {%- if compare_at_price > price and product.quantity_price_breaks_configured? %} volume-pricing--sale-badge{% endif -%}
       {%- if product.price_varies == false and product.compare_at_price_varies %} price--no-compare{% endif -%}
-      {%- if show_badges %} price--show-badge{% endif -%}
     '
   >
     <div class='price__container flex flex-row items-center lg:items-start mb-0 lg:mb-1'>
@@ -69,11 +71,14 @@
               </span>
               <span class='proxima-reg uppercase tracking-wider text-15'>
                 <s class='price-item price-item--regular variant-item__old-price proxima-reg uppercase tracking-wider text-15'>
-                  {% if settings.currency_code_enabled %}
-                    {{ compare_at_truncated | money_with_currency | replace: '.00', '' | replace: ',00', '' }}
-                  {% else %}
-                    {{ compare_at_truncated | money_without_trailing_zeros }}
-                  {% endif %}
+                  {{-
+                    compare_at_truncated
+                    | money_without_trailing_zeros
+                    | remove: cart.currency.iso_code
+                    | strip
+                    | replace: '.00', ''
+                    | replace: ',00', ''
+                  -}}
                 </s>
               </span>
             {%- endunless -%}
@@ -101,11 +106,14 @@
           <span class='visually-hidden visually-hidden--inline'>{{ 'products.product.price.regular_price' | t }}</span>
           <span>
             <s class='price-item price-item--regular proxima-reg uppercase tracking-wider text-15'>
-              {% if settings.currency_code_enabled %}
-                {{ compare_at_truncated | money_with_currency | replace: '.00', '' | replace: ',00', '' }}
-              {% else %}
-                {{ compare_at_truncated | money_without_trailing_zeros }}
-              {% endif %}
+              {{-
+                compare_at_truncated
+                | money_without_trailing_zeros
+                | remove: cart.currency.iso_code
+                | strip
+                | replace: '.00', ''
+                | replace: ',00', ''
+              -}}
             </s>
           </span>
         {%- endunless -%}
@@ -132,16 +140,5 @@
         </small>
       -->
     </div>
-    {%- if show_badges -%}
-      <span class='badge price__badge-sale color-{{ settings.sale_badge_color_scheme }}'>
-        {{ 'products.product.on_sale' | t }}
-      </span>
-
-      {% comment %}
-        <span class='badge price__badge-sold-out color-{{ settings.sold_out_badge_color_scheme }}'>
-          {{ 'products.product.sold_out' | t }}
-        </span>
-      {% endcomment %}
-    {%- endif -%}
   </div>
 {% endunless %}

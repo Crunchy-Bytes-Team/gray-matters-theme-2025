@@ -128,7 +128,7 @@
         {%- if option_on_sale -%}
           {{- value }} - {{ 'products.product.inventory_out_of_stock' | t -}}
         {%- else -%}
-          {{- 'products.product.value_inquire' | t: option_value: value -}}
+          {{- value }} - {{ 'products.product.inquire' | t | upcase -}}
         {%- endif -%}
       {%- else -%}
         {{- value -}}

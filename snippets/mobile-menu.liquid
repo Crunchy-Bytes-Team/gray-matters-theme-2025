@@ -69,7 +69,7 @@
                 </span>
               {%- else -%}
                 <a
-                  href='{{ language.root_url }}'
+                  href="{% render 'language-url-same-path', language: language %}"
                   hreflang='{{ language.iso_code }}'
                   class='menu-drawer__menu-item block py-1 proxima-reg text-sm tracking-wider uppercase text-gray-500 hover:opacity-70 transition-opacity duration-200 ease-out'
                 >

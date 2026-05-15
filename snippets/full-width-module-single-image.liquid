@@ -1,0 +1,10 @@
+{% if image_src != blank %}
+  <div class='w-full'>
+    <img
+      class='w-full block pb-6'
+      src='{{ image_src }}'
+      alt='{{ product.title | escape }}'
+      loading='lazy'
+    >
+  </div>
+{% endif %}

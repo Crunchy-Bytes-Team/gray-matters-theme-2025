@@ -78,22 +78,11 @@
           id='footer-connect-links'
         >
           <ul class='mb-6 lg:mb-0'>
-            <li class='text-sm text-dark-gray mb-3'>
-              {% if request.locale.iso_code == 'en' %}
-                <a href='/pages/brand-stories'>{{ 'sections.footer.brand-stories' | t }}</a>
-              {% else %}
-                <a href='{{ request.locale.root_url }}/pages/brand-stories'>
-                  {{- 'sections.footer.brand-stories' | t -}}
-                </a>
-              {% endif %}
-            </li>
-            <li class='text-sm text-dark-gray mb-3'>
-              <a href='https://www.instagram.com/graymattersnyc/?hl=en'>Instagram</a>
-            </li>
-            <li class='text-sm text-dark-gray mb-3'><a href='https://www.facebook.com/graymattersnyc/'>Facebook</a></li>
-            <li class='text-sm text-dark-gray mb-3'>
-              <a href='https://www.graymattersnyc.com/pages/ladygray'>LadyGray Club</a>
-            </li>
+            {% for link in linklists['footer-connect'].links %}
+              <li class='text-sm text-dark-gray mb-3'>
+                <a href='{{ link.url }}'>{{ link.title }}</a>
+              </li>
+            {% endfor %}
           </ul>
         </div>
       </div>

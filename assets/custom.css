@@ -31,6 +31,18 @@ body {
 .text-light-gray {
   color: #a5a5a5;
 }
+
+nav.breadcrumbs {
+  font-size: 0.75rem;
+  line-height: 1.4;
+  letter-spacing: 0.04em;
+}
+
+nav.breadcrumbs a,
+nav.breadcrumbs span {
+  font-size: inherit;
+}
+
 footer a:hover {
   opacity: 0.7;
   transition: all 0.4s ease-in-out;
@@ -512,18 +524,92 @@ select:focus {
   color: #b00020;
 }
 
-@media (max-width: 639px) {
+/* Newsletter popup: compact layout on viewports where the panel is inset (not flush desktop strip) */
+@media (max-width: 760px) {
+  .newsletter-modal {
+    right: 12px;
+    bottom: 12px;
+    left: 12px;
+    transform: translateX(calc(100% + 12px));
+  }
+
+  .newsletter-modal .newsletter-content {
+    max-height: min(78vh, 28rem);
+  }
+
+  .newsletter-modal .newsletter-header {
+    padding: 0.875rem 2.5rem 0.625rem 0.875rem;
+  }
+
+  .newsletter-modal .newsletter-title {
+    margin: 0 0 0.35rem;
+    font-size: 0.8125rem;
+    line-height: 1.25;
+    letter-spacing: 0.03em;
+    padding-right: 0.25rem;
+  }
+
+  .newsletter-modal .newsletter-subtitle {
+    font-size: 0.75rem;
+    line-height: 1.4;
+  }
+
+  .newsletter-modal .newsletter-modal--close {
+    top: 0.35rem;
+    right: 0.35rem;
+    width: 1.75rem;
+    height: 1.75rem;
+    font-size: 1.35rem;
+  }
+
+  .newsletter-modal .newsletter-body {
+    padding: 0.875rem 0.875rem 1rem;
+  }
+
+  .newsletter-modal .form-message {
+    margin: 0 0 0.65rem;
+    font-size: 0.8125rem;
+  }
+
+  /* Label a sinistra, linea grigia (input) sulla stessa riga — Nome | ___ , Taglia | ___ , Email | ___ */
   .newsletter-modal .form-group {
-    flex-wrap: wrap;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: flex-end;
+    gap: 0.5rem 0.65rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .newsletter-modal .form-group:last-of-type {
+    margin-bottom: 0.65rem;
   }
 
   .newsletter-modal .form-group label:not(.tripwire) {
-    flex: 1 1 100%;
-    padding-bottom: 0.15rem;
+    flex: 0 0 auto;
+    align-self: flex-end;
+    padding-bottom: 0.3rem;
+    font-size: 0.8125rem;
+    line-height: 1.2;
+    white-space: nowrap;
   }
 
   .newsletter-modal .form-group .form-control {
-    flex: 1 1 100%;
+    flex: 1 1 auto;
+    min-width: 0;
+    width: auto;
+    padding: 0.25rem 0 0.4rem;
+    font-size: 0.8125rem;
+  }
+
+  .newsletter-modal .newsletter__submit.dark-btn,
+  .newsletter-modal button.newsletter__submit {
+    padding: 0.75rem 1rem;
+    font-size: 0.8125rem;
+  }
+
+  .newsletter-modal .input-error-message {
+    margin-top: 0.5rem;
+    font-size: 0.75rem;
   }
 }
 

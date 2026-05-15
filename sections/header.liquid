@@ -77,7 +77,7 @@
 
         <div class='relative group h-full'>
           <a
-            href='/pages/select-language'
+            href='{{ routes.root_url }}pages/select-language'
             class='h-full inline-flex items-center px-7 hover:opacity-70 hover:bg-gray-200 group-hover:bg-gray-200 transition-all duration-200 ease-out proxima-reg text-sm tracking-wider uppercase text-dark-gray'
             aria-haspopup='true'
             >Select language</a
@@ -94,7 +94,7 @@
                     </span>
                   {% else %}
                     <a
-                      href='{{ language.root_url }}'
+                      href="{% render 'language-url-same-path', language: language %}"
                       hreflang='{{ language.iso_code }}'
                       class='block px-4 py-2 proxima-reg text-sm tracking-wider hover:opacity-70 transition-opacity text-dark-gray'
                     >
@@ -109,7 +109,7 @@
 
         <div class='relative group h-full'>
           <a
-            href='/pages/client-service'
+            href='{{ routes.root_url }}pages/client-service'
             class='h-full inline-flex items-center px-7 hover:opacity-70 hover:bg-gray-200 group-hover:bg-gray-200 transition-all duration-200 ease-out proxima-reg text-sm tracking-wider uppercase text-dark-gray'
             aria-haspopup='true'
             >Client Service</a
