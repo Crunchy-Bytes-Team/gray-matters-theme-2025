@@ -832,6 +832,17 @@
 <div class='landscape-video-snippet bg-white w-full relative z-0 lg:z-50 {{ landscape_only_lg_classes }} px-0 lg:px-4 pb-6'>
   {% render 'landscape-video' %}
 </div>
+{% liquid
+  assign video_module2_enabled_mf = product.metafields.custom.video_module2_enabled.value
+  assign video_module2_mobile_url = product.metafields.module.video_module2_video_mobile.value
+%}
+{% if video_module2_mobile_url != blank %}
+  {% if video_module2_enabled_mf == true or video_module2_enabled_mf == 'true' %}
+    <div class='vertical-video-2-snippet bg-white w-full relative z-0 lg:z-50 px-0 lg:px-4 pb-6'>
+      {% render 'vertical-video-2' %}
+    </div>
+  {% endif %}
+{% endif %}
 {% assign ugc_module_enabled_mf = product.metafields.module.ugc_module_enabled.value %}
 {% unless ugc_module_enabled_mf == false or ugc_module_enabled_mf == 'false' %}
   <div class='ugc-snippet w-full bg-white relative z-0 lg:z-50 px-0 lg:px-4 pb-6'>
@@ -877,9 +888,13 @@
 <div class='yotpo-review-snippet bg-white w-full px-4 pb-6 z-0 lg:z-50 relative'>
   <div id='yotpo-review-wrapper' style='height:600px'></div>
 </div>
-{% assign related_metafield = product.metafields.module.related_products %}
-{% if product.vendor != 'GRAY ROOM' and related_metafield != blank %}
-  <div class='relative-products-snippet  bg-white w-full relative z-0 lg:z-50 px-0 lg:px-4 pb-6'>
+{%- assign vendor_norm = product.vendor | downcase | strip -%}
+{% if vendor_norm == 'gray matters' %}
+  <div
+    class='relative-products-snippet  bg-white w-full relative z-0 lg:z-50 px-0 lg:px-4 pb-6'
+    data-feature-flag='related'
+    hidden
+  >
     {% render 'related-products' %}
   </div>
 {% endif %}

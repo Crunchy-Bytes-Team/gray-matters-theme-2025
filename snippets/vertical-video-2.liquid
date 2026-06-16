@@ -1,0 +1,38 @@
+{% assign video_mobile_enabled = product.metafields.custom.video_module2_enabled.value %}
+{% assign video_mobile_url = product.metafields.module.video_module2_video_mobile.value %}
+{% assign video_header = product.metafields.custom.video_module2_header.value %}
+{% assign video_description = product.metafields.custom.video_module2_description.value %}
+
+{% if video_mobile_url != blank %}
+  {% if video_mobile_enabled == true or video_mobile_enabled == 'true' %}
+    <div class='vertical-video-2-layout w-full'>
+      <div class='vertical-video-2-text w-full lg:w-1/2 flex flex-col items-center justify-center self-stretch px-4 py-6 lg:py-0 lg:px-8'>
+        <div>
+          {% if video_header != blank %}
+            <h3 class='font-accent text-xl lg:text-4xl text-center lg:text-left mb-2 lg:mb-3'>
+              {{ video_header }}
+            </h3>
+          {% endif %}
+          {% if video_description != blank %}
+            <p class='font-accent text-sm lg:text-lg text-center lg:text-left mb-6 lg:mb-0'>
+              {{ video_description }}
+            </p>
+          {% endif %}
+        </div>
+      </div>
+      <div class='vertical-video-2-media w-full lg:w-1/2'>
+        <div class='relative w-full' style='padding-top: 177.78%;'>
+          <iframe
+            src='{{ video_mobile_url }}'
+            class='absolute inset-0 w-full h-full'
+            frameborder='0'
+            allow='autoplay; fullscreen; picture-in-picture'
+            allowfullscreen
+            title='Vertical video'
+            loading='lazy'
+          ></iframe>
+        </div>
+      </div>
+    </div>
+  {% endif %}
+{% endif %}

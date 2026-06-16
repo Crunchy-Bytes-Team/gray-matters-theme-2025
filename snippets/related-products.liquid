@@ -1,112 +1,162 @@
-{% liquid
-  assign related_metafield = product.metafields.module.related_products
-  assign related_entries = blank
+{%- comment -%}
+  Auto-suggested related products (replaces metafield-driven list).
+  Rules:
+    - VENDOR MUST = "Gray Matters" (case-insensitive)
+    - At least one of: same product type, same primary/secondary color
+      metafield (hex), same first-word title (name)
+    - Always render exactly 4 products (vendor-only fallback fills gaps)
+  Feature flag (?related=true) is enforced client-side; the wrapper around
+  this snippet is rendered with the `hidden` attribute and
+  `data-feature-flag="related"`. The inline script unhides it only when
+  the current URL contains ?related=true (no sessionStorage persistence).
+{%- endcomment -%}
 
-  if related_metafield != blank
-    assign candidate_value = related_metafield.value | default: related_metafield
+{%- assign vendor_norm = product.vendor | downcase | strip -%}
+{%- if vendor_norm == 'gray matters' -%}
 
-    if candidate_value != blank and candidate_value.entries != blank
-      assign related_entries = candidate_value.entries
-    endif
+  {%- assign current_type = product.type | downcase | strip -%}
+  {%- assign current_name = product.title | split: ' ' | first | downcase | strip -%}
+  {%- assign blank_color = 'ff00bb' -%}
 
-    if related_entries == blank and candidate_value != blank
-      assign parsed_candidate = candidate_value | parse_json
-      if parsed_candidate == blank
-        assign parsed_candidate = candidate_value | json | parse_json
-      endif
+  {%- assign cur_primary_raw = product.metafields.custom.primary_color.value
+    | default: product.metafields.custom.primary_color
+    | default: ''
+  -%}
+  {%- assign cur_primary = cur_primary_raw | strip | downcase | remove: '#' -%}
+  {%- if cur_primary == blank_color -%}{%- assign cur_primary = '' -%}{%- endif -%}
 
-      if parsed_candidate != blank
-        if parsed_candidate.entries != blank
-          assign related_entries = parsed_candidate.entries
-        elsif parsed_candidate.value != blank and parsed_candidate.value.entries != blank
-          assign related_entries = parsed_candidate.value.entries
-        else
-          assign related_entries = parsed_candidate
-        endif
-      endif
-    endif
+  {%- assign cur_secondary_raw = product.metafields.custom.secondary_color.value
+    | default: product.metafields.custom.secondary_color
+    | default: ''
+  -%}
+  {%- assign cur_secondary = cur_secondary_raw | strip | downcase | remove: '#' -%}
+  {%- if cur_secondary == blank_color -%}{%- assign cur_secondary = '' -%}{%- endif -%}
 
-    if related_entries == blank
-      assign parsed_metafield = related_metafield | json | parse_json
-      if parsed_metafield.value != blank and parsed_metafield.value.entries != blank
-        assign related_entries = parsed_metafield.value.entries
-      elsif parsed_metafield.entries != blank
-        assign related_entries = parsed_metafield.entries
-      endif
-    endif
-  endif
+  {%- assign sep = '|' -%}
+  {%- assign seen = '|' -%}
+  {%- assign type_handles = '' -%}
+  {%- assign color_handles = '' -%}
+  {%- assign name_handles = '' -%}
+  {%- assign vendor_only = '' -%}
 
-  if related_entries != blank
-    assign related_entries = related_entries | sort: 'position'
-  endif
-%}
+  {%- for col in product.collections -%}
+    {%- for cand in col.products -%}
+      {%- assign tok = cand.handle | append: sep -%}
+      {%- assign seen_tok = sep | append: tok -%}
 
-{% assign current_gid = product.id | prepend: 'gid://shopify/Product/' %}
-{% assign shown_gids = '|' %}
+      {%- if cand.id == product.id -%}{%- continue -%}{%- endif -%}
+      {%- if seen contains seen_tok -%}{%- continue -%}{%- endif -%}
 
-<div class=''>
-  <h3 class='w-full text-center font-accent font-normal text-xl uppercase mb-6'>You may also like</h3>
-  <div class='relative w-full pb-6' data-relprod>
-    <!-- Viewport -->
-    <div class='overflow-hidden md:overflow-visible w-full' data-viewport>
-      <!-- Track (flex on mobile, grid on md+) -->
-      <div class='flex w-full transition-transform duration-300 ease-in-out md:grid md:grid-cols-4 md:gap-0' data-track>
-        {% assign shown = 0 %}
-        {% if related_entries != blank %}
-          {% assign limit = related_entries | size %}
-          {% for entry in related_entries %}
-            {% if shown >= limit %}{% break %}{% endif %}
+      {%- assign cv = cand.vendor | downcase | strip -%}
+      {%- if cv != 'gray matters' -%}{%- continue -%}{%- endif -%}
 
-            {% assign entry_gid = entry.gid | default: '' %}
-            {% assign related_product = blank %}
-            {% assign resolved_by_handle = false %}
+      {%- assign seen = seen | append: tok -%}
+      {%- assign vendor_only = vendor_only | append: tok -%}
 
-            {% if entry.product %}
-              {% assign related_product = entry.product %}
-            {% endif %}
+      {%- assign ct = cand.type | downcase | strip -%}
+      {%- if current_type != '' and ct == current_type -%}
+        {%- assign type_handles = type_handles | append: tok -%}
+        {%- continue -%}
+      {%- endif -%}
 
-            {% if related_product == blank and entry.url != blank %}
-              {% assign handle_from_url = entry.url | split: '/products/' | last %}
-              {% assign handle_from_url = handle_from_url | split: '?' | first %}
-              {% assign handle_from_url = handle_from_url | split: '#' | first %}
-              {% assign handle_from_url = handle_from_url | strip %}
-              {% if handle_from_url != blank %}
-                {% assign related_product = all_products[handle_from_url] %}
-                {% assign resolved_by_handle = true %}
-              {% endif %}
-            {% endif %}
+      {%- assign cp_raw = cand.metafields.custom.primary_color.value
+        | default: cand.metafields.custom.primary_color
+        | default: ''
+      -%}
+      {%- assign cp = cp_raw | strip | downcase | remove: '#' -%}
+      {%- if cp == blank_color -%}{%- assign cp = '' -%}{%- endif -%}
 
-            {% if related_product == blank and entry.handle %}
-              {% assign handle_from_entry = entry.handle | strip %}
-              {% if handle_from_entry != blank %}
-                {% assign related_product = all_products[handle_from_entry] %}
-                {% assign resolved_by_handle = true %}
-              {% endif %}
-            {% endif %}
+      {%- assign cs_raw = cand.metafields.custom.secondary_color.value
+        | default: cand.metafields.custom.secondary_color
+        | default: ''
+      -%}
+      {%- assign cs = cs_raw | strip | downcase | remove: '#' -%}
+      {%- if cs == blank_color -%}{%- assign cs = '' -%}{%- endif -%}
 
-            {% if related_product and related_product != blank %}
-              {% assign related_product_gid = related_product.id | prepend: 'gid://shopify/Product/' %}
+      {%- assign color_match = false -%}
+      {%- if cur_primary != '' and cp != '' and cp == cur_primary -%}{%- assign color_match = true -%}{%- endif -%}
+      {%- if cur_primary != '' and cs != '' and cs == cur_primary -%}{%- assign color_match = true -%}{%- endif -%}
+      {%- if cur_secondary != '' and cp != '' and cp == cur_secondary -%}{%- assign color_match = true -%}{%- endif -%}
+      {%- if cur_secondary != '' and cs != '' and cs == cur_secondary -%}{%- assign color_match = true -%}{%- endif -%}
+      {%- if color_match -%}
+        {%- assign color_handles = color_handles | append: tok -%}
+        {%- continue -%}
+      {%- endif -%}
 
-              {% if related_product_gid == current_gid %}
-                {% continue %}
-              {% endif %}
+      {%- assign cn = cand.title | split: ' ' | first | downcase | strip -%}
+      {%- if current_name != '' and cn == current_name -%}
+        {%- assign name_handles = name_handles | append: tok -%}
+      {%- endif -%}
+    {%- endfor -%}
+  {%- endfor -%}
 
-              {% comment %} Only enforce GID match when product came from entry.product; when resolved by handle, metafield GID may be from another store/env {% endcomment %}
-              {% if resolved_by_handle == false and entry_gid != '' and entry_gid != related_product_gid %}
-                {% continue %}
-              {% endif %}
+  {%- assign target = 4 -%}
+  {%- assign final = sep -%}
+  {%- assign shown = 0 -%}
 
-              {% assign related_gid_token = '|' | append: related_product_gid | append: '|' %}
-              {% if shown_gids contains related_gid_token %}
-                {% continue %}
-              {% endif %}
+  {%- assign type_arr = type_handles | split: sep -%}
+  {%- for h in type_arr -%}
+    {%- if h == '' -%}{%- continue -%}{%- endif -%}
+    {%- if shown >= target -%}{%- break -%}{%- endif -%}
+    {%- assign h_tok = sep | append: h | append: sep -%}
+    {%- if final contains h_tok -%}{%- continue -%}{%- endif -%}
+    {%- assign final = final | append: h | append: sep -%}
+    {%- assign shown = shown | plus: 1 -%}
+  {%- endfor -%}
 
+  {%- assign color_arr = color_handles | split: sep -%}
+  {%- for h in color_arr -%}
+    {%- if h == '' -%}{%- continue -%}{%- endif -%}
+    {%- if shown >= target -%}{%- break -%}{%- endif -%}
+    {%- assign h_tok = sep | append: h | append: sep -%}
+    {%- if final contains h_tok -%}{%- continue -%}{%- endif -%}
+    {%- assign final = final | append: h | append: sep -%}
+    {%- assign shown = shown | plus: 1 -%}
+  {%- endfor -%}
+
+  {%- assign name_arr = name_handles | split: sep -%}
+  {%- for h in name_arr -%}
+    {%- if h == '' -%}{%- continue -%}{%- endif -%}
+    {%- if shown >= target -%}{%- break -%}{%- endif -%}
+    {%- assign h_tok = sep | append: h | append: sep -%}
+    {%- if final contains h_tok -%}{%- continue -%}{%- endif -%}
+    {%- assign final = final | append: h | append: sep -%}
+    {%- assign shown = shown | plus: 1 -%}
+  {%- endfor -%}
+
+  {%- if shown < target -%}
+    {%- assign vendor_arr = vendor_only | split: sep -%}
+    {%- for h in vendor_arr -%}
+      {%- if h == '' -%}{%- continue -%}{%- endif -%}
+      {%- if shown >= target -%}{%- break -%}{%- endif -%}
+      {%- assign h_tok = sep | append: h | append: sep -%}
+      {%- if final contains h_tok -%}{%- continue -%}{%- endif -%}
+      {%- assign final = final | append: h | append: sep -%}
+      {%- assign shown = shown | plus: 1 -%}
+    {%- endfor -%}
+  {%- endif -%}
+
+  <div class=''>
+    <h3 class='w-full text-center font-accent font-normal text-xl uppercase mb-6'>You may also like</h3>
+    <div class='relative w-full pb-6' data-relprod>
+      <!-- Viewport -->
+      <div class='overflow-hidden md:overflow-visible w-full' data-viewport>
+        <!-- Track (flex on mobile, grid on md+) -->
+        <div
+          class='flex w-full transition-transform duration-300 ease-in-out md:grid md:grid-cols-4 md:gap-0'
+          data-track
+        >
+          {%- assign final_arr = final | split: sep -%}
+          {%- for h in final_arr -%}
+            {%- if h == '' -%}{%- continue -%}{%- endif -%}
+            {%- assign rp = all_products[h] -%}
+            {%- if rp != blank -%}
               <div class='relative group basis-1/2 md:basis-auto shrink-0' data-item>
-                <a href='{{ related_product.url }}'>
-                  {% if related_product.featured_image %}
+                <a href='{{ rp.url }}'>
+                  {% if rp.featured_image %}
                     <img
-                      src='{{ related_product.featured_image | image_url: width: 1200 }}'
-                      alt='{{ related_product.title | escape }}'
+                      src='{{ rp.featured_image | image_url: width: 1200 }}'
+                      alt='{{ rp.title | escape }}'
                       loading='lazy'
                     >
                   {% endif %}
@@ -115,37 +165,54 @@
                   ></div>
                 </a>
               </div>
-
-              {% assign shown = shown | plus: 1 %}
-              {% assign shown_gids = shown_gids | append: related_gid_token %}
-            {% endif %}
-          {% endfor %}
-        {% endif %}
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
       </div>
+
+      <!-- Controls (mobile only) -->
+      <button
+        type='button'
+        class='md:hidden absolute left-2 top-1/2 -translate-y-1/2 flex items-center justify-center leading-none'
+        aria-label='Previous'
+        data-prev
+      >
+        <i class='fa-solid fa-chevron-left text-white drop-shadow' style='font-size:50px;'></i>
+      </button>
+      <button
+        type='button'
+        class='md:hidden absolute right-2 top-1/2 -translate-y-1/2 flex items-center justify-center leading-none'
+        aria-label='Next'
+        data-next
+      >
+        <i class='fa-solid fa-chevron-right  text-white drop-shadow' style='font-size:50px;'></i>
+      </button>
+
+      <!-- Progress bar -->
+      <div
+        class='absolute left-2 -bottom-3 h-[2px] w-[100px] bg-gray-300 opacity-0 transition-opacity duration-200'
+        data-progress
+      ></div>
     </div>
-
-    <!-- Controls (mobile only) -->
-    <button
-      type='button'
-      class='md:hidden absolute left-2 top-1/2 -translate-y-1/2 flex items-center justify-center leading-none'
-      aria-label='Previous'
-      data-prev
-    >
-      <i class='fa-solid fa-chevron-left text-white drop-shadow' style='font-size:50px;'></i>
-    </button>
-    <button
-      type='button'
-      class='md:hidden absolute right-2 top-1/2 -translate-y-1/2 flex items-center justify-center leading-none'
-      aria-label='Next'
-      data-next
-    >
-      <i class='fa-solid fa-chevron-right  text-white drop-shadow' style='font-size:50px;'></i>
-    </button>
-
-    <!-- Progress bar (100px, light gray) appears only during interaction on mobile, on hover on desktop) -->
-    <div
-      class='absolute left-2 -bottom-3 h-[2px] w-[100px] bg-gray-300 opacity-0 transition-opacity duration-200'
-      data-progress
-    ></div>
   </div>
-</div>
+
+  {%- comment -%} Feature flag: reveal wrapper only when ?related=true is on the current URL {%- endcomment -%}
+  <script>
+    (function () {
+      try {
+        var enabled = new URLSearchParams(window.location.search).get('related') === 'true';
+        var nodes = document.querySelectorAll('[data-feature-flag="related"]');
+        for (var i = 0; i < nodes.length; i++) {
+          if (enabled) {
+            nodes[i].removeAttribute('hidden');
+            nodes[i].classList.add('gm-related-visible');
+          } else {
+            nodes[i].setAttribute('hidden', '');
+            nodes[i].classList.remove('gm-related-visible');
+          }
+        }
+      } catch (e) { /* keep hidden */ }
+    })();
+  </script>
+
+{%- endif -%}

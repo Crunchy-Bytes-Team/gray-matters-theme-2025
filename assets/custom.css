@@ -634,3 +634,20 @@ select:focus {
 .relative-products-snippet {
   display: none !important;
 }
+
+/* Video module 2: text left / video right on desktop; video top on mobile */
+.vertical-video-2-layout {
+  display: flex;
+  flex-direction: column-reverse;
+}
+
+@media screen and (min-width: 990px) {
+  .vertical-video-2-layout {
+    flex-direction: row;
+  }
+}
+
+/* Visible when ?related=true feature flag removes [hidden] and adds .gm-related-visible */
+.relative-products-snippet.gm-related-visible {
+  display: block !important;
+}

@@ -11,4 +11,5 @@ Thumbs.db
 node_modules
 
 .shopify
-.cursor/debug.log
+.cursor/*.log
+.playwright-mcp
