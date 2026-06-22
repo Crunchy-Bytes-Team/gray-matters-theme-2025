@@ -99,7 +99,7 @@
         {% endif %}
         <section
           id='ProductInfo-{{ section.id }}'
-          class='bg-white bg-opacity-90 flex flex-col h-fit fixed bottom-0 right- w-full lg:w-1/2 p-6 lg:py-14 lg:pl-14 lg:pr-10 z-50'
+          class='bg-white bg-opacity-90 flex flex-col h-fit fixed bottom-0 right- w-full lg:w-1/2 px-6 pt-3 pb-6 lg:pl-14 lg:pr-10 lg:pt-7 lg:pb-14 z-50'
         >
           {%- assign product_form_id = 'product-form-' | append: section.id -%}
 
@@ -151,8 +151,7 @@
                   aria-hidden='true'
                 >
                   <div
-                    class='product-desc-scrollbar w-full lg:w-3/4 text-base pt-2 lg:pt-0'
-                    style='padding-right:10px; overflow-y:auto; max-height:25vh;'
+                    class='product-desc-scrollbar w-full lg:w-3/4 pt-2 lg:pt-0'
                   >
                     {{ product.description }}
                   </div>
@@ -857,22 +856,6 @@
 {% unless image_full_module_enabled_mf == false or image_full_module_enabled_mf == 'false' %}
   <div class='full-width-image-snippet bg-white w-full relative z-0 lg:z-50 px-0 lg:px-4 hidden lg:flex'>
     {% render 'full-width-image' %}
-  </div>
-{% endunless %}
-
-{% assign image_full_module_enabled_mf = product.metafields.module.image_full_module_enabled.value %}
-{% unless image_full_module_enabled_mf == false or image_full_module_enabled_mf == 'false' %}
-  <div class='full-width-image-snippet bg-white w-full relative z-0 lg:z-50 px-0 lg:px-4 hidden lg:flex'>
-    {% render 'full-width-image' %}
-  </div>
-{% endunless %}
-
-{% assign image_full_module_image_enabled_mf = product.metafields.module.image_full_module_enabled.value %}
-{% unless image_full_module_image_enabled_mf == false or image_full_module_image_enabled_mf == 'false' %}
-  {% assign image_full_module_image_url = product.metafields.module.image_full_module_image.value %}
-
-  <div class='pippo full-width-image-snippet bg-white w-full relative z-0 lg:z-50 px-0 lg:px-4 hidden lg:flex'>
-    {% render 'full-width-module-single-image', image_src: image_full_module_image_url %}
   </div>
 {% endunless %}
 

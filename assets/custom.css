@@ -76,11 +76,11 @@ select:focus {
   box-shadow: none;
 }
 
-.product_desc p {
-  margin-bottom: 10px;
-}
-
 .product-desc-scrollbar {
+  font-size: 14px;
+  max-height: 30vh;
+  overflow-y: auto;
+  padding-right: 10px;
   scrollbar-width: thin;
   scrollbar-gutter: stable;
 }
@@ -106,6 +106,10 @@ select:focus {
 /* Grassetto nella descrizione: usa il font semi-bold per compatibilità Chrome */
 .product_desc strong {
   font-family: 'proxima-semi-bold', sans-serif;
+}
+
+.product_desc p {
+  margin-bottom: 5px;
 }
 
 /* Sotto i 1024px */
