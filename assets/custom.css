@@ -87,6 +87,28 @@ footer a:hover {
   color: #a5a5a5 !important;
 }
 
+.add_to_cart_button .product-form__submit:not(:disabled):focus,
+.add_to_cart_button .product-form__submit:not(:disabled):focus-visible,
+.add_to_cart_button .product-form__submit:not(:disabled):active,
+.add_to_cart_button .product-form__submit.btn-dark:not(:disabled):hover {
+  outline: none !important;
+  box-shadow: none !important;
+  --tw-ring-offset-shadow: 0 0 #0000 !important;
+  --tw-ring-shadow: 0 0 #0000 !important;
+  background-color: #000 !important;
+  color: #fff !important;
+  border-color: #000 !important;
+}
+
+.add_to_cart_button .product-form__submit.loading {
+  color: inherit !important;
+}
+
+.add_to_cart_button .product-form__submit.loading span.text-15 {
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
 .font-accent {
   font-family: 'Stanley', sans-serif;
 }

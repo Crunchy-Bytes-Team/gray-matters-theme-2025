@@ -110,27 +110,26 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  document
-    .querySelectorAll('[data-modal-trigger]')
-    .forEach((triggerElement) => {
-      triggerElement.addEventListener('click', (event) => {
-        const targetKey = triggerElement.dataset.modalTrigger;
-        if (!targetKey) return;
+  document.addEventListener('click', (event) => {
+    const triggerElement = event.target.closest('[data-modal-trigger]');
+    if (!triggerElement) return;
 
-        const targetModal =
-          modalRegistry.get(targetKey) || document.getElementById(targetKey);
+    const targetKey = triggerElement.dataset.modalTrigger;
+    if (!targetKey) return;
 
-        if (!targetModal) return;
+    const targetModal =
+      modalRegistry.get(targetKey) || document.getElementById(targetKey);
 
-        event.preventDefault();
-        openModal(targetModal, triggerElement);
-        document.dispatchEvent(
-          new CustomEvent('modal:opened', {
-            detail: { modal: targetModal, trigger: triggerElement },
-          }),
-        );
-      });
-    });
+    if (!targetModal) return;
+
+    event.preventDefault();
+    openModal(targetModal, triggerElement);
+    document.dispatchEvent(
+      new CustomEvent('modal:opened', {
+        detail: { modal: targetModal, trigger: triggerElement },
+      }),
+    );
+  });
 
   document.addEventListener('keydown', (event) => {
     if (event.key !== 'Escape' || !state.activeModal) return;

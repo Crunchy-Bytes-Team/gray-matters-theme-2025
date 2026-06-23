@@ -35,22 +35,20 @@ if (!customElements.get('product-form')) {
         }
 
         this.hideErrors = this.dataset.hideErrors === 'true';
+        this.isSubmitting = false;
       }
 
       onSubmitHandler(evt) {
         evt.preventDefault();
         if (
           !this.submitButton ||
-          this.submitButton.getAttribute('aria-disabled') === 'true' ||
+          this.isSubmitting ||
           !this.variantIdInput?.value
         )
           return;
 
+        this.isSubmitting = true;
         this.handleErrorMessage();
-
-        this.submitButton.setAttribute('aria-disabled', true);
-        this.submitButton.classList.add('loading');
-        this.loadingSpinner?.classList.remove('hidden');
 
         if (typeof fetch !== 'function' || typeof fetchConfig !== 'function') {
           this.fallbackToNativeSubmit();
@@ -87,7 +85,6 @@ if (!customElements.get('product-form')) {
               const soldOutMessage =
                 this.submitButton.querySelector('.sold-out-message');
               if (!soldOutMessage) return;
-              this.submitButton.setAttribute('aria-disabled', true);
               this.submitButtonText?.classList.add('hidden');
               soldOutMessage.classList.remove('hidden');
               this.error = true;
@@ -125,11 +122,9 @@ if (!customElements.get('product-form')) {
             this.fallbackToNativeSubmit();
           })
           .finally(() => {
-            this.submitButton.classList.remove('loading');
+            this.isSubmitting = false;
             if (this.cart && this.cart.classList.contains('is-empty'))
               this.cart.classList.remove('is-empty');
-            if (!this.error) this.submitButton.removeAttribute('aria-disabled');
-            this.loadingSpinner?.classList.add('hidden');
           });
       }
 
@@ -151,7 +146,77 @@ if (!customElements.get('product-form')) {
         }
       }
 
+      refreshSubmitButton() {
+        this.submitButton = this.form?.querySelector(
+          '.add-to-cart-button button',
+        );
+        if (!this.submitButton) return;
+
+        this.submitButtonText = this.submitButton.querySelector('span');
+        this.loadingSpinner =
+          this.submitButton.querySelector('.loading__spinner') ||
+          this.querySelector('.loading__spinner');
+      }
+
+      setBuyButtonForVariant(variant, sizeValue = '') {
+        this.refreshSubmitButton();
+        const button = this.submitButton;
+        if (!button || !variant) return;
+
+        const sectionId = this.dataset.sectionId;
+        const onSale =
+          variant.compare_at_price != null &&
+          variant.compare_at_price > variant.price;
+
+        button.removeAttribute('aria-disabled');
+        button.classList.remove('loading');
+
+        if (sectionId) {
+          button.id = `ProductSubmitButton-${sectionId}`;
+        }
+
+        let label = button.querySelector('span.text-15');
+        if (!label) {
+          label = document.createElement('span');
+          label.className = 'text-15';
+          button.prepend(label);
+        }
+        label.classList.remove('hidden');
+
+        if (variant.available) {
+          button.type = 'submit';
+          button.name = 'add';
+          button.removeAttribute('data-modal-trigger');
+          button.removeAttribute('data-inquire-size');
+          button.removeAttribute('disabled');
+          label.textContent = window.variantStrings.addToCart;
+          return;
+        }
+
+        if (onSale) {
+          button.type = 'submit';
+          button.name = 'add';
+          button.removeAttribute('data-modal-trigger');
+          button.removeAttribute('data-inquire-size');
+          button.setAttribute('disabled', 'disabled');
+          label.textContent = window.variantStrings.inventoryOutOfStock;
+          return;
+        }
+
+        button.type = 'button';
+        button.removeAttribute('name');
+        button.removeAttribute('disabled');
+        button.setAttribute('data-modal-trigger', 'inquire-modal');
+        if (sizeValue) {
+          button.setAttribute('data-inquire-size', sizeValue);
+        } else {
+          button.removeAttribute('data-inquire-size');
+        }
+        label.textContent = window.variantStrings.inquire;
+      }
+
       toggleSubmitButton(disable = true, text) {
+        this.refreshSubmitButton();
         if (!this.submitButton) return;
         const isInquire =
           this.submitButton.getAttribute('data-modal-trigger') ===
@@ -180,9 +245,7 @@ if (!customElements.get('product-form')) {
       fallbackToNativeSubmit() {
         if (!this.form) return;
 
-        this.submitButton?.classList.remove('loading');
-        this.submitButton?.removeAttribute('aria-disabled');
-        this.loadingSpinner?.classList.add('hidden');
+        this.isSubmitting = false;
 
         HTMLFormElement.prototype.submit.call(this.form);
       }

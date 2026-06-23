@@ -119,6 +119,9 @@
       {%- endif -%}
     {%- endfor -%}
 
+    <script type='application/json' data-product-variants>
+      {{ product.variants | json }}
+    </script>
     <script type='application/json' data-selected-variant>
       {%- if size_requires_selection -%}null{%- else -%}{{ product.selected_or_first_available_variant | json }}{%- endif -%}
     </script>
@@ -139,7 +142,10 @@
           form.appendChild(idInput);
         }
 
-        var variants = {{ product.variants | json }};
+        var variantsScript = root.querySelector('script[data-product-variants]');
+        var variants = variantsScript
+          ? JSON.parse(variantsScript.textContent)
+          : [];
 
         function currentOptions() {
           var selects = root.querySelectorAll('select[name^="options["]');
@@ -160,11 +166,18 @@
 
         function syncVariantFromSelects() {
           var sizeSelect = root.querySelector('.product-form__input--dropdown-size select');
+          var productForm = form.closest('product-form');
+          var productInfo = root.closest('product-info');
+
           if (sizeSelect && sizeSelect.value === '') {
             idInput.value = '';
-            var addToCart = form.querySelector('[type="submit"]');
-            if (addToCart) {
-              addToCart.setAttribute('disabled', 'disabled');
+            if (productInfo && productInfo.restorePlaceholderBuyButton) {
+              productInfo.restorePlaceholderBuyButton();
+            } else {
+              var addToCart = form.querySelector('[type="submit"]');
+              if (addToCart) {
+                addToCart.setAttribute('disabled', 'disabled');
+              }
             }
             return;
           }
@@ -173,13 +186,11 @@
           var variant = findVariantByOptions(opts);
           if (variant) {
             idInput.value = variant.id;
-            var addToCart = form.querySelector('[type="submit"]');
-            if (addToCart) {
-              if (variant.available) {
-                addToCart.removeAttribute('disabled');
-              } else {
-                addToCart.setAttribute('disabled', 'disabled');
-              }
+            if (productForm && productForm.setBuyButtonForVariant) {
+              productForm.setBuyButtonForVariant(
+                variant,
+                sizeSelect ? sizeSelect.value : '',
+              );
             }
           }
         }

@@ -33,6 +33,8 @@
           endif
         endfor
       endif
+
+      assign add_to_cart_button_classes = 'uppercase btn-dark product-form__submit px-6 h-10 lg:h-8 w-full'
     -%}
 
     <product-form
@@ -114,20 +116,18 @@
                 type='submit'
                 name='add'
                 disabled
-                class='uppercase add-to-cart-button btn-dark product-form__submit px-6 h-10 lg:h-8 transition-colors w-full {% if show_dynamic_checkout %}bg-gray-200 text-gray-900 hover:bg-gray-300 focus:ring-2 focus:ring-gray-500{% else %}bg-blue-600 text-white hover:bg-blue-700 focus:ring-2 focus:ring-blue-500{% endif %}'
+                class='{{ add_to_cart_button_classes }}'
               >
                 <span class='text-15'>{{ 'products.product.add_to_cart' | t }}</span>
-                {%- render 'loading-spinner' -%}
               </button>
             {%- elsif variant_available -%}
               <button
                 id='ProductSubmitButton-{{ section_id }}'
                 type='submit'
                 name='add'
-                class='uppercase add-to-cart-button btn-dark product-form__submit px-6 h-10 lg:h-8 transition-colors w-full {% if show_dynamic_checkout %}bg-gray-200 text-gray-900 hover:bg-gray-300 focus:ring-2 focus:ring-gray-500{% else %}bg-blue-600 text-white hover:bg-blue-700 focus:ring-2 focus:ring-blue-500{% endif %}'
+                class='{{ add_to_cart_button_classes }}'
               >
                 <span class='text-15'>{{ 'products.product.add_to_cart' | t }}</span>
-                {%- render 'loading-spinner' -%}
               </button>
             {%- else -%}
               {%- if variant_on_sale -%}
@@ -136,14 +136,15 @@
                   type='submit'
                   name='add'
                   disabled
-                  class='uppercase add-to-cart-button btn-dark product-form__submit px-6 h-10 lg:h-8 transition-colors w-full {% if show_dynamic_checkout %}bg-gray-200 text-gray-900 hover:bg-gray-300 focus:ring-2 focus:ring-gray-500{% else %}bg-blue-600 text-white hover:bg-blue-700 focus:ring-2 focus:ring-blue-500{% endif %}'
+                  class='{{ add_to_cart_button_classes }}'
                 >
                   <span class='text-15'>{{ 'products.product.inventory_out_of_stock' | t }}</span>
                 </button>
               {%- else -%}
                 <button
+                  id='ProductSubmitButton-{{ section_id }}'
                   type='button'
-                  class='uppercase add-to-cart-button btn-dark product-form__submit px-6 h-10 lg:h-8 transition-colors w-full {% if show_dynamic_checkout %}bg-gray-200 text-gray-900 hover:bg-gray-300 focus:ring-2 focus:ring-gray-500{% else %}bg-blue-600 text-white hover:bg-blue-700 focus:ring-2 focus:ring-blue-500{% endif %}'
+                  class='{{ add_to_cart_button_classes }}'
                   data-modal-trigger='inquire-modal'
                   {% if size_option_value != '' %}data-inquire-size='{{ size_option_value | escape }}'{% endif %}
                 >
