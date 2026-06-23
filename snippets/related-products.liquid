@@ -5,10 +5,6 @@
     - At least one of: same product type, same primary/secondary color
       metafield (hex), same first-word title (name)
     - Always render exactly 4 products (vendor-only fallback fills gaps)
-  Feature flag (?related=true) is enforced client-side; the wrapper around
-  this snippet is rendered with the `hidden` attribute and
-  `data-feature-flag="related"`. The inline script unhides it only when
-  the current URL contains ?related=true (no sessionStorage persistence).
 {%- endcomment -%}
 
 {%- assign vendor_norm = product.vendor | downcase | strip -%}
@@ -195,24 +191,5 @@
       ></div>
     </div>
   </div>
-
-  {%- comment -%} Feature flag: reveal wrapper only when ?related=true is on the current URL {%- endcomment -%}
-  <script>
-    (function () {
-      try {
-        var enabled = new URLSearchParams(window.location.search).get('related') === 'true';
-        var nodes = document.querySelectorAll('[data-feature-flag="related"]');
-        for (var i = 0; i < nodes.length; i++) {
-          if (enabled) {
-            nodes[i].removeAttribute('hidden');
-            nodes[i].classList.add('gm-related-visible');
-          } else {
-            nodes[i].setAttribute('hidden', '');
-            nodes[i].classList.remove('gm-related-visible');
-          }
-        }
-      } catch (e) { /* keep hidden */ }
-    })();
-  </script>
 
 {%- endif -%}
