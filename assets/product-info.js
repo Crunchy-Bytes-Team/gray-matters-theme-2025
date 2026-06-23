@@ -74,6 +74,15 @@ if (!customElements.get('product-info')) {
       }) {
         if (!this.contains(event.target)) return;
 
+        const sizeSelect = this.querySelector(
+          '.product-form__input--dropdown-size select',
+        );
+        if (sizeSelect && sizeSelect.value === '') {
+          this.resetProductFormState();
+          this.updateVariantInputs('');
+          return;
+        }
+
         this.resetProductFormState();
 
         const productUrl =

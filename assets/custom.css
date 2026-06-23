@@ -65,6 +65,28 @@ footer a:hover {
   border: solid 1px #000;
   transition: all 0.6s ease-in-out;
 }
+
+/* Product add to cart — inactive state matches size selector */
+.add_to_cart_button .product-form__submit:disabled {
+  background-color: rgb(243 244 246 / 0.7) !important;
+  border-color: rgb(243 244 246 / 0.7) !important;
+  color: #a5a5a5 !important;
+  cursor: not-allowed;
+  transform: none !important;
+  transition: none !important;
+  box-shadow: none !important;
+  --tw-ring-offset-shadow: 0 0 #0000 !important;
+  --tw-ring-shadow: 0 0 #0000 !important;
+}
+
+.add_to_cart_button .product-form__submit:disabled:hover,
+.add_to_cart_button .product-form__submit:disabled:focus,
+.add_to_cart_button .product-form__submit:disabled:focus-visible {
+  background-color: rgb(243 244 246 / 0.7) !important;
+  border-color: rgb(243 244 246 / 0.7) !important;
+  color: #a5a5a5 !important;
+}
+
 .font-accent {
   font-family: 'Stanley', sans-serif;
 }

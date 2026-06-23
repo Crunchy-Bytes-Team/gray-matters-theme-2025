@@ -41,7 +41,8 @@ if (!customElements.get('product-form')) {
         evt.preventDefault();
         if (
           !this.submitButton ||
-          this.submitButton.getAttribute('aria-disabled') === 'true'
+          this.submitButton.getAttribute('aria-disabled') === 'true' ||
+          !this.variantIdInput?.value
         )
           return;
 

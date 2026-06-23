@@ -22,6 +22,17 @@
       if block.settings.show_dynamic_checkout and gift_card_recipient_feature_active == false
         assign show_dynamic_checkout = true
       endif
+
+      assign size_requires_selection = false
+      if product.selected_variant == blank
+        for option in product.options_with_values
+          assign opt_name_downcase = option.name | downcase
+          if opt_name_downcase contains 'size' or opt_name_downcase contains 'taglia'
+            assign size_requires_selection = true
+            break
+          endif
+        endfor
+      endif
     -%}
 
     <product-form
@@ -46,7 +57,7 @@
         <input
           type='hidden'
           name='id'
-          value='{{ product.selected_or_first_available_variant.id }}'
+          value='{% if size_requires_selection %}{% else %}{{ product.selected_or_first_available_variant.id }}{% endif %}'
           {% if product.selected_or_first_available_variant.available == false
             or quantity_rule_soldout
             or product.selected_or_first_available_variant == null
@@ -61,7 +72,7 @@
         {%- endif -%}
 
         <div class='product-form__buttons add_to_cart_button flex flex-row justify-between items-end'>
-          <div class='add-to-cart-button bg-gray-200 w-7/12 lg:w-10/12 mr-4 lg:mr-10'>
+          <div class='add-to-cart-button w-7/12 lg:w-10/12 mr-4 lg:mr-10'>
             {%- liquid
               assign check_against_inventory = true
               if product.selected_or_first_available_variant.inventory_management != 'shopify' or product.selected_or_first_available_variant.inventory_policy == 'continue'
@@ -97,7 +108,18 @@
                 endif
               endif
             -%}
-            {%- if variant_available -%}
+            {%- if size_requires_selection -%}
+              <button
+                id='ProductSubmitButton-{{ section_id }}'
+                type='submit'
+                name='add'
+                disabled
+                class='uppercase add-to-cart-button btn-dark product-form__submit px-6 h-10 lg:h-8 transition-colors w-full {% if show_dynamic_checkout %}bg-gray-200 text-gray-900 hover:bg-gray-300 focus:ring-2 focus:ring-gray-500{% else %}bg-blue-600 text-white hover:bg-blue-700 focus:ring-2 focus:ring-blue-500{% endif %}'
+              >
+                <span class='text-15'>{{ 'products.product.add_to_cart' | t }}</span>
+                {%- render 'loading-spinner' -%}
+              </button>
+            {%- elsif variant_available -%}
               <button
                 id='ProductSubmitButton-{{ section_id }}'
                 type='submit'

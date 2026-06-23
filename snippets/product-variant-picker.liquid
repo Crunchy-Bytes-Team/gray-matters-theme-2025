@@ -9,6 +9,18 @@
   {% render 'product-variant-picker', product: product, block: block, product_form_id: product_form_id %}
 {% endcomment %}
 {%- unless product.has_only_default_variant -%}
+  {%- liquid
+    assign size_requires_selection = false
+    if product.selected_variant == blank
+      for option in product.options_with_values
+        assign option_key_check = option.name | downcase | strip
+        if option_key_check contains 'size' or option_key_check contains 'taglia'
+          assign size_requires_selection = true
+          break
+        endif
+      endfor
+    endif
+  -%}
   <variant-selects
     class='w-full'
     id='variant-selects-{{ section.id }}'
@@ -25,6 +37,11 @@
 
         if option_key contains 'size' or option_key contains 'taglia'
           assign is_size_option = true
+        endif
+
+        assign use_size_placeholder = false
+        if is_size_option and size_requires_selection
+          assign use_size_placeholder = true
         endif
 
         if swatch_count > 0 and swatch_shape != 'none'
@@ -80,12 +97,18 @@
               name='options[{{ option.name | escape }}]'
               form='{{ product_form_id }}'
             >
+              {%- if is_size_option and size_requires_selection -%}
+                <option value='' selected data-size-placeholder>
+                  {{- 'products.product.select_size' | t -}}
+                </option>
+              {%- endif -%}
               {% render 'product-variant-options',
                 product: product,
                 option: option,
                 block: block,
                 picker_type: picker_type,
-                swatch_shape: swatch_shape
+                swatch_shape: swatch_shape,
+                use_size_placeholder: use_size_placeholder
               %}
             </select>
             <span class='svg-wrapper hidden'>
@@ -97,7 +120,7 @@
     {%- endfor -%}
 
     <script type='application/json' data-selected-variant>
-      {{ product.selected_or_first_available_variant | json }}
+      {%- if size_requires_selection -%}null{%- else -%}{{ product.selected_or_first_available_variant | json }}{%- endif -%}
     </script>
     <script>
       (function() {
@@ -135,24 +158,39 @@
           return null;
         }
 
-        root.addEventListener('change', function(e) {
-          if (e.target && e.target.matches('select[name^="options["]')) {
-            var opts = currentOptions();
-            var variant = findVariantByOptions(opts);
-            if (variant) {
-              idInput.value = variant.id;
-              // Toggle disabled state for sold-out variants if needed
-              var addToCart = form.querySelector('[type="submit"]');
-              if (addToCart) {
-                if (variant.available) {
-                  addToCart.removeAttribute('disabled');
-                } else {
-                  addToCart.setAttribute('disabled', 'disabled');
-                }
+        function syncVariantFromSelects() {
+          var sizeSelect = root.querySelector('.product-form__input--dropdown-size select');
+          if (sizeSelect && sizeSelect.value === '') {
+            idInput.value = '';
+            var addToCart = form.querySelector('[type="submit"]');
+            if (addToCart) {
+              addToCart.setAttribute('disabled', 'disabled');
+            }
+            return;
+          }
+
+          var opts = currentOptions();
+          var variant = findVariantByOptions(opts);
+          if (variant) {
+            idInput.value = variant.id;
+            var addToCart = form.querySelector('[type="submit"]');
+            if (addToCart) {
+              if (variant.available) {
+                addToCart.removeAttribute('disabled');
+              } else {
+                addToCart.setAttribute('disabled', 'disabled');
               }
             }
           }
+        }
+
+        root.addEventListener('change', function(e) {
+          if (e.target && e.target.matches('select[name^="options["]')) {
+            syncVariantFromSelects();
+          }
         });
+
+        syncVariantFromSelects();
       })();
     </script>
   </variant-selects>

@@ -199,6 +199,7 @@
       "shipping_policy_html": "<a href=\"{{ link }}\">Shipping</a> calculated at checkout.",
       "shipping_and_returns": "Shipping & Returns",
       "size_guide": "Size Guide",
+      "select_size": "Select size",
       "contact_us": "Contact Us"
     },
     "modal": {

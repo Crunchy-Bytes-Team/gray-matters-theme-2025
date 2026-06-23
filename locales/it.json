@@ -177,6 +177,7 @@
       "value_unavailable": "{{ option_value }} - Non disponibile",
       "inquire": "Richiedi",
       "value_inquire": "{{ option_value }} - Richiedi",
+      "select_size": "Seleziona taglia",
       "variant_sold_out_or_unavailable": "Variante esaurita o non disponibile",
       "inventory_in_stock": "Disponibile",
       "inventory_in_stock_show_count": "{{ quantity }} disponibile/i",
