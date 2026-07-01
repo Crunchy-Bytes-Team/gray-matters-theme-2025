@@ -59,7 +59,7 @@
       </facet-filters-form>
     {%- endif -%}
 
-    <div class='{% if section.settings.filter_type == 'vertical' %} facets-vertical{% endif %} w-full px-4'>
+    <div class='{% if section.settings.filter_type == 'vertical' %} facets-vertical{% endif %} w-full px-0'>
       {{ 'component-facets.css' | asset_url | stylesheet_tag }}
       <script src='{{ 'facets.js' | asset_url }}' defer='defer'></script>
       {%- if section.settings.enable_filtering or section.settings.enable_sorting -%}
@@ -196,8 +196,14 @@
                     {% assign big_card_url = collection_for_card.url %}
                     {% assign collection_label_metafield = collection_for_card.metafields.custom.collection_label %}
                     {% assign collection_description_metafield = collection_for_card.metafields.custom.collection_description %}
-                    {% assign big_card_title = collection_label_metafield.value | default: collection_label_metafield | default: collection_for_card.title %}
-                    {% assign big_card_description = collection_description_metafield.value | default: collection_description_metafield | default: collection_for_card.description %}
+                    {% assign big_card_title = collection_label_metafield.value
+                      | default: collection_label_metafield
+                      | default: collection_for_card.title
+                    %}
+                    {% assign big_card_description = collection_description_metafield.value
+                      | default: collection_description_metafield
+                      | default: collection_for_card.description
+                    %}
                     {% assign collection_image_metafield = collection_for_card.metafields.custom.collection_image %}
                     {% if collection_image_metafield != blank and collection_image_metafield.value != blank %}
                       {% assign big_image_url = collection_image_metafield.value | replace: '\/', '/' %}
