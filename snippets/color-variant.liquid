@@ -124,7 +124,11 @@
 
         {% assign variant_product = all_products[variant_handle] %}
 
-        {% if variant_product != blank %}
+        {% comment %}
+          Liquid has no product.status (draft/active/archived). Skip variants that are
+          unpublished to the Online Store; draft products are also excluded via all_products.
+        {% endcomment %}
+        {% if variant_product != blank and variant_product.published_at != blank %}
           {% assign variant_color_image_raw = variant_product.metafields.module.product_color_img1.value %}
           {% assign variant_color_image_url = '' %}
           {% if variant_color_image_raw != blank %}
