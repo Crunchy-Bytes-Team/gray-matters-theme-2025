@@ -20,12 +20,16 @@
       </div>
       <div class='lg:w-1/2 lg:flex flex-col items-center justify-center self-stretch'>
         <div>
-          <h3 class='font-accent text-xl lg:text-4xl text-center lg:text-left mb-2 lg:mb-3'>
-            {{ product.metafields.module.video_module_vertical_video_title.value | default: 'Gray Matters' }}
-          </h3>
-          <p class='font-accent text-sm lg:text-lg text-center lg:text-left mb-6 lg:mb-0'>
-            {{ product.metafields.module.video_module_vertical_video_description.value | default: 'Gray Matters' }}
-          </p>
+          {% if product.metafields.module.video_module_vertical_video_title.value != blank %}
+            <h3 class='font-accent text-xl lg:text-4xl text-center lg:text-left mb-2 lg:mb-3'>
+              {{ product.metafields.module.video_module_vertical_video_title.value }}
+            </h3>
+          {% endif %}
+          {% if product.metafields.module.video_module_vertical_video_description.value != blank %}
+            <p class='font-accent text-sm lg:text-lg text-center lg:text-left mb-6 lg:mb-0'>
+              {{ product.metafields.module.video_module_vertical_video_description.value }}
+            </p>
+          {% endif %}
         </div>
       </div>
     </div>

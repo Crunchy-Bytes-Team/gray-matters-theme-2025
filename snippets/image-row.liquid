@@ -3,6 +3,7 @@
 {% assign image2 = product.metafields.module.image_row_module_image2.value %}
 {% assign image3 = product.metafields.module.image_row_module_image3.value %}
 {% assign image4 = product.metafields.module.image_row_module_image4.value %}
+{% assign image5 = product.metafields.module.image_row_module_image5.value %}
 
 {% comment %} Conta le immagini presenti {% endcomment %}
 {% assign image_count = 0 %}
@@ -18,6 +19,9 @@
 {% if image4 %}
   {% assign image_count = image_count | plus: 1 %}
 {% endif %}
+{% if image5 %}
+  {% assign image_count = image_count | plus: 1 %}
+{% endif %}
 
 {% comment %} Determina le classi per le colonne in base al numero di immagini {% endcomment %}
 {% if image_count == 2 %}
@@ -26,6 +30,8 @@
   {% assign desktop_grid_class = 'md:grid-cols-3' %}
 {% elsif image_count == 4 %}
   {% assign desktop_grid_class = 'md:grid-cols-4' %}
+{% elsif image_count == 5 %}
+  {% assign desktop_grid_class = 'md:grid-cols-5' %}
 {% else %}
   {% assign desktop_grid_class = 'md:grid-cols-1' %}
 {% endif %}
@@ -80,6 +86,18 @@
             <img
               src='{{ image4 }}'
               alt='Product image 4'
+              width='800'
+              height='auto'
+              class='w-full h-auto object-cover block'
+              loading='lazy'
+            >
+          </div>
+        {% endif %}
+        {% if image5 %}
+          <div class='relative basis-full md:basis-auto shrink-0' data-item>
+            <img
+              src='{{ image5 }}'
+              alt='Product image 5'
               width='800'
               height='auto'
               class='w-full h-auto object-cover block'

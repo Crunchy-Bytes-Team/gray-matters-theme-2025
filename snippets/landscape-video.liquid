@@ -1,31 +1,39 @@
 {% assign video_desktop_landscape = product.metafields.module.video_module_video_landscape.value %}
-
-{% if video_desktop_landscape != blank %}
-  <div class='w-full aspect-video'>
-    <iframe
-      class='w-full h-full'
-      src='{{ video_desktop_landscape }}'
-      frameborder='0'
-      allow='autoplay; fullscreen; picture-in-picture'
-      allowfullscreen
-      title='Landscape video'
-      loading='lazy'
-    ></iframe>
-  </div>
+{% assign video_landscape_enabled = false %}
+{% if product.metafields.module.video_module_landscape_no_mbl == true
+  or product.metafields.module.video_module_landscape_no_mbl == 'true'
+%}
+  {% assign video_landscape_enabled = true %}
 {% endif %}
 
-{% assign video_desktop_url = product.metafields.module.video_module_video.value %}
+{% if video_landscape_enabled != blank %}
+  {% if video_desktop_landscape != blank %}
+    <div class='w-full aspect-video'>
+      <iframe
+        class='w-full h-full'
+        src='{{ video_desktop_landscape }}'
+        frameborder='0'
+        allow='autoplay; fullscreen; picture-in-picture'
+        allowfullscreen
+        title='Landscape video'
+        loading='lazy'
+      ></iframe>
+    </div>
+  {% endif %}
 
-{% if video_desktop_url != blank %}
-  <div class='w-full aspect-video'>
-    <iframe
-      class='w-full h-full'
-      src='{{ video_desktop_url }}'
-      frameborder='0'
-      allow='autoplay; fullscreen; picture-in-picture'
-      allowfullscreen
-      title='Landscape video'
-      loading='lazy'
-    ></iframe>
-  </div>
+  {% assign video_desktop_url = product.metafields.module.video_module_video.value %}
+
+  {% if video_desktop_url != blank %}
+    <div class='w-full aspect-video'>
+      <iframe
+        class='w-full h-full'
+        src='{{ video_desktop_url }}'
+        frameborder='0'
+        allow='autoplay; fullscreen; picture-in-picture'
+        allowfullscreen
+        title='Landscape video'
+        loading='lazy'
+      ></iframe>
+    </div>
+  {% endif %}
 {% endif %}
