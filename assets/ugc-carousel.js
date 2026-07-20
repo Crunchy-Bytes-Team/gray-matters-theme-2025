@@ -8,7 +8,7 @@
 
     const viewport = root.querySelector('[data-viewport]');
     const track = root.querySelector('[data-track]');
-    const items = Array.from(track ? track.children : []);
+    const items = Array.from(root.querySelectorAll('[data-item]'));
     const prev = root.querySelector('[data-prev]');
     const next = root.querySelector('[data-next]');
     if (!viewport || !track || items.length === 0) {

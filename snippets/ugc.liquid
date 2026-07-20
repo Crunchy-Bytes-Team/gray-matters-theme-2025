@@ -67,35 +67,46 @@
 
 {% assign entries_count = ugc_entries | size %}
 
-{% assign has_valid_ugc_entry = false %}
+{% assign valid_entries_count = 0 %}
 {% if entries_count > 0 %}
   {% for entry in ugc_entries %}
     {% assign image_url_raw = entry.image | default: entry.src | default: entry.image_url %}
     {% assign image_url_clean = image_url_raw | append: '' | strip %}
     {% assign image_url = image_url_clean | split: ' ' | first %}
     {% if image_url != blank %}
-      {% assign has_valid_ugc_entry = true %}
-      {% break %}
+      {% assign valid_entries_count = valid_entries_count | plus: 1 %}
     {% endif %}
   {% endfor %}
 {% endif %}
 
-{% if entries_count > 0 and has_valid_ugc_entry %}
+{% if valid_entries_count > 0 %}
   <div class=''>
     <h3 class='w-full text-center font-accent font-normal text-xl uppercase mb-6'>A seen on</h3>
 
-    {% assign grid_classes = 'md:grid-cols-1' %}
-    {% if entries_count == 2 %}
-      {% assign grid_classes = 'md:grid-cols-2' %}
-    {% elsif entries_count == 3 %}
-      {% assign grid_classes = 'md:grid-cols-3' %}
-    {% elsif entries_count == 4 %}
+    {% comment %}
+      Layout desktop:
+      - multipli di 5 → 5 colonne
+      - multipli di 4 → 4 colonne
+      - meno di 4 → tutte in una riga (1, 2 o 3 colonne)
+    {% endcomment %}
+    {% assign mod5 = valid_entries_count | modulo: 5 %}
+    {% assign mod4 = valid_entries_count | modulo: 4 %}
+    {% assign grid_classes = 'md:grid-cols-4' %}
+    {% if mod5 == 0 %}
+      {% assign grid_classes = 'md:grid-cols-5' %}
+    {% elsif mod4 == 0 %}
       {% assign grid_classes = 'md:grid-cols-4' %}
-    {% elsif entries_count >= 5 %}
-      {% assign grid_classes = 'md:grid-cols-4' %}
+    {% elsif valid_entries_count < 4 %}
+      {% if valid_entries_count == 1 %}
+        {% assign grid_classes = 'md:grid-cols-1' %}
+      {% elsif valid_entries_count == 2 %}
+        {% assign grid_classes = 'md:grid-cols-2' %}
+      {% elsif valid_entries_count == 3 %}
+        {% assign grid_classes = 'md:grid-cols-3' %}
+      {% endif %}
     {% endif %}
 
-    <div class='relative w-full' data-imagerow>
+    <div class='relative w-full' data-ugc-carousel>
       <div class='overflow-hidden md:overflow-visible w-full' data-viewport>
         <div
           class='flex w-full transition-transform duration-300 ease-in-out md:grid md:gap-4 {{ grid_classes }}'
@@ -144,7 +155,7 @@
         </div>
       </div>
 
-      {% if entries_count > 1 %}
+      {% if valid_entries_count > 1 %}
         <button
           type='button'
           class='md:hidden absolute left-2 top-1/2 -translate-y-1/2 flex items-center justify-center leading-none'
