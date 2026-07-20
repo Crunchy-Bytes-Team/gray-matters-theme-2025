@@ -1,5 +1,10 @@
 /* Proxima font families - @font-face defined in layout/theme.liquid */
 
+/* Base font size: 13px (0.8125 × browser 16px). All rem units scale from this. */
+html {
+  font-size: 0.8125rem;
+}
+
 body {
   font-family: 'proxima-reg', sans-serif;
   font-optical-sizing: auto;
@@ -66,6 +71,17 @@ footer a:hover {
   transition: all 0.6s ease-in-out;
 }
 
+/* Size select: match add-to-cart box model via shared padding/type; neutralize UA select quirks (no fixed height) */
+.add_to_cart_button .size-selector select {
+  -webkit-appearance: none;
+  appearance: none;
+  height: auto;
+  min-height: 0;
+  line-height: inherit;
+  font-size: inherit;
+  font-family: inherit;
+}
+
 /* Product add to cart — inactive state matches size selector */
 .add_to_cart_button .product-form__submit:disabled {
   background-color: rgb(243 244 246 / 0.7) !important;
@@ -121,7 +137,6 @@ select:focus {
 }
 
 .product-desc-scrollbar {
-  font-size: 14px;
   max-height: 30vh;
   overflow-y: auto;
   padding-right: 10px;
@@ -153,7 +168,7 @@ select:focus {
 }
 
 .product_desc p {
-  margin-bottom: 5px;
+  margin-bottom: 10px;
 }
 
 /* Sotto i 1024px */

@@ -3,8 +3,8 @@
   <!-- main footer -->
   <section id='footer' class='w-full'>
     <div class='foter_container w-full flex flex-col lg:flex-row'>
-      <!-- col 01 footer -->
-      <div class='flex flex-col w-full lg:w-1/4 mb-6 lg:mb-0 border-b border-gray-300 lg:border-b-0 lg:border-r lg:border-r-200 lg:mr-3'>
+      <!-- col 01 footer — desktop 3/12 (matches legacy Bootstrap col-md-3) -->
+      <div class='flex flex-col w-full lg:w-3/12 mb-6 lg:mb-0 border-b border-gray-300 lg:border-b-0 lg:border-r lg:border-r-200 lg:pr-[0.9375rem]'>
         <button
           class='flex items-center justify-between w-full text-sm text-light-gray uppercase mb-6 lg:cursor-default'
           type='button'
@@ -31,8 +31,8 @@
         </div>
       </div>
 
-      <!-- col 02 footer -->
-      <div class='flex flex-col w-full lg:w-1/4 mb-6 lg:mb-0 border-b border-gray-300 lg:border-b-0 lg:border-r lg:border-r-200 lg:mr-3'>
+      <!-- col 02 footer — desktop 3/12 (matches legacy Bootstrap col-md-3) -->
+      <div class='flex flex-col w-full lg:w-3/12 mb-6 lg:mb-0 border-b border-gray-300 lg:border-b-0 lg:border-r lg:border-r-200 lg:px-[0.9375rem]'>
         <button
           class='flex items-center justify-between w-full text-sm text-light-gray uppercase mb-6 lg:cursor-default'
           type='button'
@@ -59,8 +59,8 @@
         </div>
       </div>
 
-      <!-- col 03 footer -->
-      <div class='flex flex-col w-full lg:w-1/4 mb-6 lg:mb-0 border-b border-gray-300 lg:border-b-0 lg:border-r lg:border-r-200 lg:mr-3'>
+      <!-- col 03 footer — desktop 2/12 (matches legacy Bootstrap col-md-2) -->
+      <div class='flex flex-col w-full lg:w-2/12 mb-6 lg:mb-0 border-b border-gray-300 lg:border-b-0 lg:border-r lg:border-r-200 lg:px-[0.9375rem]'>
         <button
           class='flex items-center justify-between w-full text-sm text-light-gray uppercase mb-6 lg:cursor-default'
           type='button'
@@ -87,8 +87,8 @@
         </div>
       </div>
 
-      <!-- col 04 footer -->
-      <div class='flex flex-col w-full lg:w-1/4 mb-6 lg:mb-0'>
+      <!-- col 04 footer / News — desktop 4/12 (matches legacy Bootstrap col-md-4) -->
+      <div class='flex flex-col w-full lg:w-4/12 mb-6 lg:mb-0 lg:pl-[0.9375rem]'>
         <div class='contact-footer'>
           <h4 class='text-sm text-light-gray uppercase mb-6'>
             {{ 'sections.footer.news' | t }}
@@ -210,7 +210,7 @@
   <!-- main footer end -->
 
   <!-- copyright -->
-  <div class='w-full flex flex-row items-start text-dark-gray text-xs pt-4'>© 2026 Gray Matters</div>
+  <div class='w-full flex flex-row items-start text-dark-gray text-sm pt-4'>© 2026 Gray Matters</div>
 </footer>
 
 {% if section.settings.newsletter_enable %}

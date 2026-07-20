@@ -34,7 +34,7 @@
         endfor
       endif
 
-      assign add_to_cart_button_classes = 'uppercase btn-dark product-form__submit px-6 h-10 lg:h-8 w-full'
+      assign add_to_cart_button_classes = 'uppercase btn-dark product-form__submit box-border w-full border px-6 py-2 text-15 leading-[1.5]'
     -%}
 
     <product-form
@@ -146,7 +146,9 @@
                   type='button'
                   class='{{ add_to_cart_button_classes }}'
                   data-modal-trigger='inquire-modal'
-                  {% if size_option_value != '' %}data-inquire-size='{{ size_option_value | escape }}'{% endif %}
+                  {% if size_option_value != '' %}
+                    data-inquire-size='{{ size_option_value | escape }}'
+                  {% endif %}
                 >
                   <span class='text-15'>{{ 'products.product.inquire' | t }}</span>
                 </button>
@@ -159,11 +161,12 @@
               {%- endif -%}
             -->
           </div>
-          <div class='w-5/12 lg:w-2/12 flex flex-col items-start justify-end'>
-            <span class='uppercase text-xs text-dark-gray tracking-wide hidden lg:block block w-full text-left'>Size</span>
+          <div class='w-5/12 lg:w-2/12 flex flex-col items-start justify-end relative'>
+            <span class='uppercase text-xs text-dark-gray tracking-wide lg:block block w-full text-left absolute -top-2 left-0'
+              >Size</span
+            >
             <div
-              style=''
-              class='size-selector bg-gray-100 bg-opacity-70 hover:bg-black hover:text-white transition-colors duration-700 ease-in-out flex items-center h-10 lg:h-auto w-full'
+              class='size-selector box-border flex w-full items-center justify-center border border-transparent bg-gray-100 bg-opacity-70 px-6 py-2 text-15 leading-[1.5] transition-colors duration-700 ease-in-out hover:bg-black hover:text-white'
             >
               {%- comment -%}
                 {%- when 'variant_picker' -%}

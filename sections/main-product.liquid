@@ -146,12 +146,12 @@
 
                 <div
                   id='MobileProductDesc-{{ section.id }}'
-                  class='product_desc flex flex-col proxima-reg tracking-wide leading-5 text-sm hidden lg:flex'
+                  class='product_desc flex flex-col proxima-reg tracking-wide leading-5 hidden lg:flex'
                   style='max-height:0; opacity:0; overflow:hidden; transition:max-height 300ms ease, opacity 300ms ease;'
                   aria-hidden='true'
                 >
                   <div
-                    class='product-desc-scrollbar w-full lg:w-3/4 pt-2 lg:pt-0'
+                    class='product-desc-scrollbar leading-[1.5] w-full lg:w-3/4 pt-2 lg:pt-0'
                   >
                     {{ product.description }}
                   </div>
@@ -164,7 +164,7 @@
                     <ul class='flex flex-row items-center mb-1'>
                       <li class='bg-black w-2.5 h-[1px] mr-2'></li>
                       <li>
-                        <a class='text-xs tracking-wider uppercase' href='/pages/client-services' target='_blank'>
+                        <a class='text-sm tracking-wider uppercase' href='/pages/client-services' target='_blank'>
                           {{- 'products.product.shipping_and_returns' | t -}}
                         </a>
                       </li>
@@ -175,14 +175,14 @@
                         <a
                           href='#size-guide-modal'
                           data-modal-trigger='size-guide'
-                          class='size-guide-link text-xs tracking-wider uppercase'
+                          class='size-guide-link text-sm tracking-wider uppercase'
                         >
                           {{ 'products.product.size_guide' | t }}
                         </a>
                       </li>
                       <li class='mx-2'>|</li>
                       <li>
-                        <a class='text-xs tracking-wider uppercase' href='/pages/contact-us'>
+                        <a class='text-sm tracking-wider uppercase' href='/pages/contact-us'>
                           {{- 'products.product.contact_us' | t -}}
                         </a>
                       </li>

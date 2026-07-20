@@ -70,7 +70,9 @@
         </fieldset>
       {%- elsif picker_type == 'button' -%}
         <fieldset class='js product-form__input product-form__input--pill'>
-          <legend class='form__label'>{% if is_size_option %}Size{% else %}{{ option.name }}{% endif %}</legend>
+          <legend class='form__label'>
+            {% if is_size_option %}Size{% else %}{{ option.name }}{% endif %}
+          </legend>
           {% render 'product-variant-options',
             product: product,
             option: option,
@@ -80,9 +82,11 @@
           %}
         </fieldset>
       {%- else -%}
-        <div class='h-full w-full product-form__input product-form__input--dropdown{% if is_size_option %} product-form__input--dropdown-size{% endif %}'>
-          <label class='form__label hidden' for='Option-{{ section.id }}-{{ forloop.index0 }}'>{% if is_size_option %}Size{% else %}{{ option.name }}{% endif %}</label>
-          <div class='px-2 h-8 w-full select{% if is_size_option %} select--size{% endif %}'>
+        <div class='w-full product-form__input product-form__input--dropdown{% if is_size_option %} product-form__input--dropdown-size{% endif %}'>
+          <label class='form__label hidden' for='Option-{{ section.id }}-{{ forloop.index0 }}'>
+            {%- if is_size_option %}Size{% else %}{{ option.name }}{% endif -%}
+          </label>
+          <div class='w-full select{% if is_size_option %} select--size{% endif %}'>
             {%- if picker_type == 'swatch_dropdown' -%}
               <span
                 data-selected-value
@@ -93,7 +97,7 @@
             {%- endif -%}
             <select
               id='Option-{{ section.id }}-{{ forloop.index0 }}'
-              class='variant-select select__select text-15 text-center h-full w-full hover:text-white bg-transparent cursor-pointer transition-colors duration-700 ease-in-out'
+              class='variant-select select__select appearance-none m-0 box-border w-full border-0 bg-transparent p-0 text-center text-15 leading-[1.5] uppercase cursor-pointer transition-colors duration-700 ease-in-out hover:text-white'
               name='options[{{ option.name | escape }}]'
               form='{{ product_form_id }}'
             >
@@ -126,7 +130,7 @@
       {%- if size_requires_selection -%}null{%- else -%}{{ product.selected_or_first_available_variant | json }}{%- endif -%}
     </script>
     <script>
-      (function() {
+      (function () {
         var root = document.getElementById('variant-selects-{{ section.id }}');
         if (!root) return;
         var form = document.getElementById('{{ product_form_id }}');
@@ -143,13 +147,13 @@
         }
 
         var variantsScript = root.querySelector('script[data-product-variants]');
-        var variants = variantsScript
-          ? JSON.parse(variantsScript.textContent)
-          : [];
+        var variants = variantsScript ? JSON.parse(variantsScript.textContent) : [];
 
         function currentOptions() {
           var selects = root.querySelectorAll('select[name^="options["]');
-          return Array.prototype.map.call(selects, function(s) { return s.value; });
+          return Array.prototype.map.call(selects, function (s) {
+            return s.value;
+          });
         }
 
         function findVariantByOptions(options) {
@@ -157,7 +161,10 @@
             var v = variants[i];
             var match = true;
             for (var j = 0; j < v.options.length; j++) {
-              if (String(v.options[j]) !== String(options[j])) { match = false; break; }
+              if (String(v.options[j]) !== String(options[j])) {
+                match = false;
+                break;
+              }
             }
             if (match) return v;
           }
@@ -187,15 +194,12 @@
           if (variant) {
             idInput.value = variant.id;
             if (productForm && productForm.setBuyButtonForVariant) {
-              productForm.setBuyButtonForVariant(
-                variant,
-                sizeSelect ? sizeSelect.value : '',
-              );
+              productForm.setBuyButtonForVariant(variant, sizeSelect ? sizeSelect.value : '');
             }
           }
         }
 
-        root.addEventListener('change', function(e) {
+        root.addEventListener('change', function (e) {
           if (e.target && e.target.matches('select[name^="options["]')) {
             syncVariantFromSelects();
           }

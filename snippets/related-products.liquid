@@ -5,6 +5,7 @@
     - At least one of: same product type, same primary/secondary color
       metafield (hex), same first-word title (name)
     - Always render exactly 4 products (vendor-only fallback fills gaps)
+    - Skip draft/unpublished products (published_at blank; Liquid has no product.status)
 {%- endcomment -%}
 
 {%- assign vendor_norm = product.vendor | downcase | strip -%}
@@ -42,6 +43,7 @@
 
       {%- if cand.id == product.id -%}{%- continue -%}{%- endif -%}
       {%- if seen contains seen_tok -%}{%- continue -%}{%- endif -%}
+      {%- if cand.published_at == blank -%}{%- continue -%}{%- endif -%}
 
       {%- assign cv = cand.vendor | downcase | strip -%}
       {%- if cv != 'gray matters' -%}{%- continue -%}{%- endif -%}
@@ -146,7 +148,7 @@
           {%- for h in final_arr -%}
             {%- if h == '' -%}{%- continue -%}{%- endif -%}
             {%- assign rp = all_products[h] -%}
-            {%- if rp != blank -%}
+            {%- if rp != blank and rp.published_at != blank -%}
               <div class='relative group basis-1/2 md:basis-auto shrink-0' data-item>
                 <a href='{{ rp.url }}'>
                   {% if rp.featured_image %}
