@@ -1,12 +1,23 @@
 {%- comment -%}
-  Auto-suggested related products (replaces metafield-driven list).
-  Rules:
-    - VENDOR MUST = "Gray Matters" (case-insensitive)
-    - At least one of: same product type, same primary/secondary color
-      metafield (hex), same first-word title (name)
-    - Always render exactly 4 products (vendor-only fallback fills gaps)
-    - Skip draft/unpublished products (published_at blank; Liquid has no product.status)
-    - Skip color variants from module.product_variants (same as color-variant.liquid)
+  Auto-suggested related products.
+  Exclusions:
+    - Current product
+    - Draft/unpublished (published_at blank)
+    - Color variants from module.product_variants
+    - Vendor != "Gray Matters"
+  Name = first word of the title.
+  Color tokens (words in title, not hex metafields):
+    1) If title contains " in " → words after " in " (e.g. "Myla Loafers in Vino")
+    2) Else if secondary_color metafield is set (multi-color) → last 2 title words
+       (e.g. "… Nero Rosso")
+    3) Else → last title word
+    Same color = candidate title contains ALL color tokens as whole words.
+  Slots (distinct products; fill 4→1→2→3, then backfill empties with slot 5):
+    1. same type + same color
+    2. same type + different color
+    3. same name + different color
+    4. same type + same color + same name
+    5. fallback: same collection (already), same color, different type
 {%- endcomment -%}
 
 {%- assign vendor_norm = product.vendor | downcase | strip -%}
@@ -14,23 +25,49 @@
 
   {%- assign current_type = product.type | downcase | strip -%}
   {%- assign current_name = product.title | split: ' ' | first | downcase | strip -%}
+  {%- assign title_down = product.title | downcase | strip -%}
   {%- assign blank_color = 'ff00bb' -%}
+  {%- assign sep = '|' -%}
+  {%- assign color_tokens = '' -%}
 
-  {%- assign cur_primary_raw = product.metafields.custom.primary_color.value
-    | default: product.metafields.custom.primary_color
-    | default: ''
-  -%}
-  {%- assign cur_primary = cur_primary_raw | strip | downcase | remove: '#' -%}
-  {%- if cur_primary == blank_color -%}{%- assign cur_primary = '' -%}{%- endif -%}
-
-  {%- assign cur_secondary_raw = product.metafields.custom.secondary_color.value
+  {%- comment -%} Multi-color signal from secondary_color metafield (hex only used as flag) {%- endcomment -%}
+  {%- assign sec_raw = product.metafields.custom.secondary_color.value
     | default: product.metafields.custom.secondary_color
     | default: ''
+    | strip
+    | downcase
+    | remove: '#'
   -%}
-  {%- assign cur_secondary = cur_secondary_raw | strip | downcase | remove: '#' -%}
-  {%- if cur_secondary == blank_color -%}{%- assign cur_secondary = '' -%}{%- endif -%}
+  {%- assign is_multicolor = false -%}
+  {%- if sec_raw != blank and sec_raw != blank_color -%}
+    {%- assign is_multicolor = true -%}
+  {%- endif -%}
 
-  {%- assign sep = '|' -%}
+  {%- if title_down contains ' in ' -%}
+    {%- assign color_part = title_down | split: ' in ' | last | strip -%}
+    {%- assign color_words = color_part | split: ' ' -%}
+    {%- for w in color_words -%}
+      {%- assign wl = w | strip -%}
+      {%- if wl == blank or wl == current_name -%}{%- continue -%}{%- endif -%}
+      {%- assign color_tokens = color_tokens | append: wl | append: sep -%}
+    {%- endfor -%}
+  {%- elsif is_multicolor -%}
+    {%- assign rev_words = title_down | split: ' ' | reverse -%}
+    {%- assign taken = 0 -%}
+    {%- for w in rev_words -%}
+      {%- if taken >= 2 -%}{%- break -%}{%- endif -%}
+      {%- assign wl = w | strip -%}
+      {%- if wl == blank or wl == current_name -%}{%- continue -%}{%- endif -%}
+      {%- assign color_tokens = wl | append: sep | append: color_tokens -%}
+      {%- assign taken = taken | plus: 1 -%}
+    {%- endfor -%}
+  {%- else -%}
+    {%- assign wl = title_down | split: ' ' | last | strip -%}
+    {%- if wl != blank and wl != current_name -%}
+      {%- assign color_tokens = wl | append: sep -%}
+    {%- endif -%}
+  {%- endif -%}
+
   {%- assign color_variant_handles = '|' -%}
   {%- assign variants_metafield = product.metafields.module.product_variants -%}
   {%- assign variant_entries = blank -%}
@@ -60,10 +97,11 @@
   {%- endif -%}
 
   {%- assign seen = '|' -%}
-  {%- assign type_handles = '' -%}
-  {%- assign color_handles = '' -%}
-  {%- assign name_handles = '' -%}
-  {%- assign vendor_only = '' -%}
+  {%- assign slot1_handles = '' -%}
+  {%- assign slot2_handles = '' -%}
+  {%- assign slot3_handles = '' -%}
+  {%- assign slot4_handles = '' -%}
+  {%- assign slot5_handles = '' -%}
 
   {%- for col in product.collections -%}
     {%- for cand in col.products -%}
@@ -79,149 +117,208 @@
       {%- if cv != 'gray matters' -%}{%- continue -%}{%- endif -%}
 
       {%- assign seen = seen | append: tok -%}
-      {%- assign vendor_only = vendor_only | append: tok -%}
 
       {%- assign ct = cand.type | downcase | strip -%}
-      {%- if current_type != '' and ct == current_type -%}
-        {%- assign type_handles = type_handles | append: tok -%}
-        {%- continue -%}
-      {%- endif -%}
-
-      {%- assign cp_raw = cand.metafields.custom.primary_color.value
-        | default: cand.metafields.custom.primary_color
-        | default: ''
-      -%}
-      {%- assign cp = cp_raw | strip | downcase | remove: '#' -%}
-      {%- if cp == blank_color -%}{%- assign cp = '' -%}{%- endif -%}
-
-      {%- assign cs_raw = cand.metafields.custom.secondary_color.value
-        | default: cand.metafields.custom.secondary_color
-        | default: ''
-      -%}
-      {%- assign cs = cs_raw | strip | downcase | remove: '#' -%}
-      {%- if cs == blank_color -%}{%- assign cs = '' -%}{%- endif -%}
-
-      {%- assign color_match = false -%}
-      {%- if cur_primary != '' and cp != '' and cp == cur_primary -%}{%- assign color_match = true -%}{%- endif -%}
-      {%- if cur_primary != '' and cs != '' and cs == cur_primary -%}{%- assign color_match = true -%}{%- endif -%}
-      {%- if cur_secondary != '' and cp != '' and cp == cur_secondary -%}{%- assign color_match = true -%}{%- endif -%}
-      {%- if cur_secondary != '' and cs != '' and cs == cur_secondary -%}{%- assign color_match = true -%}{%- endif -%}
-      {%- if color_match -%}
-        {%- assign color_handles = color_handles | append: tok -%}
-        {%- continue -%}
-      {%- endif -%}
-
       {%- assign cn = cand.title | split: ' ' | first | downcase | strip -%}
-      {%- if current_name != '' and cn == current_name -%}
-        {%- assign name_handles = name_handles | append: tok -%}
+      {%- assign cand_title_padded = ' ' | append: cand.title | downcase | append: ' ' -%}
+
+      {%- assign same_type = false -%}
+      {%- if current_type != '' and ct == current_type -%}{%- assign same_type = true -%}{%- endif -%}
+
+      {%- assign same_name = false -%}
+      {%- if current_name != '' and cn == current_name -%}{%- assign same_name = true -%}{%- endif -%}
+
+      {%- assign same_color = false -%}
+      {%- if color_tokens != blank -%}
+        {%- assign same_color = true -%}
+        {%- assign token_arr = color_tokens | split: sep -%}
+        {%- for tw in token_arr -%}
+          {%- if tw == blank -%}{%- continue -%}{%- endif -%}
+          {%- assign needle = ' ' | append: tw | append: ' ' -%}
+          {%- unless cand_title_padded contains needle -%}
+            {%- assign same_color = false -%}
+            {%- break -%}
+          {%- endunless -%}
+        {%- endfor -%}
+      {%- endif -%}
+
+      {%- if same_type and same_color and same_name -%}
+        {%- assign slot4_handles = slot4_handles | append: tok -%}
+      {%- endif -%}
+      {%- if same_type and same_color -%}
+        {%- assign slot1_handles = slot1_handles | append: tok -%}
+      {%- endif -%}
+      {%- if same_type and same_color == false -%}
+        {%- assign slot2_handles = slot2_handles | append: tok -%}
+      {%- endif -%}
+      {%- if same_name and same_color == false -%}
+        {%- assign slot3_handles = slot3_handles | append: tok -%}
+      {%- endif -%}
+      {%- if same_color and same_type == false -%}
+        {%- assign slot5_handles = slot5_handles | append: tok -%}
       {%- endif -%}
     {%- endfor -%}
   {%- endfor -%}
 
-  {%- assign target = 4 -%}
-  {%- assign final = sep -%}
-  {%- assign shown = 0 -%}
+  {%- comment -%}
+    Pick one distinct product per slot. Fill slot 4 first (most specific),
+    then 1 → 2 → 3. Backfill empty slots with slot 5 (same color, different type).
+    Render order remains 1, 2, 3, 4.
+  {%- endcomment -%}
+  {%- assign used = sep -%}
+  {%- assign pick1 = '' -%}
+  {%- assign pick2 = '' -%}
+  {%- assign pick3 = '' -%}
+  {%- assign pick4 = '' -%}
 
-  {%- assign type_arr = type_handles | split: sep -%}
-  {%- for h in type_arr -%}
+  {%- assign slot4_arr = slot4_handles | split: sep -%}
+  {%- for h in slot4_arr -%}
     {%- if h == '' -%}{%- continue -%}{%- endif -%}
-    {%- if shown >= target -%}{%- break -%}{%- endif -%}
     {%- assign h_tok = sep | append: h | append: sep -%}
-    {%- if final contains h_tok -%}{%- continue -%}{%- endif -%}
-    {%- assign final = final | append: h | append: sep -%}
-    {%- assign shown = shown | plus: 1 -%}
+    {%- if used contains h_tok -%}{%- continue -%}{%- endif -%}
+    {%- assign pick4 = h -%}
+    {%- assign used = used | append: h | append: sep -%}
+    {%- break -%}
   {%- endfor -%}
 
-  {%- assign color_arr = color_handles | split: sep -%}
-  {%- for h in color_arr -%}
+  {%- assign slot1_arr = slot1_handles | split: sep -%}
+  {%- for h in slot1_arr -%}
     {%- if h == '' -%}{%- continue -%}{%- endif -%}
-    {%- if shown >= target -%}{%- break -%}{%- endif -%}
     {%- assign h_tok = sep | append: h | append: sep -%}
-    {%- if final contains h_tok -%}{%- continue -%}{%- endif -%}
-    {%- assign final = final | append: h | append: sep -%}
-    {%- assign shown = shown | plus: 1 -%}
+    {%- if used contains h_tok -%}{%- continue -%}{%- endif -%}
+    {%- assign pick1 = h -%}
+    {%- assign used = used | append: h | append: sep -%}
+    {%- break -%}
   {%- endfor -%}
 
-  {%- assign name_arr = name_handles | split: sep -%}
-  {%- for h in name_arr -%}
+  {%- assign slot2_arr = slot2_handles | split: sep -%}
+  {%- for h in slot2_arr -%}
     {%- if h == '' -%}{%- continue -%}{%- endif -%}
-    {%- if shown >= target -%}{%- break -%}{%- endif -%}
     {%- assign h_tok = sep | append: h | append: sep -%}
-    {%- if final contains h_tok -%}{%- continue -%}{%- endif -%}
-    {%- assign final = final | append: h | append: sep -%}
-    {%- assign shown = shown | plus: 1 -%}
+    {%- if used contains h_tok -%}{%- continue -%}{%- endif -%}
+    {%- assign pick2 = h -%}
+    {%- assign used = used | append: h | append: sep -%}
+    {%- break -%}
   {%- endfor -%}
 
-  {%- if shown < target -%}
-    {%- assign vendor_arr = vendor_only | split: sep -%}
-    {%- for h in vendor_arr -%}
+  {%- assign slot3_arr = slot3_handles | split: sep -%}
+  {%- for h in slot3_arr -%}
+    {%- if h == '' -%}{%- continue -%}{%- endif -%}
+    {%- assign h_tok = sep | append: h | append: sep -%}
+    {%- if used contains h_tok -%}{%- continue -%}{%- endif -%}
+    {%- assign pick3 = h -%}
+    {%- assign used = used | append: h | append: sep -%}
+    {%- break -%}
+  {%- endfor -%}
+
+  {%- assign slot5_arr = slot5_handles | split: sep -%}
+  {%- if pick1 == '' -%}
+    {%- for h in slot5_arr -%}
       {%- if h == '' -%}{%- continue -%}{%- endif -%}
-      {%- if shown >= target -%}{%- break -%}{%- endif -%}
       {%- assign h_tok = sep | append: h | append: sep -%}
-      {%- if final contains h_tok -%}{%- continue -%}{%- endif -%}
-      {%- assign final = final | append: h | append: sep -%}
-      {%- assign shown = shown | plus: 1 -%}
+      {%- if used contains h_tok -%}{%- continue -%}{%- endif -%}
+      {%- assign pick1 = h -%}
+      {%- assign used = used | append: h | append: sep -%}
+      {%- break -%}
+    {%- endfor -%}
+  {%- endif -%}
+  {%- if pick2 == '' -%}
+    {%- for h in slot5_arr -%}
+      {%- if h == '' -%}{%- continue -%}{%- endif -%}
+      {%- assign h_tok = sep | append: h | append: sep -%}
+      {%- if used contains h_tok -%}{%- continue -%}{%- endif -%}
+      {%- assign pick2 = h -%}
+      {%- assign used = used | append: h | append: sep -%}
+      {%- break -%}
+    {%- endfor -%}
+  {%- endif -%}
+  {%- if pick3 == '' -%}
+    {%- for h in slot5_arr -%}
+      {%- if h == '' -%}{%- continue -%}{%- endif -%}
+      {%- assign h_tok = sep | append: h | append: sep -%}
+      {%- if used contains h_tok -%}{%- continue -%}{%- endif -%}
+      {%- assign pick3 = h -%}
+      {%- assign used = used | append: h | append: sep -%}
+      {%- break -%}
+    {%- endfor -%}
+  {%- endif -%}
+  {%- if pick4 == '' -%}
+    {%- for h in slot5_arr -%}
+      {%- if h == '' -%}{%- continue -%}{%- endif -%}
+      {%- assign h_tok = sep | append: h | append: sep -%}
+      {%- if used contains h_tok -%}{%- continue -%}{%- endif -%}
+      {%- assign pick4 = h -%}
+      {%- assign used = used | append: h | append: sep -%}
+      {%- break -%}
     {%- endfor -%}
   {%- endif -%}
 
-  <div class=''>
-    <h3 class='w-full text-center font-accent font-normal text-xl uppercase mb-6'>You may also like</h3>
-    <div class='relative w-full pb-6' data-relprod>
-      <!-- Viewport -->
-      <div class='overflow-hidden md:overflow-visible w-full' data-viewport>
-        <!-- Track (flex on mobile, grid on md+) -->
-        <div
-          class='flex w-full transition-transform duration-300 ease-in-out md:grid md:grid-cols-4 md:gap-0'
-          data-track
-        >
-          {%- assign final_arr = final | split: sep -%}
-          {%- for h in final_arr -%}
-            {%- if h == '' -%}{%- continue -%}{%- endif -%}
-            {%- assign rp = all_products[h] -%}
-            {%- if rp != blank and rp.published_at != blank -%}
-              <div class='relative group basis-1/2 md:basis-auto shrink-0' data-item>
-                <a href='{{ rp.url }}'>
-                  {% if rp.featured_image %}
-                    <img
-                      src='{{ rp.featured_image | image_url: width: 1200 }}'
-                      alt='{{ rp.title | escape }}'
-                      loading='lazy'
-                    >
-                  {% endif %}
-                  <div
-                    class='absolute inset-0 bg-black opacity-0 group-hover:opacity-30 transition-opacity duration-300 ease-in-out'
-                  ></div>
-                </a>
-              </div>
-            {%- endif -%}
-          {%- endfor -%}
+  {%- assign final = sep -%}
+  {%- if pick1 != '' -%}{%- assign final = final | append: pick1 | append: sep -%}{%- endif -%}
+  {%- if pick2 != '' -%}{%- assign final = final | append: pick2 | append: sep -%}{%- endif -%}
+  {%- if pick3 != '' -%}{%- assign final = final | append: pick3 | append: sep -%}{%- endif -%}
+  {%- if pick4 != '' -%}{%- assign final = final | append: pick4 | append: sep -%}{%- endif -%}
+
+  {%- if final != sep -%}
+    <div class=''>
+      <h3 class='w-full text-center font-accent font-normal text-xl uppercase mb-6'>You may also like</h3>
+      <div class='relative w-full pb-6' data-relprod>
+        <!-- Viewport -->
+        <div class='overflow-hidden md:overflow-visible w-full' data-viewport>
+          <!-- Track (flex on mobile, grid on md+) -->
+          <div
+            class='flex w-full transition-transform duration-300 ease-in-out md:grid md:grid-cols-4 md:gap-0'
+            data-track
+          >
+            {%- assign final_arr = final | split: sep -%}
+            {%- for h in final_arr -%}
+              {%- if h == '' -%}{%- continue -%}{%- endif -%}
+              {%- assign rp = all_products[h] -%}
+              {%- if rp != blank and rp.published_at != blank -%}
+                <div class='relative group basis-1/2 md:basis-auto shrink-0' data-item>
+                  <a href='{{ rp.url }}'>
+                    {% if rp.featured_image %}
+                      <img
+                        src='{{ rp.featured_image | image_url: width: 1200 }}'
+                        alt='{{ rp.title | escape }}'
+                        loading='lazy'
+                      >
+                    {% endif %}
+                    <div
+                      class='absolute inset-0 bg-black opacity-0 group-hover:opacity-30 transition-opacity duration-300 ease-in-out'
+                    ></div>
+                  </a>
+                </div>
+              {%- endif -%}
+            {%- endfor -%}
+          </div>
         </div>
+
+        <!-- Controls (mobile only) -->
+        <button
+          type='button'
+          class='md:hidden absolute left-2 top-1/2 -translate-y-1/2 flex items-center justify-center leading-none'
+          aria-label='Previous'
+          data-prev
+        >
+          <i class='fa-solid fa-chevron-left text-white drop-shadow' style='font-size:50px;'></i>
+        </button>
+        <button
+          type='button'
+          class='md:hidden absolute right-2 top-1/2 -translate-y-1/2 flex items-center justify-center leading-none'
+          aria-label='Next'
+          data-next
+        >
+          <i class='fa-solid fa-chevron-right  text-white drop-shadow' style='font-size:50px;'></i>
+        </button>
+
+        <!-- Progress bar -->
+        <div
+          class='absolute left-2 -bottom-3 h-[2px] w-[100px] bg-gray-300 opacity-0 transition-opacity duration-200'
+          data-progress
+        ></div>
       </div>
-
-      <!-- Controls (mobile only) -->
-      <button
-        type='button'
-        class='md:hidden absolute left-2 top-1/2 -translate-y-1/2 flex items-center justify-center leading-none'
-        aria-label='Previous'
-        data-prev
-      >
-        <i class='fa-solid fa-chevron-left text-white drop-shadow' style='font-size:50px;'></i>
-      </button>
-      <button
-        type='button'
-        class='md:hidden absolute right-2 top-1/2 -translate-y-1/2 flex items-center justify-center leading-none'
-        aria-label='Next'
-        data-next
-      >
-        <i class='fa-solid fa-chevron-right  text-white drop-shadow' style='font-size:50px;'></i>
-      </button>
-
-      <!-- Progress bar -->
-      <div
-        class='absolute left-2 -bottom-3 h-[2px] w-[100px] bg-gray-300 opacity-0 transition-opacity duration-200'
-        data-progress
-      ></div>
     </div>
-  </div>
+  {%- endif -%}
 
 {%- endif -%}
