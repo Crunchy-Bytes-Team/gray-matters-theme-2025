@@ -6,6 +6,7 @@
       metafield (hex), same first-word title (name)
     - Always render exactly 4 products (vendor-only fallback fills gaps)
     - Skip draft/unpublished products (published_at blank; Liquid has no product.status)
+    - Skip color variants from module.product_variants (same as color-variant.liquid)
 {%- endcomment -%}
 
 {%- assign vendor_norm = product.vendor | downcase | strip -%}
@@ -30,6 +31,34 @@
   {%- if cur_secondary == blank_color -%}{%- assign cur_secondary = '' -%}{%- endif -%}
 
   {%- assign sep = '|' -%}
+  {%- assign color_variant_handles = '|' -%}
+  {%- assign variants_metafield = product.metafields.module.product_variants -%}
+  {%- assign variant_entries = blank -%}
+  {%- if variants_metafield != blank -%}
+    {%- if variants_metafield.value != blank and variants_metafield.value.entries != blank -%}
+      {%- assign variant_entries = variants_metafield.value.entries -%}
+    {%- elsif variants_metafield.entries != blank -%}
+      {%- assign variant_entries = variants_metafield.entries -%}
+    {%- else -%}
+      {%- assign parsed_metafield = variants_metafield | parse_json -%}
+      {%- if parsed_metafield != blank and parsed_metafield.entries != blank -%}
+        {%- assign variant_entries = parsed_metafield.entries -%}
+      {%- endif -%}
+    {%- endif -%}
+  {%- endif -%}
+  {%- if variant_entries != blank -%}
+    {%- for entry in variant_entries -%}
+      {%- if entry.url == blank -%}{%- continue -%}{%- endif -%}
+      {%- assign cv_handle = entry.url | split: '/products/' | last -%}
+      {%- assign cv_handle = cv_handle | split: '?' | first | split: '#' | first | strip -%}
+      {%- if cv_handle == blank or cv_handle == product.handle -%}{%- continue -%}{%- endif -%}
+      {%- assign cv_tok = sep | append: cv_handle | append: sep -%}
+      {%- unless color_variant_handles contains cv_tok -%}
+        {%- assign color_variant_handles = color_variant_handles | append: cv_handle | append: sep -%}
+      {%- endunless -%}
+    {%- endfor -%}
+  {%- endif -%}
+
   {%- assign seen = '|' -%}
   {%- assign type_handles = '' -%}
   {%- assign color_handles = '' -%}
@@ -43,6 +72,7 @@
 
       {%- if cand.id == product.id -%}{%- continue -%}{%- endif -%}
       {%- if seen contains seen_tok -%}{%- continue -%}{%- endif -%}
+      {%- if color_variant_handles contains seen_tok -%}{%- continue -%}{%- endif -%}
       {%- if cand.published_at == blank -%}{%- continue -%}{%- endif -%}
 
       {%- assign cv = cand.vendor | downcase | strip -%}
