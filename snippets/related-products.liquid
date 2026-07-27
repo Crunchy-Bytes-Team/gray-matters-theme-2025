@@ -12,12 +12,14 @@
        (e.g. "… Nero Rosso")
     3) Else → last title word
     Same color = candidate title contains ALL color tokens as whole words.
-  Slots (distinct products; fill 4→1→2→3, then backfill empties with slot 5):
+  Slots (distinct products; always target 4):
     1. same type + same color
     2. same type + different color
     3. same name + different color
     4. same type + same color + same name
-    5. fallback: same collection (already), same color, different type
+    5. fallback: same collection, same color, different type
+    Then pull extra matches from any criterion (and remaining
+    Gray Matters candidates) until 4 products are filled.
 {%- endcomment -%}
 
 {%- assign vendor_norm = product.vendor | downcase | strip -%}
@@ -102,6 +104,7 @@
   {%- assign slot3_handles = '' -%}
   {%- assign slot4_handles = '' -%}
   {%- assign slot5_handles = '' -%}
+  {%- assign vendor_only = '' -%}
 
   {%- for col in product.collections -%}
     {%- for cand in col.products -%}
@@ -117,6 +120,7 @@
       {%- if cv != 'gray matters' -%}{%- continue -%}{%- endif -%}
 
       {%- assign seen = seen | append: tok -%}
+      {%- assign vendor_only = vendor_only | append: tok -%}
 
       {%- assign ct = cand.type | downcase | strip -%}
       {%- assign cn = cand.title | split: ' ' | first | downcase | strip -%}
@@ -161,10 +165,12 @@
   {%- endfor -%}
 
   {%- comment -%}
-    Pick one distinct product per slot. Fill slot 4 first (most specific),
-    then 1 → 2 → 3. Backfill empty slots with slot 5 (same color, different type).
-    Render order remains 1, 2, 3, 4.
+    Always fill up to 4 distinct products:
+    1) one preferred pick per slot (4 → 1 → 2 → 3), backfill gaps with slot 5
+    2) if still < 4, take extra matches from criteria pools (1→2→3→4→5)
+    3) if still < 4, any remaining Gray Matters candidates from shared collections
   {%- endcomment -%}
+  {%- assign target = 4 -%}
   {%- assign used = sep -%}
   {%- assign pick1 = '' -%}
   {%- assign pick2 = '' -%}
@@ -254,10 +260,57 @@
   {%- endif -%}
 
   {%- assign final = sep -%}
-  {%- if pick1 != '' -%}{%- assign final = final | append: pick1 | append: sep -%}{%- endif -%}
-  {%- if pick2 != '' -%}{%- assign final = final | append: pick2 | append: sep -%}{%- endif -%}
-  {%- if pick3 != '' -%}{%- assign final = final | append: pick3 | append: sep -%}{%- endif -%}
-  {%- if pick4 != '' -%}{%- assign final = final | append: pick4 | append: sep -%}{%- endif -%}
+  {%- assign shown = 0 -%}
+  {%- if pick1 != '' -%}
+    {%- assign final = final | append: pick1 | append: sep -%}
+    {%- assign shown = shown | plus: 1 -%}
+  {%- endif -%}
+  {%- if pick2 != '' -%}
+    {%- assign final = final | append: pick2 | append: sep -%}
+    {%- assign shown = shown | plus: 1 -%}
+  {%- endif -%}
+  {%- if pick3 != '' -%}
+    {%- assign final = final | append: pick3 | append: sep -%}
+    {%- assign shown = shown | plus: 1 -%}
+  {%- endif -%}
+  {%- if pick4 != '' -%}
+    {%- assign final = final | append: pick4 | append: sep -%}
+    {%- assign shown = shown | plus: 1 -%}
+  {%- endif -%}
+
+  {%- comment -%} Extra picks from criteria pools until we reach 4 {%- endcomment -%}
+  {%- if shown < target -%}
+    {%- assign fill_pools = slot1_handles
+      | append: slot2_handles
+      | append: slot3_handles
+      | append: slot4_handles
+      | append: slot5_handles
+    -%}
+    {%- assign fill_arr = fill_pools | split: sep -%}
+    {%- for h in fill_arr -%}
+      {%- if shown >= target -%}{%- break -%}{%- endif -%}
+      {%- if h == '' -%}{%- continue -%}{%- endif -%}
+      {%- assign h_tok = sep | append: h | append: sep -%}
+      {%- if used contains h_tok -%}{%- continue -%}{%- endif -%}
+      {%- assign final = final | append: h | append: sep -%}
+      {%- assign used = used | append: h | append: sep -%}
+      {%- assign shown = shown | plus: 1 -%}
+    {%- endfor -%}
+  {%- endif -%}
+
+  {%- comment -%} Last resort: any remaining eligible Gray Matters products {%- endcomment -%}
+  {%- if shown < target -%}
+    {%- assign vendor_arr = vendor_only | split: sep -%}
+    {%- for h in vendor_arr -%}
+      {%- if shown >= target -%}{%- break -%}{%- endif -%}
+      {%- if h == '' -%}{%- continue -%}{%- endif -%}
+      {%- assign h_tok = sep | append: h | append: sep -%}
+      {%- if used contains h_tok -%}{%- continue -%}{%- endif -%}
+      {%- assign final = final | append: h | append: sep -%}
+      {%- assign used = used | append: h | append: sep -%}
+      {%- assign shown = shown | plus: 1 -%}
+    {%- endfor -%}
+  {%- endif -%}
 
   {%- if final != sep -%}
     <div class=''>
