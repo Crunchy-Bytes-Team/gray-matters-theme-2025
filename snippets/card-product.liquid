@@ -112,14 +112,14 @@
             </div>
           </div>
           <div
-            class='hidden lg:block absolute inset-0 bg-black opacity-0 group-hover:opacity-40 group-focus-within:opacity-40 transition-opacity duration-300 ease-out z-10 pointer-events-none'
+            class='hidden lg:block absolute inset-0 bg-[#6b6b6b] opacity-0 group-hover:opacity-55 group-focus-within:opacity-55 transition-opacity duration-300 ease-out z-10 pointer-events-none'
           ></div>
         {%- endif -%}
       </div>
       <div class='card__content paperino lg:absolute lg:inset-0 z-30 lg:!opacity-0 lg:group-hover:!opacity-100 lg:group-focus-within:!opacity-100 transition-opacity duration-300 ease-out lg:pointer-events-none lg:group-hover:pointer-events-auto p-4 text-gray-900 lg:text-white lg:flex lg:items-start lg:justify-start'>
         <div class='card__information'>
           <h3
-            class='product-name mb-1 tracking-wider proxima-semi-bold text-xs uppercase card__heading{% if card_product.featured_media or settings.card_style == 'standard' %} h5{% endif %}'
+            class='product-name mb-1 tracking-[1px] proxima-semi-bold text-[12px] uppercase card__heading{% if card_product.featured_media or settings.card_style == 'standard' %} h5{% endif %}'
             {% if card_product.featured_media or settings.card_style == 'card' %}
               id='title-{{ section_id }}-{{ card_product.id }}'
             {% endif %}
@@ -584,14 +584,8 @@
             >
               {{- 'products.product.sold_out' | t -}}
             </span>
-          {%- elsif card_product.compare_at_price > card_product.price and card_product.available -%}
-            <span
-              id='Badge-{{ section_id }}-{{ card_product.id }}'
-              class='badge badge--bottom-left color-{{ settings.sale_badge_color_scheme }}'
-            >
-              {{- 'products.product.on_sale' | t -}}
-            </span>
           {%- endif -%}
+          {%- comment -%} Sale badge hidden to match live theme — discount shown via prices only {%- endcomment -%}
         </div>
       </div>
     </div>

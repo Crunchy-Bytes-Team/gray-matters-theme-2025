@@ -73,8 +73,8 @@
           {%- render 'gift-card-recipient-form', product: product, form: form, section: section -%}
         {%- endif -%}
 
-        <div class='product-form__buttons add_to_cart_button flex flex-row justify-between items-end'>
-          <div class='add-to-cart-button w-7/12 lg:w-10/12 mr-4 lg:mr-10'>
+        <div class='product-form__buttons add_to_cart_button flex flex-row items-end gap-[15px] w-full'>
+          <div class='add-to-cart-button flex-1 min-w-0'>
             {%- liquid
               assign check_against_inventory = true
               if product.selected_or_first_available_variant.inventory_management != 'shopify' or product.selected_or_first_available_variant.inventory_policy == 'continue'
@@ -161,12 +161,12 @@
               {%- endif -%}
             -->
           </div>
-          <div class='w-5/12 lg:w-2/12 flex flex-col items-start justify-end relative'>
-            <span class='uppercase text-xs text-dark-gray tracking-wide lg:block block w-full text-left absolute -top-2 left-0'
-              >Size</span
-            >
+          <div class='product-size-selector--container w-[40%] max-w-[150px] lg:w-[150px] lg:max-w-[150px] shrink-0 flex flex-col items-start justify-end relative'>
+            <label class='product-size-selector--label'>
+              {{- 'products.product.select_size' | t -}}
+            </label>
             <div
-              class='size-selector box-border flex w-full items-center justify-center border border-transparent bg-gray-100 bg-opacity-70 px-6 py-2 text-15 leading-[1.5] transition-colors duration-700 ease-in-out hover:bg-black hover:text-white'
+              class='size-selector box-border flex w-full items-center justify-center border border-transparent bg-gray-100 bg-opacity-70 transition-colors duration-700 ease-in-out hover:bg-black hover:text-white'
             >
               {%- comment -%}
                 {%- when 'variant_picker' -%}

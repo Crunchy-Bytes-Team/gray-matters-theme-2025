@@ -112,7 +112,7 @@
             <ul
               id='product-grid'
               data-id='{{ section.id }}'
-              class='grid grid-flow-row-dense grid-cols-2 lg:grid-cols-4 gap-1 w-full{% if section.settings.quick_add == "bulk" %} collection-quick-add-bulk{% endif %}'
+              class='grid grid-flow-row-dense grid-cols-2 lg:grid-cols-4 gap-[6px] w-full{% if section.settings.quick_add == "bulk" %} collection-quick-add-bulk{% endif %}'
             >
               {% assign skip_card_product_styles = false %}
 
@@ -230,14 +230,14 @@
                       ></div>
                     </a>
                     <div
-                      class='hidden lg:block absolute inset-0 bg-black opacity-0 group-hover:opacity-40 group-focus-within:opacity-40 transition-opacity duration-300 ease-out z-10 pointer-events-none'
+                      class='hidden lg:block absolute inset-0 bg-[#6b6b6b] opacity-0 group-hover:opacity-55 group-focus-within:opacity-55 transition-opacity duration-300 ease-out z-10 pointer-events-none'
                     ></div>
-                    <div class='flex absolute inset-0 z-20 items-center justify-center text-center lg:justify-end lg:text-left opacity-100 pointer-events-none'>
-                      <div class='px-4'>
-                        <h3 class='text-5xl tracking-wider font-accent text-dark-gray lg:group-hover:text-white transition-colors duration-300'>
+                    <div class='flex absolute inset-0 z-20 items-center justify-end text-right opacity-100 pointer-events-none pr-10'>
+                      <div class='px-2'>
+                        <h3 class='text-[48px] leading-none tracking-[1.25px] font-accent text-white transition-colors duration-300'>
                           {{- big_card_title -}}
                         </h3>
-                        <p class='mt-2 text-base tracking-wide text-dark-gray lg:group-hover:text-white transition-colors duration-300 max-w-xs'>
+                        <p class='mt-2 text-[12px] tracking-[1px] text-white transition-colors duration-300 max-w-xs ml-auto'>
                           {{- big_card_description | strip_html | truncate: 120 -}}
                         </p>
                       </div>

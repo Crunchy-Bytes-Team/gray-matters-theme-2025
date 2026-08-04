@@ -19,7 +19,7 @@
 }
 
 .product-form__submit:disabled {
-  @apply bg-gray-300 text-gray-500 cursor-not-allowed;
+  @apply bg-black text-gray-300 cursor-not-allowed;
 }
 
 /* Button Loading State */

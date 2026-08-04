@@ -48,7 +48,7 @@
 {%- unless target == null and placeholder == null -%}
   <div
     class='
-      price text-15 items-center flex
+      price text-[14px] tracking-[1px] items-center flex
       {%- if price_class %} {{ price_class }}{% endif -%}
       {%- if available == false %} price--sold-out{% endif -%}
       {%- if compare_at_price > price and product.quantity_price_breaks_configured? != true %} price--on-sale{% endif -%}
@@ -96,16 +96,20 @@
           <span class='hidden visually-hidden visually-hidden--inline'>
             {{- 'products.product.price.regular_price' | t -}}
           </span>
-          <span class='price-item price-item--regular proxima-reg uppercase tracking-wider text-sm'>
+          <span class='price-item price-item--regular proxima-reg uppercase tracking-[1px] text-[14px]'>
             {{ money_price }}
           </span>
         {%- endif -%}
       </div>
-      <div class='price__sale'>
+      <div class='price__sale flex flex-row items-center gap-2'>
+        <span class='visually-hidden visually-hidden--inline'>{{ 'products.product.price.sale_price' | t }}</span>
+        <span class='price-item price-item--sale price-item--last proxima-reg uppercase tracking-[1px] text-[14px]'>
+          {{ money_price }}
+        </span>
         {%- unless product.price_varies == false and product.compare_at_price_varies %}
           <span class='visually-hidden visually-hidden--inline'>{{ 'products.product.price.regular_price' | t }}</span>
           <span>
-            <s class='price-item price-item--regular proxima-reg uppercase tracking-wider text-sm'>
+            <s class='price-item price-item--regular proxima-reg uppercase tracking-[1px] text-[14px] text-gray-500'>
               {{-
                 compare_at_truncated
                 | money_without_trailing_zeros
@@ -117,10 +121,6 @@
             </s>
           </span>
         {%- endunless -%}
-        <span class='visually-hidden visually-hidden--inline'>{{ 'products.product.price.sale_price' | t }}</span>
-        <span class='price-item price-item--sale price-item--last proxima-reg uppercase tracking-wider text-sm'>
-          {{ money_price }}
-        </span>
       </div>
       <!--
         >

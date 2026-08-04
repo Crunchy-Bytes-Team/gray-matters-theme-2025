@@ -33,7 +33,15 @@
         "mobile_logo_position": "center",
         "margin_bottom": 0,
         "padding_top": 20,
-        "padding_bottom": 20
+        "padding_bottom": 20,
+        "message": true,
+        "home_page_only": false,
+        "slide_animation": false,
+        "fade_animation": false,
+        "message_text": "FREE GLOBAL SHIPPING STARTING AT $400 / €450 / £400 / CAD 600, CLICK FOR DETAILS AND EXCEPTIONS",
+        "message_link": "/pages/shipping-returns",
+        "color_bg": "#1f86e7",
+        "color_text": "#ffffff"
       }
     }
   },

@@ -89,17 +89,27 @@
         {% assign bg_image = product.metafields.module.product_detail_bg_image.value %}
         <img class='lg:hidden' src='{{ bg_image | escape }}'>
       </div>
-      <div class='col-dx h-auto lg:h-screen container-info-product w-full lg:w-1/2 flex flex-col justify-end sticky top-0 relative bg-product'>
+      <div class='col-dx h-auto container-info-product w-full lg:w-1/2 relative bg-product'>
         {% assign bg_image = product.metafields.module.product_detail_bg_image.value %}
         {% if bg_image %}
-          <div
-            class='hidden lg:block lg:fixed w-[calc(50%-16px)] z-0 h-full bg-cover bg-center fixed pippo'
-            style="background-image: url('{{ bg_image | escape }}'); top:0px; right:16px; background-size: cover;background-position: top left;"
-          ></div>
+          {%- comment -%}
+            Match live theme: full-width <img> (no background-size:cover crop).
+            Upper portion must remain visible — cover + fixed top:0 truncated it under the header.
+          {%- endcomment -%}
+          <div class='product-detail-background-image-container hidden lg:block w-full z-0'>
+            <img
+              class='product-detail-background-image w-full h-auto max-w-full block'
+              src='{{ bg_image | escape }}'
+              alt=''
+              width='2988'
+              height='4483'
+              loading='eager'
+            >
+          </div>
         {% endif %}
         <section
           id='ProductInfo-{{ section.id }}'
-          class='bg-white bg-opacity-90 flex flex-col h-fit fixed bottom-0 right- w-full lg:w-1/2 px-6 pt-3 pb-6 lg:pl-14 lg:pr-10 lg:pt-7 lg:pb-14 z-50'
+          class='product-info-panel bg-white bg-opacity-90 flex flex-col h-fit fixed bottom-0 right-0 w-full lg:w-1/2 px-6 pt-3 pb-6 lg:pl-14 lg:pr-10 lg:pt-7 lg:pb-14 z-50'
         >
           {%- assign product_form_id = 'product-form-' | append: section.id -%}
 
@@ -109,21 +119,21 @@
                 {% render block %}
 
               {%- when 'title' -%}
-                <div id='riga1' class='w-full flex flex-row justify-between items-center lg:items-start'>
-                  <div class='mb-0 lg:mb-6 w-full lg:w-10/12 product__title' {{ block.shopify_attributes }}>
-                    <h1 class='uppercase text-lg tracking-wider proxima-semi-bold'>
+                <div id='riga1' class='w-full flex flex-row justify-between items-center lg:items-start gap-4'>
+                  <div class='mb-0 lg:mb-6 w-full lg:w-8/12 product__title' {{ block.shopify_attributes }}>
+                    <h1 class='uppercase text-[14px] tracking-[1px] proxima-semi-bold'>
                       {{ product.title | escape }}
                     </h1>
                   </div>
               {%- when 'price' -%}
                 <div
-                  class='flex items-center justify-center w-full lg:w-2/12 gap-7 lg:gap-3'
+                  class='flex items-center justify-end w-full lg:w-4/12 gap-7 lg:gap-3 shrink-0'
                   id='price-{{ section.id }}'
                   role='status'
                   {{ block.shopify_attributes }}
                 >
-                  <div class='flex flex-col'>
-                    {%- render 'price', product: product, use_variant: true, show_badges: true, price_class: '' -%}
+                  <div class='flex flex-row items-start justify-end'>
+                    {%- render 'price', product: product, use_variant: true, show_badges: false, price_class: '' -%}
                   </div>
                   <button
                     type='button'
@@ -160,34 +170,6 @@
                       {% render 'color-variant' %}
                     </div>
                   {% endunless %}
-                  <div class='flex flex-col pt-0 lg:pt-8'>
-                    <ul class='flex flex-row items-center mb-1'>
-                      <li class='bg-black w-2.5 h-[1px] mr-2'></li>
-                      <li>
-                        <a class='text-sm tracking-wider uppercase' href='/pages/client-services' target='_blank'>
-                          {{- 'products.product.shipping_and_returns' | t -}}
-                        </a>
-                      </li>
-                    </ul>
-                    <ul class='flex flex-row items-center'>
-                      <li class='bg-black w-2.5 h-[1px] mr-2'></li>
-                      <li>
-                        <a
-                          href='#size-guide-modal'
-                          data-modal-trigger='size-guide'
-                          class='size-guide-link text-sm tracking-wider uppercase'
-                        >
-                          {{ 'products.product.size_guide' | t }}
-                        </a>
-                      </li>
-                      <li class='mx-2'>|</li>
-                      <li>
-                        <a class='text-sm tracking-wider uppercase' href='/pages/contact-us'>
-                          {{- 'products.product.contact_us' | t -}}
-                        </a>
-                      </li>
-                    </ul>
-                  </div>
                 </div>
 
                 {%- if cart.taxes_included or cart.duties_included or shop.shipping_policy.body != blank -%}
@@ -540,6 +522,34 @@
                   section_id: section.id,
                   show_pickup_availability: true
                 -%}
+                <div class='flex flex-col pt-4 lg:pt-6 product-secondary-links'>
+                  <ul class='flex flex-row items-center mb-1'>
+                    <li class='bg-black w-2.5 h-[1px] mr-2'></li>
+                    <li>
+                      <a class='text-sm tracking-wider uppercase' href='/pages/client-services' target='_blank'>
+                        {{- 'products.product.shipping_and_returns' | t -}}
+                      </a>
+                    </li>
+                  </ul>
+                  <ul class='flex flex-row items-center'>
+                    <li class='bg-black w-2.5 h-[1px] mr-2'></li>
+                    <li>
+                      <a
+                        href='#size-guide-modal'
+                        data-modal-trigger='size-guide'
+                        class='size-guide-link text-sm tracking-wider uppercase'
+                      >
+                        {{ 'products.product.size_guide' | t }}
+                      </a>
+                    </li>
+                    <li class='mx-2'>|</li>
+                    <li>
+                      <a class='text-sm tracking-wider uppercase' href='/pages/contact-us'>
+                        {{- 'products.product.contact_us' | t -}}
+                      </a>
+                    </li>
+                  </ul>
+                </div>
               {%- when 'rating' -%}
                 {%- if product.metafields.reviews.rating.value != blank -%}
                   <div class='rating-wrapper'>

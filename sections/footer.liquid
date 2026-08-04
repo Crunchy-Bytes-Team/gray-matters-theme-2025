@@ -1,12 +1,12 @@
 <!-- footer: main footer + copyright -->
-<footer class='bg-gray px-6 py-10 relative z-30'>
-  <!-- main footer -->
+<footer class='bg-gray px-6 pt-10 pb-10 relative z-30 overflow-hidden isolate'>
+  <!-- main footer — overflow/isolate keep column rules inside footer, below product grid -->
   <section id='footer' class='w-full'>
-    <div class='foter_container w-full flex flex-col lg:flex-row'>
+    <div class='foter_container w-full flex flex-col lg:flex-row items-stretch'>
       <!-- col 01 footer — desktop 3/12 (matches legacy Bootstrap col-md-3) -->
-      <div class='flex flex-col w-full lg:w-3/12 mb-6 lg:mb-0 border-b border-gray-300 lg:border-b-0 lg:border-r lg:border-r-200 lg:pr-[0.9375rem]'>
+      <div class='flex flex-col w-full lg:w-3/12 mb-6 lg:mb-0 border-b border-gray-300 lg:border-b-0 lg:border-r lg:border-gray-300 lg:pr-[0.9375rem]'>
         <button
-          class='flex items-center justify-between w-full text-sm text-light-gray uppercase mb-6 lg:cursor-default'
+          class='flex items-center justify-between w-full text-[11.5px] tracking-[0.5px] text-light-gray uppercase mb-6 lg:cursor-default'
           type='button'
           aria-expanded='false'
           aria-controls='footer-company-links'
@@ -23,7 +23,7 @@
         >
           <ul class='mb-6 lg:mb-0'>
             {% for link in linklists.company.links %}
-              <li class='text-sm text-dark-gray mb-3'>
+              <li class='text-[11.5px] tracking-[0.5px] text-dark-gray mb-[14px] leading-[1.4]'>
                 <a href='{{ link.url }}'>{{ link.title }}</a>
               </li>
             {% endfor %}
@@ -32,9 +32,9 @@
       </div>
 
       <!-- col 02 footer — desktop 3/12 (matches legacy Bootstrap col-md-3) -->
-      <div class='flex flex-col w-full lg:w-3/12 mb-6 lg:mb-0 border-b border-gray-300 lg:border-b-0 lg:border-r lg:border-r-200 lg:px-[0.9375rem]'>
+      <div class='flex flex-col w-full lg:w-3/12 mb-6 lg:mb-0 border-b border-gray-300 lg:border-b-0 lg:border-r lg:border-gray-300 lg:px-[0.9375rem]'>
         <button
-          class='flex items-center justify-between w-full text-sm text-light-gray uppercase mb-6 lg:cursor-default'
+          class='flex items-center justify-between w-full text-[11.5px] tracking-[0.5px] text-light-gray uppercase mb-6 lg:cursor-default'
           type='button'
           aria-expanded='false'
           aria-controls='footer-client-links'
@@ -51,7 +51,7 @@
         >
           <ul class='mb-6 lg:mb-0'>
             {% for link in linklists['client-services'].links %}
-              <li class='text-sm text-dark-gray mb-3'>
+              <li class='text-[11.5px] tracking-[0.5px] text-dark-gray mb-[14px] leading-[1.4]'>
                 <a href='{{ link.url }}'>{{ link.title }}</a>
               </li>
             {% endfor %}
@@ -60,9 +60,9 @@
       </div>
 
       <!-- col 03 footer — desktop 2/12 (matches legacy Bootstrap col-md-2) -->
-      <div class='flex flex-col w-full lg:w-2/12 mb-6 lg:mb-0 border-b border-gray-300 lg:border-b-0 lg:border-r lg:border-r-200 lg:px-[0.9375rem]'>
+      <div class='flex flex-col w-full lg:w-2/12 mb-6 lg:mb-0 border-b border-gray-300 lg:border-b-0 lg:border-r lg:border-gray-300 lg:px-[0.9375rem]'>
         <button
-          class='flex items-center justify-between w-full text-sm text-light-gray uppercase mb-6 lg:cursor-default'
+          class='flex items-center justify-between w-full text-[11.5px] tracking-[0.5px] text-light-gray uppercase mb-6 lg:cursor-default'
           type='button'
           aria-expanded='false'
           aria-controls='footer-connect-links'
@@ -79,7 +79,7 @@
         >
           <ul class='mb-6 lg:mb-0'>
             {% for link in linklists['footer-connect'].links %}
-              <li class='text-sm text-dark-gray mb-3'>
+              <li class='text-[11.5px] tracking-[0.5px] text-dark-gray mb-[14px] leading-[1.4]'>
                 <a href='{{ link.url }}'>{{ link.title }}</a>
               </li>
             {% endfor %}
@@ -90,7 +90,7 @@
       <!-- col 04 footer / News — desktop 4/12 (matches legacy Bootstrap col-md-4) -->
       <div class='flex flex-col w-full lg:w-4/12 mb-6 lg:mb-0 lg:pl-[0.9375rem]'>
         <div class='contact-footer'>
-          <h4 class='text-sm text-light-gray uppercase mb-6'>
+          <h4 class='text-[11.5px] tracking-[0.5px] text-light-gray uppercase mb-6'>
             {{ 'sections.footer.news' | t }}
           </h4>
           <!-- 2023-01-25 - embedded Yotpo SMSBump form -->
