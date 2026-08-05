@@ -80,13 +80,14 @@ footer a:hover {
   content: '⌄';
   position: absolute;
   right: 12px;
-  top: -1px;
+  top: 40%;
   display: inline-block;
-  font-size: 20px;
-  line-height: 30px;
+  font-size: 16px;
+  line-height: 1;
   color: #333;
   pointer-events: none;
   z-index: 1;
+  transform: translateY(-50%);
 }
 
 .add_to_cart_button
@@ -140,8 +141,8 @@ footer a:hover {
   -webkit-appearance: none;
   appearance: none;
   height: auto;
-  min-height: 40px;
-  padding: 6px 28px 6px 12px;
+  height: 36.5px;
+  padding: 2px 28px 2px 12px;
   font-family: proxima-reg, sans-serif;
   font-size: 12px;
   font-weight: 300;
