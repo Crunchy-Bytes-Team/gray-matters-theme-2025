@@ -81,7 +81,7 @@
 
 {% if valid_entries_count > 0 %}
   <div class=''>
-    <h3 class='w-full text-center font-accent font-normal text-xl uppercase mb-6'>A seen on</h3>
+    {% comment %} <h3 class='w-full text-center font-accent font-normal text-xl uppercase mb-6'>A seen on</h3> {% endcomment %}
 
     {% comment %}
       Layout desktop:
@@ -109,7 +109,7 @@
     <div class='relative w-full' data-ugc-carousel>
       <div class='overflow-hidden md:overflow-visible w-full' data-viewport>
         <div
-          class='flex w-full transition-transform duration-300 ease-in-out md:grid md:gap-4 {{ grid_classes }}'
+          class='flex w-full transition-transform duration-300 ease-in-out md:grid md:gap-0 {{ grid_classes }}'
           data-track
         >
           {% for entry in ugc_entries %}
@@ -162,7 +162,7 @@
           aria-label='Previous'
           data-prev
         >
-          <i class='fa-solid fa-chevron-left text-white drop-shadow' style='font-size:50px;'></i>
+          <i class='glyphicon glyphicon-chevron-left text-white drop-shadow' style='font-size:50px;'></i>
         </button>
         <button
           type='button'
@@ -170,7 +170,7 @@
           aria-label='Next'
           data-next
         >
-          <i class='fa-solid fa-chevron-right  text-white drop-shadow' style='font-size:50px;'></i>
+          <i class='glyphicon glyphicon-chevron-right text-white drop-shadow' style='font-size:50px;'></i>
         </button>
         <div
           class='absolute left-2 -bottom-3 h-[2px] w-[100px] bg-gray-300 opacity-0 transition-opacity duration-200'
