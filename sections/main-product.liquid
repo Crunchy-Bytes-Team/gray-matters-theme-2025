@@ -109,7 +109,7 @@
         {% endif %}
         <section
           id='ProductInfo-{{ section.id }}'
-          class='product-info-panel bg-white bg-opacity-90 flex flex-col h-fit fixed bottom-0 right-0 w-full lg:w-1/2 pt-12 px-12 pb-12 lg:p-20 z-50'
+          class='product-info-panel bg-white bg-opacity-90 flex flex-col h-fit fixed bottom-0 right-0 w-full min-w-0 lg:w-1/2 pt-12 px-12 pb-12 lg:p-20 z-50'
         >
           {%- assign product_form_id = 'product-form-' | append: section.id -%}
 
@@ -119,15 +119,15 @@
                 {% render block %}
 
               {%- when 'title' -%}
-                <div id='riga1' class='w-full flex flex-row justify-between items-center lg:items-start gap-4'>
-                  <div class='mb-0 lg:mb-6 w-full w-8/12 product__title' {{ block.shopify_attributes }}>
+                <div id='riga1' class='w-full min-w-0 max-w-full flex flex-row justify-between items-center lg:items-start gap-4'>
+                  <div class='mb-0 lg:mb-6 flex-1 min-w-0 product__title' {{ block.shopify_attributes }}>
                     <h1 class='uppercase text-[14px] tracking-[1px] proxima-semi-bold'>
                       {{ product.title | escape }}
                     </h1>
                   </div>
               {%- when 'price' -%}
                 <div
-                  class='flex items-center justify-end w-full w-4/12 gap-7 lg:gap-3 shrink-0'
+                  class='flex items-center justify-end shrink-0 gap-7 lg:gap-3'
                   id='price-{{ section.id }}'
                   role='status'
                   {{ block.shopify_attributes }}
