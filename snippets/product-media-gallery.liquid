@@ -46,7 +46,7 @@
   SEMPLIFICATO: Mostra solo le immagini del prodotto una sotto l'altra
 {% endcomment %}
 
-<div class='product-media-gallery flex flex-col'>
+<div class='product-media-gallery flex flex-col mb-12'>
   {% for media in product.media %}
     {% if media.media_type == 'image' %}
       <div class='product-media-item'>

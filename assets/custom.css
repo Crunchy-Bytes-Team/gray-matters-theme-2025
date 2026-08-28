@@ -118,6 +118,11 @@ footer a:hover {
   }
 }
 
+.add_to_cart_button .product-form__submit,
+.add_to_cart_button .product-form__submit span {
+  font-size: 12px;
+}
+
 .add_to_cart_button .product-size-selector--label {
   position: absolute;
   top: -20px;
@@ -127,10 +132,10 @@ footer a:hover {
   margin: 0 0 5px;
   padding: 0;
   font-family: proxima-reg, sans-serif;
-  font-size: 12.5px;
+  font-size: 12px;
   font-weight: 700;
   letter-spacing: 0.5px;
-  line-height: 18.75px;
+  line-height: 1.4;
   color: #000;
   text-transform: uppercase;
   text-align: left;
@@ -195,7 +200,7 @@ footer a:hover {
   color: inherit !important;
 }
 
-.add_to_cart_button .product-form__submit.loading span.text-15 {
+.add_to_cart_button .product-form__submit.loading span {
   opacity: 1 !important;
   visibility: visible !important;
 }
@@ -477,11 +482,11 @@ select:focus {
 
 .newsletter-modal .newsletter-header {
   position: relative;
-  padding: 30px 30px 10px 30px;
+  padding: 30px 48px 10px 30px;
 }
 
 .newsletter-modal .newsletter-title {
-  margin: 0 0 0.5rem;
+  margin: 0 0 1rem;
   font-family: 'proxima-bold', sans-serif;
   font-size: 11.5px !important;
   line-height: 1.3;
@@ -499,17 +504,17 @@ select:focus {
 
 .newsletter-modal .newsletter-modal--close {
   position: absolute;
-  top: 0.5rem;
-  right: 0.5rem;
+  top: 30px;
+  right: 30px;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
-  width: 2rem;
-  height: 2rem;
+  width: auto;
+  height: auto;
   margin: 0;
   padding: 0;
-  font-size: 1.5rem;
-  line-height: 1;
+  font-size: 1.85rem;
+  line-height: 1.3;
   color: #222323;
   background: transparent;
   border: none;
@@ -540,11 +545,12 @@ select:focus {
   flex-direction: row;
   align-items: flex-end;
   flex-wrap: nowrap;
-  gap: 0.75rem 1rem;
+  gap: 0.75rem 0;
   margin-bottom: 0;
 }
 
-.newsletter-modal .form-group:last-of-type {
+.newsletter-modal .form-group:last-of-type,
+.newsletter-modal .form-group--email {
   margin-bottom: 1rem;
 }
 
@@ -553,7 +559,8 @@ select:focus {
   align-self: flex-end;
   margin: 0;
   padding-bottom: 0.35rem;
-  font-size: 11.5px;
+  padding-right: 1rem;
+  font-size: 13px;
   line-height: 1.25rem;
   color: #222323;
   white-space: nowrap;
@@ -604,7 +611,8 @@ select:focus {
 .newsletter-modal .input-group__btn {
   display: block;
   width: 100%;
-  margin-top: 0.25rem;
+  margin-top: 0;
+  padding-top: 1.5rem;
 }
 
 .newsletter-modal .newsletter__submit.dark-btn,
@@ -613,7 +621,7 @@ select:focus {
   display: block;
   box-sizing: border-box;
   margin: 0;
-  padding: 1rem 1.25rem;
+  padding: 1.25rem 1.25rem;
   font-family: 'Work Sans', sans-serif;
   font-size: 11.5px;
   line-height: 1.2;
@@ -655,14 +663,16 @@ select:focus {
 
   .newsletter-modal .newsletter-content {
     max-height: min(78vh, 28rem);
+    border: none;
+    box-shadow: none;
   }
 
   .newsletter-modal .newsletter-header {
-    padding: 0.875rem 2.5rem 0.625rem 0.875rem;
+    padding: 30px 40px 10px 30px;
   }
 
   .newsletter-modal .newsletter-title {
-    margin: 0 0 0.35rem;
+    margin: 0 0 1rem;
     font-size: 11.5px !important;
     line-height: 1.25;
     letter-spacing: 0.03em;
@@ -675,15 +685,16 @@ select:focus {
   }
 
   .newsletter-modal .newsletter-modal--close {
-    top: 0.35rem;
-    right: 0.35rem;
-    width: 1.75rem;
-    height: 1.75rem;
-    font-size: 1.35rem;
+    top: 30px;
+    right: 30px;
+    width: auto;
+    height: auto;
+    font-size: 1.75rem;
+    line-height: 1.25;
   }
 
   .newsletter-modal .newsletter-body {
-    padding: 0.875rem 0.875rem 1rem;
+    padding: 0 30px 30px;
   }
 
   .newsletter-modal .form-message {
@@ -696,19 +707,21 @@ select:focus {
     flex-direction: row;
     flex-wrap: nowrap;
     align-items: flex-end;
-    gap: 0.5rem 0.65rem;
+    gap: 0.5rem 0;
     margin-bottom: 0.75rem;
   }
 
-  .newsletter-modal .form-group:last-of-type {
-    margin-bottom: 0.65rem;
+  .newsletter-modal .form-group:last-of-type,
+  .newsletter-modal .form-group--email {
+    margin-bottom: 1rem;
   }
 
   .newsletter-modal .form-group label:not(.tripwire) {
     flex: 0 0 auto;
     align-self: flex-end;
     padding-bottom: 0.3rem;
-    font-size: 0.8125rem;
+    padding-right: 1rem;
+    font-size: 13px;
     line-height: 1.2;
     white-space: nowrap;
   }
@@ -723,8 +736,13 @@ select:focus {
 
   .newsletter-modal .newsletter__submit.dark-btn,
   .newsletter-modal button.newsletter__submit {
-    padding: 0.75rem 1rem;
+    padding: 1.15rem 1rem;
     font-size: 0.8125rem;
+  }
+
+  .newsletter-modal .input-group__btn {
+    margin-top: 0;
+    padding-top: 1.5rem;
   }
 
   .newsletter-modal .input-error-message {
