@@ -4,7 +4,7 @@
 {% assign video_description = product.metafields.custom.video_module2_description.value %}
 
 {% if video_mobile_url != blank %}
-  {% if video_mobile_enabled == true or video_mobile_enabled == 'true' %}
+  {% if video_mobile_enabled == 'true' %}
     <div class='vertical-video-2-layout w-full'>
       <div class='vertical-video-2-text w-full lg:w-1/2 flex flex-col items-center justify-center self-stretch px-4 py-6 lg:py-0 lg:px-8'>
         <div>

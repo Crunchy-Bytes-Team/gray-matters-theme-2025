@@ -1,0 +1,216 @@
+{% comment %}
+  Renders a UGC/image band from legacy module metafields.
+  Parameters:
+    prefix: ugc_module | ugc2_module
+    show_header: true to print the matching header metafield
+{% endcomment %}
+
+{% assign band_prefix = prefix | default: 'ugc_module' %}
+{% assign header_text = '' %}
+{% assign image1 = '' %}
+{% assign image2 = '' %}
+{% assign image3 = '' %}
+{% assign image4 = '' %}
+{% assign image5 = '' %}
+{% assign text1 = '' %}
+{% assign text2 = '' %}
+{% assign text3 = '' %}
+{% assign text4 = '' %}
+{% assign text5 = '' %}
+
+{% if band_prefix == 'ugc2_module' %}
+  {% if show_header %}
+    {% assign header_text = product.metafields.module.ugc2_module_header.value | strip %}
+  {% endif %}
+  {% assign image1 = product.metafields.module.ugc2_module_image1.value | strip %}
+  {% assign image2 = product.metafields.module.ugc2_module_image2.value | strip %}
+  {% assign image3 = product.metafields.module.ugc2_module_image3.value | strip %}
+  {% assign image4 = product.metafields.module.ugc2_module_image4.value | strip %}
+  {% assign image5 = product.metafields.module.ugc2_module_image5.value | strip %}
+  {% assign text1 = product.metafields.module.ugc2_module_image1_text.value | strip %}
+  {% assign text2 = product.metafields.module.ugc2_module_image2_text.value | strip %}
+  {% assign text3 = product.metafields.module.ugc2_module_image3_text.value | strip %}
+  {% assign text4 = product.metafields.module.ugc2_module_image4_text.value | strip %}
+  {% assign text5 = product.metafields.module.ugc2_module_image5_text.value | strip %}
+{% else %}
+  {% if show_header %}
+    {% assign header_text = product.metafields.module.ugc_module_header.value | strip %}
+  {% endif %}
+  {% assign image1 = product.metafields.module.ugc_module_image1.value | strip %}
+  {% assign image2 = product.metafields.module.ugc_module_image2.value | strip %}
+  {% assign image3 = product.metafields.module.ugc_module_image3.value | strip %}
+  {% assign image4 = product.metafields.module.ugc_module_image4.value | strip %}
+  {% assign image5 = product.metafields.module.ugc_module_image5.value | strip %}
+  {% assign text1 = product.metafields.module.ugc_module_image1_text.value | strip %}
+  {% assign text2 = product.metafields.module.ugc_module_image2_text.value | strip %}
+  {% assign text3 = product.metafields.module.ugc_module_image3_text.value | strip %}
+  {% assign text4 = product.metafields.module.ugc_module_image4_text.value | strip %}
+  {% assign text5 = product.metafields.module.ugc_module_image5_text.value | strip %}
+{% endif %}
+
+{% assign image_count = 0 %}
+{% if image1 != blank %}
+  {% assign image_count = image_count | plus: 1 %}
+{% endif %}
+{% if image2 != blank %}
+  {% assign image_count = image_count | plus: 1 %}
+{% endif %}
+{% if image3 != blank %}
+  {% assign image_count = image_count | plus: 1 %}
+{% endif %}
+{% if image4 != blank %}
+  {% assign image_count = image_count | plus: 1 %}
+{% endif %}
+{% if image5 != blank %}
+  {% assign image_count = image_count | plus: 1 %}
+{% endif %}
+
+{% if image_count > 0 %}
+  {% if header_text != blank %}
+    <h3 class='w-full text-center font-accent font-normal text-xl uppercase mb-6'>{{ header_text }}</h3>
+  {% endif %}
+
+  {% assign mod5 = image_count | modulo: 5 %}
+  {% assign mod4 = image_count | modulo: 4 %}
+  {% assign grid_classes = 'md:grid-cols-4' %}
+  {% if mod5 == 0 %}
+    {% assign grid_classes = 'md:grid-cols-5' %}
+  {% elsif mod4 == 0 %}
+    {% assign grid_classes = 'md:grid-cols-4' %}
+  {% elsif image_count < 4 %}
+    {% if image_count == 1 %}
+      {% assign grid_classes = 'md:grid-cols-1' %}
+    {% elsif image_count == 2 %}
+      {% assign grid_classes = 'md:grid-cols-2' %}
+    {% elsif image_count == 3 %}
+      {% assign grid_classes = 'md:grid-cols-3' %}
+    {% endif %}
+  {% endif %}
+
+  <div class='relative w-full' data-ugc-carousel>
+    <div class='overflow-hidden md:overflow-visible w-full' data-viewport>
+      <div
+        class='flex w-full transition-transform duration-300 ease-in-out md:grid md:gap-0 {{ grid_classes }}'
+        data-track
+      >
+        {% if image1 != blank %}
+          <div class='relative basis-full shrink-0 md:basis-auto' data-item>
+            <div class='group relative rounded overflow-hidden'>
+              <img
+                src='{{ image1 }}'
+                alt='{{ text1 | default: product.title | escape }}'
+                class='w-full h-auto block'
+                loading='lazy'
+                width='800'
+                height='800'
+              >
+              {% if text1 != blank %}
+                <p class='absolute bottom-3 right-3 text-sm font-medium text-white drop-shadow pointer-events-none'>
+                  {{ text1 | escape }}
+                </p>
+              {% endif %}
+            </div>
+          </div>
+        {% endif %}
+        {% if image2 != blank %}
+          <div class='relative basis-full shrink-0 md:basis-auto' data-item>
+            <div class='group relative rounded overflow-hidden'>
+              <img
+                src='{{ image2 }}'
+                alt='{{ text2 | default: product.title | escape }}'
+                class='w-full h-auto block'
+                loading='lazy'
+                width='800'
+                height='800'
+              >
+              {% if text2 != blank %}
+                <p class='absolute bottom-3 right-3 text-sm font-medium text-white drop-shadow pointer-events-none'>
+                  {{ text2 | escape }}
+                </p>
+              {% endif %}
+            </div>
+          </div>
+        {% endif %}
+        {% if image3 != blank %}
+          <div class='relative basis-full shrink-0 md:basis-auto' data-item>
+            <div class='group relative rounded overflow-hidden'>
+              <img
+                src='{{ image3 }}'
+                alt='{{ text3 | default: product.title | escape }}'
+                class='w-full h-auto block'
+                loading='lazy'
+                width='800'
+                height='800'
+              >
+              {% if text3 != blank %}
+                <p class='absolute bottom-3 right-3 text-sm font-medium text-white drop-shadow pointer-events-none'>
+                  {{ text3 | escape }}
+                </p>
+              {% endif %}
+            </div>
+          </div>
+        {% endif %}
+        {% if image4 != blank %}
+          <div class='relative basis-full shrink-0 md:basis-auto' data-item>
+            <div class='group relative rounded overflow-hidden'>
+              <img
+                src='{{ image4 }}'
+                alt='{{ text4 | default: product.title | escape }}'
+                class='w-full h-auto block'
+                loading='lazy'
+                width='800'
+                height='800'
+              >
+              {% if text4 != blank %}
+                <p class='absolute bottom-3 right-3 text-sm font-medium text-white drop-shadow pointer-events-none'>
+                  {{ text4 | escape }}
+                </p>
+              {% endif %}
+            </div>
+          </div>
+        {% endif %}
+        {% if image5 != blank %}
+          <div class='relative basis-full shrink-0 md:basis-auto' data-item>
+            <div class='group relative rounded overflow-hidden'>
+              <img
+                src='{{ image5 }}'
+                alt='{{ text5 | default: product.title | escape }}'
+                class='w-full h-auto block'
+                loading='lazy'
+                width='800'
+                height='800'
+              >
+              {% if text5 != blank %}
+                <p class='absolute bottom-3 right-3 text-sm font-medium text-white drop-shadow pointer-events-none'>
+                  {{ text5 | escape }}
+                </p>
+              {% endif %}
+            </div>
+          </div>
+        {% endif %}
+      </div>
+    </div>
+    {% if image_count > 1 %}
+      <button
+        type='button'
+        class='md:hidden absolute left-2 top-1/2 -translate-y-1/2 flex items-center justify-center leading-none'
+        aria-label='Previous'
+        data-prev
+      >
+        <i class='glyphicon glyphicon-chevron-left text-white drop-shadow' style='font-size:50px;'></i>
+      </button>
+      <button
+        type='button'
+        class='md:hidden absolute right-2 top-1/2 -translate-y-1/2 flex items-center justify-center leading-none'
+        aria-label='Next'
+        data-next
+      >
+        <i class='glyphicon glyphicon-chevron-right text-white drop-shadow' style='font-size:50px;'></i>
+      </button>
+      <div
+        class='absolute left-2 -bottom-3 h-[2px] w-[100px] bg-gray-300 opacity-0 transition-opacity duration-200'
+        data-progress
+      ></div>
+    {% endif %}
+  </div>
+{% endif %}

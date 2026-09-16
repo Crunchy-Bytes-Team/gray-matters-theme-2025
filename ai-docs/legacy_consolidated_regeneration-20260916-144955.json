@@ -1,0 +1,4962 @@
+{
+  "mode": "apply",
+  "source": "legacy_metafield_regeneration",
+  "overrides_sha256": "2370a17a84502a8cba3c08ef4db9d69be8b18f787d86f63a7b24e1ac0d5f2696",
+  "products_scanned": 172,
+  "products_changed": 172,
+  "metafields_changed": 344,
+  "metafields_unchanged": 0,
+  "changes_by_key": {
+    "product_variants": 172,
+    "related_products": 172
+  },
+  "entries_by_key": {
+    "product_variants": 897,
+    "related_products": 687
+  },
+  "product_ids": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22,
+    23,
+    24,
+    25,
+    26,
+    27,
+    28,
+    29,
+    30,
+    31,
+    32,
+    33,
+    34,
+    35,
+    36,
+    37,
+    38,
+    39,
+    40,
+    41,
+    42,
+    43,
+    44,
+    45,
+    46,
+    47,
+    48,
+    49,
+    50,
+    51,
+    52,
+    53,
+    54,
+    55,
+    56,
+    57,
+    58,
+    59,
+    60,
+    61,
+    62,
+    63,
+    64,
+    65,
+    66,
+    67,
+    68,
+    69,
+    70,
+    71,
+    72,
+    73,
+    74,
+    75,
+    76,
+    77,
+    78,
+    79,
+    80,
+    81,
+    82,
+    83,
+    84,
+    85,
+    86,
+    87,
+    88,
+    89,
+    90,
+    91,
+    92,
+    93,
+    94,
+    95,
+    96,
+    97,
+    98,
+    99,
+    100,
+    101,
+    102,
+    103,
+    104,
+    105,
+    106,
+    107,
+    108,
+    109,
+    110,
+    111,
+    112,
+    113,
+    114,
+    115,
+    116,
+    117,
+    118,
+    119,
+    120,
+    121,
+    122,
+    123,
+    124,
+    125,
+    126,
+    127,
+    128,
+    129,
+    130,
+    131,
+    132,
+    133,
+    134,
+    135,
+    136,
+    137,
+    138,
+    139,
+    140,
+    141,
+    142,
+    143,
+    144,
+    145,
+    146,
+    147,
+    148,
+    149,
+    150,
+    151,
+    152,
+    153,
+    154,
+    155,
+    156,
+    157,
+    158,
+    159,
+    160,
+    161,
+    162,
+    163,
+    164,
+    165,
+    166,
+    167,
+    168,
+    169,
+    170,
+    171,
+    172
+  ],
+  "metafield_ids": [
+    21148,
+    21147,
+    36018,
+    36176,
+    21250,
+    21251,
+    21302,
+    21303,
+    21354,
+    21355,
+    21406,
+    21407,
+    21450,
+    21451,
+    21494,
+    21495,
+    36019,
+    36177,
+    21593,
+    21594,
+    21636,
+    21637,
+    21692,
+    21693,
+    21734,
+    21735,
+    36020,
+    36178,
+    21818,
+    21819,
+    21872,
+    21871,
+    36021,
+    36179,
+    21971,
+    21972,
+    22022,
+    22023,
+    22078,
+    22079,
+    22120,
+    22119,
+    22151,
+    22152,
+    22204,
+    22203,
+    22251,
+    22252,
+    22284,
+    22285,
+    36022,
+    36180,
+    22389,
+    22390,
+    22459,
+    22460,
+    22532,
+    22533,
+    22602,
+    22603,
+    36023,
+    36181,
+    22735,
+    22736,
+    22805,
+    22806,
+    22878,
+    22879,
+    36024,
+    36182,
+    23004,
+    23005,
+    36025,
+    36183,
+    36026,
+    36184,
+    36027,
+    36185,
+    36028,
+    36186,
+    36029,
+    36187,
+    36030,
+    36188,
+    36031,
+    36189,
+    23343,
+    23344,
+    23438,
+    36190,
+    23495,
+    23496,
+    23549,
+    23550,
+    23612,
+    23613,
+    23655,
+    23656,
+    23711,
+    23710,
+    23753,
+    23754,
+    23792,
+    23793,
+    23848,
+    23849,
+    23905,
+    23906,
+    23956,
+    23957,
+    36032,
+    36191,
+    36033,
+    36192,
+    24116,
+    24117,
+    24166,
+    24167,
+    36034,
+    36193,
+    36035,
+    36194,
+    36036,
+    36195,
+    36037,
+    24410,
+    36038,
+    36196,
+    24528,
+    24529,
+    36039,
+    36197,
+    24626,
+    24627,
+    24669,
+    24670,
+    24725,
+    24726,
+    24773,
+    24774,
+    24833,
+    24832,
+    36040,
+    36198,
+    24912,
+    24913,
+    24963,
+    24964,
+    42331,
+    24980,
+    25030,
+    25031,
+    25082,
+    25083,
+    36041,
+    36199,
+    36042,
+    36200,
+    36043,
+    36201,
+    36044,
+    36202,
+    36045,
+    36203,
+    36046,
+    36204,
+    36047,
+    36205,
+    36048,
+    36206,
+    36049,
+    36207,
+    36050,
+    36208,
+    36051,
+    36209,
+    36052,
+    36210,
+    36053,
+    36211,
+    36054,
+    36212,
+    36055,
+    36213,
+    36056,
+    36214,
+    36057,
+    36215,
+    41564,
+    36216,
+    36059,
+    36217,
+    36060,
+    36218,
+    36061,
+    36219,
+    36062,
+    36220,
+    36063,
+    36221,
+    36064,
+    36222,
+    36065,
+    36223,
+    36066,
+    36224,
+    36067,
+    36225,
+    26934,
+    26935,
+    36068,
+    36226,
+    36069,
+    36227,
+    27160,
+    27161,
+    36070,
+    36228,
+    36071,
+    36229,
+    36072,
+    36230,
+    36073,
+    36231,
+    36074,
+    36232,
+    36075,
+    36233,
+    36076,
+    36234,
+    36077,
+    36235,
+    36078,
+    36236,
+    36079,
+    36237,
+    36080,
+    36238,
+    36081,
+    36239,
+    36082,
+    36240,
+    36083,
+    36241,
+    36084,
+    36242,
+    36085,
+    36243,
+    36086,
+    36244,
+    36087,
+    36245,
+    36088,
+    36246,
+    36089,
+    36247,
+    36090,
+    36248,
+    28401,
+    28402,
+    36091,
+    36249,
+    36092,
+    36250,
+    36093,
+    36251,
+    36094,
+    36252,
+    28601,
+    28602,
+    36095,
+    36253,
+    36096,
+    36254,
+    36097,
+    36255,
+    36098,
+    36256,
+    36099,
+    36257,
+    36100,
+    36258,
+    36101,
+    36259,
+    29070,
+    29071,
+    36102,
+    36260,
+    36103,
+    36261,
+    36104,
+    36262,
+    36105,
+    36263,
+    36106,
+    36264,
+    36107,
+    36265,
+    29406,
+    29407,
+    29467,
+    29468,
+    36108,
+    36266,
+    29578,
+    29579,
+    29620,
+    29632,
+    36109,
+    36267,
+    36110,
+    36268,
+    36111,
+    36269,
+    29857,
+    29858,
+    29907,
+    29908,
+    36112,
+    36270,
+    30003,
+    30004,
+    36113,
+    36271,
+    30082,
+    30083,
+    30154,
+    30155,
+    36114,
+    36272,
+    30275,
+    30276,
+    36115,
+    36273,
+    36116,
+    36274,
+    36117,
+    36275,
+    36118,
+    36276,
+    30450,
+    30451,
+    36119,
+    36277
+  ],
+  "changes": [
+    {
+      "product_id": 1,
+      "handle": "buco-flats-in-bianco",
+      "key": "product_variants",
+      "entry_count": 3,
+      "entry_handles": [
+        "buco-flats-indaco",
+        "buco-flats-in-nero",
+        "buco-flats-in-bianco"
+      ]
+    },
+    {
+      "product_id": 1,
+      "handle": "buco-flats-in-bianco",
+      "key": "related_products",
+      "entry_count": 4,
+      "entry_handles": [
+        "mildred-classic-bianco",
+        "mildred-piccola-conchiglia",
+        "onda-slingback-in-bianco",
+        "rebecca-flat-mary-jane-in-taupe"
+      ]
+    },
+    {
+      "product_id": 2,
+      "handle": "buco-flats-in-nero",
+      "key": "product_variants",
+      "entry_count": 3,
+      "entry_handles": [
+        "buco-flats-indaco",
+        "buco-flats-in-nero",
+        "buco-flats-in-bianco"
+      ]
+    },
+    {
+      "product_id": 2,
+      "handle": "buco-flats-in-nero",
+      "key": "related_products",
+      "entry_count": 4,
+      "entry_handles": [
+        "canvas-mules-nero-blu",
+        "gio-flats-blu",
+        "mildred-piccola-midnight-blu",
+        "nuvola-flats-nero-pervinca"
+      ]
+    },
+    {
+      "product_id": 3,
+      "handle": "buco-flats-indaco",
+      "key": "product_variants",
+      "entry_count": 3,
+      "entry_handles": [
+        "buco-flats-indaco",
+        "buco-flats-in-nero",
+        "buco-flats-in-bianco"
+      ]
+    },
+    {
+      "product_id": 3,
+      "handle": "buco-flats-indaco",
+      "key": "related_products",
+      "entry_count": 4,
+      "entry_handles": [
+        "rebecca-flat-mary-jane-in-midnight",
+        "mildred-piccola-midnight-blu",
+        "mildred-classic-in-indaco-grigio",
+        "gio-flats-blu"
+      ]
+    },
+    {
+      "product_id": 4,
+      "handle": "buco-slingback-in-cacao",
+      "key": "product_variants",
+      "entry_count": 3,
+      "entry_handles": [
+        "buco-slingback-in-zenzero",
+        "buco-slingback-in-nero",
+        "buco-slingback-in-cacao"
+      ]
+    },
+    {
+      "product_id": 4,
+      "handle": "buco-slingback-in-cacao",
+      "key": "related_products",
+      "entry_count": 4,
+      "entry_handles": [
+        "mildred-piccola-cammello-grigio",
+        "buco-flats-in-nero",
+        "rebecca-flat-mary-jane-in-bruciato",
+        "nuvola-flats-cacao-pervinca"
+      ]
+    },
+    {
+      "product_id": 5,
+      "handle": "buco-slingback-in-nero",
+      "key": "product_variants",
+      "entry_count": 3,
+      "entry_handles": [
+        "buco-slingback-in-zenzero",
+        "buco-slingback-in-nero",
+        "buco-slingback-in-cacao"
+      ]
+    },
+    {
+      "product_id": 5,
+      "handle": "buco-slingback-in-nero",
+      "key": "related_products",
+      "entry_count": 4,
+      "entry_handles": [
+        "mildred-piccola-midnight-blu",
+        "buco-flats-in-nero",
+        "rebecca-flat-mary-jane-in-nero",
+        "ciambella-sandals-nero-bruciato"
+      ]
+    },
+    {
+      "product_id": 6,
+      "handle": "buco-slingback-in-zenzero",
+      "key": "product_variants",
+      "entry_count": 3,
+      "entry_handles": [
+        "buco-slingback-in-zenzero",
+        "buco-slingback-in-nero",
+        "buco-slingback-in-cacao"
+      ]
+    },
+    {
+      "product_id": 6,
+      "handle": "buco-slingback-in-zenzero",
+      "key": "related_products",
+      "entry_count": 4,
+      "entry_handles": [
+        "mildred-piccola-conchiglia",
+        "gemma-mules-in-conchiglia",
+        "clara-pumps-zenzero",
+        "gio-flats-sole"
+      ]
+    },
+    {
+      "product_id": 7,
+      "handle": "canvas-fussbet-bruciato",
+      "key": "product_variants",
+      "entry_count": 2,
+      "entry_handles": [
+        "canvas-fussbet-bruciato",
+        "canvas-fussbet-nero"
+      ]
+    },
+    {
+      "product_id": 7,
+      "handle": "canvas-fussbet-bruciato",
+      "key": "related_products",
+      "entry_count": 4,
+      "entry_handles": [
+        "nervi-fussbett-slingbacks-verde-militare",
+        "canvas-sandals-bruciato-nero",
+        "canvas-mules-bruciato-nero",
+        "ciambella-sandals-nero-bruciato"
+      ]
+    },
+    {
+      "product_id": 8,
+      "handle": "canvas-fussbet-nero",
+      "key": "product_variants",
+      "entry_count": 2,
+      "entry_handles": [
+        "canvas-fussbet-nero",
+        "canvas-fussbet-bruciato"
+      ]
+    },
+    {
+      "product_id": 8,
+      "handle": "canvas-fussbet-nero",
+      "key": "related_products",
+      "entry_count": 4,
+      "entry_handles": [
+        "nervi-fussbett-slingbacks-blu",
+        "canvas-sandals-blu",
+        "nuvola-flats-nero-pervinca",
+        "ciambella-sandals-blu-nero"
+      ]
+    },
+    {
+      "product_id": 9,
+      "handle": "canvas-mules-bruciato-nero",
+      "key": "product_variants",
+      "entry_count": 5,
+      "entry_handles": [
+        "canvas-mules-bruciato-nero",
+        "canvas-mules-taupe-sole",
+        "canvas-mules-sole",
+        "canvas-mules-nero-blu",
+        "canvas-mules-verde-violetta"
+      ]
+    },
+    {
+      "product_id": 9,
+      "handle": "canvas-mules-bruciato-nero",
+      "key": "related_products",
+      "entry_count": 4,
+      "entry_handles": [
+        "clara-pumps-cacao",
+        "gemma-sandals-nero",
+        "gemma-pumps-cioccolato",
+        "canvas-sandals-bruciato-nero"
+      ]
+    },
+    {
+      "product_id": 10,
+      "handle": "canvas-mules-nero-blu",
+      "key": "product_variants",
+      "entry_count": 5,
+      "entry_handles": [
+        "canvas-mules-nero-blu",
+        "canvas-mules-verde-violetta",
+        "canvas-mules-bruciato-nero",
+        "canvas-mules-sole",
+        "canvas-mules-taupe-sole"
+      ]
+    },
+    {
+      "product_id": 10,
+      "handle": "canvas-mules-nero-blu",
+      "key": "related_products",
+      "entry_count": 4,
+      "entry_handles": [
+        "clara-pumps-nero",
+        "canvas-sandals-blu",
+        "mildred-classic-nero-midnight-blue",
+        "gemma-pumps-abisso"
+      ]
+    },
+    {
+      "product_id": 11,
+      "handle": "canvas-mules-sole",
+      "key": "product_variants",
+      "entry_count": 5,
+      "entry_handles": [
+        "canvas-mules-sole",
+        "canvas-mules-taupe-sole",
+        "canvas-mules-verde-violetta",
+        "canvas-mules-bruciato-nero",
+        "canvas-mules-nero-blu"
+      ]
+    },
+    {
+      "product_id": 11,
+      "handle": "canvas-mules-sole",
+      "key": "related_products",
+      "entry_count": 4,
+      "entry_handles": [
+        "gio-flats-sole",
+        "mildred-classic-giallo",
+        "egg-sandals-sole",
+        "canvas-sandals-sole"
+      ]
+    },
+    {
+      "product_id": 12,
+      "handle": "canvas-mules-taupe-sole",
+      "key": "product_variants",
+      "entry_count": 5,
+      "entry_handles": [
+        "canvas-mules-taupe-sole",
+        "canvas-mules-nero-blu",
+        "canvas-mules-sole",
+        "canvas-mules-verde-violetta",
+        "canvas-mules-bruciato-nero"
+      ]
+    },
+    {
+      "product_id": 12,
+      "handle": "canvas-mules-taupe-sole",
+      "key": "related_products",
+      "entry_count": 4,
+      "entry_handles": [
+        "mildred-classic-in-taupe-sole",
+        "clara-pumps-taupe",
+        "spacco-sandals-taupe-sole",
+        "canvas-sandals-taupe-sole"
+      ]
+    },
+    {
+      "product_id": 13,
+      "handle": "canvas-mules-verde-violetta",
+      "key": "product_variants",
+      "entry_count": 5,
+      "entry_handles": [
+        "canvas-mules-verde-violetta",
+        "canvas-mules-sole",
+        "canvas-mules-nero-blu",
+        "canvas-mules-taupe-sole",
+        "canvas-mules-bruciato-nero"
+      ]
+    },
+    {
+      "product_id": 13,
+      "handle": "canvas-mules-verde-violetta",
+      "key": "related_products",
+      "entry_count": 4,
+      "entry_handles": [
+        "gio-flats-militare",
+        "canvas-sandals-verde-violetta",
+        "mildred-classic-militare",
+        "rebecca-flat-mules-in-verde"
+      ]
+    },
+    {
+      "product_id": 14,
+      "handle": "canvas-sandals-bruciato-nero",
+      "key": "product_variants",
+      "entry_count": 6,
+      "entry_handles": [
+        "canvas-sandals-bruciato-nero",
+        "canvas-sandals-verde-violetta",
+        "canvas-sandals-sole",
+        "canvas-sandals-taupe-sole",
+        "canvas-sandals-nero-rosso",
+        "canvas-sandals-blu"
+      ]
+    },
+    {
+      "product_id": 14,
+      "handle": "canvas-sandals-bruciato-nero",
+      "key": "related_products",
+      "entry_count": 4,
+      "entry_handles": [
+        "rebecca-mary-jane-bruciato-blu",
+        "incroci-sandals-in-cacao",
+        "canvas-mules-bruciato-nero",
+        "clara-pumps-cacao"
+      ]
+    },
+    {
+      "product_id": 15,
+      "handle": "canvas-sandals-blu",
+      "key": "product_variants",
+      "entry_count": 6,
+      "entry_handles": [
+        "canvas-sandals-blu",
+        "canvas-sandals-nero-rosso",
+        "canvas-sandals-taupe-sole",
+        "canvas-sandals-sole",
+        "canvas-sandals-bruciato-nero",
+        "canvas-sandals-verde-violetta"
+      ]
+    },
+    {
+      "product_id": 15,
+      "handle": "canvas-sandals-blu",
+      "key": "related_products",
+      "entry_count": 4,
+      "entry_handles": [
+        "spacco-sandals-nero-blu",
+        "gemma-sandals-nero",
+        "canvas-mules-nero-blu",
+        "gemma-pumps-abisso"
+      ]
+    },
+    {
+      "product_id": 16,
+      "handle": "canvas-sandals-nero-rosso",
+      "key": "product_variants",
+      "entry_count": 6,
+      "entry_handles": [
+        "canvas-sandals-nero-rosso",
+        "canvas-sandals-sole",
+        "canvas-sandals-taupe-sole",
+        "canvas-sandals-verde-violetta",
+        "canvas-sandals-bruciato-nero",
+        "canvas-sandals-blu"
+      ]
+    },
+    {
+      "product_id": 16,
+      "handle": "canvas-sandals-nero-rosso",
+      "key": "related_products",
+      "entry_count": 4,
+      "entry_handles": [
+        "mildred-classic-nero-rosso",
+        "egg-mules-nero-rosso",
+        "mildred-piccola-nero-rosso",
+        "spacco-sandals-rosso"
+      ]
+    },
+    {
+      "product_id": 17,
+      "handle": "canvas-sandals-sole",
+      "key": "product_variants",
+      "entry_count": 6,
+      "entry_handles": [
+        "canvas-sandals-sole",
+        "canvas-sandals-blu",
+        "canvas-sandals-bruciato-nero",
+        "canvas-sandals-taupe-sole",
+        "canvas-sandals-verde-violetta",
+        "canvas-sandals-nero-rosso"
+      ]
+    },
+    {
+      "product_id": 17,
+      "handle": "canvas-sandals-sole",
+      "key": "related_products",
+      "entry_count": 4,
+      "entry_handles": [
+        "gemma-sandals-zenzero-cera",
+        "gio-flats-sole",
+        "canvas-mules-sole",
+        "egg-sandals-sole"
+      ]
+    },
+    {
+      "product_id": 18,
+      "handle": "canvas-sandals-taupe-sole",
+      "key": "product_variants",
+      "entry_count": 6,
+      "entry_handles": [
+        "canvas-sandals-taupe-sole",
+        "canvas-sandals-verde-violetta",
+        "canvas-sandals-nero-rosso",
+        "canvas-sandals-sole",
+        "canvas-sandals-bruciato-nero",
+        "canvas-sandals-blu"
+      ]
+    },
+    {
+      "product_id": 18,
+      "handle": "canvas-sandals-taupe-sole",
+      "key": "related_products",
+      "entry_count": 4,
+      "entry_handles": [
+        "spacco-sandals-taupe-sole",
+        "clara-pumps-taupe",
+        "canvas-mules-taupe-sole",
+        "incroci-sandals-in-cacao"
+      ]
+    },
+    {
+      "product_id": 19,
+      "handle": "canvas-sandals-verde-violetta",
+      "key": "product_variants",
+      "entry_count": 6,
+      "entry_handles": [
+        "canvas-sandals-verde-violetta",
+        "canvas-sandals-sole",
+        "canvas-sandals-blu",
+        "canvas-sandals-bruciato-nero",
+        "canvas-sandals-taupe-sole",
+        "canvas-sandals-nero-rosso"
+      ]
+    },
+    {
+      "product_id": 19,
+      "handle": "canvas-sandals-verde-violetta",
+      "key": "related_products",
+      "entry_count": 4,
+      "entry_handles": [
+        "canvas-mules-verde-violetta",
+        "mildred-classic-militare",
+        "rebecca-mary-jane-militare",
+        "nervi-fussbett-slingbacks-verde-militare"
+      ]
+    },
+    {
+      "product_id": 20,
+      "handle": "ciambella-sandals-blu-nero",
+      "key": "product_variants",
+      "entry_count": 3,
+      "entry_handles": [
+        "ciambella-sandals-blu-nero",
+        "ciambella-sandals-nero-bruciato",
+        "ciambella-sandals-nero-vernice"
+      ]
+    },
+    {
+      "product_id": 20,
+      "handle": "ciambella-sandals-blu-nero",
+      "key": "related_products",
+      "entry_count": 4,
+      "entry_handles": [
+        "rebecca-flat-mules-nero",
+        "canvas-fussbet-nero",
+        "egg-sandals-blu-nero",
+        "nervi-fussbett-slingbacks-blu"
+      ]
+    },
+    {
+      "product_id": 21,
+      "handle": "ciambella-sandals-nero-bruciato",
+      "key": "product_variants",
+      "entry_count": 3,
+      "entry_handles": [
+        "ciambella-sandals-nero-bruciato",
+        "ciambella-sandals-blu-nero",
+        "ciambella-sandals-nero-vernice"
+      ]
+    },
+    {
+      "product_id": 21,
+      "handle": "ciambella-sandals-nero-bruciato",
+      "key": "related_products",
+      "entry_count": 4,
+      "entry_handles": [
+        "nervi-fussbett-slingbacks-nero",
+        "diagonale-flatforms-in-cacao",
+        "rebecca-flat-mary-jane-in-bruciato",
+        "canvas-fussbet-bruciato"
+      ]
+    },
+    {
+      "product_id": 22,
+      "handle": "ciambella-sandals-nero-vernice",
+      "key": "product_variants",
+      "entry_count": 3,
+      "entry_handles": [
+        "ciambella-sandals-nero-vernice",
+        "ciambella-sandals-nero-bruciato",
+        "ciambella-sandals-blu-nero"
+      ]
+    },
+    {
+      "product_id": 22,
+      "handle": "ciambella-sandals-nero-vernice",
+      "key": "related_products",
+      "entry_count": 4,
+      "entry_handles": [
+        "nuvola-pumps-nero",
+        "canvas-fussbet-nero",
+        "nervi-fussbett-slingbacks-blu",
+        "spacco-sandals-nero-blu"
+      ]
+    },
+    {
+      "product_id": 23,
+      "handle": "city-boots-bruciato",
+      "key": "product_variants",
+      "entry_count": 3,
+      "entry_handles": [
+        "city-boots-bruciato",
+        "city-boots-nero",
+        "city-boots-vino"
+      ]
+    },
+    {
+      "product_id": 23,
+      "handle": "city-boots-bruciato",
+      "key": "related_products",
+      "entry_count": 4,
+      "entry_handles": [
+        "city-tall-boots-bruciato",
+        "mildred-boots-cammello-grigio",
+        "clara-pumps-cacao",
+        "rebecca-mary-jane-bruciato-blu"
+      ]
+    },
+    {
+      "product_id": 24,
+      "handle": "city-boots-nero",
+      "key": "product_variants",
+      "entry_count": 3,
+      "entry_handles": [
+        "city-boots-bruciato",
+        "city-boots-nero",
+        "city-boots-vino"
+      ]
+    },
+    {
+      "product_id": 24,
+      "handle": "city-boots-nero",
+      "key": "related_products",
+      "entry_count": 4,
+      "entry_handles": [
+        "mildred-boots-nero-cacao",
+        "mildred-classic-nero-midnight-blue",
+        "zoe-bootie-nero",
+        "city-tall-boots-nero"
+      ]
+    },
+    {
+      "product_id": 25,
+      "handle": "city-boots-vino",
+      "key": "product_variants",
+      "entry_count": 3,
+      "entry_handles": [
+        "city-boots-vino",
+        "city-boots-nero",
+        "city-boots-bruciato"
+      ]
+    },
+    {
+      "product_id": 25,
+      "handle": "city-boots-vino",
+      "key": "related_products",
+      "entry_count": 4,
+      "entry_handles": [
+        "mildred-boots-plum",
+        "duck-egg-boots-in-vino-turchese",
+        "zoe-bootie-in-nero-vitello",
+        "city-tall-boots-nero"
+      ]
+    },
+    {
+      "product_id": 26,
+      "handle": "city-tall-boots-bruciato",
+      "key": "product_variants",
+      "entry_count": 2,
+      "entry_handles": [
+        "city-tall-boots-bruciato",
+        "city-tall-boots-nero"
+      ]
+    },
+    {
+      "product_id": 26,
+      "handle": "city-tall-boots-bruciato",
+      "key": "related_products",
+      "entry_count": 4,
+      "entry_handles": [
+        "duck-egg-boots-in-bruciato-nero",
+        "mildred-boots-nero-cacao",
+        "spacco-pump-in-bruciato-nero",
+        "city-boots-bruciato"
+      ]
+    },
+    {
+      "product_id": 27,
+      "handle": "city-tall-boots-nero",
+      "key": "product_variants",
+      "entry_count": 2,
+      "entry_handles": [
+        "city-tall-boots-bruciato",
+        "city-tall-boots-nero"
+      ]
+    },
+    {
+      "product_id": 27,
+      "handle": "city-tall-boots-nero",
+      "key": "related_products",
+      "entry_count": 4,
+      "entry_handles": [
+        "duck-egg-boots-in-nero-rosso",
+        "mildred-boots-nero-rosso",
+        "cortina-booties-in-nero",
+        "city-boots-nero"
+      ]
+    },
+    {
+      "product_id": 28,
+      "handle": "clara-pumps-cacao",
+      "key": "product_variants",
+      "entry_count": 8,
+      "entry_handles": [
+        "clara-pumps-cacao",
+        "clara-pumps-zenzero",
+        "clara-pumps-taupe",
+        "clara-pumps-plum",
+        "clara-pumps-blu",
+        "clara-pumps-nero",
+        "clara-pumps-in-dusty-rose",
+        "clara-pumps-in-grigio"
+      ]
+    },
+    {
+      "product_id": 28,
+      "handle": "clara-pumps-cacao",
+      "key": "related_products",
+      "entry_count": 4,
+      "entry_handles": [
+        "nuvola-pumps-cacao",
+        "buco-slingback-in-cacao",
+        "gemma-pumps-in-cacao",
+        "canvas-mules-bruciato-nero"
+      ]
+    },
+    {
+      "product_id": 29,
+      "handle": "clara-pumps-in-dusty-rose",
+      "key": "product_variants",
+      "entry_count": 8,
+      "entry_handles": [
+        "clara-pumps-in-dusty-rose",
+        "clara-pumps-zenzero",
+        "clara-pumps-taupe",
+        "clara-pumps-plum",
+        "clara-pumps-blu",
+        "clara-pumps-nero",
+        "clara-pumps-cacao",
+        "clara-pumps-in-grigio"
+      ]
+    },
+    {
+      "product_id": 29,
+      "handle": "clara-pumps-in-dusty-rose",
+      "key": "related_products",
+      "entry_count": 4,
+      "entry_handles": [
+        "mildred-classic-in-indaco-grigio",
+        "gemma-pumps-in-cacao",
+        "canvas-mules-nero-blu",
+        "canvas-sandals-verde-violetta"
+      ]
+    },
+    {
+      "product_id": 30,
+      "handle": "clara-pumps-in-grigio",
+      "key": "product_variants",
+      "entry_count": 8,
+      "entry_handles": [
+        "clara-pumps-in-grigio",
+        "clara-pumps-zenzero",
+        "clara-pumps-taupe",
+        "clara-pumps-plum",
+        "clara-pumps-blu",
+        "clara-pumps-nero",
+        "clara-pumps-cacao",
+        "clara-pumps-in-dusty-rose"
+      ]
+    },
+    {
+      "product_id": 30,
+      "handle": "clara-pumps-in-grigio",
+      "key": "related_products",
+      "entry_count": 4,
+      "entry_handles": [
+        "onda-slingback-in-midnight",
+        "micol-pumps-taupe",
+        "gemma-pumps-abisso",
+        "canvas-mules-taupe-sole"
+      ]
+    },
+    {
+      "product_id": 31,
+      "handle": "clara-pumps-blu",
+      "key": "product_variants",
+      "entry_count": 8,
+      "entry_handles": [
+        "clara-pumps-blu",
+        "clara-pumps-nero",
+        "clara-pumps-taupe",
+        "clara-pumps-cacao",
+        "clara-pumps-plum",
+        "clara-pumps-zenzero",
+        "clara-pumps-in-grigio",
+        "clara-pumps-in-dusty-rose"
+      ]
+    },
+    {
+      "product_id": 31,
+      "handle": "clara-pumps-blu",
+      "key": "related_products",
+      "entry_count": 4,
+      "entry_handles": [
+        "gemma-pumps-abisso",
+        "mildred-classic-nero-midnight-blue",
+        "canvas-mules-nero-blu",
+        "spacco-sandals-nero-blu"
+      ]
+    },
+    {
+      "product_id": 32,
+      "handle": "clara-pumps-nero",
+      "key": "product_variants",
+      "entry_count": 8,
+      "entry_handles": [
+        "clara-pumps-nero",
+        "clara-pumps-blu",
+        "clara-pumps-taupe",
+        "clara-pumps-cacao",
+        "clara-pumps-plum",
+        "clara-pumps-zenzero",
+        "clara-pumps-in-dusty-rose",
+        "clara-pumps-in-grigio"
+      ]
+    },
+    {
+      "product_id": 32,
+      "handle": "clara-pumps-nero",
+      "key": "related_products",
+      "entry_count": 4,
+      "entry_handles": [
+        "mildred-classic-nero-midnight-blue",
+        "canvas-mules-nero-blu",
+        "gemma-pumps-nero",
+        "nuvola-pumps-nero"
+      ]
+    },
+    {
+      "product_id": 33,
+      "handle": "clara-pumps-plum",
+      "key": "product_variants",
+      "entry_count": 8,
+      "entry_handles": [
+        "clara-pumps-plum",
+        "clara-pumps-zenzero",
+        "clara-pumps-cacao",
+        "clara-pumps-taupe",
+        "clara-pumps-blu",
+        "clara-pumps-nero",
+        "clara-pumps-in-dusty-rose",
+        "clara-pumps-in-grigio"
+      ]
+    },
+    {
+      "product_id": 33,
+      "handle": "clara-pumps-plum",
+      "key": "related_products",
+      "entry_count": 4,
+      "entry_handles": [
+        "mildred-classic-plum",
+        "micol-pumps-plum",
+        "mildred-boots-plum",
+        "gemma-pumps-in-vino"
+      ]
+    },
+    {
+      "product_id": 34,
+      "handle": "clara-pumps-taupe",
+      "key": "product_variants",
+      "entry_count": 8,
+      "entry_handles": [
+        "clara-pumps-taupe",
+        "clara-pumps-zenzero",
+        "clara-pumps-cacao",
+        "clara-pumps-plum",
+        "clara-pumps-blu",
+        "clara-pumps-nero",
+        "clara-pumps-in-dusty-rose",
+        "clara-pumps-in-grigio"
+      ]
+    },
+    {
+      "product_id": 34,
+      "handle": "clara-pumps-taupe",
+      "key": "related_products",
+      "entry_count": 4,
+      "entry_handles": [
+        "mildred-classic-taupe",
+        "spacco-pump-in-taupe",
+        "gemma-pumps-conchiglia",
+        "micol-pumps-taupe"
+      ]
+    },
+    {
+      "product_id": 35,
+      "handle": "clara-pumps-zenzero",
+      "key": "product_variants",
+      "entry_count": 8,
+      "entry_handles": [
+        "clara-pumps-zenzero",
+        "clara-pumps-plum",
+        "clara-pumps-cacao",
+        "clara-pumps-taupe",
+        "clara-pumps-blu",
+        "clara-pumps-nero",
+        "clara-pumps-in-dusty-rose",
+        "clara-pumps-in-grigio"
+      ]
+    },
+    {
+      "product_id": 35,
+      "handle": "clara-pumps-zenzero",
+      "key": "related_products",
+      "entry_count": 4,
+      "entry_handles": [
+        "gemma-sandals-zenzero-cera",
+        "mildred-classic-in-taupe-sole",
+        "gemma-pumps-conchiglia",
+        "egg-mules-cera"
+      ]
+    },
+    {
+      "product_id": 36,
+      "handle": "cortina-booties-in-bruciato-suede",
+      "key": "product_variants",
+      "entry_count": 4,
+      "entry_handles": [
+        "cortina-booties-in-bruciato-suede",
+        "cortina-booties-in-cacao",
+        "cortina-booties-in-nero",
+        "cortina-booties-in-midnight-suede"
+      ]
+    },
+    {
+      "product_id": 36,
+      "handle": "cortina-booties-in-bruciato-suede",
+      "key": "related_products",
+      "entry_count": 4,
+      "entry_handles": [
+        "zoe-bootie-in-nero-bruciato",
+        "city-boots-bruciato",
+        "sammy-loafers-in-nero-bruciato",
+        "duck-egg-boots-in-bruciato-nero"
+      ]
+    },
+    {
+      "product_id": 37,
+      "handle": "cortina-booties-in-cacao",
+      "key": "product_variants",
+      "entry_count": 4,
+      "entry_handles": [
+        "cortina-booties-in-cacao",
+        "cortina-booties-in-nero",
+        "cortina-booties-in-bruciato-suede",
+        "cortina-booties-in-midnight-suede"
+      ]
+    },
+    {
+      "product_id": 37,
+      "handle": "cortina-booties-in-cacao",
+      "key": "related_products",
+      "entry_count": 4,
+      "entry_handles": [
+        "mildred-boots-nero-cacao",
+        "city-boots-bruciato",
+        "micol-pumps-cammello",
+        "zoe-bootie-in-nero-bruciato"
+      ]
+    },
+    {
+      "product_id": 38,
+      "handle": "cortina-booties-in-midnight-suede",
+      "key": "product_variants",
+      "entry_count": 4,
+      "entry_handles": [
+        "cortina-booties-in-midnight-suede",
+        "cortina-booties-in-cacao",
+        "cortina-booties-in-bruciato-suede",
+        "cortina-booties-in-nero"
+      ]
+    },
+    {
+      "product_id": 38,
+      "handle": "cortina-booties-in-midnight-suede",
+      "key": "related_products",
+      "entry_count": 4,
+      "entry_handles": [
+        "mildred-boots-nero-rosso",
+        "city-boots-nero",
+        "gio-pumps-blu",
+        "duck-egg-boots-in-vino-turchese"
+      ]
+    },
+    {
+      "product_id": 39,
+      "handle": "cortina-booties-in-nero",
+      "key": "product_variants",
+      "entry_count": 4,
+      "entry_handles": [
+        "cortina-booties-in-nero",
+        "cortina-booties-in-cacao",
+        "cortina-booties-in-bruciato-suede",
+        "cortina-booties-in-midnight-suede"
+      ]
+    },
+    {
+      "product_id": 39,
+      "handle": "cortina-booties-in-nero",
+      "key": "related_products",
+      "entry_count": 4,
+      "entry_handles": [
+        "city-tall-boots-bruciato",
+        "city-boots-nero",
+        "duck-egg-boots-in-bruciato-nero",
+        "mildred-boots-nero-rosso"
+      ]
+    },
+    {
+      "product_id": 40,
+      "handle": "diagonale-flatforms-in-cacao",
+      "key": "product_variants",
+      "entry_count": 2,
+      "entry_handles": [
+        "diagonale-flatforms-in-cacao",
+        "diagonale-flatforms-in-taupe"
+      ]
+    },
+    {
+      "product_id": 40,
+      "handle": "diagonale-flatforms-in-cacao",
+      "key": "related_products",
+      "entry_count": 4,
+      "entry_handles": [
+        "nervi-fussbett-slingbacks-sole",
+        "buco-slingback-in-cacao",
+        "canvas-fussbet-bruciato",
+        "ciambella-sandals-nero-bruciato"
+      ]
+    },
+    {
+      "product_id": 41,
+      "handle": "diagonale-flatforms-in-taupe",
+      "key": "product_variants",
+      "entry_count": 2,
+      "entry_handles": [
+        "diagonale-flatforms-in-cacao",
+        "diagonale-flatforms-in-taupe"
+      ]
+    },
+    {
+      "product_id": 41,
+      "handle": "diagonale-flatforms-in-taupe",
+      "key": "related_products",
+      "entry_count": 4,
+      "entry_handles": [
+        "canvas-fussbet-bruciato",
+        "nervi-fussbett-slingbacks-sole",
+        "rebecca-flat-mary-jane-in-taupe",
+        "incroci-sandals-in-bianco"
+      ]
+    },
+    {
+      "product_id": 42,
+      "handle": "duck-egg-boots-in-bruciato-nero",
+      "key": "product_variants",
+      "entry_count": 3,
+      "entry_handles": [
+        "duck-egg-boots-in-bruciato-nero",
+        "duck-egg-boots-in-vino-turchese",
+        "duck-egg-boots-in-nero-rosso"
+      ]
+    },
+    {
+      "product_id": 42,
+      "handle": "duck-egg-boots-in-bruciato-nero",
+      "key": "related_products",
+      "entry_count": 4,
+      "entry_handles": [
+        "mildred-boots-nero-cacao",
+        "egg-pumps-in-vino-turchese",
+        "city-boots-bruciato",
+        "city-tall-boots-bruciato"
+      ]
+    },
+    {
+      "product_id": 43,
+      "handle": "duck-egg-boots-in-nero-rosso",
+      "key": "product_variants",
+      "entry_count": 3,
+      "entry_handles": [
+        "duck-egg-boots-in-nero-rosso",
+        "duck-egg-boots-in-bruciato-nero",
+        "duck-egg-boots-in-vino-turchese"
+      ]
+    },
+    {
+      "product_id": 43,
+      "handle": "duck-egg-boots-in-nero-rosso",
+      "key": "related_products",
+      "entry_count": 4,
+      "entry_handles": [
+        "city-boots-bruciato",
+        "mildred-boots-nero-rosso",
+        "egg-mules-nero-rosso",
+        "egg-sandals-blu-nero"
+      ]
+    },
+    {
+      "product_id": 44,
+      "handle": "duck-egg-boots-in-vino-turchese",
+      "key": "product_variants",
+      "entry_count": 3,
+      "entry_handles": [
+        "duck-egg-boots-in-vino-turchese",
+        "duck-egg-boots-in-bruciato-nero",
+        "duck-egg-boots-in-nero-rosso"
+      ]
+    },
+    {
+      "product_id": 44,
+      "handle": "duck-egg-boots-in-vino-turchese",
+      "key": "related_products",
+      "entry_count": 4,
+      "entry_handles": [
+        "clara-pumps-plum",
+        "egg-pumps-in-vino-turchese",
+        "city-boots-vino",
+        "mildred-boots-plum"
+      ]
+    },
+    {
+      "product_id": 45,
+      "handle": "egg-mules-bianco",
+      "key": "product_variants",
+      "entry_count": 3,
+      "entry_handles": [
+        "egg-mules-bianco",
+        "egg-mules-cera",
+        "mildred-egg-nero-rosso"
+      ]
+    },
+    {
+      "product_id": 45,
+      "handle": "egg-mules-bianco",
+      "key": "related_products",
+      "entry_count": 4,
+      "entry_handles": [
+        "onda-slingback-in-bianco",
+        "egg-sandals-cera-oro",
+        "micol-mules-bianco",
+        "mildred-mules-bianco-grigio"
+      ]
+    },
+    {
+      "product_id": 46,
+      "handle": "egg-mules-cera",
+      "key": "product_variants",
+      "entry_count": 3,
+      "entry_handles": [
+        "egg-mules-cera",
+        "egg-mules-bianco",
+        "egg-mules-nero-rosso"
+      ]
+    },
+    {
+      "product_id": 46,
+      "handle": "egg-mules-cera",
+      "key": "related_products",
+      "entry_count": 4,
+      "entry_handles": [
+        "mildred-classic-in-taupe-sole",
+        "gemma-sandals-zenzero-cera",
+        "egg-sandals-cera",
+        "gemma-mules-in-conchiglia"
+      ]
+    },
+    {
+      "product_id": 47,
+      "handle": "egg-mules-nero-rosso",
+      "key": "product_variants",
+      "entry_count": 3,
+      "entry_handles": [
+        "mildred-egg-nero-rosso",
+        "egg-mules-bianco",
+        "egg-mules-cera"
+      ]
+    },
+    {
+      "product_id": 47,
+      "handle": "egg-mules-nero-rosso",
+      "key": "related_products",
+      "entry_count": 4,
+      "entry_handles": [
+        "egg-sandals-blu-nero",
+        "spacco-sandals-rosso",
+        "egg-pumps-in-rosso",
+        "mildred-mule-nero-rosso"
+      ]
+    },
+    {
+      "product_id": 48,
+      "handle": "egg-pumps-in-cera",
+      "key": "product_variants",
+      "entry_count": 6,
+      "entry_handles": [
+        "egg-pumps-in-rosso",
+        "egg-pumps-in-midnight",
+        "egg-pumps-in-vino-turchese",
+        "egg-pumps-in-turchese",
+        "egg-pumps-in-cera",
+        "egg-pumps-in-nero-rosso"
+      ]
+    },
+    {
+      "product_id": 48,
+      "handle": "egg-pumps-in-cera",
+      "key": "related_products",
+      "entry_count": 4,
+      "entry_handles": [
+        "gemma-sandals-sole-cera",
+        "gemma-pumps-conchiglia",
+        "egg-mules-cera",
+        "egg-sandals-cera"
+      ]
+    },
+    {
+      "product_id": 49,
+      "handle": "egg-pumps-in-midnight",
+      "key": "product_variants",
+      "entry_count": 6,
+      "entry_handles": [
+        "egg-pumps-in-rosso",
+        "egg-pumps-in-vino-turchese",
+        "egg-pumps-in-turchese",
+        "egg-pumps-in-cera",
+        "egg-pumps-in-midnight",
+        "egg-pumps-in-nero-rosso"
+      ]
+    },
+    {
+      "product_id": 49,
+      "handle": "egg-pumps-in-midnight",
+      "key": "related_products",
+      "entry_count": 4,
+      "entry_handles": [
+        "egg-sandals-blu-nero",
+        "gemma-pumps-abisso",
+        "clara-pumps-blu",
+        "onda-pumps-in-midnight"
+      ]
+    },
+    {
+      "product_id": 50,
+      "handle": "egg-pumps-in-nero-rosso",
+      "key": "product_variants",
+      "entry_count": 6,
+      "entry_handles": [
+        "egg-pumps-in-nero-rosso",
+        "egg-pumps-in-turchese",
+        "egg-pumps-in-rosso",
+        "egg-pumps-in-vino-turchese",
+        "egg-pumps-in-cera",
+        "egg-pumps-in-midnight"
+      ]
+    },
+    {
+      "product_id": 50,
+      "handle": "egg-pumps-in-nero-rosso",
+      "key": "related_products",
+      "entry_count": 4,
+      "entry_handles": [
+        "mildred-classic-nero-rosso",
+        "egg-mules-nero-rosso",
+        "spacco-pump-in-nero",
+        "duck-egg-boots-in-nero-rosso"
+      ]
+    },
+    {
+      "product_id": 51,
+      "handle": "egg-pumps-in-rosso",
+      "key": "product_variants",
+      "entry_count": 6,
+      "entry_handles": [
+        "egg-pumps-in-rosso",
+        "egg-pumps-in-nero-rosso",
+        "egg-pumps-in-vino-turchese",
+        "egg-pumps-in-turchese",
+        "egg-pumps-in-cera",
+        "egg-pumps-in-midnight"
+      ]
+    },
+    {
+      "product_id": 51,
+      "handle": "egg-pumps-in-rosso",
+      "key": "related_products",
+      "entry_count": 4,
+      "entry_handles": [
+        "myla-mary-jane-barolo",
+        "nuvola-pumps-rosso",
+        "egg-mules-nero-rosso",
+        "mildred-classic-nero-rosso"
+      ]
+    },
+    {
+      "product_id": 52,
+      "handle": "egg-pumps-in-turchese",
+      "key": "product_variants",
+      "entry_count": 6,
+      "entry_handles": [
+        "egg-pumps-in-turchese",
+        "egg-pumps-in-vino-turchese",
+        "egg-pumps-in-rosso",
+        "egg-pumps-in-cera",
+        "egg-pumps-in-nero-rosso",
+        "egg-pumps-in-midnight"
+      ]
+    },
+    {
+      "product_id": 52,
+      "handle": "egg-pumps-in-turchese",
+      "key": "related_products",
+      "entry_count": 4,
+      "entry_handles": [
+        "rebecca-mary-jane-blu",
+        "egg-sandals-blu-nero",
+        "egg-mules-nero-rosso",
+        "duck-egg-boots-in-vino-turchese"
+      ]
+    },
+    {
+      "product_id": 53,
+      "handle": "egg-pumps-in-vino-turchese",
+      "key": "product_variants",
+      "entry_count": 6,
+      "entry_handles": [
+        "egg-pumps-in-vino-turchese",
+        "egg-pumps-in-rosso",
+        "egg-pumps-in-turchese",
+        "egg-pumps-in-nero-rosso",
+        "egg-pumps-in-cera",
+        "egg-pumps-in-midnight"
+      ]
+    },
+    {
+      "product_id": 53,
+      "handle": "egg-pumps-in-vino-turchese",
+      "key": "related_products",
+      "entry_count": 4,
+      "entry_handles": [
+        "micol-pumps-plum",
+        "myla-loafers-in-vino",
+        "rebecca-flat-mary-jane-in-vino",
+        "duck-egg-boots-in-vino-turchese"
+      ]
+    },
+    {
+      "product_id": 54,
+      "handle": "egg-sandals-cera",
+      "key": "product_variants",
+      "entry_count": 3,
+      "entry_handles": [
+        "egg-sandals-cera",
+        "egg-sandals-sole",
+        "egg-sandals-blu-nero"
+      ]
+    },
+    {
+      "product_id": 54,
+      "handle": "egg-sandals-cera",
+      "key": "related_products",
+      "entry_count": 4,
+      "entry_handles": [
+        "gemma-pumps-conchiglia",
+        "egg-mules-cera",
+        "gemma-sandals-zenzero-cera",
+        "mildred-piccola-conchiglia"
+      ]
+    },
+    {
+      "product_id": 55,
+      "handle": "egg-sandals-blu-nero",
+      "key": "product_variants",
+      "entry_count": 3,
+      "entry_handles": [
+        "egg-sandals-blu-nero",
+        "egg-sandals-cera",
+        "egg-sandals-sole-oro"
+      ]
+    },
+    {
+      "product_id": 55,
+      "handle": "egg-sandals-blu-nero",
+      "key": "related_products",
+      "entry_count": 4,
+      "entry_handles": [
+        "canvas-sandals-blu",
+        "egg-mules-nero-rosso",
+        "mildred-classic-nero-midnight-blue",
+        "spacco-sandals-nero-blu"
+      ]
+    },
+    {
+      "product_id": 56,
+      "handle": "egg-sandals-sole",
+      "key": "product_variants",
+      "entry_count": 3,
+      "entry_handles": [
+        "egg-sandals-sole",
+        "egg-sandals-cera",
+        "egg-sandals-blu-nero"
+      ]
+    },
+    {
+      "product_id": 56,
+      "handle": "egg-sandals-sole",
+      "key": "related_products",
+      "entry_count": 4,
+      "entry_handles": [
+        "gio-flats-sole",
+        "canvas-mules-taupe-sole",
+        "canvas-sandals-sole",
+        "spacco-sandals-taupe-sole"
+      ]
+    },
+    {
+      "product_id": 57,
+      "handle": "gemma-mules-in-conchiglia",
+      "key": "product_variants",
+      "entry_count": 2,
+      "entry_handles": [
+        "gemma-mules-nero",
+        "gemma-mules-in-conchiglia"
+      ]
+    },
+    {
+      "product_id": 57,
+      "handle": "gemma-mules-in-conchiglia",
+      "key": "related_products",
+      "entry_count": 4,
+      "entry_handles": [
+        "gemma-pumps-conchiglia",
+        "egg-mules-cera",
+        "gemma-sandals-sole-cera",
+        "egg-sandals-cera"
+      ]
+    },
+    {
+      "product_id": 58,
+      "handle": "gemma-mules-nero",
+      "key": "product_variants",
+      "entry_count": 2,
+      "entry_handles": [
+        "gemma-mules-nero",
+        "gemma-mules-in-conchiglia"
+      ]
+    },
+    {
+      "product_id": 58,
+      "handle": "gemma-mules-nero",
+      "key": "related_products",
+      "entry_count": 4,
+      "entry_handles": [
+        "gemma-pumps-nero",
+        "mildred-classic-nero-midnight-blue",
+        "mildred-mules-nero",
+        "micol-mules-nero"
+      ]
+    },
+    {
+      "product_id": 59,
+      "handle": "gemma-pumps-abisso",
+      "key": "product_variants",
+      "entry_count": 6,
+      "entry_handles": [
+        "gemma-pumps-conchiglia",
+        "gemma-pumps-nero",
+        "gemma-pumps-cioccolato",
+        "gemma-pumps-abisso",
+        "gemma-pumps-in-vino",
+        "gemma-pumps-in-cacao"
+      ]
+    },
+    {
+      "product_id": 59,
+      "handle": "gemma-pumps-abisso",
+      "key": "related_products",
+      "entry_count": 4,
+      "entry_handles": [
+        "gemma-sandals-nero",
+        "egg-sandals-blu-nero",
+        "canvas-mules-nero-blu",
+        "clara-pumps-blu"
+      ]
+    },
+    {
+      "product_id": 60,
+      "handle": "gemma-pumps-in-cacao",
+      "key": "product_variants",
+      "entry_count": 6,
+      "entry_handles": [
+        "gemma-pumps-conchiglia",
+        "gemma-pumps-nero",
+        "gemma-pumps-cioccolato",
+        "gemma-pumps-abisso",
+        "gemma-pumps-in-vino",
+        "gemma-pumps-conchiglia"
+      ]
+    },
+    {
+      "product_id": 60,
+      "handle": "gemma-pumps-in-cacao",
+      "key": "related_products",
+      "entry_count": 4,
+      "entry_handles": [
+        "gemma-mules-in-conchiglia",
+        "clara-pumps-cacao",
+        "nuvola-pumps-cacao",
+        "mildred-classic-cammello"
+      ]
+    },
+    {
+      "product_id": 61,
+      "handle": "gemma-pumps-cioccolato",
+      "key": "product_variants",
+      "entry_count": 6,
+      "entry_handles": [
+        "gemma-pumps-conchiglia",
+        "gemma-pumps-nero",
+        "gemma-pumps-cioccolato",
+        "gemma-pumps-abisso",
+        "gemma-pumps-in-vino",
+        "gemma-pumps-in-cacao"
+      ]
+    },
+    {
+      "product_id": 61,
+      "handle": "gemma-pumps-cioccolato",
+      "key": "related_products",
+      "entry_count": 4,
+      "entry_handles": [
+        "gemma-sandals-nero",
+        "spacco-pump-in-bruciato-nero",
+        "gemma-mules-nero",
+        "clara-pumps-cacao"
+      ]
+    },
+    {
+      "product_id": 62,
+      "handle": "gemma-pumps-conchiglia",
+      "key": "product_variants",
+      "entry_count": 6,
+      "entry_handles": [
+        "gemma-pumps-conchiglia",
+        "gemma-pumps-nero",
+        "gemma-pumps-abisso",
+        "gemma-pumps-cioccolato",
+        "gemma-pumps-in-vino",
+        "gemma-pumps-in-cacao"
+      ]
+    },
+    {
+      "product_id": 62,
+      "handle": "gemma-pumps-conchiglia",
+      "key": "related_products",
+      "entry_count": 4,
+      "entry_handles": [
+        "egg-sandals-cera",
+        "gemma-sandals-zenzero-cera",
+        "gemma-mules-in-conchiglia",
+        "egg-mules-cera"
+      ]
+    },
+    {
+      "product_id": 63,
+      "handle": "gemma-pumps-nero",
+      "key": "product_variants",
+      "entry_count": 6,
+      "entry_handles": [
+        "gemma-pumps-nero",
+        "gemma-pumps-conchiglia",
+        "gemma-pumps-abisso",
+        "gemma-pumps-cioccolato",
+        "gemma-pumps-in-vino",
+        "gemma-pumps-in-cacao"
+      ]
+    },
+    {
+      "product_id": 63,
+      "handle": "gemma-pumps-nero",
+      "key": "related_products",
+      "entry_count": 4,
+      "entry_handles": [
+        "gemma-sandals-nero",
+        "gemma-mules-nero",
+        "mildred-classic-nero-midnight-blue",
+        "clara-pumps-nero"
+      ]
+    },
+    {
+      "product_id": 64,
+      "handle": "gemma-pumps-in-vino",
+      "key": "product_variants",
+      "entry_count": 6,
+      "entry_handles": [
+        "gemma-pumps-conchiglia",
+        "gemma-pumps-nero",
+        "gemma-pumps-cioccolato",
+        "gemma-pumps-abisso",
+        "gemma-pumps-in-vino",
+        "gemma-pumps-in-cacao"
+      ]
+    },
+    {
+      "product_id": 64,
+      "handle": "gemma-pumps-in-vino",
+      "key": "related_products",
+      "entry_count": 4,
+      "entry_handles": [
+        "gemma-mules-nero",
+        "clara-pumps-plum",
+        "egg-pumps-in-vino-turchese",
+        "mildred-classic-nero-rosso"
+      ]
+    },
+    {
+      "product_id": 65,
+      "handle": "gemma-sandals-in-acqua",
+      "key": "product_variants",
+      "entry_count": 3,
+      "entry_handles": [
+        "gemma-sandals-in-acqua",
+        "gemma-sandals-nero",
+        "gemma-sandals-zenzero-cera"
+      ]
+    },
+    {
+      "product_id": 65,
+      "handle": "gemma-sandals-in-acqua",
+      "key": "related_products",
+      "entry_count": 4,
+      "entry_handles": [
+        "incroci-sandals-in-cacao",
+        "gemma-pumps-in-cacao",
+        "gemma-mules-in-conchiglia",
+        "egg-mules-cera"
+      ]
+    },
+    {
+      "product_id": 66,
+      "handle": "gemma-sandals-nero",
+      "key": "product_variants",
+      "entry_count": 3,
+      "entry_handles": [
+        "gemma-sandals-nero",
+        "gemma-sandals-zenzero-cera",
+        "gemma-sandals-in-acqua"
+      ]
+    },
+    {
+      "product_id": 66,
+      "handle": "gemma-sandals-nero",
+      "key": "related_products",
+      "entry_count": 4,
+      "entry_handles": [
+        "gemma-pumps-nero",
+        "gemma-mules-nero",
+        "egg-sandals-blu-nero",
+        "mildred-mules-nero"
+      ]
+    },
+    {
+      "product_id": 67,
+      "handle": "gemma-sandals-sole-cera",
+      "key": "product_variants",
+      "entry_count": 3,
+      "entry_handles": [
+        "gemma-sandals-zenzero-cera",
+        "gemma-sandals-nero",
+        "gemma-sandals-in-acqua"
+      ]
+    },
+    {
+      "product_id": 67,
+      "handle": "gemma-sandals-sole-cera",
+      "key": "related_products",
+      "entry_count": 4,
+      "entry_handles": [
+        "incroci-sandals-in-bianco",
+        "egg-sandals-cera",
+        "gemma-pumps-conchiglia",
+        "egg-mules-cera"
+      ]
+    },
+    {
+      "product_id": 68,
+      "handle": "gio-flats-blu",
+      "key": "product_variants",
+      "entry_count": 4,
+      "entry_handles": [
+        "gio-flats-blu",
+        "gio-flats-militare",
+        "gio-flats-sole",
+        "gio-flats-nero"
+      ]
+    },
+    {
+      "product_id": 68,
+      "handle": "gio-flats-blu",
+      "key": "related_products",
+      "entry_count": 4,
+      "entry_handles": [
+        "gio-pumps-blu",
+        "nuvola-flats-nero-pervinca",
+        "mildred-piccola-midnight-blu",
+        "nervi-fussbett-slingbacks-blu"
+      ]
+    },
+    {
+      "product_id": 69,
+      "handle": "gio-flats-nero",
+      "key": "product_variants",
+      "entry_count": 4,
+      "entry_handles": [
+        "gio-flats-nero",
+        "gio-flats-sole",
+        "gio-flats-blu",
+        "gio-flats-militare"
+      ]
+    },
+    {
+      "product_id": 69,
+      "handle": "gio-flats-nero",
+      "key": "related_products",
+      "entry_count": 4,
+      "entry_handles": [
+        "nuvola-flats-nero",
+        "mildred-piccola-nero-rosso",
+        "nervi-fussbett-slingbacks-nero",
+        "sammy-loafers-in-nero"
+      ]
+    },
+    {
+      "product_id": 70,
+      "handle": "gio-flats-sole",
+      "key": "product_variants",
+      "entry_count": 4,
+      "entry_handles": [
+        "gio-flats-sole",
+        "gio-flats-blu",
+        "gio-flats-militare",
+        "gio-flats-nero"
+      ]
+    },
+    {
+      "product_id": 70,
+      "handle": "gio-flats-sole",
+      "key": "related_products",
+      "entry_count": 4,
+      "entry_handles": [
+        "canvas-mules-sole",
+        "mildred-piccola-giallo",
+        "nervi-fussbett-slingbacks-sole",
+        "egg-sandals-sole"
+      ]
+    },
+    {
+      "product_id": 71,
+      "handle": "gio-flats-militare",
+      "key": "product_variants",
+      "entry_count": 4,
+      "entry_handles": [
+        "gio-flats-militare",
+        "gio-flats-blu",
+        "gio-flats-sole",
+        "gio-flats-nero"
+      ]
+    },
+    {
+      "product_id": 71,
+      "handle": "gio-flats-militare",
+      "key": "related_products",
+      "entry_count": 4,
+      "entry_handles": [
+        "gio-pumps-verde",
+        "nuvola-flats-vino",
+        "rebecca-flat-mary-jane-in-verde",
+        "rebecca-flat-mules-in-verde"
+      ]
+    },
+    {
+      "product_id": 72,
+      "handle": "gio-pumps-blu",
+      "key": "product_variants",
+      "entry_count": 3,
+      "entry_handles": [
+        "gio-pumps-blu",
+        "gio-pumps-nero",
+        "gio-pumps-verde"
+      ]
+    },
+    {
+      "product_id": 72,
+      "handle": "gio-pumps-blu",
+      "key": "related_products",
+      "entry_count": 4,
+      "entry_handles": [
+        "rebecca-mary-jane-blu",
+        "onda-pumps-in-midnight",
+        "gio-flats-blu",
+        "mildred-classic-nero-midnight-blue"
+      ]
+    },
+    {
+      "product_id": 73,
+      "handle": "gio-pumps-nero",
+      "key": "product_variants",
+      "entry_count": 3,
+      "entry_handles": [
+        "gio-pumps-nero",
+        "gio-pumps-blu",
+        "gio-pumps-verde"
+      ]
+    },
+    {
+      "product_id": 73,
+      "handle": "gio-pumps-nero",
+      "key": "related_products",
+      "entry_count": 4,
+      "entry_handles": [
+        "mildred-classic-nero-rosso",
+        "mildred-piccola-nero-rosso",
+        "gio-flats-nero",
+        "micol-junior-nero"
+      ]
+    },
+    {
+      "product_id": 74,
+      "handle": "gio-pumps-verde",
+      "key": "product_variants",
+      "entry_count": 3,
+      "entry_handles": [
+        "gio-pumps-verde",
+        "gio-pumps-blu",
+        "gio-pumps-nero"
+      ]
+    },
+    {
+      "product_id": 74,
+      "handle": "gio-pumps-verde",
+      "key": "related_products",
+      "entry_count": 4,
+      "entry_handles": [
+        "mildred-classic-militare",
+        "rebecca-mary-jane-militare",
+        "canvas-sandals-verde-violetta",
+        "gio-flats-militare"
+      ]
+    },
+    {
+      "product_id": 75,
+      "handle": "gray-matters-gift-card",
+      "key": "product_variants",
+      "entry_count": 0,
+      "entry_handles": [
+
+      ]
+    },
+    {
+      "product_id": 75,
+      "handle": "gray-matters-gift-card",
+      "key": "related_products",
+      "entry_count": 4,
+      "entry_handles": [
+        "micol-pumps-bianco",
+        "egg-mules-cera",
+        "mildred-classic-cammello",
+        "gemma-pumps-nero"
+      ]
+    },
+    {
+      "product_id": 76,
+      "handle": "incroci-sandals-in-bianco",
+      "key": "product_variants",
+      "entry_count": 4,
+      "entry_handles": [
+        "incroci-sandals-in-bianco",
+        "incroci-sandals-in-nero",
+        "incroci-sandals-in-indaco",
+        "incroci-sandals-in-cacao"
+      ]
+    },
+    {
+      "product_id": 76,
+      "handle": "incroci-sandals-in-bianco",
+      "key": "related_products",
+      "entry_count": 4,
+      "entry_handles": [
+        "mildred-piccola-conchiglia",
+        "egg-mules-bianco",
+        "buco-flats-in-bianco",
+        "onda-slingback-in-bianco"
+      ]
+    },
+    {
+      "product_id": 77,
+      "handle": "incroci-sandals-in-cacao",
+      "key": "product_variants",
+      "entry_count": 4,
+      "entry_handles": [
+        "incroci-sandals-in-bianco",
+        "incroci-sandals-in-nero",
+        "incroci-sandals-in-indaco",
+        "incroci-sandals-in-cacao"
+      ]
+    },
+    {
+      "product_id": 77,
+      "handle": "incroci-sandals-in-cacao",
+      "key": "related_products",
+      "entry_count": 4,
+      "entry_handles": [
+        "gemma-sandals-sole-cera",
+        "canvas-sandals-bruciato-nero",
+        "buco-slingback-in-cacao",
+        "clara-pumps-cacao"
+      ]
+    },
+    {
+      "product_id": 78,
+      "handle": "incroci-sandals-in-nero",
+      "key": "product_variants",
+      "entry_count": 4,
+      "entry_handles": [
+        "incroci-sandals-in-bianco",
+        "incroci-sandals-in-nero",
+        "incroci-sandals-in-indaco",
+        "incroci-sandals-in-cacao"
+      ]
+    },
+    {
+      "product_id": 78,
+      "handle": "incroci-sandals-in-nero",
+      "key": "related_products",
+      "entry_count": 4,
+      "entry_handles": [
+        "gemma-sandals-nero",
+        "canvas-sandals-nero-rosso",
+        "spacco-sandals-nero-blu",
+        "clara-pumps-nero"
+      ]
+    },
+    {
+      "product_id": 79,
+      "handle": "incroci-sandals-in-indaco",
+      "key": "product_variants",
+      "entry_count": 4,
+      "entry_handles": [
+        "incroci-sandals-in-bianco",
+        "incroci-sandals-in-nero",
+        "incroci-sandals-in-indaco",
+        "incroci-sandals-in-cacao"
+      ]
+    },
+    {
+      "product_id": 79,
+      "handle": "incroci-sandals-in-indaco",
+      "key": "related_products",
+      "entry_count": 4,
+      "entry_handles": [
+        "canvas-sandals-blu",
+        "mildred-piccola-midnight-blu",
+        "mildred-classic-in-indaco-grigio",
+        "buco-flats-indaco"
+      ]
+    },
+    {
+      "product_id": 80,
+      "handle": "micol-junior-bianco-grigio",
+      "key": "product_variants",
+      "entry_count": 4,
+      "entry_handles": [
+        "micol-junior-bianco-grigio",
+        "micol-junior-cammello-grigio",
+        "micol-junior-nero",
+        "micol-junior-rosso"
+      ]
+    },
+    {
+      "product_id": 80,
+      "handle": "micol-junior-bianco-grigio",
+      "key": "related_products",
+      "entry_count": 4,
+      "entry_handles": [
+        "mildred-classic-bianco",
+        "onda-slingback-in-bianco",
+        "egg-mules-bianco",
+        "micol-pumps-bianco"
+      ]
+    },
+    {
+      "product_id": 81,
+      "handle": "micol-junior-cammello-grigio",
+      "key": "product_variants",
+      "entry_count": 4,
+      "entry_handles": [
+        "micol-junior-cammello-grigio",
+        "micol-junior-bianco-grigio",
+        "micol-junior-nero",
+        "micol-junior-rosso"
+      ]
+    },
+    {
+      "product_id": 81,
+      "handle": "micol-junior-cammello-grigio",
+      "key": "related_products",
+      "entry_count": 4,
+      "entry_handles": [
+        "spacco-pump-in-bruciato-nero",
+        "nuvola-pumps-cacao",
+        "mildred-classic-cammello",
+        "micol-pumps-cammello"
+      ]
+    },
+    {
+      "product_id": 82,
+      "handle": "micol-junior-nero",
+      "key": "product_variants",
+      "entry_count": 4,
+      "entry_handles": [
+        "micol-junior-nero",
+        "micol-junior-bianco-grigio",
+        "micol-junior-cammello-grigio",
+        "micol-junior-rosso"
+      ]
+    },
+    {
+      "product_id": 82,
+      "handle": "micol-junior-nero",
+      "key": "related_products",
+      "entry_count": 4,
+      "entry_handles": [
+        "clara-pumps-nero",
+        "mildred-classic-nero",
+        "micol-mules-nero",
+        "micol-pumps-nero"
+      ]
+    },
+    {
+      "product_id": 83,
+      "handle": "micol-junior-rosso",
+      "key": "product_variants",
+      "entry_count": 4,
+      "entry_handles": [
+        "micol-junior-nero",
+        "micol-junior-bianco-grigio",
+        "micol-junior-cammello-grigio",
+        "micol-junior-rosso"
+      ]
+    },
+    {
+      "product_id": 83,
+      "handle": "micol-junior-rosso",
+      "key": "related_products",
+      "entry_count": 4,
+      "entry_handles": [
+        "mildred-classic-nero-rosso",
+        "nuvola-pumps-rosso",
+        "egg-pumps-in-rosso",
+        "micol-pumps-nero"
+      ]
+    },
+    {
+      "product_id": 84,
+      "handle": "micol-mules-bianco",
+      "key": "product_variants",
+      "entry_count": 4,
+      "entry_handles": [
+        "micol-mules-bianco",
+        "micol-mules-plum",
+        "micol-mules-nero",
+        "micol-mules-canna-fucile"
+      ]
+    },
+    {
+      "product_id": 84,
+      "handle": "micol-mules-bianco",
+      "key": "related_products",
+      "entry_count": 4,
+      "entry_handles": [
+        "micol-pumps-bianco",
+        "mildred-mules-bianco-grigio",
+        "egg-mules-bianco",
+        "mildred-classic-bianco"
+      ]
+    },
+    {
+      "product_id": 85,
+      "handle": "micol-mules-canna-fucile",
+      "key": "product_variants",
+      "entry_count": 4,
+      "entry_handles": [
+        "micol-mules-canna-fucile",
+        "micol-mules-plum",
+        "micol-mules-bianco",
+        "micol-mules-nero"
+      ]
+    },
+    {
+      "product_id": 85,
+      "handle": "micol-mules-canna-fucile",
+      "key": "related_products",
+      "entry_count": 4,
+      "entry_handles": [
+        "mildred-classic-argento",
+        "egg-mules-bianco",
+        "micol-pumps-bianco",
+        "mildred-piccola-argento"
+      ]
+    },
+    {
+      "product_id": 86,
+      "handle": "micol-mules-nero",
+      "key": "product_variants",
+      "entry_count": 4,
+      "entry_handles": [
+        "micol-mules-nero",
+        "micol-mules-plum",
+        "micol-mules-bianco",
+        "micol-mules-canna-fucile"
+      ]
+    },
+    {
+      "product_id": 86,
+      "handle": "micol-mules-nero",
+      "key": "related_products",
+      "entry_count": 3,
+      "entry_handles": [
+        "micol-junior-nero",
+        "mildred-mules-nero",
+        "micol-pumps-nero"
+      ]
+    },
+    {
+      "product_id": 87,
+      "handle": "micol-mules-plum",
+      "key": "product_variants",
+      "entry_count": 4,
+      "entry_handles": [
+        "micol-mules-plum",
+        "micol-mules-nero",
+        "micol-mules-bianco",
+        "micol-mules-canna-fucile"
+      ]
+    },
+    {
+      "product_id": 87,
+      "handle": "micol-mules-plum",
+      "key": "related_products",
+      "entry_count": 4,
+      "entry_handles": [
+        "gemma-mules-nero",
+        "mildred-classic-plum",
+        "clara-pumps-plum",
+        "micol-pumps-plum"
+      ]
+    },
+    {
+      "product_id": 88,
+      "handle": "micol-pumps-bianco",
+      "key": "product_variants",
+      "entry_count": 5,
+      "entry_handles": [
+        "micol-pumps-bianco",
+        "micol-pumps-taupe",
+        "micol-pumps-cammello",
+        "micol-pumps-plum",
+        "micol-pumps-nero"
+      ]
+    },
+    {
+      "product_id": 88,
+      "handle": "micol-pumps-bianco",
+      "key": "related_products",
+      "entry_count": 4,
+      "entry_handles": [
+        "micol-mules-bianco",
+        "mildred-classic-bianco",
+        "micol-junior-bianco-grigio",
+        "egg-mules-bianco"
+      ]
+    },
+    {
+      "product_id": 89,
+      "handle": "micol-pumps-cammello",
+      "key": "product_variants",
+      "entry_count": 5,
+      "entry_handles": [
+        "micol-pumps-cammello",
+        "micol-pumps-bianco",
+        "micol-pumps-taupe",
+        "micol-pumps-plum",
+        "micol-pumps-nero"
+      ]
+    },
+    {
+      "product_id": 89,
+      "handle": "micol-pumps-cammello",
+      "key": "related_products",
+      "entry_count": 4,
+      "entry_handles": [
+        "micol-junior-cammello-grigio",
+        "clara-pumps-cacao",
+        "mildred-classic-cammello",
+        "nuvola-pumps-cacao"
+      ]
+    },
+    {
+      "product_id": 90,
+      "handle": "micol-pumps-nero",
+      "key": "product_variants",
+      "entry_count": 5,
+      "entry_handles": [
+        "micol-pumps-nero",
+        "micol-pumps-plum",
+        "micol-pumps-cammello",
+        "micol-pumps-taupe",
+        "micol-pumps-bianco"
+      ]
+    },
+    {
+      "product_id": 90,
+      "handle": "micol-pumps-nero",
+      "key": "related_products",
+      "entry_count": 4,
+      "entry_handles": [
+        "micol-mules-nero",
+        "micol-junior-nero",
+        "mildred-classic-nero",
+        "mildred-boots-nero-cacao"
+      ]
+    },
+    {
+      "product_id": 91,
+      "handle": "micol-pumps-plum",
+      "key": "product_variants",
+      "entry_count": 5,
+      "entry_handles": [
+        "micol-pumps-plum",
+        "micol-pumps-nero",
+        "micol-pumps-cammello",
+        "micol-pumps-taupe",
+        "micol-pumps-bianco"
+      ]
+    },
+    {
+      "product_id": 91,
+      "handle": "micol-pumps-plum",
+      "key": "related_products",
+      "entry_count": 4,
+      "entry_handles": [
+        "egg-pumps-in-vino-turchese",
+        "micol-mules-plum",
+        "clara-pumps-plum",
+        "mildred-boots-plum"
+      ]
+    },
+    {
+      "product_id": 92,
+      "handle": "micol-pumps-taupe",
+      "key": "product_variants",
+      "entry_count": 5,
+      "entry_handles": [
+        "micol-pumps-taupe",
+        "micol-pumps-bianco",
+        "micol-pumps-cammello",
+        "micol-pumps-plum",
+        "micol-pumps-nero"
+      ]
+    },
+    {
+      "product_id": 92,
+      "handle": "micol-pumps-taupe",
+      "key": "related_products",
+      "entry_count": 4,
+      "entry_handles": [
+        "clara-pumps-taupe",
+        "canvas-sandals-taupe-sole",
+        "mildred-classic-taupe",
+        "cortina-booties-in-cacao"
+      ]
+    },
+    {
+      "product_id": 93,
+      "handle": "mildred-boots-cammello",
+      "key": "product_variants",
+      "entry_count": 4,
+      "entry_handles": [
+        "mildred-boots-cammello-grigio",
+        "mildred-boots-nero-barolo",
+        "mildred-boots-plum",
+        "mildred-boots-nero-cacao"
+      ]
+    },
+    {
+      "product_id": 93,
+      "handle": "mildred-boots-cammello",
+      "key": "related_products",
+      "entry_count": 4,
+      "entry_handles": [
+        "micol-pumps-cammello",
+        "city-boots-bruciato",
+        "micol-junior-cammello-grigio",
+        "duck-egg-boots-in-bruciato-nero"
+      ]
+    },
+    {
+      "product_id": 94,
+      "handle": "mildred-boots-nero-cacao",
+      "key": "product_variants",
+      "entry_count": 4,
+      "entry_handles": [
+        "mildred-boots-nero-cacao",
+        "mildred-boots-cammello-grigio",
+        "mildred-boots-nero-barolo",
+        "mildred-boots-plum"
+      ]
+    },
+    {
+      "product_id": 94,
+      "handle": "mildred-boots-nero-cacao",
+      "key": "related_products",
+      "entry_count": 4,
+      "entry_handles": [
+        "city-boots-bruciato",
+        "clara-pumps-cacao",
+        "cortina-booties-in-cacao",
+        "zoe-bootie-in-nero-bruciato"
+      ]
+    },
+    {
+      "product_id": 95,
+      "handle": "mildred-boots-nero-rosso",
+      "key": "product_variants",
+      "entry_count": 4,
+      "entry_handles": [
+        "mildred-boots-nero-barolo",
+        "mildred-boots-cammello-grigio",
+        "mildred-boots-nero-cacao",
+        "mildred-boots-plum"
+      ]
+    },
+    {
+      "product_id": 95,
+      "handle": "mildred-boots-nero-rosso",
+      "key": "related_products",
+      "entry_count": 4,
+      "entry_handles": [
+        "mildred-classic-nero-midnight-blue",
+        "mildred-classic-nero-rosso",
+        "cortina-booties-in-nero",
+        "micol-pumps-nero"
+      ]
+    },
+    {
+      "product_id": 96,
+      "handle": "mildred-boots-plum",
+      "key": "product_variants",
+      "entry_count": 4,
+      "entry_handles": [
+        "mildred-boots-plum",
+        "mildred-boots-cammello-grigio",
+        "mildred-boots-nero-barolo",
+        "mildred-boots-nero-cacao"
+      ]
+    },
+    {
+      "product_id": 96,
+      "handle": "mildred-boots-plum",
+      "key": "related_products",
+      "entry_count": 4,
+      "entry_handles": [
+        "mildred-classic-plum",
+        "myla-mary-jane-vino",
+        "micol-pumps-plum",
+        "city-boots-vino"
+      ]
+    },
+    {
+      "product_id": 97,
+      "handle": "mildred-classic-argento",
+      "key": "product_variants",
+      "entry_count": 13,
+      "entry_handles": [
+        "mildred-classic-argento",
+        "mildred-classic-nero",
+        "mildred-classic-in-indaco-grigio",
+        "mildred-classic-plum",
+        "mildred-classic-cammello",
+        "mildred-classic-giallo",
+        "mildred-classic-taupe",
+        "mildred-classic-nero-rosso",
+        "mildred-classic-bianco",
+        "mildred-classic-militare",
+        "mildred-classic-nero-midnight-blue",
+        "mildred-classic-in-taupe-sole",
+        "mildred-classic-in-oro"
+      ]
+    },
+    {
+      "product_id": 97,
+      "handle": "mildred-classic-argento",
+      "key": "related_products",
+      "entry_count": 4,
+      "entry_handles": [
+        "mildred-piccola-argento",
+        "egg-mules-cera",
+        "gemma-pumps-nero",
+        "micol-mules-canna-fucile"
+      ]
+    },
+    {
+      "product_id": 98,
+      "handle": "mildred-classic-bianco",
+      "key": "product_variants",
+      "entry_count": 13,
+      "entry_handles": [
+        "mildred-classic-bianco",
+        "mildred-classic-nero-rosso",
+        "mildred-classic-cammello",
+        "mildred-classic-giallo",
+        "mildred-classic-plum",
+        "mildred-classic-in-indaco-grigio",
+        "mildred-classic-taupe",
+        "mildred-classic-nero",
+        "mildred-classic-argento",
+        "mildred-classic-nero-midnight",
+        "mildred-classic-militare",
+        "mildred-classic-nero-midnight-blue",
+        "mildred-classic-in-oro"
+      ]
+    },
+    {
+      "product_id": 98,
+      "handle": "mildred-classic-bianco",
+      "key": "related_products",
+      "entry_count": 4,
+      "entry_handles": [
+        "mildred-piccola-bianco-grigio",
+        "mildred-mules-bianco-grigio",
+        "micol-junior-bianco-grigio",
+        "micol-pumps-bianco"
+      ]
+    },
+    {
+      "product_id": 99,
+      "handle": "mildred-classic-cammello",
+      "key": "product_variants",
+      "entry_count": 13,
+      "entry_handles": [
+        "mildred-classic-cammello",
+        "mildred-classic-argento",
+        "mildred-classic-taupe",
+        "mildred-classic-giallo",
+        "mildred-classic-plum",
+        "mildred-classic-in-indaco-grigio",
+        "mildred-classic-nero",
+        "mildred-classic-nero-rosso",
+        "mildred-classic-bianco",
+        "mildred-classic-nero-midnight",
+        "mildred-classic-militare",
+        "mildred-classic-in-taupe-sole",
+        "mildred-classic-in-oro"
+      ]
+    },
+    {
+      "product_id": 99,
+      "handle": "mildred-classic-cammello",
+      "key": "related_products",
+      "entry_count": 4,
+      "entry_handles": [
+        "mildred-piccola-cammello-grigio",
+        "nuvola-pumps-cacao",
+        "micol-junior-cammello-grigio",
+        "clara-pumps-cacao"
+      ]
+    },
+    {
+      "product_id": 100,
+      "handle": "mildred-classic-giallo",
+      "key": "product_variants",
+      "entry_count": 13,
+      "entry_handles": [
+        "mildred-classic-giallo",
+        "mildred-classic-cammello",
+        "mildred-classic-taupe",
+        "mildred-classic-argento",
+        "mildred-classic-plum",
+        "mildred-classic-in-indaco-grigio",
+        "mildred-classic-nero",
+        "mildred-classic-nero-rosso",
+        "mildred-classic-bianco",
+        "mildred-classic-nero-midnight",
+        "mildred-classic-militare",
+        "mildred-classic-in-taupe-sole",
+        "mildred-classic-in-oro"
+      ]
+    },
+    {
+      "product_id": 100,
+      "handle": "mildred-classic-giallo",
+      "key": "related_products",
+      "entry_count": 4,
+      "entry_handles": [
+        "canvas-mules-sole",
+        "gio-flats-sole",
+        "egg-sandals-sole",
+        "mildred-piccola-giallo"
+      ]
+    },
+    {
+      "product_id": 101,
+      "handle": "mildred-classic-nero",
+      "key": "product_variants",
+      "entry_count": 13,
+      "entry_handles": [
+        "mildred-classic-nero",
+        "mildred-classic-in-indaco-grigio",
+        "mildred-classic-plum",
+        "mildred-classic-argento",
+        "mildred-classic-taupe",
+        "mildred-classic-cammello",
+        "mildred-classic-giallo",
+        "mildred-classic-bianco",
+        "mildred-classic-nero-rosso",
+        "mildred-classic-nero-midnight",
+        "mildred-classic-militare",
+        "mildred-classic-in-taupe-sole",
+        "mildred-classic-in-oro"
+      ]
+    },
+    {
+      "product_id": 101,
+      "handle": "mildred-classic-nero",
+      "key": "related_products",
+      "entry_count": 4,
+      "entry_handles": [
+        "micol-pumps-nero",
+        "clara-pumps-nero",
+        "micol-junior-nero",
+        "mildred-mules-nero"
+      ]
+    },
+    {
+      "product_id": 102,
+      "handle": "mildred-classic-nero-midnight",
+      "key": "product_variants",
+      "entry_count": 13,
+      "entry_handles": [
+        "mildred-classic-nero-midnight-blue",
+        "mildred-classic-nero",
+        "mildred-classic-in-indaco-grigio",
+        "mildred-classic-plum",
+        "mildred-classic-cammello",
+        "mildred-classic-giallo",
+        "mildred-classic-taupe",
+        "mildred-classic-nero-rosso",
+        "mildred-classic-bianco",
+        "mildred-classic-argento",
+        "mildred-classic-militare",
+        "mildred-classic-in-taupe-sole",
+        "mildred-classic-in-oro"
+      ]
+    },
+    {
+      "product_id": 102,
+      "handle": "mildred-classic-nero-midnight",
+      "key": "related_products",
+      "entry_count": 4,
+      "entry_handles": [
+        "canvas-mules-nero-blu",
+        "mildred-piccola-midnight-blu",
+        "micol-pumps-nero",
+        "clara-pumps-blu"
+      ]
+    },
+    {
+      "product_id": 103,
+      "handle": "mildred-classic-nero-rosso",
+      "key": "product_variants",
+      "entry_count": 13,
+      "entry_handles": [
+        "mildred-classic-nero-rosso",
+        "mildred-classic-bianco",
+        "mildred-classic-argento",
+        "mildred-classic-taupe",
+        "mildred-classic-cammello",
+        "mildred-classic-giallo",
+        "mildred-classic-plum",
+        "mildred-classic-in-indaco-grigio",
+        "mildred-classic-nero",
+        "mildred-classic-militare",
+        "mildred-classic-in-oro",
+        "mildred-classic-nero-midnight",
+        "mildred-classic-in-taupe-sole"
+      ]
+    },
+    {
+      "product_id": 103,
+      "handle": "mildred-classic-nero-rosso",
+      "key": "related_products",
+      "entry_count": 4,
+      "entry_handles": [
+        "mildred-mules-nero-rosso",
+        "mildred-piccola-nero-rosso",
+        "mildred-boots-nero-rosso",
+        "mildred-egg-nero-rosso"
+      ]
+    },
+    {
+      "product_id": 104,
+      "handle": "mildred-classic-in-oro",
+      "key": "product_variants",
+      "entry_count": 13,
+      "entry_handles": [
+        "mildred-classic-in-oro",
+        "mildred-classic-nero",
+        "mildred-classic-in-indaco-grigio",
+        "mildred-classic-plum",
+        "mildred-classic-cammello",
+        "mildred-classic-giallo",
+        "mildred-classic-taupe",
+        "mildred-classic-nero-rosso",
+        "mildred-classic-bianco",
+        "mildred-classic-militare",
+        "mildred-classic-nero-midnight-blue",
+        "mildred-classic-in-taupe-sole",
+        "mildred-classic-argento"
+      ]
+    },
+    {
+      "product_id": 104,
+      "handle": "mildred-classic-in-oro",
+      "key": "related_products",
+      "entry_count": 4,
+      "entry_handles": [
+        "mildred-piccola-in-oro-rosa",
+        "egg-mules-cera",
+        "gemma-pumps-nero",
+        "micol-mules-canna-fucile"
+      ]
+    },
+    {
+      "product_id": 105,
+      "handle": "mildred-classic-in-indaco-grigio",
+      "key": "product_variants",
+      "entry_count": 13,
+      "entry_handles": [
+        "mildred-classic-in-indaco-grigio",
+        "mildred-classic-nero",
+        "mildred-classic-nero-midnight-blue",
+        "mildred-classic-plum",
+        "mildred-classic-cammello",
+        "mildred-classic-giallo",
+        "mildred-classic-taupe",
+        "mildred-classic-nero-rosso",
+        "mildred-classic-bianco",
+        "mildred-classic-argento",
+        "mildred-classic-in-taupe-sole",
+        "mildred-classic-militare",
+        "mildred-classic-in-oro"
+      ]
+    },
+    {
+      "product_id": 105,
+      "handle": "mildred-classic-in-indaco-grigio",
+      "key": "related_products",
+      "entry_count": 4,
+      "entry_handles": [
+        "onda-pumps-in-indaco",
+        "mildred-piccola-midnight-blu",
+        "buco-flats-indaco",
+        "clara-pumps-in-dusty-rose"
+      ]
+    },
+    {
+      "product_id": 106,
+      "handle": "mildred-classic-plum",
+      "key": "product_variants",
+      "entry_count": 13,
+      "entry_handles": [
+        "mildred-classic-plum",
+        "mildred-classic-in-indaco-grigio",
+        "mildred-classic-nero",
+        "mildred-classic-cammello",
+        "mildred-classic-giallo",
+        "mildred-classic-taupe",
+        "mildred-classic-argento",
+        "mildred-classic-nero-rosso",
+        "mildred-classic-bianco",
+        "mildred-classic-nero-midnight",
+        "mildred-classic-militare",
+        "mildred-classic-in-taupe-sole",
+        "mildred-classic-in-oro"
+      ]
+    },
+    {
+      "product_id": 106,
+      "handle": "mildred-classic-plum",
+      "key": "related_products",
+      "entry_count": 4,
+      "entry_handles": [
+        "myla-mary-jane-barolo",
+        "mildred-piccola-plum",
+        "clara-pumps-plum",
+        "micol-pumps-plum"
+      ]
+    },
+    {
+      "product_id": 107,
+      "handle": "mildred-classic-taupe",
+      "key": "product_variants",
+      "entry_count": 12,
+      "entry_handles": [
+        "mildred-classic-taupe",
+        "mildred-classic-argento",
+        "mildred-classic-cammello",
+        "mildred-classic-giallo",
+        "mildred-classic-plum",
+        "mildred-classic-in-indaco-grigio",
+        "mildred-classic-nero",
+        "mildred-classic-nero-rosso",
+        "mildred-classic-bianco",
+        "mildred-classic-militare",
+        "mildred-classic-in-taupe-sole",
+        "mildred-classic-in-oro"
+      ]
+    },
+    {
+      "product_id": 107,
+      "handle": "mildred-classic-taupe",
+      "key": "related_products",
+      "entry_count": 4,
+      "entry_handles": [
+        "clara-pumps-taupe",
+        "mildred-piccola-in-taupe",
+        "clara-pumps-zenzero",
+        "micol-pumps-taupe"
+      ]
+    },
+    {
+      "product_id": 108,
+      "handle": "mildred-classic-in-taupe-sole",
+      "key": "product_variants",
+      "entry_count": 13,
+      "entry_handles": [
+        "mildred-classic-nero-midnight-blue",
+        "mildred-classic-nero",
+        "mildred-classic-in-indaco-grigio",
+        "mildred-classic-plum",
+        "mildred-classic-cammello",
+        "mildred-classic-giallo",
+        "mildred-classic-taupe",
+        "mildred-classic-nero-rosso",
+        "mildred-classic-bianco",
+        "mildred-classic-argento",
+        "mildred-classic-in-taupe-sole",
+        "mildred-classic-militare",
+        "mildred-classic-in-oro"
+      ]
+    },
+    {
+      "product_id": 108,
+      "handle": "mildred-classic-in-taupe-sole",
+      "key": "related_products",
+      "entry_count": 4,
+      "entry_handles": [
+        "micol-pumps-taupe",
+        "mildred-piccola-in-taupe",
+        "canvas-sandals-taupe-sole",
+        "rebecca-flat-mary-jane-in-bruciato"
+      ]
+    },
+    {
+      "product_id": 109,
+      "handle": "mildred-classic-militare",
+      "key": "product_variants",
+      "entry_count": 13,
+      "entry_handles": [
+        "mildred-classic-militare",
+        "mildred-classic-nero-rosso",
+        "mildred-classic-cammello",
+        "mildred-classic-giallo",
+        "mildred-classic-plum",
+        "mildred-classic-in-indaco-grigio",
+        "mildred-classic-taupe",
+        "mildred-classic-nero",
+        "mildred-classic-argento",
+        "mildred-classic-bianco",
+        "mildred-classic-nero-midnight-blue",
+        "mildred-classic-in-taupe-sole",
+        "mildred-classic-in-oro"
+      ]
+    },
+    {
+      "product_id": 109,
+      "handle": "mildred-classic-militare",
+      "key": "related_products",
+      "entry_count": 4,
+      "entry_handles": [
+        "rebecca-mary-jane-militare",
+        "nuvola-pumps-cacao",
+        "canvas-sandals-verde-violetta",
+        "gio-flats-militare"
+      ]
+    },
+    {
+      "product_id": 110,
+      "handle": "mildred-mules-bianco-grigio",
+      "key": "product_variants",
+      "entry_count": 5,
+      "entry_handles": [
+        "mildred-mules-bianco-grigio",
+        "mildred-mules-cammello-grigio",
+        "mildred-mules-nero-rosso",
+        "mildred-mules-nero",
+        "mildred-mules-taupe"
+      ]
+    },
+    {
+      "product_id": 110,
+      "handle": "mildred-mules-bianco-grigio",
+      "key": "related_products",
+      "entry_count": 4,
+      "entry_handles": [
+        "micol-mules-bianco",
+        "mildred-classic-bianco",
+        "micol-junior-bianco-grigio",
+        "egg-mules-bianco"
+      ]
+    },
+    {
+      "product_id": 111,
+      "handle": "mildred-mules-cammello-grigio",
+      "key": "product_variants",
+      "entry_count": 5,
+      "entry_handles": [
+        "mildred-mules-cammello-grigio",
+        "mildred-mules-nero-rosso",
+        "mildred-mules-bianco-grigio",
+        "mildred-mules-taupe",
+        "mildred-mules-nero"
+      ]
+    },
+    {
+      "product_id": 111,
+      "handle": "mildred-mules-cammello-grigio",
+      "key": "related_products",
+      "entry_count": 4,
+      "entry_handles": [
+        "egg-mules-cera",
+        "canvas-mules-bruciato-nero",
+        "mildred-piccola-cammello-grigio",
+        "mildred-classic-cammello"
+      ]
+    },
+    {
+      "product_id": 112,
+      "handle": "mildred-mules-nero",
+      "key": "product_variants",
+      "entry_count": 5,
+      "entry_handles": [
+        "mildred-mules-nero",
+        "mildred-mules-taupe",
+        "mildred-mules-nero-rosso",
+        "mildred-mules-cammello-grigio",
+        "mildred-mules-bianco-grigio"
+      ]
+    },
+    {
+      "product_id": 112,
+      "handle": "mildred-mules-nero",
+      "key": "related_products",
+      "entry_count": 4,
+      "entry_handles": [
+        "rebecca-flat-mules-nero",
+        "mildred-classic-nero",
+        "micol-mules-nero",
+        "egg-mules-nero-rosso"
+      ]
+    },
+    {
+      "product_id": 113,
+      "handle": "mildred-mules-nero-rosso",
+      "key": "product_variants",
+      "entry_count": 5,
+      "entry_handles": [
+        "mildred-mule-nero-rosso",
+        "mildred-mules-bianco-grigio",
+        "mildred-mules-cammello-grigio",
+        "mildred-mules-taupe",
+        "mildred-mules-nero"
+      ]
+    },
+    {
+      "product_id": 113,
+      "handle": "mildred-mules-nero-rosso",
+      "key": "related_products",
+      "entry_count": 4,
+      "entry_handles": [
+        "mildred-egg-nero-rosso",
+        "mildred-piccola-nero-rosso",
+        "mildred-classic-nero-rosso",
+        "micol-mules-nero"
+      ]
+    },
+    {
+      "product_id": 114,
+      "handle": "mildred-mules-taupe",
+      "key": "product_variants",
+      "entry_count": 5,
+      "entry_handles": [
+        "mildred-mules-taupe",
+        "mildred-mules-nero",
+        "mildred-mules-nero-rosso",
+        "mildred-mules-cammello-grigio",
+        "mildred-mules-bianco-grigio"
+      ]
+    },
+    {
+      "product_id": 114,
+      "handle": "mildred-mules-taupe",
+      "key": "related_products",
+      "entry_count": 4,
+      "entry_handles": [
+        "rebecca-flat-mules-in-verde",
+        "canvas-mules-taupe-sole",
+        "mildred-classic-taupe",
+        "micol-pumps-taupe"
+      ]
+    },
+    {
+      "product_id": 115,
+      "handle": "mildred-piccola-argento",
+      "key": "product_variants",
+      "entry_count": 11,
+      "entry_handles": [
+        "mildred-piccola-argento",
+        "mildred-piccola-giallo",
+        "mildred-piccola-in-oro-rosa",
+        "mildred-piccola-bianco-grigio",
+        "mildred-piccola-cammello-grigio",
+        "mildred-piccola-nero-rosso",
+        "mildred-piccola-midnight-blu",
+        "mildred-piccola-plum",
+        "mildred-piccola-conchiglia",
+        "mildred-piccola-in-cacao-grigio",
+        "mildred-piccola-in-taupe"
+      ]
+    },
+    {
+      "product_id": 115,
+      "handle": "mildred-piccola-argento",
+      "key": "related_products",
+      "entry_count": 4,
+      "entry_handles": [
+        "mildred-classic-argento",
+        "buco-flats-in-bianco",
+        "micol-mules-canna-fucile",
+        "egg-mules-cera"
+      ]
+    },
+    {
+      "product_id": 116,
+      "handle": "mildred-piccola-bianco-grigio",
+      "key": "product_variants",
+      "entry_count": 11,
+      "entry_handles": [
+        "mildred-piccola-bianco-grigio",
+        "mildred-piccola-plum",
+        "mildred-piccola-in-oro-rosa",
+        "mildred-piccola-midnight-blu",
+        "mildred-piccola-cammello-grigio",
+        "mildred-piccola-nero-rosso",
+        "mildred-piccola-argento",
+        "mildred-piccola-giallo",
+        "mildred-piccola-conchiglia",
+        "mildred-piccola-in-cacao-grigio",
+        "mildred-piccola-in-taupe"
+      ]
+    },
+    {
+      "product_id": 116,
+      "handle": "mildred-piccola-bianco-grigio",
+      "key": "related_products",
+      "entry_count": 4,
+      "entry_handles": [
+        "mildred-classic-bianco",
+        "micol-junior-bianco-grigio",
+        "nuvola-flats-nero",
+        "mildred-mules-bianco-grigio"
+      ]
+    },
+    {
+      "product_id": 117,
+      "handle": "mildred-piccola-in-cacao-grigio",
+      "key": "product_variants",
+      "entry_count": 11,
+      "entry_handles": [
+        "mildred-piccola-in-cacao-grigio",
+        "mildred-piccola-bianco-grigio",
+        "mildred-piccola-in-oro-rosa",
+        "mildred-piccola-midnight-blu",
+        "mildred-piccola-cammello-grigio",
+        "mildred-piccola-nero-rosso",
+        "mildred-piccola-argento",
+        "mildred-piccola-giallo",
+        "mildred-piccola-plum",
+        "mildred-piccola-conchiglia",
+        "mildred-piccola-in-taupe"
+      ]
+    },
+    {
+      "product_id": 117,
+      "handle": "mildred-piccola-in-cacao-grigio",
+      "key": "related_products",
+      "entry_count": 4,
+      "entry_handles": [
+        "nuvola-flats-cacao-pervinca",
+        "micol-junior-cammello-grigio",
+        "mildred-classic-cammello",
+        "sammy-loafers-in-cacao"
+      ]
+    },
+    {
+      "product_id": 118,
+      "handle": "mildred-piccola-cammello-grigio",
+      "key": "product_variants",
+      "entry_count": 11,
+      "entry_handles": [
+        "mildred-piccola-cammello-grigio",
+        "mildred-piccola-bianco-grigio",
+        "mildred-piccola-in-oro-rosa",
+        "mildred-piccola-midnight-blu",
+        "mildred-piccola-plum",
+        "mildred-piccola-nero-rosso",
+        "mildred-piccola-argento",
+        "mildred-piccola-giallo",
+        "mildred-piccola-conchiglia",
+        "mildred-piccola-in-cacao-grigio",
+        "mildred-piccola-in-taupe"
+      ]
+    },
+    {
+      "product_id": 118,
+      "handle": "mildred-piccola-cammello-grigio",
+      "key": "related_products",
+      "entry_count": 4,
+      "entry_handles": [
+        "mildred-classic-cammello",
+        "gio-flats-sole",
+        "nuvola-flats-cacao-pervinca",
+        "mildred-mules-cammello-grigio"
+      ]
+    },
+    {
+      "product_id": 119,
+      "handle": "mildred-piccola-conchiglia",
+      "key": "product_variants",
+      "entry_count": 11,
+      "entry_handles": [
+        "mildred-piccola-conchiglia",
+        "mildred-piccola-bianco-grigio",
+        "mildred-piccola-in-oro-rosa",
+        "mildred-piccola-midnight-blu",
+        "mildred-piccola-cammello-grigio",
+        "mildred-piccola-nero-rosso",
+        "mildred-piccola-argento",
+        "mildred-piccola-giallo",
+        "mildred-piccola-plum",
+        "mildred-piccola-in-cacao-grigio",
+        "mildred-piccola-in-taupe"
+      ]
+    },
+    {
+      "product_id": 119,
+      "handle": "mildred-piccola-conchiglia",
+      "key": "related_products",
+      "entry_count": 4,
+      "entry_handles": [
+        "egg-pumps-in-cera",
+        "buco-slingback-in-zenzero",
+        "gio-flats-militare",
+        "clara-pumps-zenzero"
+      ]
+    },
+    {
+      "product_id": 120,
+      "handle": "mildred-piccola-giallo",
+      "key": "product_variants",
+      "entry_count": 11,
+      "entry_handles": [
+        "mildred-piccola-giallo",
+        "mildred-piccola-argento",
+        "mildred-piccola-in-oro-rosa",
+        "mildred-piccola-bianco-grigio",
+        "mildred-piccola-cammello-grigio",
+        "mildred-piccola-nero-rosso",
+        "mildred-piccola-midnight-blu",
+        "mildred-piccola-plum",
+        "mildred-piccola-conchiglia",
+        "mildred-piccola-in-cacao-grigio",
+        "mildred-piccola-in-taupe"
+      ]
+    },
+    {
+      "product_id": 120,
+      "handle": "mildred-piccola-giallo",
+      "key": "related_products",
+      "entry_count": 4,
+      "entry_handles": [
+        "mildred-classic-giallo",
+        "egg-sandals-sole",
+        "gio-flats-sole",
+        "spacco-sandals-taupe-sole"
+      ]
+    },
+    {
+      "product_id": 121,
+      "handle": "mildred-piccola-midnight-blu",
+      "key": "product_variants",
+      "entry_count": 11,
+      "entry_handles": [
+        "mildred-piccola-midnight-blu",
+        "mildred-piccola-bianco-grigio",
+        "mildred-piccola-in-taupe",
+        "mildred-piccola-plum",
+        "mildred-piccola-nero-rosso",
+        "mildred-piccola-argento",
+        "mildred-piccola-giallo",
+        "mildred-piccola-conchiglia",
+        "mildred-piccola-cammello-grigio",
+        "mildred-piccola-in-cacao-grigio",
+        "mildred-piccola-in-oro-rosa"
+      ]
+    },
+    {
+      "product_id": 121,
+      "handle": "mildred-piccola-midnight-blu",
+      "key": "related_products",
+      "entry_count": 4,
+      "entry_handles": [
+        "nuvola-flats-nero-pervinca",
+        "mildred-classic-nero-midnight",
+        "gio-flats-blu",
+        "rebecca-flat-mary-jane-in-midnight"
+      ]
+    },
+    {
+      "product_id": 122,
+      "handle": "mildred-piccola-nero-rosso",
+      "key": "product_variants",
+      "entry_count": 11,
+      "entry_handles": [
+        "mildred-piccola-nero-rosso",
+        "mildred-piccola-cammello-grigio",
+        "mildred-piccola-bianco-grigio",
+        "mildred-piccola-plum",
+        "mildred-piccola-midnight-blu",
+        "mildred-piccola-in-oro-rosa",
+        "mildred-piccola-giallo",
+        "mildred-piccola-argento",
+        "mildred-piccola-conchiglia",
+        "mildred-piccola-in-cacao-grigio",
+        "mildred-piccola-in-taupe"
+      ]
+    },
+    {
+      "product_id": 122,
+      "handle": "mildred-piccola-nero-rosso",
+      "key": "related_products",
+      "entry_count": 4,
+      "entry_handles": [
+        "gio-flats-nero",
+        "mildred-classic-nero-rosso",
+        "mildred-boots-nero-barolo",
+        "mildred-egg-nero-rosso"
+      ]
+    },
+    {
+      "product_id": 123,
+      "handle": "mildred-piccola-in-oro-rosa",
+      "key": "product_variants",
+      "entry_count": 11,
+      "entry_handles": [
+        "mildred-piccola-argento",
+        "mildred-piccola-giallo",
+        "mildred-piccola-argento",
+        "mildred-piccola-bianco-grigio",
+        "mildred-piccola-cammello-grigio",
+        "mildred-piccola-nero-rosso",
+        "mildred-piccola-midnight-blu",
+        "mildred-piccola-plum",
+        "mildred-piccola-conchiglia",
+        "mildred-piccola-in-cacao-grigio",
+        "mildred-piccola-in-taupe"
+      ]
+    },
+    {
+      "product_id": 123,
+      "handle": "mildred-piccola-in-oro-rosa",
+      "key": "related_products",
+      "entry_count": 4,
+      "entry_handles": [
+        "mildred-classic-argento",
+        "buco-flats-in-bianco",
+        "nuvola-flats-cacao-pervinca",
+        "egg-mules-cera"
+      ]
+    },
+    {
+      "product_id": 124,
+      "handle": "mildred-piccola-plum",
+      "key": "product_variants",
+      "entry_count": 11,
+      "entry_handles": [
+        "mildred-piccola-plum",
+        "mildred-piccola-midnight-blu",
+        "mildred-piccola-bianco-grigio",
+        "mildred-piccola-cammello-grigio",
+        "mildred-piccola-nero-rosso",
+        "mildred-piccola-giallo",
+        "mildred-piccola-argento",
+        "mildred-piccola-conchiglia",
+        "mildred-piccola-in-cacao-grigio",
+        "mildred-piccola-in-taupe",
+        "mildred-piccola-in-oro-rosa"
+      ]
+    },
+    {
+      "product_id": 124,
+      "handle": "mildred-piccola-plum",
+      "key": "related_products",
+      "entry_count": 4,
+      "entry_handles": [
+        "nuvola-flats-vino",
+        "buco-flats-in-nero",
+        "mildred-classic-plum",
+        "gio-flats-nero"
+      ]
+    },
+    {
+      "product_id": 125,
+      "handle": "mildred-piccola-in-taupe",
+      "key": "product_variants",
+      "entry_count": 11,
+      "entry_handles": [
+        "mildred-piccola-plum",
+        "mildred-piccola-midnight-blu",
+        "mildred-piccola-in-oro-rosa",
+        "mildred-piccola-bianco-grigio",
+        "mildred-piccola-cammello-grigio",
+        "mildred-piccola-nero-rosso",
+        "mildred-piccola-giallo",
+        "mildred-piccola-argento",
+        "mildred-piccola-conchiglia",
+        "mildred-piccola-in-cacao-grigio",
+        "mildred-piccola-in-taupe"
+      ]
+    },
+    {
+      "product_id": 125,
+      "handle": "mildred-piccola-in-taupe",
+      "key": "related_products",
+      "entry_count": 4,
+      "entry_handles": [
+        "buco-slingback-in-zenzero",
+        "nuvola-flats-cacao-pervinca",
+        "mildred-classic-taupe",
+        "gio-flats-militare"
+      ]
+    },
+    {
+      "product_id": 126,
+      "handle": "myla-loafers-in-abisso",
+      "key": "product_variants",
+      "entry_count": 3,
+      "entry_handles": [
+        "myla-loafers-nero",
+        "myla-loafers-in-vino",
+        "myla-loafers-blu"
+      ]
+    },
+    {
+      "product_id": 126,
+      "handle": "myla-loafers-in-abisso",
+      "key": "related_products",
+      "entry_count": 4,
+      "entry_handles": [
+        "myla-mary-jane-in-midnight",
+        "zoe-bootie-in-nero-spazzolato",
+        "clara-pumps-blu",
+        "mildred-classic-nero-midnight-blue"
+      ]
+    },
+    {
+      "product_id": 127,
+      "handle": "myla-loafers-nero",
+      "key": "product_variants",
+      "entry_count": 3,
+      "entry_handles": [
+        "myla-loafers-nero-ebano",
+        "myla-loafers-in-vino",
+        "myla-loafers-blu"
+      ]
+    },
+    {
+      "product_id": 127,
+      "handle": "myla-loafers-nero",
+      "key": "related_products",
+      "entry_count": 4,
+      "entry_handles": [
+        "myla-mary-jane-nero-ebano",
+        "city-boots-bruciato",
+        "sammy-loafers-in-nero",
+        "zoe-bootie-in-nero-spazzolato"
+      ]
+    },
+    {
+      "product_id": 128,
+      "handle": "myla-loafers-in-vino",
+      "key": "product_variants",
+      "entry_count": 3,
+      "entry_handles": [
+        "myla-loafers-blu",
+        "myla-loafers-nero",
+        "myla-loafers-in-vino"
+      ]
+    },
+    {
+      "product_id": 128,
+      "handle": "myla-loafers-in-vino",
+      "key": "related_products",
+      "entry_count": 4,
+      "entry_handles": [
+        "myla-mary-jane-barolo",
+        "zoe-bootie-nero",
+        "clara-pumps-plum",
+        "mildred-classic-nero-midnight-blue"
+      ]
+    },
+    {
+      "product_id": 129,
+      "handle": "myla-mary-jane-in-midnight",
+      "key": "product_variants",
+      "entry_count": 3,
+      "entry_handles": [
+        "myla-mary-jane-nero-ebano",
+        "myla-mary-jane-barolo",
+        "myla-mary-jane-in-midnight"
+      ]
+    },
+    {
+      "product_id": 129,
+      "handle": "myla-mary-jane-in-midnight",
+      "key": "related_products",
+      "entry_count": 4,
+      "entry_handles": [
+        "zoe-bootie-in-nero-spazzolato",
+        "clara-pumps-blu",
+        "myla-loafers-blu",
+        "rebecca-mary-jane-blu"
+      ]
+    },
+    {
+      "product_id": 130,
+      "handle": "myla-mary-jane-nero-ebano",
+      "key": "product_variants",
+      "entry_count": 3,
+      "entry_handles": [
+        "myla-mary-jane-nero-ebano",
+        "myla-mary-jane-barolo",
+        "myla-mary-jane-in-midnight"
+      ]
+    },
+    {
+      "product_id": 130,
+      "handle": "myla-mary-jane-nero-ebano",
+      "key": "related_products",
+      "entry_count": 4,
+      "entry_handles": [
+        "sammy-loafers-in-nero",
+        "rebecca-flat-mary-jane-in-vino",
+        "myla-loafers-nero",
+        "rebecca-mary-jane-in-nero-copy"
+      ]
+    },
+    {
+      "product_id": 131,
+      "handle": "myla-mary-jane-vino",
+      "key": "product_variants",
+      "entry_count": 4,
+      "entry_handles": [
+        "myla-mary-jane-barolo",
+        "myla-mary-jane-nero-ebano",
+        "myla-mary-jane-oliva",
+        "myla-mary-jane-in-midnight"
+      ]
+    },
+    {
+      "product_id": 131,
+      "handle": "myla-mary-jane-vino",
+      "key": "related_products",
+      "entry_count": 4,
+      "entry_handles": [
+        "clara-pumps-plum",
+        "myla-loafers-in-vino",
+        "rebecca-flat-mary-jane-in-vino",
+        "micol-mules-plum"
+      ]
+    },
+    {
+      "product_id": 132,
+      "handle": "nervi-fussbett-slingbacks-blu",
+      "key": "product_variants",
+      "entry_count": 4,
+      "entry_handles": [
+        "nervi-fussbett-slingbacks-blu",
+        "nervi-fussbett-slingbacks-sole",
+        "nervi-fussbett-slingbacks-nero",
+        "nervi-fussbett-slingbacks-verde-militare"
+      ]
+    },
+    {
+      "product_id": 132,
+      "handle": "nervi-fussbett-slingbacks-blu",
+      "key": "related_products",
+      "entry_count": 4,
+      "entry_handles": [
+        "ciambella-sandals-blu-nero",
+        "spacco-sandals-nero-blu",
+        "egg-sandals-blu-nero",
+        "canvas-fussbet-nero"
+      ]
+    },
+    {
+      "product_id": 133,
+      "handle": "nervi-fussbett-slingbacks-nero",
+      "key": "product_variants",
+      "entry_count": 4,
+      "entry_handles": [
+        "nervi-fussbett-slingbacks-nero",
+        "nervi-fussbett-slingbacks-verde-militare",
+        "nervi-fussbett-slingbacks-sole",
+        "nervi-fussbett-slingbacks-blu"
+      ]
+    },
+    {
+      "product_id": 133,
+      "handle": "nervi-fussbett-slingbacks-nero",
+      "key": "related_products",
+      "entry_count": 4,
+      "entry_handles": [
+        "canvas-fussbet-nero",
+        "ciambella-sandals-blu-nero",
+        "nuvola-flats-nero",
+        "spacco-sandals-nero-blu"
+      ]
+    },
+    {
+      "product_id": 134,
+      "handle": "nervi-fussbett-slingbacks-sole",
+      "key": "product_variants",
+      "entry_count": 4,
+      "entry_handles": [
+        "nervi-fussbett-slingbacks-sole",
+        "nervi-fussbett-slingbacks-verde-militare",
+        "nervi-fussbett-slingbacks-blu",
+        "nervi-fussbett-slingbacks-nero"
+      ]
+    },
+    {
+      "product_id": 134,
+      "handle": "nervi-fussbett-slingbacks-sole",
+      "key": "related_products",
+      "entry_count": 4,
+      "entry_handles": [
+        "ciambella-sandals-nero-bruciato",
+        "gio-flats-sole",
+        "buco-slingback-in-zenzero",
+        "egg-sandals-sole"
+      ]
+    },
+    {
+      "product_id": 135,
+      "handle": "nervi-fussbett-slingbacks-verde-militare",
+      "key": "product_variants",
+      "entry_count": 4,
+      "entry_handles": [
+        "nervi-fussbett-slingbacks-verde-militare",
+        "nervi-fussbett-slingbacks-sole",
+        "nervi-fussbett-slingbacks-nero",
+        "nervi-fussbett-slingbacks-blu"
+      ]
+    },
+    {
+      "product_id": 135,
+      "handle": "nervi-fussbett-slingbacks-verde-militare",
+      "key": "related_products",
+      "entry_count": 4,
+      "entry_handles": [
+        "ciambella-sandals-blu-nero",
+        "canvas-fussbet-bruciato",
+        "canvas-sandals-verde-violetta",
+        "gio-flats-militare"
+      ]
+    },
+    {
+      "product_id": 136,
+      "handle": "nuvola-flats-cacao-pervinca",
+      "key": "product_variants",
+      "entry_count": 4,
+      "entry_handles": [
+        "nuvola-flats-vino",
+        "nuvola-flats-nero",
+        "nuvola-flats-nero-pervinca",
+        "nuvola-flats-cacao-pervinca"
+      ]
+    },
+    {
+      "product_id": 136,
+      "handle": "nuvola-flats-cacao-pervinca",
+      "key": "related_products",
+      "entry_count": 4,
+      "entry_handles": [
+        "rebecca-flat-mary-jane-in-bruciato",
+        "mildred-piccola-cammello-grigio",
+        "buco-slingback-in-cacao",
+        "nuvola-pumps-cacao"
+      ]
+    },
+    {
+      "product_id": 137,
+      "handle": "nuvola-flats-nero",
+      "key": "product_variants",
+      "entry_count": 4,
+      "entry_handles": [
+        "nuvola-flats-vino",
+        "nuvola-flats-nero",
+        "nuvola-flats-nero-pervinca",
+        "nuvola-flats-cacao-pervinca"
+      ]
+    },
+    {
+      "product_id": 137,
+      "handle": "nuvola-flats-nero",
+      "key": "related_products",
+      "entry_count": 4,
+      "entry_handles": [
+        "gemma-mules-nero",
+        "clara-pumps-plum",
+        "gemma-pumps-abisso",
+        "mildred-classic-nero-rosso"
+      ]
+    },
+    {
+      "product_id": 138,
+      "handle": "nuvola-flats-nero-pervinca",
+      "key": "product_variants",
+      "entry_count": 4,
+      "entry_handles": [
+        "nuvola-flats-vino",
+        "nuvola-flats-nero",
+        "nuvola-flats-nero-pervinca",
+        "nuvola-flats-cacao-pervinca"
+      ]
+    },
+    {
+      "product_id": 138,
+      "handle": "nuvola-flats-nero-pervinca",
+      "key": "related_products",
+      "entry_count": 4,
+      "entry_handles": [
+        "rebecca-flat-mary-jane-in-midnight",
+        "gio-flats-blu",
+        "mildred-piccola-midnight-blu",
+        "mildred-classic-nero-rosso"
+      ]
+    },
+    {
+      "product_id": 139,
+      "handle": "nuvola-flats-vino",
+      "key": "product_variants",
+      "entry_count": 4,
+      "entry_handles": [
+        "nuvola-flats-vino",
+        "nuvola-flats-nero",
+        "nuvola-flats-nero-pervinca",
+        "nuvola-flats-cacao-pervinca"
+      ]
+    },
+    {
+      "product_id": 139,
+      "handle": "nuvola-flats-vino",
+      "key": "related_products",
+      "entry_count": 4,
+      "entry_handles": [
+        "nuvola-pumps-nero",
+        "clara-pumps-plum",
+        "rebecca-flat-mary-jane-in-vino",
+        "mildred-piccola-plum"
+      ]
+    },
+    {
+      "product_id": 140,
+      "handle": "nuvola-pumps-cacao",
+      "key": "product_variants",
+      "entry_count": 3,
+      "entry_handles": [
+        "nuvola-pumps-nero",
+        "nuvola-pumps-cacao",
+        "nuvola-pumps-rosso"
+      ]
+    },
+    {
+      "product_id": 140,
+      "handle": "nuvola-pumps-cacao",
+      "key": "related_products",
+      "entry_count": 4,
+      "entry_handles": [
+        "micol-junior-cammello-grigio",
+        "clara-pumps-zenzero",
+        "gemma-pumps-in-cacao",
+        "mildred-classic-cammello"
+      ]
+    },
+    {
+      "product_id": 141,
+      "handle": "nuvola-pumps-nero",
+      "key": "product_variants",
+      "entry_count": 3,
+      "entry_handles": [
+        "nuvola-pumps-nero",
+        "nuvola-pumps-cacao",
+        "nuvola-pumps-rosso"
+      ]
+    },
+    {
+      "product_id": 141,
+      "handle": "nuvola-pumps-nero",
+      "key": "related_products",
+      "entry_count": 4,
+      "entry_handles": [
+        "gemma-mules-nero",
+        "clara-pumps-plum",
+        "gemma-pumps-abisso",
+        "mildred-classic-nero-rosso"
+      ]
+    },
+    {
+      "product_id": 142,
+      "handle": "nuvola-pumps-rosso",
+      "key": "product_variants",
+      "entry_count": 3,
+      "entry_handles": [
+        "nuvola-pumps-nero",
+        "nuvola-pumps-cacao",
+        "nuvola-pumps-rosso"
+      ]
+    },
+    {
+      "product_id": 142,
+      "handle": "nuvola-pumps-rosso",
+      "key": "related_products",
+      "entry_count": 4,
+      "entry_handles": [
+        "micol-junior-rosso",
+        "nuvola-flats-nero-pervinca",
+        "egg-pumps-in-rosso",
+        "mildred-classic-nero-rosso"
+      ]
+    },
+    {
+      "product_id": 143,
+      "handle": "onda-bootie-in-nero",
+      "key": "product_variants",
+      "entry_count": 3,
+      "entry_handles": [
+        "onda-slingback-in-midnight",
+        "onda-bootie-in-nero",
+        "onda-slingback-in-bianco"
+      ]
+    },
+    {
+      "product_id": 143,
+      "handle": "onda-bootie-in-nero",
+      "key": "related_products",
+      "entry_count": 4,
+      "entry_handles": [
+        "canvas-mules-nero-blu",
+        "mildred-piccola-midnight-blu",
+        "micol-pumps-nero",
+        "clara-pumps-blu"
+      ]
+    },
+    {
+      "product_id": 144,
+      "handle": "onda-pumps-in-midnight",
+      "key": "product_variants",
+      "entry_count": 3,
+      "entry_handles": [
+        "onda-pumps-in-midnight",
+        "onda-pumps-in-nero",
+        "onda-pumps-in-indaco"
+      ]
+    },
+    {
+      "product_id": 144,
+      "handle": "onda-pumps-in-midnight",
+      "key": "related_products",
+      "entry_count": 4,
+      "entry_handles": [
+        "canvas-mules-nero-blu",
+        "mildred-classic-nero-midnight",
+        "micol-pumps-nero",
+        "nuvola-pumps-nero"
+      ]
+    },
+    {
+      "product_id": 145,
+      "handle": "onda-pumps-in-nero",
+      "key": "product_variants",
+      "entry_count": 3,
+      "entry_handles": [
+        "onda-pumps-in-midnight",
+        "onda-pumps-in-nero",
+        "onda-pumps-in-indaco"
+      ]
+    },
+    {
+      "product_id": 145,
+      "handle": "onda-pumps-in-nero",
+      "key": "related_products",
+      "entry_count": 4,
+      "entry_handles": [
+        "canvas-mules-nero-blu",
+        "clara-pumps-nero",
+        "micol-pumps-nero",
+        "onda-bootie-in-nero"
+      ]
+    },
+    {
+      "product_id": 146,
+      "handle": "onda-pumps-in-indaco",
+      "key": "product_variants",
+      "entry_count": 3,
+      "entry_handles": [
+        "onda-pumps-in-midnight",
+        "onda-pumps-in-nero",
+        "onda-pumps-in-indaco"
+      ]
+    },
+    {
+      "product_id": 146,
+      "handle": "onda-pumps-in-indaco",
+      "key": "related_products",
+      "entry_count": 4,
+      "entry_handles": [
+        "egg-pumps-in-turchese",
+        "mildred-piccola-midnight-blu",
+        "mildred-classic-in-indaco-grigio",
+        "clara-pumps-in-grigio"
+      ]
+    },
+    {
+      "product_id": 147,
+      "handle": "onda-slingback-in-bianco",
+      "key": "product_variants",
+      "entry_count": 3,
+      "entry_handles": [
+        "onda-slingback-in-midnight",
+        "onda-bootie-in-nero",
+        "onda-slingback-in-bianco"
+      ]
+    },
+    {
+      "product_id": 147,
+      "handle": "onda-slingback-in-bianco",
+      "key": "related_products",
+      "entry_count": 4,
+      "entry_handles": [
+        "onda-pumps-in-indaco",
+        "buco-flats-in-bianco",
+        "incroci-sandals-in-bianco",
+        "micol-pumps-bianco"
+      ]
+    },
+    {
+      "product_id": 148,
+      "handle": "onda-slingback-in-midnight",
+      "key": "product_variants",
+      "entry_count": 3,
+      "entry_handles": [
+        "onda-slingback-in-midnight",
+        "onda-bootie-in-nero",
+        "onda-slingback-in-bianco"
+      ]
+    },
+    {
+      "product_id": 148,
+      "handle": "onda-slingback-in-midnight",
+      "key": "related_products",
+      "entry_count": 4,
+      "entry_handles": [
+        "canvas-mules-nero-blu",
+        "onda-pumps-in-midnight",
+        "micol-pumps-nero",
+        "nuvola-pumps-nero"
+      ]
+    },
+    {
+      "product_id": 149,
+      "handle": "rebecca-flat-mary-jane-in-bruciato",
+      "key": "product_variants",
+      "entry_count": 6,
+      "entry_handles": [
+        "rebecca-flat-mary-jane-in-bruciato",
+        "rebecca-flat-mary-jane-in-nero",
+        "rebecca-flat-mary-jane-in-taupe",
+        "rebecca-flat-mary-jane-in-midnight",
+        "rebecca-flat-mary-jane-in-verde",
+        "rebecca-flat-mary-jane-in-vino"
+      ]
+    },
+    {
+      "product_id": 149,
+      "handle": "rebecca-flat-mary-jane-in-bruciato",
+      "key": "related_products",
+      "entry_count": 4,
+      "entry_handles": [
+        "mildred-piccola-cammello-grigio",
+        "nuvola-flats-cacao-pervinca",
+        "canvas-sandals-bruciato-nero",
+        "rebecca-mary-jane-bruciato-blu"
+      ]
+    },
+    {
+      "product_id": 150,
+      "handle": "rebecca-flat-mary-jane-in-midnight",
+      "key": "product_variants",
+      "entry_count": 6,
+      "entry_handles": [
+        "rebecca-flat-mary-jane-in-midnight",
+        "rebecca-flat-mary-jane-in-nero",
+        "rebecca-flat-mary-jane-in-taupe",
+        "rebecca-flat-mary-jane-in-bruciato",
+        "rebecca-flat-mary-jane-in-verde",
+        "rebecca-flat-mary-jane-in-vino"
+      ]
+    },
+    {
+      "product_id": 150,
+      "handle": "rebecca-flat-mary-jane-in-midnight",
+      "key": "related_products",
+      "entry_count": 4,
+      "entry_handles": [
+        "nuvola-flats-nero-pervinca",
+        "mildred-piccola-midnight-blu",
+        "gio-pumps-blu",
+        "rebecca-mary-jane-blu"
+      ]
+    },
+    {
+      "product_id": 151,
+      "handle": "rebecca-flat-mary-jane-in-nero",
+      "key": "product_variants",
+      "entry_count": 6,
+      "entry_handles": [
+        "rebecca-flat-mary-jane-in-nero",
+        "rebecca-flat-mary-jane-in-taupe",
+        "rebecca-flat-mary-jane-in-bruciato",
+        "rebecca-flat-mary-jane-in-midnight",
+        "rebecca-flat-mary-jane-in-verde",
+        "rebecca-flat-mary-jane-in-vino"
+      ]
+    },
+    {
+      "product_id": 151,
+      "handle": "rebecca-flat-mary-jane-in-nero",
+      "key": "related_products",
+      "entry_count": 4,
+      "entry_handles": [
+        "nuvola-flats-nero",
+        "rebecca-flats-nero",
+        "micol-junior-nero",
+        "gio-flats-nero"
+      ]
+    },
+    {
+      "product_id": 152,
+      "handle": "rebecca-flat-mary-jane-in-taupe",
+      "key": "product_variants",
+      "entry_count": 6,
+      "entry_handles": [
+        "rebecca-flat-mary-jane-in-taupe",
+        "rebecca-flat-mary-jane-in-nero",
+        "rebecca-flat-mary-jane-in-bruciato",
+        "rebecca-flat-mary-jane-in-midnight",
+        "rebecca-flat-mary-jane-in-verde",
+        "rebecca-flat-mary-jane-in-vino"
+      ]
+    },
+    {
+      "product_id": 152,
+      "handle": "rebecca-flat-mary-jane-in-taupe",
+      "key": "related_products",
+      "entry_count": 4,
+      "entry_handles": [
+        "nuvola-flats-cacao-pervinca",
+        "mildred-piccola-in-taupe",
+        "gio-flats-sole",
+        "spacco-sandals-taupe-sole"
+      ]
+    },
+    {
+      "product_id": 153,
+      "handle": "rebecca-flat-mary-jane-in-verde",
+      "key": "product_variants",
+      "entry_count": 6,
+      "entry_handles": [
+        "rebecca-flat-mary-jane-in-verde",
+        "rebecca-flat-mary-jane-in-nero",
+        "rebecca-flat-mary-jane-in-bruciato",
+        "rebecca-flat-mary-jane-in-midnight",
+        "rebecca-flat-mary-jane-in-taupe",
+        "rebecca-flat-mary-jane-in-vino"
+      ]
+    },
+    {
+      "product_id": 153,
+      "handle": "rebecca-flat-mary-jane-in-verde",
+      "key": "related_products",
+      "entry_count": 4,
+      "entry_handles": [
+        "rebecca-mary-jane-militare",
+        "gio-flats-militare",
+        "mildred-classic-militare",
+        "canvas-mules-verde-violetta"
+      ]
+    },
+    {
+      "product_id": 154,
+      "handle": "rebecca-flat-mary-jane-in-vino",
+      "key": "product_variants",
+      "entry_count": 6,
+      "entry_handles": [
+        "rebecca-flat-mary-jane-in-midnight",
+        "rebecca-flat-mary-jane-in-nero",
+        "rebecca-flat-mary-jane-in-taupe",
+        "rebecca-flat-mary-jane-in-bruciato",
+        "rebecca-flat-mary-jane-in-verde",
+        "rebecca-flat-mary-jane-in-vino"
+      ]
+    },
+    {
+      "product_id": 154,
+      "handle": "rebecca-flat-mary-jane-in-vino",
+      "key": "related_products",
+      "entry_count": 4,
+      "entry_handles": [
+        "mildred-piccola-plum",
+        "gio-flats-blu",
+        "clara-pumps-plum",
+        "rebecca-mary-jane-blu"
+      ]
+    },
+    {
+      "product_id": 155,
+      "handle": "rebecca-flat-mules-nero",
+      "key": "product_variants",
+      "entry_count": 2,
+      "entry_handles": [
+        "rebecca-flats-nero",
+        "rebecca-flat-mules-in-verde"
+      ]
+    },
+    {
+      "product_id": 155,
+      "handle": "rebecca-flat-mules-nero",
+      "key": "related_products",
+      "entry_count": 4,
+      "entry_handles": [
+        "mildred-classic-nero-midnight-blue",
+        "gio-flats-nero",
+        "nuvola-flats-nero",
+        "rebecca-flat-mary-jane-in-nero"
+      ]
+    },
+    {
+      "product_id": 156,
+      "handle": "rebecca-flat-mules-in-verde",
+      "key": "product_variants",
+      "entry_count": 2,
+      "entry_handles": [
+        "rebecca-flats-nero",
+        "rebecca-flat-mules-in-verde"
+      ]
+    },
+    {
+      "product_id": 156,
+      "handle": "rebecca-flat-mules-in-verde",
+      "key": "related_products",
+      "entry_count": 4,
+      "entry_handles": [
+        "buco-slingback-in-zenzero",
+        "gio-flats-militare",
+        "nuvola-flats-cacao-pervinca",
+        "rebecca-flat-mary-jane-in-verde"
+      ]
+    },
+    {
+      "product_id": 157,
+      "handle": "rebecca-mary-jane-bruciato-blu",
+      "key": "product_variants",
+      "entry_count": 4,
+      "entry_handles": [
+        "rebecca-mary-jane-bruciato-blu",
+        "rebecca-mary-jane-in-nero-copy",
+        "rebecca-mary-jane-blu",
+        "rebecca-mary-jane-militare"
+      ]
+    },
+    {
+      "product_id": 157,
+      "handle": "rebecca-mary-jane-bruciato-blu",
+      "key": "related_products",
+      "entry_count": 4,
+      "entry_handles": [
+        "myla-mary-jane-nero-ebano",
+        "gemma-pumps-cioccolato",
+        "rebecca-flat-mary-jane-in-bruciato",
+        "gio-pumps-blu"
+      ]
+    },
+    {
+      "product_id": 158,
+      "handle": "rebecca-mary-jane-blu",
+      "key": "product_variants",
+      "entry_count": 4,
+      "entry_handles": [
+        "rebecca-mary-jane-blu",
+        "rebecca-mary-jane-in-nero-copy",
+        "rebecca-mary-jane-bruciato-blu",
+        "rebecca-mary-jane-militare"
+      ]
+    },
+    {
+      "product_id": 158,
+      "handle": "rebecca-mary-jane-blu",
+      "key": "related_products",
+      "entry_count": 4,
+      "entry_handles": [
+        "rebecca-flat-mary-jane-in-midnight",
+        "mildred-classic-nero-midnight",
+        "gio-pumps-blu",
+        "egg-sandals-blu-nero"
+      ]
+    },
+    {
+      "product_id": 159,
+      "handle": "rebecca-mary-jane-in-nero",
+      "key": "product_variants",
+      "entry_count": 4,
+      "entry_handles": [
+        "rebecca-mary-jane-in-nero",
+        "rebecca-mary-jane-blu",
+        "rebecca-mary-jane-bruciato-blu",
+        "rebecca-mary-jane-militare"
+      ]
+    },
+    {
+      "product_id": 159,
+      "handle": "rebecca-mary-jane-in-nero",
+      "key": "related_products",
+      "entry_count": 4,
+      "entry_handles": [
+        "rebecca-flat-mary-jane-in-nero",
+        "rebecca-flats-nero",
+        "mildred-classic-nero",
+        "micol-junior-nero"
+      ]
+    },
+    {
+      "product_id": 160,
+      "handle": "rebecca-mary-jane-militare",
+      "key": "product_variants",
+      "entry_count": 4,
+      "entry_handles": [
+        "rebecca-mary-jane-militare",
+        "rebecca-mary-jane-bruciato-blu",
+        "rebecca-mary-jane-in-nero-copy",
+        "rebecca-mary-jane-blu"
+      ]
+    },
+    {
+      "product_id": 160,
+      "handle": "rebecca-mary-jane-militare",
+      "key": "related_products",
+      "entry_count": 4,
+      "entry_handles": [
+        "mildred-classic-militare",
+        "rebecca-flat-mary-jane-in-verde",
+        "rebecca-flat-mules-in-verde",
+        "gio-pumps-militare"
+      ]
+    },
+    {
+      "product_id": 161,
+      "handle": "sammy-loafers-in-cacao",
+      "key": "product_variants",
+      "entry_count": 1,
+      "entry_handles": [
+        "sammy-loafers-in-nero"
+      ]
+    },
+    {
+      "product_id": 161,
+      "handle": "sammy-loafers-in-cacao",
+      "key": "related_products",
+      "entry_count": 4,
+      "entry_handles": [
+        "myla-loafers-nero",
+        "zoe-bootie-in-nero-bruciato",
+        "nuvola-pumps-cacao",
+        "ciambella-sandals-nero-bruciato"
+      ]
+    },
+    {
+      "product_id": 162,
+      "handle": "sammy-loafers-in-nero",
+      "key": "product_variants",
+      "entry_count": 3,
+      "entry_handles": [
+        "sammy-loafers-in-nero",
+        "sammy-loafers-in-nero-bruciato",
+        "sammy-loafers-in-cacao"
+      ]
+    },
+    {
+      "product_id": 162,
+      "handle": "sammy-loafers-in-nero",
+      "key": "related_products",
+      "entry_count": 4,
+      "entry_handles": [
+        "myla-loafers-nero",
+        "city-boots-nero",
+        "zoe-bootie-in-nero-spazzolato",
+        "ciambella-sandals-nero-vernice"
+      ]
+    },
+    {
+      "product_id": 163,
+      "handle": "sammy-loafers-in-nero-bruciato",
+      "key": "product_variants",
+      "entry_count": 3,
+      "entry_handles": [
+        "sammy-loafers-in-nero-bruciato",
+        "sammy-loafers-in-nero",
+        "sammy-loafers-in-cacao"
+      ]
+    },
+    {
+      "product_id": 163,
+      "handle": "sammy-loafers-in-nero-bruciato",
+      "key": "related_products",
+      "entry_count": 4,
+      "entry_handles": [
+        "spacco-pump-in-bruciato-nero",
+        "rebecca-mary-jane-bruciato-blu",
+        "ciambella-sandals-nero-bruciato",
+        "myla-mary-jane-nero-ebano"
+      ]
+    },
+    {
+      "product_id": 164,
+      "handle": "spacco-pump-in-bruciato-nero",
+      "key": "product_variants",
+      "entry_count": 3,
+      "entry_handles": [
+        "spacco-pump-in-bruciato-nero",
+        "spacco-pump-in-taupe",
+        "spacco-pump-in-nero"
+      ]
+    },
+    {
+      "product_id": 164,
+      "handle": "spacco-pump-in-bruciato-nero",
+      "key": "related_products",
+      "entry_count": 4,
+      "entry_handles": [
+        "gemma-pumps-cioccolato",
+        "gemma-pumps-in-cacao",
+        "nuvola-pumps-cacao",
+        "clara-pumps-cacao"
+      ]
+    },
+    {
+      "product_id": 165,
+      "handle": "spacco-pump-in-nero",
+      "key": "product_variants",
+      "entry_count": 3,
+      "entry_handles": [
+        "spacco-pump-in-nero",
+        "spacco-pump-in-bruciato-nero",
+        "spacco-pump-in-taupe"
+      ]
+    },
+    {
+      "product_id": 165,
+      "handle": "spacco-pump-in-nero",
+      "key": "related_products",
+      "entry_count": 4,
+      "entry_handles": [
+        "mildred-classic-nero-rosso",
+        "spacco-sandals-rosso",
+        "gemma-pumps-nero",
+        "micol-pumps-nero"
+      ]
+    },
+    {
+      "product_id": 166,
+      "handle": "spacco-pump-in-taupe",
+      "key": "product_variants",
+      "entry_count": 3,
+      "entry_handles": [
+        "spacco-pump-in-taupe",
+        "spacco-pump-in-bruciato-nero",
+        "spacco-pump-in-nero"
+      ]
+    },
+    {
+      "product_id": 166,
+      "handle": "spacco-pump-in-taupe",
+      "key": "related_products",
+      "entry_count": 4,
+      "entry_handles": [
+        "mildred-piccola-plum",
+        "spacco-sandals-taupe-sole",
+        "clara-pumps-taupe",
+        "micol-pumps-taupe"
+      ]
+    },
+    {
+      "product_id": 167,
+      "handle": "spacco-sandals-nero-blu",
+      "key": "product_variants",
+      "entry_count": 3,
+      "entry_handles": [
+        "spacco-sandals-nero-blu",
+        "spacco-sandals-rosso",
+        "spacco-sandals-taupe-sole"
+      ]
+    },
+    {
+      "product_id": 167,
+      "handle": "spacco-sandals-nero-blu",
+      "key": "related_products",
+      "entry_count": 4,
+      "entry_handles": [
+        "canvas-mules-nero-blu",
+        "incroci-sandals-in-nero",
+        "canvas-sandals-blu",
+        "egg-sandals-blu-nero"
+      ]
+    },
+    {
+      "product_id": 168,
+      "handle": "spacco-sandals-rosso",
+      "key": "product_variants",
+      "entry_count": 3,
+      "entry_handles": [
+        "spacco-sandals-rosso",
+        "spacco-sandals-taupe-sole",
+        "spacco-sandals-nero-blu"
+      ]
+    },
+    {
+      "product_id": 168,
+      "handle": "spacco-sandals-rosso",
+      "key": "related_products",
+      "entry_count": 4,
+      "entry_handles": [
+        "nuvola-pumps-rosso",
+        "canvas-sandals-nero-rosso",
+        "egg-mules-nero-rosso",
+        "mildred-mules-nero-rosso"
+      ]
+    },
+    {
+      "product_id": 169,
+      "handle": "spacco-sandals-taupe-sole",
+      "key": "product_variants",
+      "entry_count": 3,
+      "entry_handles": [
+        "spacco-sandals-taupe-sole",
+        "spacco-sandals-nero-blu",
+        "spacco-sandals-rosso"
+      ]
+    },
+    {
+      "product_id": 169,
+      "handle": "spacco-sandals-taupe-sole",
+      "key": "related_products",
+      "entry_count": 4,
+      "entry_handles": [
+        "mildred-classic-in-taupe-sole",
+        "incroci-sandals-in-cacao",
+        "canvas-mules-taupe-sole",
+        "canvas-sandals-taupe-sole"
+      ]
+    },
+    {
+      "product_id": 170,
+      "handle": "zoe-bootie-in-nero-bruciato",
+      "key": "product_variants",
+      "entry_count": 3,
+      "entry_handles": [
+        "zoe-bootie-in-nero-bruciato",
+        "zoe-bootie-in-nero-vitello",
+        "zoe-bootie-in-nero-spazzolato"
+      ]
+    },
+    {
+      "product_id": 170,
+      "handle": "zoe-bootie-in-nero-bruciato",
+      "key": "related_products",
+      "entry_count": 4,
+      "entry_handles": [
+        "cortina-booties-in-bruciato-suede",
+        "sammy-loafers-in-nero-bruciato",
+        "myla-loafers-nero",
+        "city-boots-bruciato"
+      ]
+    },
+    {
+      "product_id": 171,
+      "handle": "zoe-bootie-in-nero-spazzolato",
+      "key": "product_variants",
+      "entry_count": 3,
+      "entry_handles": [
+        "zoe-bootie-in-nero-spazzolato",
+        "zoe-bootie-in-nero-bruciato",
+        "zoe-bootie-in-nero-vitello"
+      ]
+    },
+    {
+      "product_id": 171,
+      "handle": "zoe-bootie-in-nero-spazzolato",
+      "key": "related_products",
+      "entry_count": 4,
+      "entry_handles": [
+        "micol-junior-nero",
+        "myla-loafers-nero",
+        "sammy-loafers-in-nero",
+        "mildred-boots-nero-cacao"
+      ]
+    },
+    {
+      "product_id": 172,
+      "handle": "zoe-bootie-in-nero-vitello",
+      "key": "product_variants",
+      "entry_count": 3,
+      "entry_handles": [
+        "zoe-bootie-in-nero-vitello",
+        "zoe-bootie-in-nero-bruciato",
+        "zoe-bootie-in-nero-spazzolato"
+      ]
+    },
+    {
+      "product_id": 172,
+      "handle": "zoe-bootie-in-nero-vitello",
+      "key": "related_products",
+      "entry_count": 4,
+      "entry_handles": [
+        "micol-junior-nero",
+        "myla-loafers-nero",
+        "sammy-loafers-in-nero-bruciato",
+        "mildred-boots-nero-cacao"
+      ]
+    }
+  ],
+  "overrides_applied": [
+    "micol-mules-nero:related_products:skip_pair:3",
+    "myla-mary-jane-nero-ebano:product_variants:exclude:myla-mary-jane-oliva",
+    "sammy-loafers-in-cacao:product_variants:skip_pair:1",
+    "sammy-loafers-in-cacao:product_variants:skip_pair:2"
+  ],
+  "warnings_count": 69,
+  "warnings": [
+    "canvas-mules-nero-blu related_module_image3_link: \"mildred-classic-nero-midnight-blue\" is not in the local catalog",
+    "canvas-sandals-sole related_module_image1_link: \"gemma-sandals-zenzero-cera\" is not in the local catalog",
+    "city-boots-bruciato related_module_image2_link: \"mildred-boots-cammello-grigio\" is not in the local catalog",
+    "city-boots-nero related_module_image2_link: \"mildred-classic-nero-midnight-blue\" is not in the local catalog",
+    "city-boots-nero related_module_image3_link: \"zoe-bootie-nero\" is not in the local catalog",
+    "clara-pumps-blu related_module_image2_link: \"mildred-classic-nero-midnight-blue\" is not in the local catalog",
+    "clara-pumps-nero related_module_image1_link: \"mildred-classic-nero-midnight-blue\" is not in the local catalog",
+    "clara-pumps-zenzero related_module_image1_link: \"gemma-sandals-zenzero-cera\" is not in the local catalog",
+    "egg-mules-bianco product_color_link4: \"mildred-egg-nero-rosso\" is not in the local catalog",
+    "egg-mules-bianco related_module_image2_link: \"egg-sandals-cera-oro\" is not in the local catalog",
+    "egg-mules-cera related_module_image2_link: \"gemma-sandals-zenzero-cera\" is not in the local catalog",
+    "egg-mules-nero-rosso product_color_link1: \"mildred-egg-nero-rosso\" is not in the local catalog",
+    "egg-mules-nero-rosso related_module_image4_link: \"mildred-mule-nero-rosso\" is not in the local catalog",
+    "egg-pumps-in-rosso related_module_image1_link: \"myla-mary-jane-barolo\" is not in the local catalog",
+    "egg-sandals-cera related_module_image3_link: \"gemma-sandals-zenzero-cera\" is not in the local catalog",
+    "egg-sandals-blu-nero product_color_link3: \"egg-sandals-sole-oro\" is not in the local catalog",
+    "egg-sandals-blu-nero related_module_image3_link: \"mildred-classic-nero-midnight-blue\" is not in the local catalog",
+    "gemma-mules-nero related_module_image2_link: \"mildred-classic-nero-midnight-blue\" is not in the local catalog",
+    "gemma-pumps-conchiglia related_module_image2_link: \"gemma-sandals-zenzero-cera\" is not in the local catalog",
+    "gemma-pumps-nero related_module_image3_link: \"mildred-classic-nero-midnight-blue\" is not in the local catalog",
+    "gemma-sandals-in-acqua product_color_link3: \"gemma-sandals-zenzero-cera\" is not in the local catalog",
+    "gemma-sandals-nero product_color_link2: \"gemma-sandals-zenzero-cera\" is not in the local catalog",
+    "gemma-sandals-sole-cera product_color_link1: \"gemma-sandals-zenzero-cera\" is not in the local catalog",
+    "gio-pumps-blu related_module_image4_link: \"mildred-classic-nero-midnight-blue\" is not in the local catalog",
+    "mildred-boots-cammello product_color_link1: \"mildred-boots-cammello-grigio\" is not in the local catalog",
+    "mildred-boots-cammello product_color_link2: \"mildred-boots-nero-barolo\" is not in the local catalog",
+    "mildred-boots-nero-cacao product_color_link2: \"mildred-boots-cammello-grigio\" is not in the local catalog",
+    "mildred-boots-nero-cacao product_color_link3: \"mildred-boots-nero-barolo\" is not in the local catalog",
+    "mildred-boots-nero-rosso product_color_link1: \"mildred-boots-nero-barolo\" is not in the local catalog",
+    "mildred-boots-nero-rosso product_color_link2: \"mildred-boots-cammello-grigio\" is not in the local catalog",
+    "mildred-boots-nero-rosso related_module_image1_link: \"mildred-classic-nero-midnight-blue\" is not in the local catalog",
+    "mildred-boots-plum product_color_link2: \"mildred-boots-cammello-grigio\" is not in the local catalog",
+    "mildred-boots-plum product_color_link3: \"mildred-boots-nero-barolo\" is not in the local catalog",
+    "mildred-classic-argento product_color_link12: \"mildred-classic-nero-midnight-blue\" is not in the local catalog",
+    "mildred-classic-bianco product_color_link13: \"mildred-classic-nero-midnight-blue\" is not in the local catalog",
+    "mildred-classic-nero-midnight product_color_link1: \"mildred-classic-nero-midnight-blue\" is not in the local catalog",
+    "mildred-classic-nero-rosso related_module_image4_link: \"mildred-egg-nero-rosso\" is not in the local catalog",
+    "mildred-classic-in-oro product_color_link12: \"mildred-classic-nero-midnight-blue\" is not in the local catalog",
+    "mildred-classic-in-indaco-grigio product_color_link3: \"mildred-classic-nero-midnight-blue\" is not in the local catalog",
+    "mildred-classic-plum related_module_image1_link: \"myla-mary-jane-barolo\" is not in the local catalog",
+    "mildred-classic-in-taupe-sole product_color_link1: \"mildred-classic-nero-midnight-blue\" is not in the local catalog",
+    "mildred-classic-militare product_color_link12: \"mildred-classic-nero-midnight-blue\" is not in the local catalog",
+    "mildred-mules-nero-rosso product_color_link1: \"mildred-mule-nero-rosso\" is not in the local catalog",
+    "mildred-mules-nero-rosso related_module_image1_link: \"mildred-egg-nero-rosso\" is not in the local catalog",
+    "mildred-piccola-nero-rosso related_module_image3_link: \"mildred-boots-nero-barolo\" is not in the local catalog",
+    "mildred-piccola-nero-rosso related_module_image4_link: \"mildred-egg-nero-rosso\" is not in the local catalog",
+    "myla-loafers-in-abisso product_color_link3: \"myla-loafers-blu\" is not in the local catalog",
+    "myla-loafers-in-abisso related_module_image4_link: \"mildred-classic-nero-midnight-blue\" is not in the local catalog",
+    "myla-loafers-nero product_color_link1: \"myla-loafers-nero-ebano\" is not in the local catalog",
+    "myla-loafers-nero product_color_link3: \"myla-loafers-blu\" is not in the local catalog",
+    "myla-loafers-in-vino product_color_link1: \"myla-loafers-blu\" is not in the local catalog",
+    "myla-loafers-in-vino related_module_image1_link: \"myla-mary-jane-barolo\" is not in the local catalog",
+    "myla-loafers-in-vino related_module_image2_link: \"zoe-bootie-nero\" is not in the local catalog",
+    "myla-loafers-in-vino related_module_image4_link: \"mildred-classic-nero-midnight-blue\" is not in the local catalog",
+    "myla-mary-jane-in-midnight product_color_link2: \"myla-mary-jane-barolo\" is not in the local catalog",
+    "myla-mary-jane-in-midnight product_color_link4: skipped duplicate self-reference",
+    "myla-mary-jane-in-midnight related_module_image3_link: \"myla-loafers-blu\" is not in the local catalog",
+    "myla-mary-jane-nero-ebano product_color_link2: \"myla-mary-jane-barolo\" is not in the local catalog",
+    "myla-mary-jane-nero-ebano related_module_image4_link: \"rebecca-mary-jane-in-nero-copy\" is not in the local catalog",
+    "myla-mary-jane-vino product_color_link1: \"myla-mary-jane-barolo\" is not in the local catalog",
+    "rebecca-flat-mary-jane-in-nero related_module_image2_link: \"rebecca-flats-nero\" is not in the local catalog",
+    "rebecca-flat-mules-nero product_color_link1: \"rebecca-flats-nero\" is not in the local catalog",
+    "rebecca-flat-mules-nero related_module_image1_link: \"mildred-classic-nero-midnight-blue\" is not in the local catalog",
+    "rebecca-flat-mules-in-verde product_color_link1: \"rebecca-flats-nero\" is not in the local catalog",
+    "rebecca-mary-jane-bruciato-blu product_color_link2: \"rebecca-mary-jane-in-nero-copy\" is not in the local catalog",
+    "rebecca-mary-jane-blu product_color_link2: \"rebecca-mary-jane-in-nero-copy\" is not in the local catalog",
+    "rebecca-mary-jane-in-nero related_module_image2_link: \"rebecca-flats-nero\" is not in the local catalog",
+    "rebecca-mary-jane-militare product_color_link3: \"rebecca-mary-jane-in-nero-copy\" is not in the local catalog",
+    "rebecca-mary-jane-militare related_module_image4_link: \"gio-pumps-militare\" is not in the local catalog"
+  ],
+  "backup_path": "/rails/tmp/legacy_metafield_regeneration_backups/legacy_consolidated_metafields_1_20260916T124956348318Z_d74c8990.csv",
+  "shopify_push": {
+    "operation_id": 2766,
+    "status": "completed",
+    "successful": 344,
+    "failed": 0,
+    "target_domain": "gray-matters-online-store.myshopify.com"
+  }
+}

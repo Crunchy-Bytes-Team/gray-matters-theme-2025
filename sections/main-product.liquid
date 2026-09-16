@@ -818,85 +818,116 @@
   </div>
 </product-info>
 
+{% comment %}
+  Module presence/order follow the live theme. Enable flags are string
+  `'true'` only so Shopify boolean `true` values stay hidden, matching live.
+{% endcomment %}
 {% assign image_row_module_enabled_mf = product.metafields.module.image_row_module_enabled.value %}
-{% unless image_row_module_enabled_mf == false or image_row_module_enabled_mf == 'false' %}
+{% if image_row_module_enabled_mf == 'true' %}
   <div class='image-row-snippet bg-white w-full relative z-0 lg:z-50 px-0 lg:px-4 pb-6'>
     {% render 'image-row' %}
   </div>
-  <div class='image-row-snippet bg-white w-full relative z-0 lg:z-50 px-0 lg:px-4 pb-6'>
-    {% render 'image-row-2' %}
-  </div>
-{% endunless %}
-<div class='vertical-video-snippet w-full relative z-0 lg:z-50 px-0 lg:px-4 pb-6'>
-  {% render 'vertical-video' %}
-</div>
+{% endif %}
+
 {% liquid
+  assign video_landscape_url = product.metafields.module.video_module_video_landscape.value
+  assign video_desktop_url = product.metafields.module.video_module_video.value
+  assign video_mobile_url = product.metafields.module.video_module_video_mobile.value
   assign video_module_enabled_mf = product.metafields.module.video_module_enabled.value
-  if video_module_enabled_mf == true or video_module_enabled_mf == 'true'
-    assign landscape_only_lg_classes = 'hidden lg:block'
-  else
-    assign landscape_only_lg_classes = ''
+  assign landscape_no_mbl_mf = product.metafields.module.video_module_landscape_no_mbl.value
+  assign video_module_enabled_on = false
+  if video_module_enabled_mf == 'true'
+    assign video_module_enabled_on = true
+  endif
+  assign landscape_url_classes = ''
+  if landscape_no_mbl_mf == 'true'
+    assign landscape_url_classes = 'hidden lg:block'
   endif
 %}
-<div class='landscape-video-snippet bg-white w-full relative z-0 lg:z-50 {{ landscape_only_lg_classes }} px-0 lg:px-4'>
-  {% render 'landscape-video' %}
-</div>
+{% if video_landscape_url != blank %}
+  <div class='landscape-video-snippet bg-white w-full relative z-0 lg:z-50 {{ landscape_url_classes }} px-0 lg:px-4'>
+    {% render 'landscape-video', video_src: video_landscape_url %}
+  </div>
+{% endif %}
+{% if video_module_enabled_on %}
+  {% if video_desktop_url != blank %}
+    {% assign enabled_landscape_classes = '' %}
+    {% if video_mobile_url != blank or landscape_no_mbl_mf == 'true' %}
+      {% assign enabled_landscape_classes = 'hidden lg:block' %}
+    {% endif %}
+    <div class='landscape-video-snippet bg-white w-full relative z-0 lg:z-50 {{ enabled_landscape_classes }} px-0 lg:px-4'>
+      {% render 'landscape-video', video_src: video_desktop_url %}
+    </div>
+  {% endif %}
+  {% if video_mobile_url != blank %}
+    <div class='vertical-video-snippet w-full relative z-0 lg:z-50 px-0 lg:px-4 pb-6'>
+      {% render 'vertical-video' %}
+    </div>
+  {% endif %}
+{% endif %}
+
 {% liquid
   assign video_module2_enabled_mf = product.metafields.custom.video_module2_enabled.value
   assign video_module2_mobile_url = product.metafields.module.video_module2_video_mobile.value
 %}
 {% if video_module2_mobile_url != blank %}
-  {% if video_module2_enabled_mf == true or video_module2_enabled_mf == 'true' %}
+  {% if video_module2_enabled_mf == 'true' %}
     <div class='vertical-video-2-snippet bg-white w-full relative z-0 lg:z-50 px-0 lg:px-4 pb-6'>
       {% render 'vertical-video-2' %}
     </div>
   {% endif %}
 {% endif %}
-{% assign ugc_module_enabled_mf = product.metafields.module.ugc_module_enabled.value %}
-{% unless ugc_module_enabled_mf == false or ugc_module_enabled_mf == 'false' %}
-  <div class='ugc-snippet w-full bg-white relative z-0 lg:z-50 px-0 lg:px-4 py-0'>
-    {% render 'ugc' %}
-  </div>
-{% endunless %}
 
-{% assign vertical_image_with_text_enabled = false %}
-{% if product.metafields.module.image_text_module_enabled.value == true
-  or product.metafields.module.image_text_module_enabled.value == 'true'
+{% liquid
+  assign ugc_module_enabled_mf = product.metafields.module.ugc_module_enabled.value
+  assign ugc2_module_enabled_mf = product.metafields.module.ugc2_module_enabled.value
+  assign ugc1_has_legacy_image = false
+  if product.metafields.module.ugc_module_image1.value != blank
+    assign ugc1_has_legacy_image = true
+  elsif product.metafields.module.ugc_module_image2.value != blank
+    assign ugc1_has_legacy_image = true
+  elsif product.metafields.module.ugc_module_image3.value != blank
+    assign ugc1_has_legacy_image = true
+  elsif product.metafields.module.ugc_module_image4.value != blank
+    assign ugc1_has_legacy_image = true
+  elsif product.metafields.module.ugc_module_image5.value != blank
+    assign ugc1_has_legacy_image = true
+  endif
 %}
-  {% assign vertical_image_with_text_enabled = true %}
+{% if ugc_module_enabled_mf == 'true' %}
+  <div class='ugc-snippet w-full bg-white relative z-0 lg:z-50 px-0 lg:px-4 py-0'>
+    {% if ugc1_has_legacy_image or ugc2_module_enabled_mf == 'true' %}
+      {% render 'legacy-ugc-band', prefix: 'ugc_module', show_header: true %}
+    {% else %}
+      {% render 'ugc' %}
+    {% endif %}
+  </div>
 {% endif %}
-{% if vertical_image_with_text_enabled == true %}
+{% if ugc2_module_enabled_mf == 'true' %}
+  <div class='image-row-snippet bg-white w-full relative z-0 lg:z-50 px-0 lg:px-4 pb-6'>
+    {% render 'legacy-ugc-band', prefix: 'ugc2_module', show_header: false %}
+  </div>
+{% endif %}
+
+{% if product.metafields.module.image_text_module_enabled.value == 'true' %}
   <div class='w-full bg-white relative z-0 lg:z-50 px-0 lg:px-4 pb-0'>
     {% render 'vertical-image-with-text' %}
   </div>
 {% endif %}
 
-{% comment %}
-  {% assign image_full_module_enabled_mf = product.metafields.module.image_full_module_enabled.value %}
-  {% unless image_full_module_enabled_mf == false or image_full_module_enabled_mf == 'false' %}
-    <div class='full-width-image-snippet bg-white w-full relative z-0 lg:z-50 px-0 lg:px-4 hidden lg:flex'>
-      {% render 'full-width-image' %}
-    </div>
-  {% endunless %}
-{% endcomment %}
-
-{% assign image_full_module_image_enabled_mf = product.metafields.module.image_full_module_enabled.value %}
-{% unless image_full_module_image_enabled_mf == false or image_full_module_image_enabled_mf == 'false' %}
+{% if product.metafields.module.image_full_module_enabled.value == 'true' %}
   {% assign image_full_module_image_url = product.metafields.module.image_full_module_image.value %}
-
   <div class='full-width-image-snippet bg-white w-full relative z-0 lg:z-50 px-0 lg:px-4 hidden lg:flex'>
     {% render 'full-width-module-single-image', image_src: image_full_module_image_url %}
   </div>
-{% endunless %}
+{% endif %}
 
-{% assign image_full_module2_image_enabled_mf = product.metafields.module.image_full_module2_enabled.value %}
-{% unless image_full_module2_image_enabled_mf == false or image_full_module2_image_enabled_mf == 'false' %}
+{% if product.metafields.module.image_full_module2_enabled.value == 'true' %}
   {% assign image_full_module2_image_url = product.metafields.module.image_full_module2_image.value %}
-
   <div class='full-width-image-snippet bg-white w-full relative z-0 lg:z-50 px-0 lg:px-4 hidden lg:flex'>
     {% render 'full-width-module-single-image', image_src: image_full_module2_image_url %}
   </div>
-{% endunless %}
+{% endif %}
 
 <div class='yotpo-review-snippet bg-white w-full px-4 pb-6 z-0 lg:z-50 relative'>
   <div id='yotpo-review-wrapper' style='height:400px'></div>
