@@ -26,14 +26,63 @@
     {% assign variant_entries = variants_metafield.value.entries %}
   {% elsif variants_metafield.entries != blank %}
     {% assign variant_entries = variants_metafield.entries %}
-  {% else %}
-    {% assign parsed_metafield = variants_metafield | parse_json %}
-    {% if parsed_metafield != blank and parsed_metafield.entries != blank %}
-      {% assign variant_entries = parsed_metafield.entries %}
-    {% endif %}
   {% endif %}
 {% endif %}
 
+{% if variant_entries != blank %}
+  <div class='flex flex-nowrap w-max min-w-full'>
+    {% for entry in variant_entries %}
+      {% assign variant_handle = entry.handle | default: blank %}
+      {% if variant_handle == blank and entry.url != blank %}
+        {% assign variant_handle = entry.url | split: '/products/' | last %}
+        {% assign variant_handle = variant_handle | split: '?' | first | split: '#' | first | strip %}
+      {% endif %}
+      {% if variant_handle == blank %}
+        {% continue %}
+      {% endif %}
+
+      {% assign variant_image_url = entry.image | default: blank %}
+      {% if variant_image_url == blank %}
+        {% assign variant_product = all_products[variant_handle] %}
+        {% assign variant_image_raw = variant_product.metafields.module.product_color_img1.value %}
+        {% if variant_image_raw.url != blank %}
+          {% assign variant_image_url = variant_image_raw.url %}
+        {% else %}
+          {% assign variant_image_url = variant_image_raw %}
+        {% endif %}
+      {% endif %}
+
+      {% assign variant_relative_url = '/products/' | append: variant_handle %}
+      {% if variant_handle == product.handle %}
+        <div
+          class='rounded-full overflow-hidden flex flex-col shrink-0 cursor-pointer mr-2'
+          style='box-sizing: border-box;width:20px;height:20px;border:1px solid #ccc;'
+          aria-current='true'
+        >
+      {% else %}
+        <a
+          href='{{ variant_relative_url }}'
+          class='rounded-full overflow-hidden flex flex-col shrink-0 mr-2'
+          style='box-sizing: border-box;width:20px;height:20px;border:1px solid #ccc;'
+          aria-label='{{ variant_handle | replace: "-", " " | escape }}'
+        >
+      {% endif %}
+        {% if variant_image_url != blank %}
+          <div
+            class='w-full h-full bg-cover bg-center'
+            style='background-image: url({{ variant_image_url | escape }});'
+          ></div>
+        {% else %}
+          <div class='w-full h-full' style='background-color:#ffffff;'></div>
+        {% endif %}
+      {% if variant_handle == product.handle %}
+        </div>
+      {% else %}
+        </a>
+      {% endif %}
+    {% endfor %}
+  </div>
+{% elsif variants_metafield == blank %}
 {% assign border_class = 'cursor-pointer' %}
 {% assign margin_class = 'mr-2' %}
 {% assign blank_color_hex = '#ff00bb' %}
@@ -190,3 +239,4 @@
     {% endfor %}
   {% endif %}
 </div>
+{% endif %}

@@ -22,8 +22,82 @@
     Gray Matters candidates) until 4 products are filled.
 {%- endcomment -%}
 
+{%- assign related_metafield = product.metafields.module.related_products -%}
+{%- assign related_entries = blank -%}
+{%- if related_metafield != blank -%}
+  {%- if related_metafield.value != blank and related_metafield.value.entries != blank -%}
+    {%- assign related_entries = related_metafield.value.entries -%}
+  {%- elsif related_metafield.entries != blank -%}
+    {%- assign related_entries = related_metafield.entries -%}
+  {%- endif -%}
+{%- endif -%}
+
+{%- if related_entries != blank -%}
+  <div>
+    <h3 class='w-full text-center font-accent font-normal text-xl uppercase mb-6'>You may also like</h3>
+    <div class='relative w-full pb-6' data-relprod>
+      <div class='overflow-hidden md:overflow-visible w-full' data-viewport>
+        <div
+          class='flex w-full transition-transform duration-300 ease-in-out md:grid md:grid-cols-4 md:gap-0'
+          data-track
+        >
+          {%- for entry in related_entries -%}
+            {%- assign related_handle = entry.handle | default: blank -%}
+            {%- if related_handle == blank and entry.url != blank -%}
+              {%- assign related_handle = entry.url | split: '/products/' | last -%}
+              {%- assign related_handle = related_handle | split: '?' | first | split: '#' | first | strip -%}
+            {%- endif -%}
+            {%- if related_handle == blank or entry.image == blank -%}{%- continue -%}{%- endif -%}
+            {%- assign related_url = entry.url -%}
+            {%- if related_url == blank -%}
+              {%- assign related_url = '/products/' | append: related_handle -%}
+            {%- endif -%}
+            {%- assign related_product = all_products[related_handle] -%}
+            {%- assign related_title = related_product.title | default: related_handle | replace: '-', ' ' -%}
+            <div class='relative group basis-1/2 md:basis-auto shrink-0' data-item>
+              <a href='{{ related_url }}'>
+                <img
+                  src='{{ entry.image | escape }}'
+                  alt='{{ related_title | escape }}'
+                  loading='lazy'
+                  width='1200'
+                  height='1200'
+                >
+                <div
+                  class='absolute inset-0 bg-black opacity-0 group-hover:opacity-30 transition-opacity duration-300 ease-in-out'
+                ></div>
+              </a>
+            </div>
+          {%- endfor -%}
+        </div>
+      </div>
+
+      <button
+        type='button'
+        class='md:hidden absolute left-2 top-1/2 -translate-y-1/2 flex items-center justify-center leading-none'
+        aria-label='Previous'
+        data-prev
+      >
+        <i class='fa-solid fa-chevron-left text-white drop-shadow' style='font-size:50px;'></i>
+      </button>
+      <button
+        type='button'
+        class='md:hidden absolute right-2 top-1/2 -translate-y-1/2 flex items-center justify-center leading-none'
+        aria-label='Next'
+        data-next
+      >
+        <i class='fa-solid fa-chevron-right text-white drop-shadow' style='font-size:50px;'></i>
+      </button>
+      <div
+        class='absolute left-2 -bottom-3 h-[2px] w-[100px] bg-gray-300 opacity-0 transition-opacity duration-200'
+        data-progress
+      ></div>
+    </div>
+  </div>
+{%- endif -%}
+
 {%- assign vendor_norm = product.vendor | downcase | strip -%}
-{%- if vendor_norm == 'gray matters' -%}
+{%- if vendor_norm == 'gray matters' and related_metafield == blank -%}
 
   {%- assign current_type = product.type | downcase | strip -%}
   {%- assign current_name = product.title | split: ' ' | first | downcase | strip -%}
@@ -78,11 +152,6 @@
       {%- assign variant_entries = variants_metafield.value.entries -%}
     {%- elsif variants_metafield.entries != blank -%}
       {%- assign variant_entries = variants_metafield.entries -%}
-    {%- else -%}
-      {%- assign parsed_metafield = variants_metafield | parse_json -%}
-      {%- if parsed_metafield != blank and parsed_metafield.entries != blank -%}
-        {%- assign variant_entries = parsed_metafield.entries -%}
-      {%- endif -%}
     {%- endif -%}
   {%- endif -%}
   {%- if variant_entries != blank -%}
@@ -335,6 +404,8 @@
                         src='{{ rp.featured_image | image_url: width: 1200 }}'
                         alt='{{ rp.title | escape }}'
                         loading='lazy'
+                        width='1200'
+                        height='1200'
                       >
                     {% endif %}
                     <div
