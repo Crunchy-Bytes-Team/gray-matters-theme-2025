@@ -903,7 +903,21 @@
     {% endif %}
   </div>
 {% endif %}
-{% if ugc2_module_enabled_mf == 'true' %}
+{% liquid
+  assign ugc2_has_image = false
+  if product.metafields.module.ugc2_module_image1.value != blank
+    assign ugc2_has_image = true
+  elsif product.metafields.module.ugc2_module_image2.value != blank
+    assign ugc2_has_image = true
+  elsif product.metafields.module.ugc2_module_image3.value != blank
+    assign ugc2_has_image = true
+  elsif product.metafields.module.ugc2_module_image4.value != blank
+    assign ugc2_has_image = true
+  elsif product.metafields.module.ugc2_module_image5.value != blank
+    assign ugc2_has_image = true
+  endif
+%}
+{% if ugc2_module_enabled_mf == 'true' and ugc2_has_image %}
   <div class='image-row-snippet bg-white w-full relative z-0 lg:z-50 px-0 lg:px-4 pb-6'>
     {% render 'legacy-ugc-band', prefix: 'ugc2_module', show_header: false %}
   </div>
@@ -917,14 +931,14 @@
 
 {% if product.metafields.module.image_full_module_enabled.value == 'true' %}
   {% assign image_full_module_image_url = product.metafields.module.image_full_module_image.value %}
-  <div class='full-width-image-snippet bg-white w-full relative z-0 lg:z-50 px-0 lg:px-4 hidden lg:flex'>
+  <div class='full-width-image-snippet bg-white w-full relative z-0 lg:z-50 px-0 lg:px-4 flex'>
     {% render 'full-width-module-single-image', image_src: image_full_module_image_url %}
   </div>
 {% endif %}
 
 {% if product.metafields.module.image_full_module2_enabled.value == 'true' %}
   {% assign image_full_module2_image_url = product.metafields.module.image_full_module2_image.value %}
-  <div class='full-width-image-snippet bg-white w-full relative z-0 lg:z-50 px-0 lg:px-4 hidden lg:flex'>
+  <div class='full-width-image-snippet bg-white w-full relative z-0 lg:z-50 px-0 lg:px-4 flex'>
     {% render 'full-width-module-single-image', image_src: image_full_module2_image_url %}
   </div>
 {% endif %}

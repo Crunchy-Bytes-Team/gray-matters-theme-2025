@@ -1,0 +1,12 @@
+services:
+  audit:
+    build:
+      context: .
+      dockerfile: audits/product-page-parity/Dockerfile.dev
+    working_dir: /workspace
+    volumes:
+      - .:/workspace
+    shm_size: "1gb"
+    ipc: host
+    init: true
+    command: ["sleep", "infinity"]
