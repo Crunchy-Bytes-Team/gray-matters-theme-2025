@@ -837,28 +837,33 @@
   assign video_desktop_url = product.metafields.module.video_module_video.value
   assign video_mobile_url = product.metafields.module.video_module_video_mobile.value
   assign video_module_enabled_mf = product.metafields.module.video_module_enabled.value
-  assign landscape_no_mbl_mf = product.metafields.module.video_module_landscape_no_mbl.value
   assign video_module_enabled_on = false
   if video_module_enabled_mf == 'true'
     assign video_module_enabled_on = true
   endif
-  assign landscape_url_classes = ''
-  if landscape_no_mbl_mf == 'true'
-    assign landscape_url_classes = 'hidden lg:block'
+
+  comment
+    On mobile, prefer the portrait/vertical video when it exists. If it does
+    not, keep showing the desktop/landscape band instead of leaving a gap.
+    video_module_landscape_no_mbl is no longer a hide-without-fallback gate.
+  endcomment
+  assign hide_landscape_on_mobile = false
+  if video_module_enabled_on and video_mobile_url != blank
+    assign hide_landscape_on_mobile = true
+  endif
+  assign landscape_mobile_classes = ''
+  if hide_landscape_on_mobile
+    assign landscape_mobile_classes = 'hidden lg:block'
   endif
 %}
 {% if video_landscape_url != blank %}
-  <div class='landscape-video-snippet bg-white w-full relative z-0 lg:z-50 {{ landscape_url_classes }} px-0 lg:px-4'>
+  <div class='landscape-video-snippet bg-white w-full relative z-0 lg:z-50 {{ landscape_mobile_classes }} px-0 lg:px-4'>
     {% render 'landscape-video', video_src: video_landscape_url %}
   </div>
 {% endif %}
 {% if video_module_enabled_on %}
   {% if video_desktop_url != blank %}
-    {% assign enabled_landscape_classes = '' %}
-    {% if video_mobile_url != blank or landscape_no_mbl_mf == 'true' %}
-      {% assign enabled_landscape_classes = 'hidden lg:block' %}
-    {% endif %}
-    <div class='landscape-video-snippet bg-white w-full relative z-0 lg:z-50 {{ enabled_landscape_classes }} px-0 lg:px-4'>
+    <div class='landscape-video-snippet bg-white w-full relative z-0 lg:z-50 {{ landscape_mobile_classes }} px-0 lg:px-4'>
       {% render 'landscape-video', video_src: video_desktop_url %}
     </div>
   {% endif %}
