@@ -783,8 +783,17 @@ select:focus {
   }
 }
 
-/* PDP lifestyle bg: full-width img, natural height (no cover crop) */
+/* PDP lifestyle bg: anchored behind transparent product bands (no cover crop) */
 @media screen and (min-width: 1024px) {
+  .product-detail-background-image-container {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 50%;
+    z-index: 0;
+    pointer-events: none;
+  }
+
   .product-detail-background-image {
     width: 100%;
     height: auto;

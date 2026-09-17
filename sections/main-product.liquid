@@ -93,10 +93,11 @@
         {% assign bg_image = product.metafields.module.product_detail_bg_image.value %}
         {% if bg_image %}
           {%- comment -%}
-            Match live theme: full-width <img> (no background-size:cover crop).
-            Upper portion must remain visible — cover + fixed top:0 truncated it under the header.
+            Desktop lifestyle photo: natural-size <img> (no background-size:cover crop)
+            so the top of the photo stays visible. The container is position:fixed
+            (see custom.css) and sits under later product bands that have no fill.
           {%- endcomment -%}
-          <div class='product-detail-background-image-container hidden lg:block w-full z-0'>
+          <div class='product-detail-background-image-container hidden lg:block z-0'>
             <img
               class='product-detail-background-image w-full h-auto max-w-full block'
               src='{{ bg_image | escape }}'
