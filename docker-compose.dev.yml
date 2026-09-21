@@ -6,6 +6,24 @@ services:
     working_dir: /workspace
     volumes:
       - .:/workspace
+    ports:
+      - "8765:8765"
+    shm_size: "1gb"
+    ipc: host
+    init: true
+    command: ["sleep", "infinity"]
+
+  parity:
+    build:
+      context: ./audits/store-parity
+      dockerfile: Dockerfile.dev
+    working_dir: /workspace/audits/store-parity
+    environment:
+      PYTHONPATH: /workspace/audits/store-parity/src
+    volumes:
+      - .:/workspace
+    ports:
+      - "8766:8766"
     shm_size: "1gb"
     ipc: host
     init: true

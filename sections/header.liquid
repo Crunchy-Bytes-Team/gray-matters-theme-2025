@@ -31,8 +31,10 @@
         aria-label='Apri menu'
         class='p-2 text-black hover:opacity-70 transition-opacity duration-200 ease-out'
         data-open-mobile-menu
+        aria-expanded='false'
+        aria-controls='MobileMenu'
       >
-        <i class='fa-solid fa-bars text-xl' aria-hidden='true'></i>
+        {% render 'live-menu-icon', name: 'hamburger' %}
       </button>
     </div>
     <!-- logo — match live: 160×~15px -->
@@ -121,14 +123,14 @@
                 href='mailto:hello@graymattersnyc.com'
                 class='flex items-center gap-2 px-4 py-2 proxima-reg text-xs tracking-wider uppercase hover:opacity-70 transition-opacity text-dark-gray'
               >
-                <i class='fa-solid fa-envelope text-gray-400' aria-hidden='true'></i>
+                {% render 'live-menu-icon', name: 'envelope' %}
                 <span>Email</span>
               </a>
               <a
                 href='tel:+19292950303'
                 class='flex items-center gap-2 px-4 py-2 proxima-reg text-xs tracking-wider uppercase hover:opacity-70 transition-opacity text-dark-gray'
               >
-                <i class='fa-solid fa-phone text-gray-400' aria-hidden='true'></i>
+                {% render 'live-menu-icon', name: 'phone' %}
                 <span>+1 929 295 0303</span>
               </a>
               <span class='block px-4 py-1 proxima-reg text-xs tracking-wider uppercase text-gray-600'>
@@ -211,7 +213,7 @@
           aria-controls='HeaderSearchContainer'
           class='hidden px-2.5 lg:px-3 lg:flex hover:opacity-70 transition-opacity duration-200 ease-out bg-transparent border-none p-0'
         >
-          <i class='fa-solid fa-magnifying-glass' aria-hidden='true'></i>
+          {% render 'live-menu-icon', name: 'magnifier' %}
         </button>
         <!-- Cart -->
         <button
@@ -255,18 +257,17 @@
   ></button>
   <!-- drawer -->
   <aside
-    class='absolute left-0 top-0 h-full w-[285px] max-w-[85%] bg-gray shadow-xl px-6 py-16 overflow-y-auto transition-transform duration-300 ease-out -translate-x-full'
+    class='absolute left-0 top-0 h-full w-[285px] max-w-[85%] bg-gray overflow-y-auto transition-transform duration-300 ease-out -translate-x-full'
     data-menu-drawer
   >
     {% render 'mobile-menu' %}
   </aside>
   <button
-    class='absolute z-[80] flex h-9 w-9 items-center justify-center text-black hover:opacity-70 transition-opacity duration-200 ease-out'
-    style='top: 50px; left: min(calc(85vw + 20px), 305px);'
+    class='absolute z-[90] flex items-center justify-center text-black hover:opacity-70 transition-opacity duration-200 ease-out'
     data-close-mobile-menu
     aria-label='Chiudi menu'
   >
-    <i class='fa-solid fa-xmark text-2xl' aria-hidden='true'></i>
+    {% render 'live-menu-icon', name: 'close' %}
   </button>
   <script>
     document.addEventListener('DOMContentLoaded', function () {
@@ -621,9 +622,7 @@
 
       function openMenu() {
         if (!menu) return;
-        // show container to allow transitions
         menu.classList.remove('hidden');
-        // next frame to ensure transition applies
         requestAnimationFrame(function () {
           document.body.classList.add('overflow-hidden');
           menu.setAttribute('aria-hidden', 'false');
@@ -633,11 +632,11 @@
           if (overlay) overlay.classList.add('opacity-100');
           if (drawer) drawer.classList.remove('-translate-x-full');
           if (drawer) drawer.classList.add('translate-x-0');
+          if (openBtn) openBtn.setAttribute('aria-expanded', 'true');
         });
       }
       function closeMenu() {
         if (!menu) return;
-        // start transitions
         menu.classList.add('opacity-0');
         menu.classList.remove('opacity-100');
         if (overlay) overlay.classList.add('opacity-0');
@@ -646,7 +645,7 @@
         if (drawer) drawer.classList.remove('translate-x-0');
         menu.setAttribute('aria-hidden', 'true');
         document.body.classList.remove('overflow-hidden');
-        // after transition, hide and disable pointer events
+        if (openBtn) openBtn.setAttribute('aria-expanded', 'false');
         setTimeout(function () {
           menu.classList.add('hidden', 'pointer-events-none');
         }, TRANSITION_MS);

@@ -1,0 +1,183 @@
+version: 1
+
+targets:
+  live:
+    base_url: https://www.graymattersnyc.com
+  preview:
+    base_url: https://www.graymattersnyc.com
+    theme_id: 187054457141
+    query_parameter: preview_theme_id
+
+viewports:
+  primary:
+    mobile:
+      width: 390
+      height: 844
+      device_scale_factor: 1
+    desktop:
+      width: 1280
+      height: 800
+      device_scale_factor: 1
+  breakpoint_probes:
+    - 320
+    - 390
+    - 430
+    - 749
+    - 750
+    - 767
+    - 768
+    - 989
+    - 990
+    - 991
+    - 992
+    - 1023
+    - 1024
+    - 1025
+    - 1280
+    - 1440
+  probe_height: 900
+
+routes:
+  seed:
+    - /
+  include_patterns:
+    - /
+    - /collections/**
+    - /products/**
+    - /pages/**
+    - /blogs/**
+    - /blogs/*/**
+    - /search
+    - /cart
+  exclude_patterns:
+    - /account/**
+    - /admin/**
+    - /apps/**
+    - /checkouts/**
+  groups:
+    p0:
+      - /
+      - /collections/**
+      - /products/**
+    core:
+      - /
+      - /collections/**
+      - /products/**
+      - /pages/**
+      - /search
+      - /cart
+    all:
+      - /**
+
+scenarios:
+  profiles:
+    mobile-p0:
+      route_group: p0
+      viewports:
+        - mobile
+      scenarios:
+        - baseline
+        - announcement-header-scroll
+        - mobile-menu-closed
+        - mobile-menu-open
+        - mobile-menu-collection-open
+        - mobile-menu-language-open
+        - mobile-menu-client-services-open
+        - newsletter-timed
+        - footer-accordion
+        - collection-state
+        - product-state
+    smoke:
+      route_group: core
+      viewports:
+        - mobile
+        - desktop
+      scenarios:
+        - baseline
+        - announcement-header-scroll
+        - mobile-menu-closed
+        - mobile-menu-open
+        - desktop-search
+        - cart-empty
+        - collection-state
+        - search-state
+        - product-state
+        - cart-state
+        - page-state
+    full:
+      route_group: all
+      viewports:
+        - mobile
+        - desktop
+        - breakpoint_probes
+      scenarios:
+        - baseline
+        - announcement-header-scroll
+        - mobile-menu-closed
+        - mobile-menu-open
+        - mobile-menu-collection-open
+        - mobile-menu-language-open
+        - mobile-menu-client-services-open
+        - desktop-search
+        - cart-empty
+        - newsletter-timed
+        - footer-accordion
+        - collection-state
+        - search-state
+        - product-state
+        - cart-state
+        - page-state
+
+tolerances:
+  visual:
+    pixel_threshold: 0.10
+    max_changed_pixel_ratio: 0.005
+    max_mean_delta: 1.5
+  geometry:
+    position_px: 2
+    size_px: 2
+  typography:
+    font_size_px: 1
+    line_height_px: 1
+  color:
+    channel_delta: 3
+
+dynamic_regions:
+  enabled: true
+  selectors:
+    - "[data-dynamic]"
+    - "[data-live-region]"
+    - ".shopify-section--recently-viewed"
+    - ".predictive-search"
+  replacement_color: "#FF00FF"
+  hide_caret: true
+  freeze_animations: true
+  freeze_time: true
+
+pagefly:
+  conditional:
+    enabled: true
+    detect_selectors:
+      - "[data-pf-type]"
+      - ".__pf"
+      - "[class*='pagefly']"
+    wait_for_network_idle: true
+    settle_timeout_ms: 10000
+    extra_stable_frames: 3
+    dynamic_selectors:
+      - "[data-pf-type='Carousel']"
+      - "[data-pf-type='Countdown']"
+      - ".pf-slider"
+
+accessibility:
+  enabled: true
+  required: false
+
+runtime:
+  navigation_timeout_ms: 30000
+  action_timeout_ms: 10000
+  settle_timeout_ms: 5000
+  retries: 2
+  concurrency: 2
+  challenge_backoff_ms: 30000
+  breakpoint_route_limit: 6

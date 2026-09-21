@@ -838,38 +838,51 @@
   assign video_desktop_url = product.metafields.module.video_module_video.value
   assign video_mobile_url = product.metafields.module.video_module_video_mobile.value
   assign video_module_enabled_mf = product.metafields.module.video_module_enabled.value
+  assign landscape_no_mbl_mf = product.metafields.module.video_module_landscape_no_mbl.value
+  assign video_module_no_mobile_mf = product.metafields.module.video_module_no_mobile.value
   assign video_module_enabled_on = false
   if video_module_enabled_mf == 'true'
     assign video_module_enabled_on = true
   endif
 
   comment
-    On mobile, prefer the portrait/vertical video when it exists. If it does
-    not, keep showing the desktop/landscape band instead of leaving a gap.
-    video_module_landscape_no_mbl is no longer a hide-without-fallback gate.
+    Match the live video-module split: the optional landscape band has its
+    own mobile gate, while the enabled desktop/mobile pair uses
+    video_module_no_mobile and swaps sources responsively.
   endcomment
-  assign hide_landscape_on_mobile = false
-  if video_module_enabled_on and video_mobile_url != blank
-    assign hide_landscape_on_mobile = true
+  assign optional_landscape_classes = ''
+  if landscape_no_mbl_mf == 'true'
+    assign optional_landscape_classes = 'hidden lg:block'
   endif
-  assign landscape_mobile_classes = ''
-  if hide_landscape_on_mobile
-    assign landscape_mobile_classes = 'hidden lg:block'
+  assign desktop_landscape_classes = ''
+  if video_module_no_mobile_mf == 'true' or video_mobile_url != blank
+    assign desktop_landscape_classes = 'hidden lg:block'
+  endif
+  assign vertical_video_classes = ''
+  if video_desktop_url != blank
+    assign vertical_video_classes = 'lg:hidden'
+  endif
+  if video_module_no_mobile_mf == 'true'
+    if video_desktop_url != blank
+      assign vertical_video_classes = 'hidden'
+    else
+      assign vertical_video_classes = 'hidden lg:block'
+    endif
   endif
 %}
 {% if video_landscape_url != blank %}
-  <div class='landscape-video-snippet bg-white w-full relative z-0 lg:z-50 {{ landscape_mobile_classes }} px-0 lg:px-4'>
+  <div class='landscape-video-snippet bg-white w-full relative z-0 lg:z-50 {{ optional_landscape_classes }} px-0 lg:px-4'>
     {% render 'landscape-video', video_src: video_landscape_url %}
   </div>
 {% endif %}
 {% if video_module_enabled_on %}
   {% if video_desktop_url != blank %}
-    <div class='landscape-video-snippet bg-white w-full relative z-0 lg:z-50 {{ landscape_mobile_classes }} px-0 lg:px-4'>
+    <div class='landscape-video-snippet bg-white w-full relative z-0 lg:z-50 {{ desktop_landscape_classes }} px-0 lg:px-4'>
       {% render 'landscape-video', video_src: video_desktop_url %}
     </div>
   {% endif %}
   {% if video_mobile_url != blank %}
-    <div class='vertical-video-snippet w-full relative z-0 lg:z-50 px-0 lg:px-4 pb-6'>
+    <div class='vertical-video-snippet w-full relative z-0 lg:z-50 {{ vertical_video_classes }} px-0 lg:px-4 pb-6'>
       {% render 'vertical-video' %}
     </div>
   {% endif %}
@@ -940,16 +953,18 @@
 
 {% if product.metafields.module.image_full_module_enabled.value == 'true' %}
   {% assign image_full_module_image_url = product.metafields.module.image_full_module_image.value %}
-  <div class='full-width-image-snippet bg-white w-full relative z-0 lg:z-50 px-0 lg:px-4 flex'>
-    {% render 'full-width-module-single-image', image_src: image_full_module_image_url %}
-  </div>
+  {% render 'full-width-module-single-image',
+    image_src: image_full_module_image_url,
+    no_mobile: product.metafields.module.image_full_module_no_mobile.value
+  %}
 {% endif %}
 
 {% if product.metafields.module.image_full_module2_enabled.value == 'true' %}
   {% assign image_full_module2_image_url = product.metafields.module.image_full_module2_image.value %}
-  <div class='full-width-image-snippet bg-white w-full relative z-0 lg:z-50 px-0 lg:px-4 flex'>
-    {% render 'full-width-module-single-image', image_src: image_full_module2_image_url %}
-  </div>
+  {% render 'full-width-module-single-image',
+    image_src: image_full_module2_image_url,
+    no_mobile: product.metafields.module.image_full_module2_no_mobile.value
+  %}
 {% endif %}
 
 <div class='yotpo-review-snippet bg-white w-full px-0 lg:px-4 pb-6 z-0 lg:z-50 relative'>

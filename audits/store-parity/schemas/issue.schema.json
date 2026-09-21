@@ -1,0 +1,97 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://graymattersnyc.com/schemas/store-parity/issue.schema.json",
+  "title": "Store parity issue",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "case_result_id",
+    "category",
+    "severity",
+    "title",
+    "description",
+    "artifact_ids",
+    "created_at"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "case_result_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "page_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "feature": {
+      "type": "string",
+      "minLength": 1
+    },
+    "category": {
+      "enum": [
+        "visual",
+        "layout",
+        "typography",
+        "content",
+        "interaction",
+        "responsive",
+        "runtime",
+        "accessibility",
+        "theme"
+      ]
+    },
+    "severity": {
+      "enum": [
+        "blocker",
+        "critical",
+        "major",
+        "minor",
+        "info"
+      ]
+    },
+    "title": {
+      "type": "string",
+      "minLength": 1
+    },
+    "description": {
+      "type": "string",
+      "minLength": 1
+    },
+    "selector": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "artifact_ids": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "uniqueItems": true
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "status": {
+      "enum": [
+        "pass",
+        "fail",
+        "blocked",
+        "waived",
+        "inherited_debt",
+        "flaky"
+      ]
+    },
+    "fingerprint": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    }
+  }
+}

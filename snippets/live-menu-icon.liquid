@@ -1,0 +1,41 @@
+{%- comment -%}
+  Icons from the live Gray Matters menu:
+  - magnifier: Simple Line Icons (same webfont as live)
+  - envelope / phone: Font Awesome 4 outline/solid glyphs used on live
+  - user / instagram: live PNG assets
+  - plus / minus: 15px live accordion affordance
+{%- endcomment -%}
+{%- case name -%}
+  {%- when 'magnifier' -%}
+    <i class='icon-magnifier' aria-hidden='true'></i>
+  {%- when 'envelope' -%}
+    <span class='live-menu-icon live-menu-icon--envelope' aria-hidden='true'>
+      {{- 'icon-envelope-o.svg' | inline_asset_content -}}
+    </span>
+  {%- when 'phone' -%}
+    <span class='live-menu-icon live-menu-icon--phone' aria-hidden='true'>
+      {{- 'icon-phone.svg' | inline_asset_content -}}
+    </span>
+  {%- when 'user' -%}
+    <img
+      src='{{ 'user_new.png' | asset_url }}'
+      alt=''
+      width='19'
+      height='19'
+      class='live-menu-icon live-menu-icon--user'
+      aria-hidden='true'
+    >
+  {%- when 'instagram' -%}
+    <img
+      src='{{ 'instagram-icon.png' | asset_url }}'
+      alt=''
+      width='18'
+      height='18'
+      class='live-menu-icon live-menu-icon--instagram'
+      aria-hidden='true'
+    >
+  {%- when 'hamburger' -%}
+    <span class='animated-arrow' aria-hidden='true'><span></span></span>
+  {%- when 'close' -%}
+    <span class='animated-arrow animated-arrow--close' aria-hidden='true'><span></span></span>
+{%- endcase -%}

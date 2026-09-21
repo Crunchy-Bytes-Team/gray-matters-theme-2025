@@ -1,29 +1,29 @@
 {% assign mobile_collection_menu = linklists.collection %}
 {% assign mobile_client_services_menu = linklists['top-client-services'] %}
 
-<nav class='mobile-menu space-y-2' aria-label='Mobile menu'>
+<nav class='mobile-menu' aria-label='Mobile menu'>
   <div data-accordion-item>
     <button
       type='button'
-      class='menu-drawer__menu-item w-full flex items-center justify-between py-1 pr-0 text-sm tracking-wider uppercase hover:opacity-70 transition-opacity duration-200 ease-out'
+      class='mobile-menu__navtext'
       data-accordion-button
       aria-controls='MobileMenuCollection'
       aria-expanded='false'
     >
       <span>Collection</span>
-      <span class='ml-auto inline-flex items-center justify-end text-lg leading-none'>
-        <span aria-hidden='true' class='inline-block w-4 text-right' data-accordion-plus>+</span>
-        <span aria-hidden='true' class='inline-block w-4 text-right hidden' data-accordion-minus>-</span>
+      <span class='mobile-menu__plus'>
+        <span aria-hidden='true' data-accordion-plus>+</span>
+        <span aria-hidden='true' class='hidden' data-accordion-minus>-</span>
       </span>
     </button>
-    <div id='MobileMenuCollection' class='hidden pb-3' data-accordion-panel>
+    <div id='MobileMenuCollection' class='mobile-menu__panel hidden' data-accordion-panel>
       {% if mobile_collection_menu != blank and mobile_collection_menu.links != blank %}
-        <ul class='space-y-2'>
+        <ul class='mobile-menu__list'>
           {% for link in mobile_collection_menu.links %}
             <li>
               <a
                 href='{{ link.url }}'
-                class='menu-drawer__menu-item block py-1 proxima-reg text-sm tracking-wider uppercase hover:opacity-70 transition-opacity duration-200 ease-out'
+                class='mobile-menu__child{% if link.url contains 'sale' %} is-active{% endif %}'
               >
                 {{- link.title | escape -}}
               </a>
@@ -31,13 +31,9 @@
           {% endfor %}
         </ul>
       {% else %}
-        <ul class='space-y-2'>
+        <ul class='mobile-menu__list'>
           <li>
-            <a
-              href='{{ routes.collections_url }}'
-              class='menu-drawer__menu-item block py-1 proxima-reg text-sm tracking-wider uppercase hover:opacity-70 transition-opacity duration-200 ease-out'
-              >Collection</a
-            >
+            <a href='{{ routes.collections_url }}' class='mobile-menu__child'>Collection</a>
           </li>
         </ul>
       {% endif %}
@@ -47,31 +43,31 @@
   <div data-accordion-item>
     <button
       type='button'
-      class='menu-drawer__menu-item w-full flex items-center justify-between py-1 pr-0 text-sm tracking-wider uppercase hover:opacity-70 transition-opacity duration-200 ease-out'
+      class='mobile-menu__navtext'
       data-accordion-button
       aria-controls='MobileMenuLanguage'
       aria-expanded='false'
     >
       <span>Select language</span>
-      <span class='ml-auto inline-flex items-center justify-end text-lg leading-none'>
-        <span aria-hidden='true' class='inline-block w-4 text-right' data-accordion-plus>+</span>
-        <span aria-hidden='true' class='inline-block w-4 text-right hidden' data-accordion-minus>-</span>
+      <span class='mobile-menu__plus'>
+        <span aria-hidden='true' data-accordion-plus>+</span>
+        <span aria-hidden='true' class='hidden' data-accordion-minus>-</span>
       </span>
     </button>
-    <div id='MobileMenuLanguage' class='hidden pb-3' data-accordion-panel>
+    <div id='MobileMenuLanguage' class='mobile-menu__panel hidden' data-accordion-panel>
       {%- if localization.available_languages and localization.available_languages.size > 1 -%}
-        <ul class='space-y-2'>
+        <ul class='mobile-menu__list'>
           {%- for language in localization.available_languages -%}
             <li>
               {%- if language.iso_code == localization.language.iso_code -%}
-                <span class='menu-drawer__menu-item block py-1 proxima-reg text-sm tracking-wider uppercase font-semibold text-black hover:opacity-70 transition-opacity duration-200 ease-out'>
+                <span class='mobile-menu__child is-active'>
                   {{ language.endonym_name | default: language.name }}
                 </span>
               {%- else -%}
                 <a
                   href="{% render 'language-url-same-path', language: language %}"
                   hreflang='{{ language.iso_code }}'
-                  class='menu-drawer__menu-item block py-1 proxima-reg text-sm tracking-wider uppercase text-gray-500 hover:opacity-70 transition-opacity duration-200 ease-out'
+                  class='mobile-menu__child'
                 >
                   {{ language.endonym_name | default: language.name }}
                 </a>
@@ -79,9 +75,8 @@
             </li>
           {%- endfor -%}
         </ul>
-
       {%- else -%}
-        <p class='text-sm text-gray-600'>{{ 'localization.language_label' | t }}</p>
+        <p class='mobile-menu__child'>{{ 'localization.language_label' | t }}</p>
       {%- endif -%}
     </div>
   </div>
@@ -89,65 +84,55 @@
   <div data-accordion-item>
     <button
       type='button'
-      class='menu-drawer__menu-item w-full flex items-center justify-between py-1 pr-0 text-sm tracking-wider uppercase hover:opacity-70 transition-opacity duration-200 ease-out'
+      class='mobile-menu__navtext'
       data-accordion-button
       aria-controls='MobileMenuClientService'
       aria-expanded='false'
     >
       <span>Client Services</span>
-      <span class='ml-auto inline-flex items-center justify-end text-lg leading-none'>
-        <span aria-hidden='true' class='inline-block w-4 text-right' data-accordion-plus>+</span>
-        <span aria-hidden='true' class='inline-block w-4 text-right hidden' data-accordion-minus>-</span>
+      <span class='mobile-menu__plus'>
+        <span aria-hidden='true' data-accordion-plus>+</span>
+        <span aria-hidden='true' class='hidden' data-accordion-minus>-</span>
       </span>
     </button>
-    <div id='MobileMenuClientService' class='hidden pb-3' data-accordion-panel>
-      <a
-        href='mailto:hello@graymattersnyc.com'
-        class='flex items-center gap-2 py-2 proxima-reg text-xs tracking-wider uppercase hover:opacity-70 transition-opacity text-dark-gray'
-      >
-        <i class='fa-solid fa-envelope text-gray-400' aria-hidden='true'></i>
+    <div id='MobileMenuClientService' class='mobile-menu__panel hidden' data-accordion-panel>
+      <a href='mailto:hello@graymattersnyc.com' class='mobile-menu__service'>
+        {% render 'live-menu-icon', name: 'envelope' %}
         <span>Email</span>
       </a>
-      <a
-        href='tel:+19292950303'
-        class='flex items-center gap-2 py-2 proxima-reg text-xs tracking-wider uppercase hover:opacity-70 transition-opacity text-dark-gray'
-      >
-        <i class='fa-solid fa-phone text-gray-400' aria-hidden='true'></i>
+      <a href='tel:+19292950303' class='mobile-menu__service'>
+        {% render 'live-menu-icon', name: 'phone' %}
         <span>+1 929 295 0303</span>
       </a>
-      <span class='block py-1 proxima-reg text-xs tracking-wider uppercase text-gray-600'> Mon-Fri 10am-6pm EST </span>
-      <div class='w-full px-4'>
-        <div class='border-t border-gray-300 mt-4 mb-2'></div>
-      </div>
+      <span class='mobile-menu__hours'>Mon-Fri 10am-6pm EST</span>
+      <div class='mobile-menu__rule'></div>
       {% if mobile_client_services_menu != blank and mobile_client_services_menu.links != blank %}
         {% for link in mobile_client_services_menu.links %}
-          <a
-            href='{{ link.url }}'
-            class='block py-2 proxima-reg text-xs tracking-wider hover:opacity-70 transition-opacity text-dark-gray'
-          >
+          <a href='{{ link.url }}' class='mobile-menu__child'>
             {{- link.title | escape -}}
           </a>
         {% endfor %}
       {% endif %}
     </div>
   </div>
-  <ul class='space-y-2 mt-4'>
+
+  <ul class='mobile-menu__utilities'>
     <li>
       <form
         action='{{ routes.search_url }}'
         method='get'
         role='search'
-        class='menu-drawer__menu-item flex items-center gap-2 py-1 proxima-reg text-sm tracking-wider uppercase hover:opacity-70 transition-opacity duration-200 ease-out'
+        class='mobile-menu__search'
       >
         <button
           type='submit'
-          class='bg-transparent border-0 p-0 text-gray-400 hover:text-black transition-colors duration-200 ease-out'
+          class='bg-transparent border-0 p-0'
           aria-label='{{ 'general.search.search' | t }}'
         >
-          <i class='fa-solid fa-magnifying-glass' aria-hidden='true'></i>
+          {% render 'live-menu-icon', name: 'magnifier' %}
         </button>
         <input
-          class='search-header__input1 search__input1 form-control bg-transparent placeholder:text-black'
+          class='mobile-menu__search-input'
           type='search'
           name='q'
           id='search_input1'
@@ -158,16 +143,16 @@
       </form>
     </li>
     <li>
-      <span class='menu-drawer__menu-item flex items-center gap-2 py-1 proxima-reg text-sm tracking-wider hover:opacity-70 transition-opacity duration-200 ease-out'>
-        <i class='fa-regular fa-user text-gray-400' aria-hidden='true'></i>
-        <a href='{{ routes.account_login_url }}'>Login / Create Account</a>
-      </span>
+      <a href='{{ routes.account_login_url }}' class='mobile-menu__utility'>
+        {% render 'live-menu-icon', name: 'user' %}
+        <span>Login / Create Account</span>
+      </a>
     </li>
     <li>
-      <span class='menu-drawer__menu-item flex items-center gap-2 py-1 proxima-reg text-sm tracking-wider hover:opacity-70 transition-opacity duration-200 ease-out'>
-        <i class='fa-brands fa-instagram text-gray-400' aria-hidden='true'></i>
-        <a href='https://instagram.com/graymattersnyc' target='_blank'>@graymattersnyc</a>
-      </span>
+      <a href='https://instagram.com/graymattersnyc' target='_blank' class='mobile-menu__utility'>
+        {% render 'live-menu-icon', name: 'instagram' %}
+        <span>@graymattersnyc</span>
+      </a>
     </li>
   </ul>
 </nav>

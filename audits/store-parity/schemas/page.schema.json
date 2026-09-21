@@ -1,0 +1,58 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://graymattersnyc.com/schemas/store-parity/page.schema.json",
+  "title": "Discovered store page",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "url",
+    "path",
+    "page_type",
+    "source",
+    "discovered_at",
+    "metadata"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "url": {
+      "type": "string",
+      "format": "uri"
+    },
+    "path": {
+      "type": "string",
+      "pattern": "^/"
+    },
+    "page_type": {
+      "enum": [
+        "home",
+        "collection",
+        "product",
+        "page",
+        "blog",
+        "article",
+        "search",
+        "cart",
+        "other"
+      ]
+    },
+    "source": {
+      "enum": [
+        "seed",
+        "sitemap",
+        "crawl",
+        "manual"
+      ]
+    },
+    "discovered_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "metadata": {
+      "type": "object"
+    }
+  }
+}

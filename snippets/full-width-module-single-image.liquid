@@ -1,10 +1,16 @@
 {% if image_src != blank %}
-  <div class='w-full'>
-    <img
-      class='w-full block pb-6'
-      src='{{ image_src }}'
-      alt='{{ product.title | escape }}'
-      loading='lazy'
-    >
+  {% assign mobile_classes = 'flex' %}
+  {% if no_mobile == 'true' %}
+    {% assign mobile_classes = 'hidden lg:flex' %}
+  {% endif %}
+  <div class='full-width-image-snippet bg-white w-full relative z-0 lg:z-50 px-0 lg:px-4 {{ mobile_classes }}'>
+    <div class='w-full'>
+      <img
+        class='w-full block pb-6'
+        src='{{ image_src }}'
+        alt='{{ product.title | escape }}'
+        loading='lazy'
+      >
+    </div>
   </div>
 {% endif %}
