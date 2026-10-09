@@ -311,7 +311,8 @@
       "remove_title": "Rimuovi {{ title }}",
       "note": "Istruzioni speciali per l'ordine",
       "checkout": "Check-out",
-      "empty": "Il tuo carrello è vuoto",
+      "empty": "Il tuo carrello è attualmente vuoto.",
+      "take_me_home": "Take me home",
       "cart_error": "Si è verificato un errore durante l'aggiornamento del carrello. Riprova più tardi.",
       "cart_quantity_error_html": "Puoi aggiungere soltanto {{ quantity }} di questo articolo al tuo carrello.",
       "headings": {

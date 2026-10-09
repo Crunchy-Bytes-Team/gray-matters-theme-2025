@@ -116,7 +116,7 @@
 #MobileMenu [data-menu-drawer] {
   width: 285px;
   max-width: 85%;
-  padding: 8px 0 32px;
+  padding: 0 0 32px;
   background-color: #e6e6e6;
   box-shadow: none;
 }
@@ -135,26 +135,27 @@ nav.mobile-menu {
   font-family: 'proxima-reg', sans-serif;
   font-size: 13px;
   letter-spacing: 2px;
-  line-height: 16px;
-  color: #222323;
+  line-height: 25px;
+  color: #333333;
   text-transform: uppercase;
 }
 
 nav.mobile-menu .mobile-menu__navtext {
+  position: relative;
   display: flex;
   width: 100%;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-start;
   margin: 0;
-  padding: 15px 24px 15px 13px;
+  padding: 8px 32px 8px 20px;
   border: 0;
   background: transparent;
-  color: #222323;
+  color: #333333;
   font-family: inherit;
   font-size: 13px;
   font-weight: 400;
   letter-spacing: 2px;
-  line-height: 16px;
+  line-height: 25px;
   text-align: left;
   text-transform: uppercase;
   cursor: pointer;
@@ -163,24 +164,56 @@ nav.mobile-menu .mobile-menu__navtext {
   box-shadow: none;
 }
 
+nav.mobile-menu [data-accordion-item]:first-child .mobile-menu__navtext {
+  margin-top: 15px;
+}
+
 nav.mobile-menu .mobile-menu__navtext:hover {
   background: #e6e6e6;
   color: #a5a5a5;
 }
 
+/* Live plus: 2px bars, 14px arms, centered 24px from the drawer’s right edge */
 nav.mobile-menu .mobile-menu__plus {
-  display: inline-flex;
-  align-items: center;
-  justify-content: flex-end;
-  width: 16px;
-  color: #333;
-  font-size: 15px;
-  line-height: 1;
+  position: absolute;
+  top: 19px;
+  right: 17px;
+  width: 14px;
+  height: 2px;
+  background: #222323;
+  font-size: 0;
+  line-height: 0;
   letter-spacing: 0;
+  color: transparent;
+}
+
+nav.mobile-menu .mobile-menu__plus::before {
+  content: '';
+  position: absolute;
+  top: -6px;
+  left: 6px;
+  width: 2px;
+  height: 14px;
+  background: #222323;
+}
+
+nav.mobile-menu
+  .mobile-menu__navtext[aria-expanded='true']
+  .mobile-menu__plus::before {
+  display: none;
+}
+
+nav.mobile-menu .mobile-menu__plus [data-accordion-plus],
+nav.mobile-menu .mobile-menu__plus [data-accordion-minus] {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
 }
 
 nav.mobile-menu .mobile-menu__panel {
-  padding: 0 0 8px;
+  padding: 0 0 0 20px;
 }
 
 nav.mobile-menu .mobile-menu__list {
@@ -192,15 +225,23 @@ nav.mobile-menu .mobile-menu__list {
 nav.mobile-menu .mobile-menu__child {
   display: flex;
   align-items: center;
-  padding: 0 15px 0 13px;
+  padding: 8px 10px 7px;
   color: #222323;
   font-family: inherit;
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 300;
-  letter-spacing: 0;
-  line-height: 2.5em;
+  letter-spacing: 0.8px;
+  line-height: 20px;
   text-transform: none;
   text-decoration: none;
+}
+
+nav.mobile-menu .mobile-menu__child--upper {
+  text-transform: uppercase;
+}
+
+#MobileMenuClientService .mobile-menu__child {
+  padding-left: 0;
 }
 
 nav.mobile-menu .mobile-menu__child:hover {
@@ -215,15 +256,15 @@ nav.mobile-menu .mobile-menu__child.is-active {
 nav.mobile-menu .mobile-menu__service {
   display: flex;
   align-items: center;
-  gap: 8px;
-  padding: 0 5px 0 14px;
+  gap: 11px;
+  padding: 5px 5px 5px 0;
   color: #222323;
   font-family: inherit;
-  font-size: 11.5px;
-  font-weight: 400;
+  font-size: 12px;
+  font-weight: 300;
   letter-spacing: 0.8px;
-  line-height: 2.5em;
-  text-transform: uppercase;
+  line-height: 20px;
+  text-transform: none;
   text-decoration: none;
 }
 
@@ -233,23 +274,24 @@ nav.mobile-menu .mobile-menu__service:hover {
 
 nav.mobile-menu .mobile-menu__hours {
   display: block;
-  padding: 0 5px 0 14px;
+  padding: 5px 5px 5px 0;
   color: #222323;
-  font-size: 11.5px;
+  font-size: 12px;
+  font-weight: 300;
   letter-spacing: 0.8px;
-  line-height: 2.5em;
+  line-height: 20px;
   text-transform: none;
 }
 
 nav.mobile-menu .mobile-menu__rule {
   height: 1px;
-  margin: 8px 14px;
-  background: #ccc;
+  margin: 10px 15px 10px 5px;
+  background: #dddddd;
   border: 0;
 }
 
 nav.mobile-menu .mobile-menu__utilities {
-  margin: 8px 0 0;
+  margin: 0;
   padding: 0;
   list-style: none;
 }
@@ -258,12 +300,13 @@ nav.mobile-menu .mobile-menu__utility {
   display: flex;
   align-items: center;
   gap: 10px;
-  padding: 0 13px;
-  color: #222323;
+  padding: 5px 0 5px 18px;
+  color: #333333;
   font-family: inherit;
-  font-size: 11.5px;
+  font-size: 13px;
+  font-weight: 400;
   letter-spacing: 0.8px;
-  line-height: 45px;
+  line-height: 25px;
   text-transform: none;
   text-decoration: none;
 }
@@ -278,13 +321,14 @@ nav.mobile-menu .mobile-menu__search {
   align-items: center;
   gap: 10px;
   width: 100%;
+  height: 40px;
   margin: 0;
-  padding: 0 13px;
-  line-height: 45px;
+  padding: 0 13px 0 18px;
+  line-height: 40px;
 }
 
 nav.mobile-menu .mobile-menu__search .icon-magnifier {
-  font-size: 14px;
+  font-size: 15px;
   color: #0c0c0c;
 }
 
@@ -296,8 +340,9 @@ nav.mobile-menu .mobile-menu__search-input {
   color: #222323;
   font-family: 'proxima-reg', sans-serif;
   font-size: 12px;
+  font-weight: 300;
   letter-spacing: 1px;
-  line-height: 45px;
+  line-height: 18px;
   text-transform: uppercase;
 }
 

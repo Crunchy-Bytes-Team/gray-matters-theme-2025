@@ -110,7 +110,7 @@
         {% endif %}
         <section
           id='ProductInfo-{{ section.id }}'
-          class='product-info-panel bg-white bg-opacity-90 flex flex-col h-fit fixed bottom-0 right-0 w-full min-w-0 lg:w-1/2 pt-12 px-12 pb-12 lg:p-20 z-50'
+          class='product-info-panel bg-white bg-opacity-90 flex flex-col h-fit fixed bottom-0 right-0 w-full min-w-0 lg:w-1/2 pt-[15px] px-[30px] pb-[30px] lg:p-20 z-50'
         >
           {%- assign product_form_id = 'product-form-' | append: section.id -%}
 
@@ -125,7 +125,7 @@
                   class='w-full min-w-0 max-w-full flex flex-row justify-between items-center lg:items-start gap-4'
                 >
                   <div class='mb-0 lg:mb-6 flex-1 min-w-0 product__title' {{ block.shopify_attributes }}>
-                    <h1 class='uppercase text-[14px] tracking-[1px] proxima-semi-bold'>
+                    <h1 class='uppercase text-[16px] lg:text-[14px] tracking-[1px] proxima-semi-bold'>
                       {{ product.title | escape }}
                     </h1>
                   </div>
@@ -142,7 +142,7 @@
                   <button
                     type='button'
                     id='MobileDescToggle-{{ section.id }}'
-                    class='lg:hidden leading-none toggle-desc-btn text-5xl flex flex-col items-start'
+                    class='lg:hidden leading-none toggle-desc-btn flex items-center justify-center'
                     aria-expanded='false'
                     aria-controls='MobileProductDesc-{{ section.id }}'
                   >

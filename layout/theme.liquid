@@ -112,6 +112,10 @@
 
     {{ content_for_header }}
 
+    {%- if template.name == 'index' -%}
+      {% render 'pagefly-main-css' %}
+    {%- endif -%}
+
     {% comment %}Load Tailwind CSS as primary stylesheet{% endcomment %}
     {{ 'app.css' | asset_url | stylesheet_tag }}
 
@@ -272,6 +276,21 @@
     {%- if settings.cart_type == 'drawer' -%}
       <script src='{{ 'cart.js' | asset_url }}' defer='defer'></script>
       <script src='{{ 'cart-drawer.js' | asset_url }}' defer='defer'></script>
+    {%- endif -%}
+
+    {%- if template.name == 'index' -%}
+      <script>
+        document.querySelectorAll('.pf-lazy-html-video video[data-src]').forEach((video) => {
+          if (!video.getAttribute('src')) video.src = video.dataset.src;
+          video.classList.remove('pf-visibility-hidden');
+          const button = video.parentElement && video.parentElement.querySelector('.pf-play-button');
+          const hideButton = () => {
+            if (button) button.style.display = 'none';
+          };
+          video.addEventListener('playing', hideButton);
+          video.play().then(hideButton).catch(() => {});
+        });
+      </script>
     {%- endif -%}
   </body>
 </html>

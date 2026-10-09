@@ -112,7 +112,7 @@
             <ul
               id='product-grid'
               data-id='{{ section.id }}'
-              class='grid grid-flow-row-dense grid-cols-2 lg:grid-cols-4 gap-[2px] w-full{% if section.settings.quick_add == "bulk" %} collection-quick-add-bulk{% endif %}'
+              class='grid grid-flow-row-dense grid-cols-2 lg:grid-cols-4 gap-[6px] w-full{% if section.settings.quick_add == "bulk" %} collection-quick-add-bulk{% endif %}'
             >
               {% assign skip_card_product_styles = false %}
 
@@ -210,7 +210,7 @@
                     {% endif %}
                   {% endif %}
 
-                  <li class='hidden lg:block lg:col-span-2 lg:row-span-2 {% if place_right == 1 %}lg:col-start-3{% else %}lg:col-start-1{% endif %} relative overflow-hidden group'>
+                  <li class='col-span-2 lg:row-span-2 {% if place_right == 1 %}lg:col-start-3{% else %}lg:col-start-1{% endif %} relative overflow-hidden group'>
                     <a
                       href='{{ big_card_url }}'
                       class='block w-full h-full lg:absolute lg:inset-0'
@@ -232,12 +232,12 @@
                     <div
                       class='hidden lg:block absolute inset-0 bg-[#6b6b6b] opacity-0 group-hover:opacity-55 group-focus-within:opacity-55 transition-opacity duration-300 ease-out z-10 pointer-events-none'
                     ></div>
-                    <div class='flex absolute inset-0 z-20 items-center justify-end text-right opacity-100 pointer-events-none pr-10'>
-                      <div class='px-2'>
+                    <div class='flex absolute inset-0 z-20 items-center justify-start text-left lg:justify-end lg:text-right opacity-100 pointer-events-none px-[20px] lg:pr-10'>
+                      <div class='px-0 lg:px-2'>
                         <h3 class='text-[48px] leading-none tracking-[1.25px] font-accent text-white transition-colors duration-300'>
                           {{- big_card_title -}}
                         </h3>
-                        <p class='mt-2 text-[12px] tracking-[1px] text-white transition-colors duration-300 max-w-xs ml-auto'>
+                        <p class='mt-2 text-[12px] tracking-[1px] text-white transition-colors duration-300 max-w-xs lg:ml-auto'>
                           {{- big_card_description | strip_html | truncate: 120 -}}
                         </p>
                       </div>

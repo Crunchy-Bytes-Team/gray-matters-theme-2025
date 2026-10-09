@@ -17,9 +17,17 @@
   [data-site-header] {
     transition: top 0.3s ease-out;
   }
+
+  @media (max-width: 989px) {
+    [data-site-header] {
+      height: 70px;
+      padding-left: 0;
+      padding-right: 12px;
+    }
+  }
 </style>
 <header
-  class='bg-white px-[20px] h-[45px] flex flex-row items-center fixed left-0 right-0 z-[70] transition-all duration-300 ease-out'
+  class='bg-white px-[20px] h-[45px] lg:h-[45px] max-lg:h-[70px] flex flex-row items-center fixed left-0 right-0 z-[70] transition-all duration-300 ease-out'
   data-site-header
   style='top: 0;'
 >
@@ -29,7 +37,7 @@
       <button
         type='button'
         aria-label='Apri menu'
-        class='p-2 text-black hover:opacity-70 transition-opacity duration-200 ease-out'
+        class='pl-3 pr-2 py-0 text-black hover:opacity-70 transition-opacity duration-200 ease-out'
         data-open-mobile-menu
         aria-expanded='false'
         aria-controls='MobileMenu'
@@ -288,8 +296,7 @@
         const announcementBar = document.querySelector('[data-announcement-bar]');
 
         if (spacer && header) {
-          // Spacer should match header height (45px, live theme) plus any visible announcement bar height
-          let spacerHeight = 45;
+          let spacerHeight = header.offsetHeight;
 
           if (announcementBar && announcementBar.style.display !== 'none') {
             // Check if announcement bar is actually visible (not hidden via transform)

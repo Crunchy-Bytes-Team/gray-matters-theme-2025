@@ -1,5 +1,5 @@
 function toggleFooterAccordion(btn, panelId) {
-  if (window.innerWidth >= 1024) return;
+  if (window.innerWidth >= 990) return;
   const panel = document.getElementById(panelId);
   const expanded = btn.getAttribute('aria-expanded') === 'true';
   btn.setAttribute('aria-expanded', !expanded);
@@ -10,7 +10,7 @@ function toggleFooterAccordion(btn, panelId) {
   }
 }
 window.addEventListener('resize', function () {
-  if (window.innerWidth >= 1024) {
+  if (window.innerWidth >= 990) {
     document.getElementById('footer-company-links').style.maxHeight = null;
   } else {
     document.getElementById('footer-company-links').style.maxHeight = '0';

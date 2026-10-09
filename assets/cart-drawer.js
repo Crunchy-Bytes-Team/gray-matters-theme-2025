@@ -20,6 +20,10 @@ class CartDrawer extends HTMLElement {
     cartLink.setAttribute('role', 'button');
     cartLink.setAttribute('aria-haspopup', 'dialog');
     cartLink.addEventListener('click', (event) => {
+      if (window.matchMedia('(max-width: 989px)').matches) {
+        window.location.assign('/cart');
+        return;
+      }
       event.preventDefault();
       this.open(cartLink);
     });

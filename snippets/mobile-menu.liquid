@@ -23,7 +23,7 @@
             <li>
               <a
                 href='{{ link.url }}'
-                class='mobile-menu__child{% if link.url contains 'sale' %} is-active{% endif %}'
+                class='mobile-menu__child mobile-menu__child--upper{% if link.url contains 'sale' %} is-active{% endif %}'
               >
                 {{- link.title | escape -}}
               </a>
@@ -48,7 +48,7 @@
       aria-controls='MobileMenuLanguage'
       aria-expanded='false'
     >
-      <span>Select language</span>
+      <span>Language {{ localization.language.name | default: 'English' }}</span>
       <span class='mobile-menu__plus'>
         <span aria-hidden='true' data-accordion-plus>+</span>
         <span aria-hidden='true' class='hidden' data-accordion-minus>-</span>

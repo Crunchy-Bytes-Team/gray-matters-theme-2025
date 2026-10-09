@@ -67,7 +67,7 @@
 
 {% if image_count > 0 %}
   {% if header_text != blank %}
-    <h3 class='w-full text-center font-accent font-normal text-xl uppercase mb-6'>{{ header_text }}</h3>
+    <h3 class='module-band-heading'>{{ header_text }}</h3>
   {% endif %}
 
   {% assign mod5 = image_count | modulo: 5 %}

@@ -83,7 +83,7 @@
   <div class=''>
     {% assign ugc_header = product.metafields.module.ugc_module_header.value | strip %}
     {% if ugc_header != blank %}
-      <h3 class='w-full text-center font-accent font-normal text-xl uppercase mb-6'>{{ ugc_header }}</h3>
+      <h3 class='module-band-heading'>{{ ugc_header }}</h3>
     {% endif %}
 
     {% comment %}

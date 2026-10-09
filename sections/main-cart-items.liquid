@@ -17,6 +17,72 @@
       padding-bottom: {{ section.settings.padding_bottom }}px;
     }
   }
+
+  @media screen and (max-width: 989px) {
+    cart-items.is-empty {
+      background: #fff;
+    }
+
+    cart-items.is-empty .max-w-7xl {
+      padding-left: 44px;
+      padding-right: 44px;
+    }
+
+    cart-items.is-empty .cart__warnings {
+      padding: 117px 0 40px;
+    }
+
+    cart-items.is-empty .cart__login-title,
+    cart-items.is-empty .cart__login-paragraph {
+      display: none;
+    }
+
+    .cart-empty-heading {
+      margin: 0 0 38px;
+      font-family: proxima-semi-bold, sans-serif;
+      font-size: 14px;
+      font-weight: 400;
+      letter-spacing: 1px;
+      line-height: 18px;
+      text-transform: uppercase;
+      color: #333;
+    }
+
+    .cart-empty-message {
+      margin: 0 0 2px;
+      font-family: proxima-reg, sans-serif;
+      font-size: 11.5px;
+      letter-spacing: 0.5px;
+      line-height: 16px;
+      color: #555;
+    }
+
+    .cart-empty-home {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      width: 100%;
+      height: 42px;
+      margin: 0 auto;
+      background: #000;
+      border: 1px solid #000;
+      color: #fff;
+      font-family: proxima-reg, sans-serif;
+      font-size: 11.5px;
+      font-weight: 300;
+      letter-spacing: 1px;
+      line-height: 1;
+      text-transform: uppercase;
+      text-decoration: none;
+    }
+
+    .cart-empty-home .icon {
+      width: 18px;
+      height: 8px;
+      color: #fff;
+    }
+  }
 {%- endstyle -%}
 
 {%- unless settings.cart_type == 'drawer' -%}
@@ -35,9 +101,11 @@
     </div>
 
     <div class="cart__warnings">
-      <h1 class="cart__empty-text">{{ 'sections.cart.empty' | t }}</h1>
-      <a href="{{ routes.all_products_collection_url }}" class="button">
-        {{ 'general.continue_shopping' | t }}
+      <h1 class="cart-empty-heading">{{ 'sections.cart.title' | t }}</h1>
+      <p class="cart-empty-message">{{ 'sections.cart.empty' | t }}</p>
+      <a href="{{ routes.root_url }}" class="cart-empty-home">
+        {{ 'sections.cart.take_me_home' | t }}
+        {{- 'icon-arrow.svg' | inline_asset_content -}}
       </a>
 
       {%- if shop.customer_accounts_enabled and customer == null -%}

@@ -10,6 +10,7 @@ body {
   font-optical-sizing: auto;
   font-weight: 400;
   font-style: normal;
+  background-color: #fff;
 }
 
 .proxima-reg {
@@ -41,6 +42,28 @@ nav.breadcrumbs {
   font-size: 11.5px;
   line-height: 1.4;
   letter-spacing: 0.5px;
+}
+
+@media (max-width: 989px) {
+  nav.breadcrumbs {
+    display: none;
+  }
+
+  footer.bg-gray {
+    padding: 0 0 32px;
+  }
+
+  footer .foter_container > div {
+    margin-bottom: 0;
+    border-bottom: 0;
+  }
+
+  footer .foter_container > div > button,
+  footer .contact-footer > h4 {
+    margin: 0;
+    padding: 15px 30px;
+    border-bottom: 1px solid #d2d2d2;
+  }
 }
 
 nav.breadcrumbs a,
@@ -209,6 +232,35 @@ footer a:hover {
   font-family: 'Stanley', sans-serif;
 }
 
+.module-band-heading {
+  width: 100%;
+  margin: 0 0 10px;
+  font-family: proxima-semi-bold, sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: 1px;
+  line-height: 19px;
+  text-align: center;
+  text-transform: uppercase;
+  color: #333;
+}
+
+@media (min-width: 990px) {
+  .module-band-heading {
+    margin-bottom: 1.5rem;
+    font-family: 'Stanley', sans-serif;
+    font-size: 1.25rem;
+    letter-spacing: normal;
+    line-height: 1.3;
+  }
+}
+
+@media (max-width: 989px) {
+  .image-text-module-copy {
+    font-family: proxima-reg, sans-serif;
+  }
+}
+
 input:focus,
 textarea:focus,
 select:focus {
@@ -274,13 +326,74 @@ select:focus {
 }
 
 .toggle-desc-btn span {
-  display: inline-block;
-  transition: transform 250ms ease;
-  transform-origin: center;
+  display: block;
+  position: relative;
+  width: 24px;
+  height: 3px;
+  background: #000;
+  font-size: 0;
+  color: transparent;
+  overflow: visible;
 }
 
-.toggle-desc-btn.is-open span {
-  transform: rotate(45deg);
+.toggle-desc-btn span::before {
+  content: '';
+  position: absolute;
+  left: 10.5px;
+  top: -10.5px;
+  width: 3px;
+  height: 24px;
+  background: #000;
+}
+
+.toggle-desc-btn {
+  width: 24px;
+  height: 24px;
+  flex: 0 0 24px;
+}
+
+.toggle-desc-btn.is-open span::before,
+.toggle-desc-btn[aria-expanded='true'] span::before {
+  display: none;
+}
+
+@media (max-width: 989px) {
+  .product-info-panel #riga1 {
+    margin-bottom: 15px;
+  }
+
+  .product-secondary-links {
+    display: none;
+  }
+
+  .product-info-panel:has(.toggle-desc-btn.is-open) .product-secondary-links {
+    display: flex;
+  }
+
+  .add_to_cart_button .product-form__submit,
+  .add_to_cart_button .product-form__submit span {
+    font-size: 11.5px;
+    font-weight: 300;
+    letter-spacing: 1px;
+    line-height: 1;
+  }
+
+  .add_to_cart_button .product-form__submit {
+    width: 180px;
+    height: 39px;
+    padding: 10px 0;
+  }
+
+  .add_to_cart_button .size-selector {
+    height: 38px;
+    background-color: #f5f3f3;
+  }
+
+  .add_to_cart_button .size-selector select,
+  .add_to_cart_button .size-selector .variant-select {
+    height: 38px;
+    background-color: transparent;
+  }
 }
 #HeaderSearchContainer.is-search-active {
   opacity: 1;
@@ -655,10 +768,10 @@ select:focus {
 /* Newsletter popup: compact layout on viewports where the panel is inset (not flush desktop strip) */
 @media (max-width: 760px) {
   .newsletter-modal {
-    right: 12px;
-    bottom: 12px;
-    left: 12px;
-    transform: translateX(calc(100% + 12px));
+    right: 0;
+    bottom: 20px;
+    left: 20px;
+    transform: translateX(100%);
   }
 
   .newsletter-modal .newsletter-content {
@@ -674,23 +787,28 @@ select:focus {
   .newsletter-modal .newsletter-title {
     margin: 0 0 1rem;
     font-size: 11.5px !important;
-    line-height: 1.25;
-    letter-spacing: 0.03em;
+    line-height: 15px;
+    letter-spacing: 0.5px;
     padding-right: 0.25rem;
   }
 
   .newsletter-modal .newsletter-subtitle {
-    font-size: 0.75rem;
+    font-size: 11.5px !important;
     line-height: 1.4;
+    letter-spacing: 0.5px;
+    font-weight: 500;
+    color: #555;
   }
 
   .newsletter-modal .newsletter-modal--close {
     top: 30px;
     right: 30px;
-    width: auto;
-    height: auto;
-    font-size: 1.75rem;
-    line-height: 1.25;
+    width: 35px;
+    height: 35px;
+    font-size: 25px;
+    font-weight: 500;
+    line-height: 1;
+    color: #333;
   }
 
   .newsletter-modal .newsletter-body {
@@ -721,7 +839,8 @@ select:focus {
     align-self: flex-end;
     padding-bottom: 0.3rem;
     padding-right: 1rem;
-    font-size: 13px;
+    font-size: 12.5px;
+    letter-spacing: 1px;
     line-height: 1.2;
     white-space: nowrap;
   }
@@ -730,14 +849,18 @@ select:focus {
     flex: 1 1 auto;
     min-width: 0;
     width: auto;
-    padding: 0.25rem 0 0.4rem;
-    font-size: 0.8125rem;
+    padding: 6px 12px;
+    font-size: 11.5px;
+    font-weight: 300;
   }
 
   .newsletter-modal .newsletter__submit.dark-btn,
   .newsletter-modal button.newsletter__submit {
-    padding: 1.15rem 1rem;
-    font-size: 0.8125rem;
+    height: 51px;
+    padding: 16px 20px;
+    font-size: 11.5px;
+    font-weight: 300;
+    letter-spacing: 0.5px;
   }
 
   .newsletter-modal .input-group__btn {
@@ -762,6 +885,17 @@ select:focus {
   line-height: 17.25px !important;
   display: block;
   width: 100%;
+}
+
+@media (max-width: 989px) {
+  .announsment_bar_top {
+    min-height: 46px;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    padding: 8px 14px !important;
+    letter-spacing: 1px !important;
+  }
 }
 .announsment_bar_top {
   width: 100% !important;
@@ -827,7 +961,7 @@ textarea[name='h-captcha-response'],
 @font-face {
   font-family: 'Glyphicons Halflings';
   src: url('https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/fonts/glyphicons-halflings-regular.woff2')
-    format('woff2'),
+      format('woff2'),
     url('https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/fonts/glyphicons-halflings-regular.woff')
       format('woff');
 }
@@ -861,4 +995,119 @@ textarea[name='h-captcha-response'],
 
 .color-variant::-webkit-scrollbar {
   display: none;
+}
+
+/* Homepage PageFly: base layout CSS does not position lazy videos or size the mobile catalogue. */
+@media (max-width: 767px) {
+  .__pf [data-pf-type='Section']:has(.pf-video-wrapper) {
+    position: relative;
+  }
+
+  .__pf .pf-video-wrapper {
+    position: relative;
+    overflow: hidden;
+    background: #000;
+  }
+
+  .__pf .pf-video-wrapper video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    visibility: visible;
+  }
+
+  .__pf .pf-video-wrapper .pf-play-button {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    z-index: 1;
+    transform: translate(-50%, -50%);
+  }
+
+  .__pf
+    [data-pf-type='Section']:has(.pf-video-wrapper)
+    [data-pf-type='Row']:has([data-pf-type='Heading']) {
+    position: absolute !important;
+    right: 0;
+    bottom: 280px;
+    left: 0;
+    z-index: 2;
+    margin: 0;
+    padding-left: 19px;
+    text-align: left;
+  }
+
+  .__pf
+    [data-pf-type='Section']:has(.pf-video-wrapper)
+    [data-pf-type='Heading'] {
+    margin: 0 0 10px;
+    color: #fff;
+    font-family: proxima-semi-bold, sans-serif;
+    font-size: 36px;
+    font-weight: 400;
+    letter-spacing: 1px;
+    line-height: 1.3;
+    text-align: left;
+  }
+
+  .__pf
+    [data-pf-type='Section']:has(.pf-video-wrapper)
+    [data-pf-type='Button'] {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 74px;
+    height: 29px;
+    margin: 0;
+    padding: 0 12px;
+    background: #fff;
+    color: #000;
+    font-family: proxima-reg, sans-serif;
+    font-size: 12px;
+    font-weight: 400;
+    letter-spacing: 1px;
+    line-height: 1;
+    text-decoration: none;
+  }
+
+  .__pf
+    [data-pf-type='Section']:has([data-pf-type='CollectionListing'])
+    [style*='--cw'] {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  .__pf [data-pf-type='CollectionListing'] {
+    margin: 0 !important;
+    padding: 0 0 20px;
+  }
+
+  .__pf [data-pf-type='CollectionListing'] > .pf-c {
+    padding: 0 !important;
+  }
+
+  .__pf [data-pf-type='CollectionImage'] {
+    display: block;
+    aspect-ratio: 1;
+    overflow: hidden;
+  }
+
+  .__pf [data-pf-type='CollectionImage'] img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .__pf [data-pf-type='CollectionTitle'] {
+    margin: 25px 0 20px;
+    color: #333;
+    font-family: proxima-semi-bold, sans-serif;
+    font-size: 11.5px;
+    font-weight: 400;
+    letter-spacing: 1px;
+    line-height: 15px;
+    text-align: left;
+  }
 }
