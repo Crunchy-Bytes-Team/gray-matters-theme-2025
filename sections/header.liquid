@@ -61,22 +61,22 @@
       </a>
     </div>
     <!-- menu + icons -->
-    <div class='flex flex-row items-end h-full w-2/12 lg:w-auto'>
+    <div class='flex flex-row items-center h-full w-2/12 lg:w-auto'>
       <!-- menu -->
-      <nav class='hidden lg:flex flex-row items-center justify-center gap-1 text-black mr-10 h-full'>
+      <nav class='hidden lg:flex flex-row items-stretch justify-center text-black h-full'>
         <div class='relative group h-full'>
           <a
             href='{{ routes.collections_url }}/all'
-            class='h-full inline-flex items-center px-7 hover:opacity-70 hover:bg-gray-200 group-hover:bg-gray-200 transition-all duration-200 ease-out proxima-reg text-[11.5px] tracking-[0.8px] uppercase text-dark-gray'
+            class='h-full inline-flex items-center pl-[13px] pr-[24px] py-[15px] leading-[16px] hover:opacity-70 hover:bg-gray-200 group-hover:bg-gray-200 transition-all duration-200 ease-out proxima-reg text-[11.5px] tracking-[0.8px] uppercase text-dark-gray'
             >Collection</a
           >
           <div class='absolute left-0 top-full opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto group-focus-within:opacity-100 group-focus-within:pointer-events-auto transition-opacity duration-200 ease-out z-50'>
-            <ul class='min-w-[200px] text-black py-2' style='background-color: #e6e6e6;'>
+            <ul class='min-w-[200px] text-black' style='background-color: #e6e6e6;'>
               {% for link in linklists.collection.links %}
                 <li>
                   <a
                     href='{{ link.url }}'
-                    class='block px-4 py-2 proxima-reg text-sm tracking-wider uppercase hover:opacity-70 transition-opacity text-dark-gray {% if link.url contains 'sale' %}font-semibold{% endif %}'
+                    class='block px-[15px] py-0 leading-[20px] proxima-reg text-[10.5px] tracking-[0.8px] font-light uppercase hover:opacity-70 transition-opacity text-dark-gray {% if link.url contains 'sale' %}font-semibold{% endif %}'
                   >
                     {{- link.title | escape -}}
                   </a>
@@ -89,17 +89,17 @@
         <div class='relative group h-full'>
           <a
             href='{{ routes.root_url }}pages/select-language'
-            class='h-full inline-flex items-center px-7 hover:opacity-70 hover:bg-gray-200 group-hover:bg-gray-200 transition-all duration-200 ease-out proxima-reg text-[11.5px] tracking-[0.8px] uppercase text-dark-gray'
+            class='h-full inline-flex items-center pl-[13px] pr-0 py-[15px] leading-[16px] hover:opacity-70 hover:bg-gray-200 group-hover:bg-gray-200 transition-all duration-200 ease-out proxima-reg text-[11.5px] tracking-[0.8px] uppercase text-dark-gray'
             aria-haspopup='true'
             >Select language</a
           >
           <div class='absolute left-0 top-full opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto group-focus-within:opacity-100 group-focus-within:pointer-events-auto transition-opacity duration-200 ease-out z-50'>
-            <ul class='min-w-[200px] text-black py-2 shadow-lg' style='background-color: #e6e6e6;'>
+            <ul class='min-w-[200px] text-black' style='background-color: #e6e6e6;'>
               {% for language in localization.available_languages %}
                 <li>
                   {% if language.iso_code == localization.language.iso_code %}
                     <span
-                      class='block px-4 py-2 proxima-reg text-sm tracking-wider uppercase cursor-default font-semibold text-dark-gray'
+                      class='block px-[15px] py-0 leading-[20px] proxima-reg text-[10.5px] tracking-[0.8px] cursor-default font-semibold text-dark-gray'
                     >
                       {{ language.endonym_name | default: language.name }}
                     </span>
@@ -107,7 +107,7 @@
                     <a
                       href="{% render 'language-url-same-path', language: language %}"
                       hreflang='{{ language.iso_code }}'
-                      class='block px-4 py-2 proxima-reg text-sm tracking-wider hover:opacity-70 transition-opacity text-dark-gray'
+                      class='block px-[15px] py-0 leading-[20px] proxima-reg text-[10.5px] tracking-[0.8px] font-light hover:opacity-70 transition-opacity text-dark-gray'
                     >
                       {{ language.endonym_name | default: language.name | upcase }}
                     </a>
@@ -121,27 +121,27 @@
         <div class='relative group h-full'>
           <a
             href='{{ routes.root_url }}pages/client-service'
-            class='h-full inline-flex items-center px-7 hover:opacity-70 hover:bg-gray-200 group-hover:bg-gray-200 transition-all duration-200 ease-out proxima-reg text-[11.5px] tracking-[0.8px] uppercase text-dark-gray'
+            class='h-full inline-flex items-center pl-[13px] pr-[24px] py-[15px] leading-[16px] hover:opacity-70 hover:bg-gray-200 group-hover:bg-gray-200 transition-all duration-200 ease-out proxima-reg text-[11.5px] tracking-[0.8px] uppercase text-dark-gray'
             aria-haspopup='true'
             >Client Services</a
           >
           <div class='absolute left-0 top-full opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto group-focus-within:opacity-100 group-focus-within:pointer-events-auto transition-opacity duration-200 ease-out z-50'>
-            <div class='min-w-[200px] text-black py-2 shadow-lg' style='background-color: #e6e6e6;'>
+            <div class='min-w-[200px] text-black' style='background-color: #e6e6e6;'>
               <a
                 href='mailto:hello@graymattersnyc.com'
-                class='flex items-center gap-2 px-4 py-2 proxima-reg text-xs tracking-wider uppercase hover:opacity-70 transition-opacity text-dark-gray'
+                class='flex items-center gap-2 px-[15px] py-0 leading-[20px] proxima-reg text-[10.5px] tracking-[0.8px] font-light uppercase hover:opacity-70 transition-opacity text-dark-gray'
               >
                 {% render 'live-menu-icon', name: 'envelope' %}
                 <span>Email</span>
               </a>
               <a
                 href='tel:+19292950303'
-                class='flex items-center gap-2 px-4 py-2 proxima-reg text-xs tracking-wider uppercase hover:opacity-70 transition-opacity text-dark-gray'
+                class='flex items-center gap-2 px-[15px] py-0 leading-[20px] proxima-reg text-[10.5px] tracking-[0.8px] font-light uppercase hover:opacity-70 transition-opacity text-dark-gray'
               >
                 {% render 'live-menu-icon', name: 'phone' %}
                 <span>+1 929 295 0303</span>
               </a>
-              <span class='block px-4 py-1 proxima-reg text-xs tracking-wider uppercase text-gray-600'>
+              <span class='block px-[15px] py-0 leading-[20px] proxima-reg text-[10px] tracking-[0.8px] font-light uppercase text-gray-600'>
                 Mon-Fri 10am-6pm EST
               </span>
               <div class='w-full px-4'>
@@ -152,7 +152,7 @@
                 {% for link in client_services_menu.links %}
                   <a
                     href='{{ link.url }}'
-                    class='block px-4 py-2 proxima-reg text-xs tracking-wider hover:opacity-70 transition-opacity text-dark-gray'
+                    class='block px-[15px] py-0 leading-[20px] proxima-reg text-[10.5px] tracking-[0.8px] font-light hover:opacity-70 transition-opacity text-dark-gray'
                   >
                     {{ link.title }}
                   </a>
@@ -170,14 +170,14 @@
           href='https://instagram.com/graymattersnyc'
           target='_blank'
           aria-label='Instagram'
-          class='hidden px-2.5 lg:px-3 lg:block hover:opacity-70 transition-opacity duration-200 ease-out'
+          class='hidden h-full items-center px-[10px] lg:flex hover:opacity-70 transition-opacity duration-200 ease-out'
         >
           <img
             src='{{ 'instagram-icon.png' | asset_url }}'
             alt='Instagram'
-            width='20'
-            height='20'
-            class='w-5 h-5'
+            width='18'
+            height='18'
+            class='w-[18px] h-[18px]'
           >
         </a>
         <!-- User Account -->
@@ -186,28 +186,28 @@
             <a
               href='{{ routes.account_url }}'
               aria-label='{{ 'customer.account_fallback' | t }}'
-              class='hidden px-2.5 lg:px-3 lg:flex hover:opacity-70 transition-opacity duration-200 ease-out'
+              class='hidden h-full items-center px-[10px] lg:flex hover:opacity-70 transition-opacity duration-200 ease-out'
             >
               <img
                 src='{{ 'user_new.png' | asset_url }}'
                 alt='{{ 'customer.account_fallback' | t }}'
-                width='20'
-                height='20'
-                class='w-5 h-5'
+                width='19'
+                height='19'
+                class='w-[19px] h-[19px]'
               >
             </a>
           {% else %}
             <a
               href='{{ routes.account_login_url }}'
               aria-label='{{ 'customer.log_in' | t }}'
-              class='hidden px-2.5 lg:px-3 lg:flex hover:opacity-70 transition-opacity duration-200 ease-out'
+              class='hidden h-full items-center px-[10px] lg:flex hover:opacity-70 transition-opacity duration-200 ease-out'
             >
               <img
                 src='{{ 'user_new.png' | asset_url }}'
                 alt='{{ 'customer.log_in' | t }}'
-                width='20'
-                height='20'
-                class='w-5 h-5'
+                width='19'
+                height='19'
+                class='w-[19px] h-[19px]'
               >
             </a>
           {% endif %}
@@ -219,7 +219,7 @@
           aria-label='{{ 'general.search.search' | t }}'
           aria-expanded='false'
           aria-controls='HeaderSearchContainer'
-          class='hidden px-2.5 lg:px-3 lg:flex hover:opacity-70 transition-opacity duration-200 ease-out bg-transparent border-none p-0'
+          class='header-search-toggle hidden h-full items-center px-[10px] lg:flex hover:opacity-70 transition-opacity duration-200 ease-out bg-transparent border-none'
         >
           {% render 'live-menu-icon', name: 'magnifier' %}
         </button>
@@ -227,15 +227,15 @@
         <button
           id='cart-icon-bubble'
           type='button'
-          class='relative px-2.5 lg:px-3 hover:opacity-70 transition-opacity duration-200 ease-out bg-transparent border-none p-0'
+          class='header-cart-toggle relative flex h-full items-center justify-center px-2.5 lg:w-[28px] lg:px-0 hover:opacity-70 transition-opacity duration-200 ease-out bg-transparent border-none'
           aria-label='{{ 'templates.cart.cart' | t }}'
         >
           <img
             src='{{ 'cart_icon_empty.png' | asset_url }}'
             alt='{{ 'templates.cart.cart' | t }}'
-            width='20'
-            height='20'
-            class='w-5 h-5'
+            width='13'
+            height='13'
+            class='w-5 h-5 lg:w-[13px] lg:h-[13px]'
           >
           {%- if cart != empty -%}
             <div class='cart-count-bubble absolute -top-2 -right-2 bg-black text-white text-xs rounded-full w-5 h-5 flex items-center justify-center'>
