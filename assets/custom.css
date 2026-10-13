@@ -70,8 +70,15 @@ nav.breadcrumbs {
   footer .foter_container > div > button,
   footer .contact-footer > h4 {
     margin: 0;
-    padding: 15px 30px;
+    padding: 15px 45px 15px 15px;
+  }
+
+  footer .foter_container > div > button {
     border-bottom: 1px solid #d2d2d2;
+  }
+
+  footer .contact-footer .about-footer.newsletter {
+    padding: 12px 45px 12px 15px;
   }
 }
 

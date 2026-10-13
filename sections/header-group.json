@@ -37,9 +37,11 @@
         "message": true,
         "home_page_only": false,
         "slide_animation": false,
-        "fade_animation": false,
+        "fade_animation": true,
         "message_text": "FREE GLOBAL SHIPPING STARTING AT $400 / €450 / £400 / CAD 600, CLICK FOR DETAILS AND EXCEPTIONS",
-        "message_link": "/pages/shipping-returns",
+        "message_link": "/pages/client-services",
+        "message_text_alt": "♡ WE SHIP FROM ITALY AND THE US ♡",
+        "message_link_alt": "/pages/client-services",
         "color_bg": "#1f86e7",
         "color_text": "#ffffff"
       }

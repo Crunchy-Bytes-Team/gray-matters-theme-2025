@@ -170,7 +170,7 @@ nav.mobile-menu [data-accordion-item]:first-child .mobile-menu__navtext {
 
 nav.mobile-menu .mobile-menu__navtext:hover {
   background: #e6e6e6;
-  color: #a5a5a5;
+  color: #333333;
 }
 
 /* Live plus: 2px bars, 14px arms, centered 24px from the drawer’s right edge */
@@ -327,8 +327,11 @@ nav.mobile-menu .mobile-menu__search {
   line-height: 40px;
 }
 
-nav.mobile-menu .mobile-menu__search .icon-magnifier {
-  font-size: 15px;
+nav.mobile-menu .mobile-menu__search-icon {
+  display: block;
+  width: 14px;
+  height: 14px;
+  flex: 0 0 14px;
   color: #0c0c0c;
 }
 
