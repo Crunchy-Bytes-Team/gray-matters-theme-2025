@@ -181,6 +181,7 @@
         const wrapper = document.getElementById('yotpo-review-wrapper');
 
         if (wrapper && productId) {
+          wrapper.style.height = '300px';
           const iframe = document.createElement('iframe');
           iframe.src = `https://v0-yotpo-review-widget.vercel.app?productId=${productId}`;
           iframe.style.border = 'none';
@@ -288,7 +289,10 @@
             if (button) button.style.display = 'none';
           };
           video.addEventListener('playing', hideButton);
-          video.play().then(hideButton).catch(() => {});
+          video
+            .play()
+            .then(hideButton)
+            .catch(() => {});
         });
       </script>
     {%- endif -%}

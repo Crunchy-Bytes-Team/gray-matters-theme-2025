@@ -882,7 +882,7 @@
     </div>
   {% endif %}
   {% if video_mobile_url != blank %}
-    <div class='vertical-video-snippet w-full relative z-0 lg:z-50 {{ vertical_video_classes }} px-0 lg:px-4 pb-6'>
+    <div class='vertical-video-snippet w-full relative z-0 lg:z-50 {{ vertical_video_classes }} px-0 lg:px-4 pt-6'>
       {% render 'vertical-video' %}
     </div>
   {% endif %}
@@ -894,7 +894,7 @@
 %}
 {% if video_module2_mobile_url != blank %}
   {% if video_module2_enabled_mf == 'true' %}
-    <div class='vertical-video-2-snippet bg-white w-full relative z-0 lg:z-50 px-0 lg:px-4 pb-6'>
+    <div class='vertical-video-2-snippet bg-white w-full relative z-0 lg:z-50 px-0 lg:px-4 pt-6'>
       {% render 'vertical-video-2' %}
     </div>
   {% endif %}
@@ -968,7 +968,7 @@
 {% endif %}
 
 <div class='yotpo-review-snippet bg-white w-full px-0 lg:px-4 pb-6 z-0 lg:z-50 relative'>
-  <div id='yotpo-review-wrapper' style='height:400px'></div>
+  <div id='yotpo-review-wrapper'></div>
 </div>
 {%- assign vendor_norm = product.vendor | downcase | strip -%}
 {% if vendor_norm == 'gray matters' %}

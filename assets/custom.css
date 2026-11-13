@@ -248,6 +248,46 @@ footer a:hover {
   font-family: 'Stanley', sans-serif;
 }
 
+/* Image-with-text: equal padding and one gap, so the two lines sit in the vertical center. */
+.image-text-module-column {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+.image-text-module-stack {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 17.5px;
+  text-align: center;
+}
+
+.image-text-module-stack h3,
+.image-text-module-stack .image-text-module-copy {
+  margin: 0;
+  line-height: 1.15;
+}
+
+@media (min-width: 990px) {
+  .image-text-module-column {
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+
+  .image-text-module-stack {
+    align-items: flex-start;
+    text-align: left;
+  }
+}
+
+/* Empty reviews still leave the white band that separates You may also like. */
+.yotpo-review-snippet {
+  min-height: 100px;
+}
+
 .module-band-heading {
   width: 100%;
   margin: 0 0 10px;
