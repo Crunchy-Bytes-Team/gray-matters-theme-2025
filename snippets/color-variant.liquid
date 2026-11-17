@@ -55,15 +55,13 @@
       {% assign variant_relative_url = '/products/' | append: variant_handle %}
       {% if variant_handle == product.handle %}
         <div
-          class='rounded-full overflow-hidden flex flex-col shrink-0 cursor-pointer mr-2'
-          style='box-sizing: border-box;width:20px;height:20px;border:1px solid #ccc;'
+          class='color-variant-dot rounded-full overflow-hidden flex flex-col shrink-0 cursor-pointer mr-2'
           aria-current='true'
         >
       {% else %}
         <a
           href='{{ variant_relative_url }}'
-          class='rounded-full overflow-hidden flex flex-col shrink-0 mr-2'
-          style='box-sizing: border-box;width:20px;height:20px;border:1px solid #ccc;'
+          class='color-variant-dot rounded-full overflow-hidden flex flex-col shrink-0 mr-2'
           aria-label='{{ variant_handle | replace: "-", " " | escape }}'
         >
       {% endif %}
@@ -129,8 +127,7 @@
 <div class='flex flex-nowrap w-max min-w-full'>
   {% comment %} Render current product pill {% endcomment %}
   <div
-    class='rounded-full overflow-hidden flex flex-col shrink-0 {{ border_class }} {{ margin_class }}'
-    style='box-sizing: border-box;width:20px;height:20px;border:1px solid #ccc;'
+    class='color-variant-dot rounded-full overflow-hidden flex flex-col shrink-0 {{ border_class }} {{ margin_class }}'
   >
     {% if current_color_image_url != blank %}
       <div
@@ -215,8 +212,7 @@
 
           <a
             href='{{ variant_relative_url }}'
-            class='rounded-full overflow-hidden flex flex-col shrink-0 mr-2'
-            style='box-sizing: border-box;width:20px;height:20px;border:1px solid #ccc;'
+            class='color-variant-dot rounded-full overflow-hidden flex flex-col shrink-0 mr-2'
           >
             {% if variant_color_image_url != blank %}
               <div

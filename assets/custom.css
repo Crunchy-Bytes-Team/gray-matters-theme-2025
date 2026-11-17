@@ -324,12 +324,28 @@ select:focus {
   box-shadow: none;
 }
 
-/* Full product description — no internal scrollbar (match live theme) */
+/* Description text stays short, with a thin scrollbar, on mobile and desktop. */
 .product-desc-scrollbar {
-  max-height: none;
-  overflow: visible;
-  padding-right: 0;
-  scrollbar-width: auto;
+  flex: none;
+  max-height: 96px;
+  overflow-x: hidden;
+  overflow-y: auto;
+  padding-right: 8px;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(0, 0, 0, 0.4) transparent;
+}
+
+.product-desc-scrollbar::-webkit-scrollbar {
+  width: 3px;
+}
+
+.product-desc-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.4);
+  border-radius: 3px;
+}
+
+.product-desc-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
 }
 
 /* Grassetto nella descrizione: usa il font semi-bold per compatibilità Chrome */
@@ -409,6 +425,12 @@ select:focus {
   width: 24px;
   height: 24px;
   flex: 0 0 24px;
+}
+
+@media (min-width: 1024px) {
+  button.toggle-desc-btn {
+    display: none;
+  }
 }
 
 .toggle-desc-btn.is-open span,
@@ -990,6 +1012,21 @@ textarea[name='h-captcha-response'],
 
 .glyphicon-chevron-right:before {
   content: '\e080';
+}
+
+/* Color swatches: 20px on desktop, about 30% larger on the mobile PDP. */
+.color-variant-dot {
+  box-sizing: border-box;
+  width: 20px;
+  height: 20px;
+  border: 1px solid #ccc;
+}
+
+@media (max-width: 989px) {
+  .color-variant-dot {
+    width: 26px;
+    height: 26px;
+  }
 }
 
 /* Color swatches: horizontal scroll on overflow (mobile) */
