@@ -144,9 +144,9 @@
               {% assign smalls_per_block = 16 %}
 
               {% assign smalls_seen = 0 %}
-              {% assign place_right = 1 %}
+              {% assign place_right = 0 %}
               {% assign big_card_index = 0 %}
-              {%- comment -%} place_right: 1=destra, 0=sinistra {%- endcomment -%}
+              {%- comment -%} place_right: 1=destra, 0=sinistra. Il primo box parte a sinistra. {%- endcomment -%}
 
               {%- for product in collection.products -%}
                 {% assign lazy_load = false %}
