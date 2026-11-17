@@ -895,7 +895,7 @@ select:focus {
 
 @media (max-width: 989px) {
   .announsment_bar_top {
-    min-height: 46px;
+    min-height: 32px;
     display: flex !important;
     align-items: center;
     justify-content: center;

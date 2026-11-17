@@ -1,7 +1,7 @@
 {%- comment -%}
   Icons from the live Gray Matters menu:
   - magnifier: Simple Line Icons (same webfont as live)
-  - envelope / phone: Font Awesome 4 outline/solid glyphs used on live
+  - envelope / phone: Font Awesome 4 classes (fa-envelope-o, fa-phone), same size as the text
   - user / instagram: live PNG assets
   - plus / minus: 15px live accordion affordance
 {%- endcomment -%}
@@ -9,13 +9,9 @@
   {%- when 'magnifier' -%}
     <i class='icon-magnifier' aria-hidden='true'></i>
   {%- when 'envelope' -%}
-    <span class='live-menu-icon live-menu-icon--envelope' aria-hidden='true'>
-      {{- 'icon-envelope-o.svg' | inline_asset_content -}}
-    </span>
+    <i class='fa fa-envelope-o live-menu-icon live-menu-icon--envelope' aria-hidden='true'></i>
   {%- when 'phone' -%}
-    <span class='live-menu-icon live-menu-icon--phone' aria-hidden='true'>
-      {{- 'icon-phone.svg' | inline_asset_content -}}
-    </span>
+    <i class='fa fa-phone live-menu-icon live-menu-icon--phone' aria-hidden='true'></i>
   {%- when 'user' -%}
     <img
       src='{{ 'user_new.png' | asset_url }}'

@@ -18,10 +18,10 @@
           </span>
         </button>
         <div
-          class='useful-links px-[15px] transition-all duration-300 overflow-hidden max-h-0 lg:max-h-none lg:block'
+          class='useful-links px-[15px] lg:px-0 transition-all duration-300 overflow-hidden max-h-0 lg:max-h-none lg:block'
           id='footer-company-links'
         >
-          <ul class='block my-6 lg:mb-0'>
+          <ul class='block my-6 lg:my-0'>
             {% for link in linklists.company.links %}
               <li class='text-[11.5px] tracking-[0.5px] text-dark-gray mb-[14px] leading-[1.4]'>
                 <a href='{{ link.url }}'>{{ link.title }}</a>
@@ -46,10 +46,10 @@
           </span>
         </button>
         <div
-          class='useful-links px-[15px] transition-all duration-300 overflow-hidden max-h-0 lg:max-h-none lg:block'
+          class='useful-links px-[15px] lg:px-0 transition-all duration-300 overflow-hidden max-h-0 lg:max-h-none lg:block'
           id='footer-client-links'
         >
-          <ul class='my-6 lg:mb-0'>
+          <ul class='my-6 lg:my-0'>
             {% for link in linklists['client-services'].links %}
               <li class='text-[11.5px] tracking-[0.5px] text-dark-gray mb-[14px] leading-[1.4]'>
                 <a href='{{ link.url }}'>{{ link.title }}</a>
@@ -74,10 +74,10 @@
           </span>
         </button>
         <div
-          class='useful-links px-[15px] transition-all duration-300 overflow-hidden max-h-0 lg:max-h-none lg:block'
+          class='useful-links px-[15px] lg:px-0 transition-all duration-300 overflow-hidden max-h-0 lg:max-h-none lg:block'
           id='footer-connect-links'
         >
-          <ul class='my-6 lg:mb-0'>
+          <ul class='my-6 lg:my-0'>
             {% for link in linklists['footer-connect'].links %}
               <li class='text-[11.5px] tracking-[0.5px] text-dark-gray mb-[14px] leading-[1.4]'>
                 <a href='{{ link.url }}'>{{ link.title }}</a>
@@ -98,7 +98,7 @@
             {% include 'smsbump_subscription_form_embed_161235' %}
           {% endif %}
           {% if true %}
-            <div class='about-footer newsletter px-4'>
+            <div class='about-footer newsletter px-4 lg:px-0'>
               <p class='text-sm text-dark-gray mb-3'>
                 Receive 10% off your first order and be the first to know about new products, sales and events.
               </p>
