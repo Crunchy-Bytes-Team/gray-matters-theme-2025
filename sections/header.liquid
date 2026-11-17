@@ -105,7 +105,7 @@
                     </span>
                   {% else %}
                     <a
-                      href="{% render 'language-url-same-path', language: language %}"
+                      href='{% render 'language-url-same-path', language: language %}'
                       hreflang='{{ language.iso_code }}'
                       class='block px-[15px] py-0 leading-[20px] proxima-reg text-[10.5px] tracking-[0.8px] font-light hover:opacity-70 transition-opacity text-dark-gray'
                     >
@@ -164,7 +164,7 @@
       </nav>
 
       <!-- icons -->
-      <div class='flex items-center justify-between text-black h-full w-full lg:w-auto'>
+      <div class='flex items-center justify-end text-black h-full w-full lg:w-auto'>
         <!-- Instagram -->
         <a
           href='https://instagram.com/graymattersnyc'
@@ -288,32 +288,61 @@
       var siteHeader = document.querySelector('[data-site-header]');
       var announcementBar = document.querySelector('[data-announcement-bar]');
       var HEADER_SCROLL_THRESHOLD = 0;
+      var lastScrollY = window.scrollY;
+      // Hash restoration and scroll anchoring shift scrollY by the spacer delta.
+      // That shift is not a user gesture; reacting to it toggles the bar forever.
+      var pendingScrollEcho = null;
+
+      function announcementBarIsOpen() {
+        if (!announcementBar || announcementBar.style.display === 'none') return false;
+        var transform = announcementBar.style.transform || '';
+        return announcementBar.style.opacity !== '0' && transform.indexOf('translateY(-100%)') === -1;
+      }
+
+      function rememberScrollEcho(delta) {
+        if (!delta) return;
+        pendingScrollEcho = { delta: delta, until: performance.now() + 1500 };
+      }
+
+      function consumeScrollEcho(signedDelta) {
+        if (!pendingScrollEcho) return false;
+        if (performance.now() > pendingScrollEcho.until) {
+          pendingScrollEcho = null;
+          return false;
+        }
+        if (Math.abs(signedDelta - pendingScrollEcho.delta) <= 1.5) {
+          pendingScrollEcho = null;
+          return true;
+        }
+        return false;
+      }
 
       // Update spacer height dynamically based on header position
       function updateSpacerHeight() {
         const spacer = document.querySelector('.header-spacer');
         const header = document.querySelector('[data-site-header]');
-        const announcementBar = document.querySelector('[data-announcement-bar]');
+        const bar = document.querySelector('[data-announcement-bar]');
 
         if (spacer && header) {
           let spacerHeight = header.offsetHeight;
 
-          if (announcementBar && announcementBar.style.display !== 'none') {
-            // Check if announcement bar is actually visible (not hidden via transform)
-            const isVisible =
-              announcementBar.style.opacity !== '0' &&
-              announcementBar.style.transform !== 'translateY(-100%)' &&
-              !announcementBar.style.transform.includes('translateY(-100%)');
-
-            if (isVisible) {
-              const barHeight = announcementBar.offsetHeight;
-              if (barHeight > 0) {
-                spacerHeight += barHeight;
-              }
+          if (bar && bar.style.display !== 'none' && announcementBarIsOpen()) {
+            const barHeight = bar.offsetHeight;
+            if (barHeight > 0) {
+              spacerHeight += barHeight;
             }
           }
 
+          if (spacer.offsetHeight === spacerHeight) return;
+
+          var scrollBefore = window.scrollY;
+          var heightDelta = spacerHeight - spacer.offsetHeight;
+          rememberScrollEcho(heightDelta);
           spacer.style.height = spacerHeight + 'px';
+          if (Math.abs(window.scrollY - scrollBefore - heightDelta) <= 1.5) {
+            pendingScrollEcho = null;
+            lastScrollY = window.scrollY;
+          }
         }
       }
 
@@ -343,10 +372,12 @@
         }
 
         // Has content, implement scroll direction detection
-        let lastScrollY = window.scrollY;
         let announcementBarHeight = announcementBar.offsetHeight;
+        let announcementShown = announcementBarIsOpen();
 
         function hideAnnouncementBar() {
+          if (!announcementShown) return;
+          announcementShown = false;
           announcementBar.style.transform = 'translateY(-100%)';
           announcementBar.style.opacity = '0';
           updateSpacerHeight();
@@ -354,10 +385,13 @@
         }
 
         function showAnnouncementBar() {
+          if (announcementShown) return;
+          announcementShown = true;
           announcementBar.style.transform = 'translateY(0)';
           announcementBar.style.opacity = '1';
           // Delay to ensure height is calculated after show
           requestAnimationFrame(() => {
+            if (!announcementShown) return;
             updateSpacerHeight();
             syncSearchContainerTop();
           });
@@ -369,9 +403,8 @@
           if (!siteHeader.classList.contains('top-0')) {
             siteHeader.classList.add('top-0');
           }
-          // Set to top-0 explicitly
-          siteHeader.style.top = '0';
-          // Update search container position
+          if (siteHeader.style.top === '0px') return;
+          siteHeader.style.top = '0px';
           syncSearchContainerTop();
         }
 
@@ -379,32 +412,67 @@
           // When announcement bar is visible, position header below it
           // Get the actual rendered height of the announcement bar
           const barHeight = announcementBar.offsetHeight;
+          var nextTop = barHeight > 0 ? barHeight + 'px' : '';
 
           if (barHeight > 0) {
             siteHeader.classList.remove('top-0');
             if (!siteHeader.classList.contains('top-6')) {
               siteHeader.classList.add('top-6');
             }
-            // Position header below announcement bar using its actual height
-            siteHeader.style.top = barHeight + 'px';
           } else {
             // Fallback: use default top-6 if height is 0
             siteHeader.classList.remove('top-0');
             if (!siteHeader.classList.contains('top-6')) {
               siteHeader.classList.add('top-6');
             }
-            siteHeader.style.top = '';
           }
 
-          // Update search container position when header position changes
+          if (siteHeader.style.top === nextTop) return;
+          siteHeader.style.top = nextTop;
           syncSearchContainerTop();
+        }
+
+        // Hash jumps and scroll anchoring are not a user gesture. Until the
+        // visitor actually scrolls, keep a steady compact/expanded state.
+        var userAdjustedHeader = false;
+
+        function markUserAdjusted() {
+          userAdjustedHeader = true;
+        }
+
+        function syncHeaderToScrollPosition() {
+          if (window.scrollY <= 8) {
+            showAnnouncementBar();
+            adjustHeaderForAnnouncementBar();
+          } else {
+            hideAnnouncementBar();
+            moveHeaderToTop();
+          }
+          lastScrollY = window.scrollY;
         }
 
         function handleScroll() {
           const currentScrollY = window.scrollY;
-          const scrollingDown = currentScrollY > lastScrollY;
+          const signedDelta = currentScrollY - lastScrollY;
+          const scrollDelta = Math.abs(signedDelta);
+
+          if (scrollDelta === 0) return;
+
+          // Ignore the scroll shift caused by our own spacer resize.
+          if (consumeScrollEcho(signedDelta)) {
+            lastScrollY = currentScrollY;
+            return;
+          }
+
+          if (!userAdjustedHeader) {
+            syncHeaderToScrollPosition();
+            return;
+          }
+
+          const scrollingDown = signedDelta > 0;
           const isAtTop = currentScrollY <= HEADER_SCROLL_THRESHOLD;
-          const scrollDelta = Math.abs(currentScrollY - lastScrollY);
+
+          lastScrollY = currentScrollY;
 
           // Update announcement bar height if it changed (e.g., on resize)
           const currentHeight = announcementBar.offsetHeight;
@@ -417,6 +485,7 @@
             showAnnouncementBar();
             // Small delay to ensure height is calculated after show
             requestAnimationFrame(() => {
+              if (window.scrollY > HEADER_SCROLL_THRESHOLD) return;
               adjustHeaderForAnnouncementBar();
             });
           } else if (scrollingDown && scrollDelta > 5) {
@@ -428,21 +497,45 @@
             showAnnouncementBar();
             // Small delay to ensure height is calculated after show
             requestAnimationFrame(() => {
+              if (!announcementShown) return;
               adjustHeaderForAnnouncementBar();
             });
           }
-
-          lastScrollY = currentScrollY;
         }
 
-        // Initial setup
-        if (window.scrollY <= HEADER_SCROLL_THRESHOLD) {
-          showAnnouncementBar();
-          adjustHeaderForAnnouncementBar();
-        } else {
-          hideAnnouncementBar();
-          moveHeaderToTop();
-        }
+        window.addEventListener('wheel', markUserAdjusted, { passive: true });
+        window.addEventListener('touchmove', markUserAdjusted, { passive: true });
+        window.addEventListener(
+          'pointerdown',
+          function (event) {
+            if (event.clientX >= window.innerWidth - 24) markUserAdjusted();
+          },
+          { passive: true },
+        );
+        window.addEventListener('keydown', function (event) {
+          if (
+            event.key === 'ArrowUp' ||
+            event.key === 'ArrowDown' ||
+            event.key === 'PageUp' ||
+            event.key === 'PageDown' ||
+            event.key === 'Home' ||
+            event.key === 'End' ||
+            event.key === ' '
+          ) {
+            markUserAdjusted();
+          }
+        });
+
+        // Initial setup, then again after hash scrolling and late layout.
+        syncHeaderToScrollPosition();
+        requestAnimationFrame(function () {
+          requestAnimationFrame(function () {
+            if (!userAdjustedHeader) syncHeaderToScrollPosition();
+          });
+        });
+        window.addEventListener('load', function () {
+          if (!userAdjustedHeader) syncHeaderToScrollPosition();
+        });
 
         window.addEventListener('scroll', handleScroll, { passive: true });
       }
@@ -812,7 +905,9 @@
       <span><a class='text-[11.5px] tracking-[0.5px]' href='{{ routes.search_url }}?q=bianco'>Bianco,</a></span>
       <span><a class='text-[11.5px] tracking-[0.5px]' href='{{ routes.search_url }}?q=cammello'>Cammello,</a></span>
       <span><a class='text-[11.5px] tracking-[0.5px]' href='{{ routes.search_url }}?q=classic'>Classic,</a></span>
-      <span><a class='text-[11.5px] tracking-[0.5px]' href='{{ routes.search_url }}?q=color+block'>Color Block,</a></span>
+      <span
+        ><a class='text-[11.5px] tracking-[0.5px]' href='{{ routes.search_url }}?q=color+block'>Color Block,</a></span
+      >
 
       <span><a class='text-[11.5px] tracking-[0.5px]' href='{{ routes.search_url }}?q=gemma'>Gemma,</a></span>
       <span><a class='text-[11.5px] tracking-[0.5px]' href='{{ routes.search_url }}?q=emma'>Emma,</a></span>

@@ -34,7 +34,7 @@
         endfor
       endif
 
-      assign add_to_cart_button_classes = 'uppercase btn-dark product-form__submit box-border w-full border px-6 py-2 leading-[1.4]'
+      assign add_to_cart_button_classes = 'uppercase btn-dark product-form__submit box-border flex h-full w-full items-center justify-center border px-6 py-0 leading-none'
     -%}
 
     <product-form
@@ -73,8 +73,8 @@
           {%- render 'gift-card-recipient-form', product: product, form: form, section: section -%}
         {%- endif -%}
 
-        <div class='product-form__buttons add_to_cart_button flex flex-row items-start lg:items-end gap-0 lg:gap-[15px] w-full'>
-          <div class='add-to-cart-button w-[180px] shrink-0 lg:w-auto lg:flex-1 lg:min-w-0'>
+        <div class='product-form__buttons add_to_cart_button flex w-full flex-row items-stretch gap-[15px]'>
+          <div class='add-to-cart-button flex min-w-[180px] flex-1 items-stretch'>
             {%- liquid
               assign check_against_inventory = true
               if product.selected_or_first_available_variant.inventory_management != 'shopify' or product.selected_or_first_available_variant.inventory_policy == 'continue'

@@ -119,7 +119,7 @@ footer a:hover {
   content: '⌄';
   position: absolute;
   right: 12px;
-  top: 40%;
+  top: 50%;
   display: inline-block;
   font-size: 16px;
   line-height: 1;
@@ -134,27 +134,53 @@ footer a:hover {
   color: #fff;
 }
 
-@media screen and (min-width: 1024px) {
-  .add_to_cart_button .product-size-selector--container {
-    width: 150px;
-    max-width: 150px;
-    flex: 0 0 150px;
-  }
+.add_to_cart_button.product-form__buttons {
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  gap: 15px;
+  width: 100%;
+}
 
-  .add_to_cart_button .add-to-cart-button {
-    flex: 1 1 auto;
-    min-width: 0;
-    margin-right: 0;
-  }
+.add_to_cart_button.product-form__buttons > :not([hidden]) ~ :not([hidden]) {
+  margin-top: 0;
+  margin-bottom: 0;
+}
 
-  .add_to_cart_button .size-selector {
-    width: 100%;
-  }
+.add_to_cart_button .add-to-cart-button {
+  display: flex;
+  flex: 1 1 auto;
+  align-items: stretch;
+  /* 150px select + 15px gap. Below that remainder the 180px floor would push the select out of the column. */
+  min-width: min(180px, calc(100% - 165px));
+  width: auto;
+  margin-right: 0;
+}
 
-  .add_to_cart_button .size-selector select,
-  .add_to_cart_button .size-selector .variant-select {
-    width: 100%;
-  }
+.add_to_cart_button .product-size-selector--container {
+  width: 150px;
+  max-width: 150px;
+  flex: 0 0 150px;
+  align-self: stretch;
+}
+
+.add_to_cart_button .size-selector {
+  width: 100%;
+  height: 39px;
+  min-height: 39px;
+  box-sizing: border-box;
+}
+
+.add_to_cart_button .product-form__submit {
+  height: 39px;
+  min-height: 39px;
+  box-sizing: border-box;
+}
+
+.add_to_cart_button .size-selector select,
+.add_to_cart_button .size-selector .variant-select {
+  width: 100%;
+  height: 100%;
 }
 
 .add_to_cart_button .product-form__submit,
@@ -184,14 +210,13 @@ footer a:hover {
 .add_to_cart_button .size-selector .variant-select {
   -webkit-appearance: none;
   appearance: none;
-  height: auto;
-  height: 36.5px;
-  padding: 2px 28px 2px 12px;
+  height: 100%;
+  padding: 0 28px 0 12px;
   font-family: proxima-reg, sans-serif;
   font-size: 12px;
   font-weight: 300;
   letter-spacing: 0.5px;
-  line-height: 18px;
+  line-height: 39px;
   text-align: center;
   text-transform: uppercase;
 }
@@ -253,8 +278,6 @@ footer a:hover {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding-top: 20px;
-  padding-bottom: 20px;
 }
 
 .image-text-module-stack {
@@ -272,11 +295,6 @@ footer a:hover {
 }
 
 @media (min-width: 990px) {
-  .image-text-module-column {
-    padding-top: 0;
-    padding-bottom: 0;
-  }
-
   .image-text-module-stack {
     align-items: flex-start;
     text-align: left;
@@ -434,19 +452,20 @@ select:focus {
   }
 
   .add_to_cart_button .product-form__submit {
-    width: 180px;
     height: 39px;
-    padding: 10px 0;
+    min-height: 39px;
+    padding: 0;
   }
 
   .add_to_cart_button .size-selector {
-    height: 38px;
+    height: 39px;
+    min-height: 39px;
     background-color: #f5f3f3;
   }
 
   .add_to_cart_button .size-selector select,
   .add_to_cart_button .size-selector .variant-select {
-    height: 38px;
+    height: 100%;
     background-color: transparent;
   }
 }

@@ -1,6 +1,8 @@
 (function () {
-  function isMobile() {
-    return window.matchMedia('(max-width: 767px)').matches;
+  function isCarouselViewport(root) {
+    var maxWidth = parseInt(root.getAttribute('data-carousel-max'), 10);
+    if (!maxWidth) maxWidth = 767;
+    return window.matchMedia('(max-width: ' + maxWidth + 'px)').matches;
   }
   function init(root) {
     if (!root || root.dataset.carouselInit === 'true') return;
@@ -20,7 +22,7 @@
 
     function update() {
       if (items.length === 0) return;
-      if (!isMobile()) {
+      if (!isCarouselViewport(root)) {
         index = 0;
         track.style.transform = 'translateX(0px)';
         items.forEach(function (item) {
@@ -47,7 +49,7 @@
     if (prev) {
       prev.addEventListener('click', function (e) {
         e.preventDefault();
-        if (!isMobile()) return;
+        if (!isCarouselViewport(root)) return;
         index = Math.max(0, index - 1);
         update();
       });
@@ -55,7 +57,7 @@
     if (next) {
       next.addEventListener('click', function (e) {
         e.preventDefault();
-        if (!isMobile()) return;
+        if (!isCarouselViewport(root)) return;
         index = Math.min(items.length - 1, index + 1);
         update();
       });

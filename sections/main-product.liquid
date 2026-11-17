@@ -84,7 +84,7 @@
       ><div class='product product--{{ section.settings.media_size }} product--{{ section.settings.media_position }} product--{{ section.settings.gallery_layout }} product--mobile-{{ section.settings.mobile_thumbnails }} grid grid-cols-1 {% if product.media.size > 0 %}md:grid-cols-2{% else %}product--no-media{% endif %} gap-8 lg:gap-12'>
     -->
     <div class='flex flex-col lg:flex-row'>
-      <div class='product__media-wrapper bg-white w-full lg:w-1/2 relative z-0 pl-0 pr-0 lg:pl-4 lg:pr-0'>
+      <div class='product__media-wrapper bg-white w-full lg:w-1/2 relative z-0 pl-0 pr-0 lg:pl-4 lg:pr-0 mb-3 lg:mb-7'>
         {% render 'product-media-gallery', variant_images: variant_images %}
         {% assign bg_image = product.metafields.module.product_detail_bg_image.value %}
         <img class='lg:hidden' src='{{ bg_image | escape }}'>
@@ -828,7 +828,7 @@
 {% endcomment %}
 {% assign image_row_module_enabled_mf = product.metafields.module.image_row_module_enabled.value %}
 {% if image_row_module_enabled_mf == 'true' %}
-  <div class='image-row-snippet bg-white w-full relative z-0 lg:z-50 px-0 lg:px-4 pb-6'>
+  <div class='image-row-snippet bg-white w-full relative z-0 lg:z-50 px-0 lg:px-4 mb-3 lg:mb-7'>
     {% render 'image-row' %}
   </div>
 {% endif %}
@@ -882,7 +882,7 @@
     </div>
   {% endif %}
   {% if video_mobile_url != blank %}
-    <div class='vertical-video-snippet w-full relative z-0 lg:z-50 {{ vertical_video_classes }} px-0 lg:px-4 pt-6'>
+    <div class='vertical-video-snippet w-full relative z-0 lg:z-50 {{ vertical_video_classes }} px-0 lg:px-4'>
       {% render 'vertical-video' %}
     </div>
   {% endif %}
@@ -946,7 +946,7 @@
 {% endif %}
 
 {% if product.metafields.module.image_text_module_enabled.value == 'true' %}
-  <div class='w-full bg-white relative z-0 lg:z-50 px-0 lg:px-4 pb-0'>
+  <div class='vertical-image-with-text-snippet w-full bg-white relative z-0 lg:z-50 px-0 lg:px-4 mb-3 lg:mb-7'>
     {% render 'vertical-image-with-text' %}
   </div>
 {% endif %}

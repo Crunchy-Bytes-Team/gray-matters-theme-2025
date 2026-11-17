@@ -72,29 +72,29 @@
 
   {% assign mod5 = image_count | modulo: 5 %}
   {% assign mod4 = image_count | modulo: 4 %}
-  {% assign grid_classes = 'md:grid-cols-4' %}
+  {% assign grid_classes = 'lg:grid-cols-4' %}
   {% if mod5 == 0 %}
-    {% assign grid_classes = 'md:grid-cols-5' %}
+    {% assign grid_classes = 'lg:grid-cols-5' %}
   {% elsif mod4 == 0 %}
-    {% assign grid_classes = 'md:grid-cols-4' %}
+    {% assign grid_classes = 'lg:grid-cols-4' %}
   {% elsif image_count < 4 %}
     {% if image_count == 1 %}
-      {% assign grid_classes = 'md:grid-cols-1' %}
+      {% assign grid_classes = 'lg:grid-cols-1' %}
     {% elsif image_count == 2 %}
-      {% assign grid_classes = 'md:grid-cols-2' %}
+      {% assign grid_classes = 'lg:grid-cols-2' %}
     {% elsif image_count == 3 %}
-      {% assign grid_classes = 'md:grid-cols-3' %}
+      {% assign grid_classes = 'lg:grid-cols-3' %}
     {% endif %}
   {% endif %}
 
-  <div class='relative w-full' data-ugc-carousel>
-    <div class='overflow-hidden md:overflow-visible w-full' data-viewport>
+  <div class='relative w-full' data-ugc-carousel data-carousel-max='989'>
+    <div class='overflow-hidden lg:overflow-visible w-full' data-viewport>
       <div
-        class='flex w-full transition-transform duration-300 ease-in-out md:grid md:gap-0 {{ grid_classes }}'
+        class='flex w-full transition-transform duration-300 ease-in-out lg:grid lg:gap-0 {{ grid_classes }}'
         data-track
       >
         {% if image1 != blank %}
-          <div class='relative basis-full shrink-0 md:basis-auto' data-item>
+          <div class='relative basis-full shrink-0 lg:basis-auto' data-item>
             <div class='group relative rounded overflow-hidden'>
               <img
                 src='{{ image1 }}'
@@ -113,7 +113,7 @@
           </div>
         {% endif %}
         {% if image2 != blank %}
-          <div class='relative basis-full shrink-0 md:basis-auto' data-item>
+          <div class='relative basis-full shrink-0 lg:basis-auto' data-item>
             <div class='group relative rounded overflow-hidden'>
               <img
                 src='{{ image2 }}'
@@ -132,7 +132,7 @@
           </div>
         {% endif %}
         {% if image3 != blank %}
-          <div class='relative basis-full shrink-0 md:basis-auto' data-item>
+          <div class='relative basis-full shrink-0 lg:basis-auto' data-item>
             <div class='group relative rounded overflow-hidden'>
               <img
                 src='{{ image3 }}'
@@ -151,7 +151,7 @@
           </div>
         {% endif %}
         {% if image4 != blank %}
-          <div class='relative basis-full shrink-0 md:basis-auto' data-item>
+          <div class='relative basis-full shrink-0 lg:basis-auto' data-item>
             <div class='group relative rounded overflow-hidden'>
               <img
                 src='{{ image4 }}'
@@ -170,7 +170,7 @@
           </div>
         {% endif %}
         {% if image5 != blank %}
-          <div class='relative basis-full shrink-0 md:basis-auto' data-item>
+          <div class='relative basis-full shrink-0 lg:basis-auto' data-item>
             <div class='group relative rounded overflow-hidden'>
               <img
                 src='{{ image5 }}'
@@ -193,7 +193,7 @@
     {% if image_count > 1 %}
       <button
         type='button'
-        class='md:hidden absolute left-2 top-1/2 -translate-y-1/2 flex items-center justify-center leading-none'
+        class='lg:hidden absolute left-2 top-1/2 -translate-y-1/2 flex items-center justify-center leading-none'
         aria-label='Previous'
         data-prev
       >
@@ -201,7 +201,7 @@
       </button>
       <button
         type='button'
-        class='md:hidden absolute right-2 top-1/2 -translate-y-1/2 flex items-center justify-center leading-none'
+        class='lg:hidden absolute right-2 top-1/2 -translate-y-1/2 flex items-center justify-center leading-none'
         aria-label='Next'
         data-next
       >
