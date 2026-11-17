@@ -165,12 +165,12 @@
                   aria-hidden='true'
                 >
                   <div
-                    class='product-desc-scrollbar leading-[1.4] w-full lg:w-3/4 pt-2 lg:pt-0'
+                    class='product-desc-scrollbar leading-[1.4] w-full pt-2 lg:pt-0'
                   >
                     {{ product.description }}
                   </div>
                   {% unless product.vendor == 'GRAY ROOM' %}
-                    <div class='color-variant w-full min-w-0 max-w-full overflow-x-auto overflow-y-hidden py-4'>
+                    <div class='color-variant w-full min-w-0 max-w-full overflow-x-auto overflow-y-hidden pt-4 pb-8'>
                       {% render 'color-variant' %}
                     </div>
                   {% endunless %}

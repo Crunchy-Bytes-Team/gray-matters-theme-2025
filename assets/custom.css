@@ -34,6 +34,9 @@ body {
 .text-dark-gray {
   color: #222323;
 }
+.text-mid-gray {
+  color: #3d4246;
+}
 .text-light-gray {
   color: #a5a5a5;
 }
@@ -327,7 +330,6 @@ select:focus {
 /* Description text stays short, with a thin scrollbar, on mobile and desktop. */
 .product-desc-scrollbar {
   flex: none;
-  max-height: 96px;
   overflow-x: hidden;
   overflow-y: auto;
   padding-right: 8px;
@@ -371,7 +373,7 @@ select:focus {
   }
 
   .product-desc-scrollbar {
-    max-height: 192px;
+    max-height: 240px;
   }
 }
 
