@@ -11,56 +11,51 @@
     var panel = document.querySelector('[id^="MobileProductDesc-"]');
     var icon = btn ? btn.querySelector('span') : null;
     if (!btn || !panel || !icon) return;
+    function clearPanelTransition() {
+      panel.removeEventListener('transitionend', onPanelTransitionEnd);
+    }
+
+    function onPanelTransitionEnd(e) {
+      if (e.propertyName !== 'max-height') return;
+      clearPanelTransition();
+      if (btn.getAttribute('aria-expanded') === 'true') {
+        panel.style.maxHeight = 'none';
+      } else {
+        panel.classList.add('hidden');
+      }
+    }
+
     btn.addEventListener('click', function () {
-      var isHidden = panel.classList.contains('hidden');
-      // Ensure transitions are applied
+      var isOpen = btn.getAttribute('aria-expanded') === 'true';
       panel.style.transition =
         'max-height 500ms ease-in-out, opacity 500ms ease-in-out';
+      clearPanelTransition();
 
-      if (isHidden) {
-        // SHOW: remove display:none, then animate from 0 to scrollHeight
+      if (!isOpen) {
         panel.classList.remove('hidden');
         panel.setAttribute('aria-hidden', 'false');
         panel.style.maxHeight = '0px';
         panel.style.opacity = '0';
-        // next frame -> expand
+        panel.offsetHeight;
         requestAnimationFrame(function () {
           panel.style.maxHeight = panel.scrollHeight + 'px';
           panel.style.opacity = '1';
         });
-        // after transition, clear maxHeight so content can grow
-        var onOpenEnd = function (e) {
-          if (e.propertyName === 'max-height') {
-            panel.style.maxHeight = 'none';
-            panel.removeEventListener('transitionend', onOpenEnd);
-          }
-        };
-        panel.addEventListener('transitionend', onOpenEnd);
-
+        panel.addEventListener('transitionend', onPanelTransitionEnd);
         btn.setAttribute('aria-expanded', 'true');
         btn.classList.add('is-open');
-        icon.textContent = '+';
       } else {
-        // HIDE: collapse to current height, then to 0, then add hidden
         panel.setAttribute('aria-hidden', 'true');
-        // lock current height before collapsing
         panel.style.maxHeight = panel.scrollHeight + 'px';
         panel.style.opacity = '1';
+        panel.offsetHeight;
         requestAnimationFrame(function () {
           panel.style.maxHeight = '0px';
           panel.style.opacity = '0';
         });
-        var onCloseEnd = function (e) {
-          if (e.propertyName === 'max-height') {
-            panel.classList.add('hidden');
-            panel.removeEventListener('transitionend', onCloseEnd);
-          }
-        };
-        panel.addEventListener('transitionend', onCloseEnd);
-
+        panel.addEventListener('transitionend', onPanelTransitionEnd);
         btn.setAttribute('aria-expanded', 'false');
         btn.classList.remove('is-open');
-        icon.textContent = '+';
       }
     });
   });

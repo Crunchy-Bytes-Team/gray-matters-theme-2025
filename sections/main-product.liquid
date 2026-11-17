@@ -917,7 +917,7 @@
   endif
 %}
 {% if ugc_module_enabled_mf == 'true' %}
-  <div class='ugc-snippet w-full bg-white relative z-0 lg:z-50 px-0 lg:px-4 py-0'>
+  <div class='ugc-snippet flex flex-col w-full bg-white relative z-0 lg:z-50 px-0 lg:px-4 py-0'>
     {% if ugc1_has_legacy_image or ugc2_module_enabled_mf == 'true' %}
       {% render 'legacy-ugc-band', prefix: 'ugc_module', show_header: true %}
     {% else %}
@@ -940,7 +940,7 @@
   endif
 %}
 {% if ugc2_module_enabled_mf == 'true' and ugc2_has_image %}
-  <div class='image-row-snippet bg-white w-full relative z-0 lg:z-50 px-0 lg:px-4 pb-6'>
+  <div class='image-row-snippet flex flex-col bg-white w-full relative z-0 lg:z-50 px-0 lg:px-4 pb-6'>
     {% render 'legacy-ugc-band', prefix: 'ugc2_module', show_header: false %}
   </div>
 {% endif %}
@@ -972,7 +972,7 @@
 </div>
 {%- assign vendor_norm = product.vendor | downcase | strip -%}
 {% if vendor_norm == 'gray matters' %}
-  <div class='relative-products-snippet  bg-white w-full relative z-0 lg:z-50 px-0 lg:px-4 pb-6'>
+  <div class='relative-products-snippet flex flex-col bg-white w-full relative z-0 lg:z-50 px-0 lg:px-4 pb-6'>
     {% render 'related-products' %}
   </div>
 {% endif %}

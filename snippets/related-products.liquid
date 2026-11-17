@@ -34,7 +34,7 @@
 
 {%- if related_entries != blank -%}
   <div>
-    <h3 class='module-band-heading'>You may also like</h3>
+    <h3 class='module-band-heading font-accent my-6'>You may also like</h3>
     <div class='relative w-full pb-6' data-relprod>
       <div class='overflow-hidden md:overflow-visible w-full' data-viewport>
         <div
@@ -98,7 +98,6 @@
 
 {%- assign vendor_norm = product.vendor | downcase | strip -%}
 {%- if vendor_norm == 'gray matters' and related_metafield == blank -%}
-
   {%- assign current_type = product.type | downcase | strip -%}
   {%- assign current_name = product.title | split: ' ' | first | downcase | strip -%}
   {%- assign title_down = product.title | downcase | strip -%}
@@ -444,5 +443,4 @@
       </div>
     </div>
   {%- endif -%}
-
 {%- endif -%}
