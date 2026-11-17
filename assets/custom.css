@@ -369,6 +369,10 @@ select:focus {
   .my-z-index {
     z-index: 20;
   }
+
+  .product-desc-scrollbar {
+    max-height: 192px;
+  }
 }
 
 .visually-hidden {
