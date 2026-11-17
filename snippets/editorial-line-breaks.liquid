@@ -1,0 +1,39 @@
+{%- comment -%}
+  Tollera il token editoriale [[br]] (qualsiasi maiuscolo/minuscolo) e lo disegna come <br />.
+  Il resto del testo resta escapato. Con plain: true il token diventa uno spazio, per alt e aria-label.
+  limit conta solo i caratteri visibili, così il troncamento non taglia il token a metà.
+{%- endcomment -%}
+{%- liquid
+  assign source = text | default: '' | strip_html | replace: '[[BR]]', '[[br]]' | replace: '[[Br]]', '[[br]]' | replace: '[[bR]]', '[[br]]'
+  assign max_chars = 0
+  if limit != blank
+    assign max_chars = limit | plus: 0
+  endif
+-%}
+{%- if plain -%}
+  {{- source | replace: '[[br]]', ' ' | replace: '  ', ' ' | replace: '  ', ' ' | strip -}}
+{%- else -%}
+  {%- assign parts = source | split: '[[br]]' -%}
+  {%- assign remaining = max_chars -%}
+  {%- for part in parts -%}
+    {%- if max_chars > 0 and remaining <= 0 -%}
+      {%- break -%}
+    {%- endif -%}
+    {%- assign line = part | strip -%}
+    {%- assign line_length = line.size -%}
+    {%- if max_chars > 0 and line_length > remaining -%}
+      {{- line | truncate: remaining -}}
+      {%- break -%}
+    {%- else -%}
+      {{- line -}}
+      {%- if max_chars > 0 -%}
+        {%- assign remaining = remaining | minus: line_length -%}
+      {%- endif -%}
+      {%- unless forloop.last -%}
+        {%- if max_chars == 0 or remaining > 0 -%}
+          <br />
+        {%- endif -%}
+      {%- endunless -%}
+    {%- endif -%}
+  {%- endfor -%}
+{%- endif -%}

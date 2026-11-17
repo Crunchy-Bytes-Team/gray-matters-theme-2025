@@ -210,15 +210,19 @@
                     {% endif %}
                   {% endif %}
 
+                  {%- capture big_card_title_plain -%}
+                    {%- render 'editorial-line-breaks', text: big_card_title, plain: true -%}
+                  {%- endcapture -%}
+
                   <li class='col-span-2 lg:row-span-2 {% if place_right == 1 %}lg:col-start-3{% else %}lg:col-start-1{% endif %} relative overflow-hidden group'>
                     <a
                       href='{{ big_card_url }}'
                       class='block w-full h-full lg:absolute lg:inset-0'
-                      aria-label='{{ big_card_title | strip_html | escape }}'
+                      aria-label='{{ big_card_title_plain | strip | escape }}'
                     >
                       <img
                         src='{{ big_image_url }}'
-                        alt='{{ big_card_title | strip_html | escape }}'
+                        alt='{{ big_card_title_plain | strip | escape }}'
                         width='800'
                         height='800'
                         class='w-full aspect-square object-cover lg:hidden'
@@ -235,10 +239,10 @@
                     <div class='flex absolute inset-0 z-20 items-center justify-center text-center lg:justify-end lg:text-right opacity-100 pointer-events-none px-[20px] lg:pr-10'>
                       <div class='w-full px-0 lg:w-auto lg:px-2'>
                         <h3 class='text-[48px] leading-none tracking-[1.25px] font-accent text-white transition-colors duration-300'>
-                          {{- big_card_title -}}
+                          {%- render 'editorial-line-breaks', text: big_card_title -%}
                         </h3>
                         <p class='mt-2 text-[12px] tracking-[1px] font-accent text-white transition-colors duration-300 max-w-xs mx-auto lg:mr-0 lg:ml-auto'>
-                          {{- big_card_description | strip_html | truncate: 120 -}}
+                          {%- render 'editorial-line-breaks', text: big_card_description, limit: 120 -%}
                         </p>
                       </div>
                     </div>
