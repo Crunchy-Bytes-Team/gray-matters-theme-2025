@@ -183,6 +183,16 @@ nav.mobile-menu .mobile-menu__navtext:hover {
   color: #333333;
 }
 
+nav.mobile-menu .mobile-menu__navtext--accent,
+nav.mobile-menu .mobile-menu__navtext--accent:hover {
+  color: #ce71ed;
+  font-family: 'proxima-bold', sans-serif;
+}
+
+nav.mobile-menu .mobile-menu__child--nested {
+  padding-left: 24px;
+}
+
 /* Live plus: 2px bars, 14px arms, centered 24px from the drawer’s right edge */
 nav.mobile-menu .mobile-menu__plus {
   position: absolute;

@@ -115,30 +115,22 @@
               class='grid grid-flow-row-dense grid-cols-2 lg:grid-cols-4 gap-[6px] w-full{% if section.settings.quick_add == "bulk" %} collection-quick-add-bulk{% endif %}'
             >
               {% assign skip_card_product_styles = false %}
-
               {%- comment -%}
-                Card 2x2 da shop metafield gray_matters.collections_display_order + custom.collection_image:
+                Card 2x2: allowlist fissa da produzione /collections/all (esclusi black-flats e flash-sale-june-2026).
+                Immagine/titolo/descrizione da custom.collection_image / collection_label / collection_description.
                 16 product card tra un 2x2 e il successivo; dopo l'ultimo 2x2 tutti i product rimanenti.
                 Alternanza sinistra/destra (lg:col-start-1 / lg:col-start-3).
               {%- endcomment -%}
-
-              {% assign display_order_metafield = shop.metafields.gray_matters.collections_display_order %}
+              {% assign allowed_big_card_handles = 'flats,boots,pumps,mules,pervinca,mary-jane,canvas,bianco,gemma-pumps'
+                | split: ','
+              %}
               {% assign display_order_size = 0 %}
-              {% if display_order_metafield != blank and display_order_metafield.value != blank %}
-                {% for item in display_order_metafield.value %}
-                  {% assign coll = '' %}
-                  {% if item.url != blank %}
-                    {% assign coll = item %}
-                  {% elsif item.value != blank and item.value.url != blank %}
-                    {% assign coll = item.value %}
-                  {% else %}
-                    {% assign coll = collections[item] %}
-                  {% endif %}
-                  {% if coll != blank and coll.handle != 'all' %}
-                    {% assign display_order_size = display_order_size | plus: 1 %}
-                  {% endif %}
-                {% endfor %}
-              {% endif %}
+              {% for handle in allowed_big_card_handles %}
+                {% assign coll = collections[handle] %}
+                {% if coll != blank %}
+                  {% assign display_order_size = display_order_size | plus: 1 %}
+                {% endif %}
+              {% endfor %}
 
               {% assign default_big_image_url = 'https://cdn.shopify.com/s/files/1/0012/4079/3193/files/RSQ_FW23_LookBook_Clara_Pumps_Cacao_018.jpg?v=1715089721' %}
               {% assign smalls_per_block = 16 %}
@@ -164,29 +156,20 @@
                 -%}
 
                 {%- if insert_big -%}
-                  {%- comment -%} Card grande 2x2: collection e immagine da display_order + collection_image metafield {%- endcomment -%}
+                  {%- comment -%} Card grande 2x2: collection da allowlist fissa + custom.collection_image {%- endcomment -%}
                   {% assign collection_for_card = '' %}
                   {% assign effective_index = big_card_index %}
-                  {% if display_order_metafield != blank and display_order_metafield.value != blank %}
-                    {% assign valid_index = 0 %}
-                    {% for item in display_order_metafield.value %}
-                      {% assign coll = '' %}
-                      {% if item.url != blank %}
-                        {% assign coll = item %}
-                      {% elsif item.value != blank and item.value.url != blank %}
-                        {% assign coll = item.value %}
-                      {% else %}
-                        {% assign coll = collections[item] %}
+                  {% assign valid_index = 0 %}
+                  {% for handle in allowed_big_card_handles %}
+                    {% assign coll = collections[handle] %}
+                    {% if coll != blank %}
+                      {% if valid_index == effective_index %}
+                        {% assign collection_for_card = coll %}
+                        {% break %}
                       {% endif %}
-                      {% if coll != blank and coll.handle != 'all' %}
-                        {% if valid_index == effective_index %}
-                          {% assign collection_for_card = coll %}
-                          {% break %}
-                        {% endif %}
-                        {% assign valid_index = valid_index | plus: 1 %}
-                      {% endif %}
-                    {% endfor %}
-                  {% endif %}
+                      {% assign valid_index = valid_index | plus: 1 %}
+                    {% endif %}
+                  {% endfor %}
 
                   {% assign big_image_url = default_big_image_url %}
                   {% assign big_card_url = collection.url %}

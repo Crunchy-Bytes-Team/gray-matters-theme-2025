@@ -19,6 +19,11 @@ body {
 .proxima-bold {
   font-family: 'proxima-bold', sans-serif;
 }
+
+.header-gray-room-link {
+  color: #ce71ed;
+}
+
 .proxima-xbold {
   font-family: 'proxima-xbold', sans-serif;
 }

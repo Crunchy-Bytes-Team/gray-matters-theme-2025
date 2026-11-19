@@ -64,6 +64,8 @@
     <div class='flex flex-row items-center h-full w-2/12 lg:w-auto'>
       <!-- menu -->
       <nav class='hidden lg:flex flex-row items-stretch justify-center text-black h-full'>
+        {% render 'gray-room-nav', context: 'desktop' %}
+
         <div class='relative group h-full'>
           <a
             href='{{ routes.collections_url }}/all'

@@ -2,6 +2,8 @@
 {% assign mobile_client_services_menu = linklists['top-client-services'] %}
 
 <nav class='mobile-menu' aria-label='Mobile menu'>
+  {% render 'gray-room-nav', context: 'mobile' %}
+
   <div data-accordion-item>
     <button
       type='button'
@@ -65,7 +67,7 @@
                 </span>
               {%- else -%}
                 <a
-                  href="{% render 'language-url-same-path', language: language %}"
+                  href='{% render 'language-url-same-path', language: language %}'
                   hreflang='{{ language.iso_code }}'
                   class='mobile-menu__child'
                 >
