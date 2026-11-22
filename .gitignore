@@ -17,3 +17,4 @@ node_modules
 audits/**
 !audits/store-parity/
 !audits/store-parity/**
+/legacy-theme

@@ -1,78 +1,62 @@
 {% comment %}
-  Renders a set of links for paginated results. Must be used within paginate tags.
-
-  Usage:
-  {% paginate results by 2 %}
-    {% render 'pagination', paginate: paginate, anchor: '#yourID' %}
-  {% endpaginate %}
+  Renders previous / page count / next, matching the legacy theme.
+  Must be used within paginate tags.
 
   Accepts:
   - paginate: {Object}
-  - anchor: {String} (optional) This can be added so that on page reload it takes you to wherever you've placed your anchor tag.
+  - anchor: {String} (optional)
 {% endcomment %}
 
 {{ 'component-pagination.css' | asset_url | stylesheet_tag }}
 
-{%- if paginate.parts.size > 0 -%}
-  <div class="pagination-wrapper">
-    <nav class="pagination" role="navigation" aria-label="{{ 'general.pagination.label' | t }}">
-      <ul class="pagination__list list-unstyled" role="list">
+{%- if paginate.pages > 1 -%}
+  <nav class="pagination-wrapper" role="navigation" aria-label="{{ 'general.pagination.label' | t }}">
+    <ul class="pagination">
+      <li>
         {%- if paginate.previous -%}
-          <li>
-            <a
-              href="{{ paginate.previous.url }}{{ anchor }}"
-              class="pagination__item pagination__item--next pagination__item-arrow link motion-reduce"
-              aria-label="{{ 'general.pagination.previous' | t }}"
-            >
-              <span class="svg-wrapper">
-                {{- 'icon-caret.svg' | inline_asset_content -}}
-              </span>
-            </a>
-          </li>
+          <a
+            href="{{ paginate.previous.url }}{{ anchor }}"
+            class="pagination__arrow"
+            aria-label="{{ 'general.pagination.previous' | t }}"
+          >
+            <svg aria-hidden="true" focusable="false" viewBox="0 0 20 8" width="20" height="8">
+              <path d="M4.814 7.555C3.95 6.61 3.2 5.893 2.568 5.4 1.937 4.91 1.341 4.544.781 4.303v-.44a9.933 9.933 0 0 0 1.875-1.196c.606-.485 1.328-1.196 2.168-2.134h.752c-.612 1.309-1.253 2.315-1.924 3.018H19.23v.986H3.652c.495.632.84 1.1 1.036 1.406.195.306.485.843.869 1.612h-.743z" fill="currentColor" fill-rule="evenodd"></path>
+            </svg>
+            <span class="visually-hidden">{{ 'general.pagination.previous' | t }}</span>
+          </a>
+        {%- else -%}
+          <span class="pagination__arrow pagination__arrow--disabled" aria-hidden="true">
+            <svg focusable="false" viewBox="0 0 20 8" width="20" height="8">
+              <path d="M4.814 7.555C3.95 6.61 3.2 5.893 2.568 5.4 1.937 4.91 1.341 4.544.781 4.303v-.44a9.933 9.933 0 0 0 1.875-1.196c.606-.485 1.328-1.196 2.168-2.134h.752c-.612 1.309-1.253 2.315-1.924 3.018H19.23v.986H3.652c.495.632.84 1.1 1.036 1.406.195.306.485.843.869 1.612h-.743z" fill="currentColor" fill-rule="evenodd"></path>
+            </svg>
+          </span>
         {%- endif -%}
+      </li>
 
-        {%- for part in paginate.parts -%}
-          <li>
-            {%- if part.is_link -%}
-              <a
-                href="{{ part.url }}{{ anchor }}"
-                class="pagination__item link"
-                aria-label="{{ 'general.pagination.page' | t: number: part.title }}"
-              >
-                {{- part.title -}}
-              </a>
-            {%- else -%}
-              {%- if part.title == paginate.current_page -%}
-                <a
-                  role="link"
-                  aria-disabled="true"
-                  class="pagination__item pagination__item--current light"
-                  aria-current="page"
-                  aria-label="{{ 'general.pagination.page' | t: number: part.title }}"
-                >
-                  {{- part.title -}}
-                </a>
-              {%- else -%}
-                <span class="pagination__item">{{ part.title }}</span>
-              {%- endif -%}
-            {%- endif -%}
-          </li>
-        {%- endfor -%}
+      <li class="pagination__text">
+        {{ 'general.pagination.current_page' | t: current: paginate.current_page, total: paginate.pages }}
+      </li>
 
+      <li>
         {%- if paginate.next -%}
-          <li>
-            <a
-              href="{{ paginate.next.url }}{{ anchor }}"
-              class="pagination__item pagination__item--prev pagination__item-arrow link motion-reduce"
-              aria-label="{{ 'general.pagination.next' | t }}"
-            >
-              <span class="svg-wrapper">
-                {{- 'icon-caret.svg' | inline_asset_content -}}
-              </span>
-            </a>
-          </li>
+          <a
+            href="{{ paginate.next.url }}{{ anchor }}"
+            class="pagination__arrow"
+            aria-label="{{ 'general.pagination.next' | t }}"
+          >
+            <svg aria-hidden="true" focusable="false" viewBox="0 0 20 8" width="20" height="8">
+              <path d="M15.186.445c.865.944 1.614 1.662 2.246 2.154.631.491 1.227.857 1.787 1.098v.44a9.933 9.933 0 0 0-1.875 1.196c-.606.485-1.328 1.196-2.168 2.134h-.752c.612-1.309 1.253-2.315 1.924-3.018H.77v-.986h15.577c-.495-.632-.84-1.1-1.035-1.406-.196-.306-.486-.843-.87-1.612h.743z" fill="currentColor" fill-rule="evenodd"></path>
+            </svg>
+            <span class="visually-hidden">{{ 'general.pagination.next' | t }}</span>
+          </a>
+        {%- else -%}
+          <span class="pagination__arrow pagination__arrow--disabled" aria-hidden="true">
+            <svg focusable="false" viewBox="0 0 20 8" width="20" height="8">
+              <path d="M15.186.445c.865.944 1.614 1.662 2.246 2.154.631.491 1.227.857 1.787 1.098v.44a9.933 9.933 0 0 0-1.875 1.196c-.606.485-1.328 1.196-2.168 2.134h-.752c.612-1.309 1.253-2.315 1.924-3.018H.77v-.986h15.577c-.495-.632-.84-1.1-1.035-1.406-.196-.306-.486-.843-.87-1.612h.743z" fill="currentColor" fill-rule="evenodd"></path>
+            </svg>
+          </span>
         {%- endif -%}
-      </ul>
-    </nav>
-  </div>
+      </li>
+    </ul>
+  </nav>
 {%- endif -%}

@@ -1,4 +1,9 @@
 <div class='section-{{ section.id }} gradient color-{{ section.settings.color_scheme }}'>
+  {%- comment -%}
+    La collezione all resta a 250 prodotti per risposta Liquid. Lo script della section
+    concatena le pagine successive. Le card 2x2 stanno solo nella prima pagina:
+    l'allowlist si esaurisce entro i primi 250 prodotti.
+  {%- endcomment -%}
   {%- paginate collection.products by 250 -%}
     {% comment %} Sort is the first tabbable element when filter type is vertical {% endcomment %}
     {%- if section.settings.enable_sorting and section.settings.filter_type == 'vertical' -%}
@@ -148,10 +153,12 @@
 
                 {%- liquid
                   assign insert_big = false
-                  if forloop.first
-                    assign insert_big = true
-                  elsif smalls_seen >= smalls_per_block and display_order_size > 0 and big_card_index < display_order_size
-                    assign insert_big = true
+                  if paginate.current_page == 1
+                    if forloop.first
+                      assign insert_big = true
+                    elsif smalls_seen >= smalls_per_block and display_order_size > 0 and big_card_index < display_order_size
+                      assign insert_big = true
+                    endif
                   endif
                 -%}
 
@@ -269,6 +276,13 @@
                 {%- assign skip_card_product_styles = true -%}
               {%- endfor -%}
             </ul>
+            <div
+              hidden
+              data-gray-room-collection-autoload
+              data-next-url='{{ paginate.next.url | default: '' | escape }}'
+              data-current-page='{{ paginate.current_page }}'
+              data-section-id='{{ section.id | escape }}'
+            ></div>
           </div>
         {%- endif -%}
       </div>

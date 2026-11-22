@@ -198,6 +198,13 @@
       panel.classList.remove('hidden');
       btn.setAttribute('aria-expanded', 'true');
       toggleIndicators(btn, true);
+      var ancestor = panel.parentElement;
+      while (ancestor && ancestor !== container) {
+        if (ancestor.hasAttribute('data-accordion-panel')) {
+          ancestor.style.maxHeight = 'none';
+        }
+        ancestor = ancestor.parentElement;
+      }
       if (reduceMotion) return;
 
       if (panel._accordionCloseHandler) {

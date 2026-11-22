@@ -42,6 +42,7 @@
   }
 {%- endstyle -%}
 
+<script src='{{ 'gray-room-collection.js' | asset_url }}' defer></script>
 {%- if collection.handle == 'all' -%}
   {%- render 'collection-all', section: section -%}
 {%- else -%}

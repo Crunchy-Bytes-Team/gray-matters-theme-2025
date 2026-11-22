@@ -34,6 +34,28 @@
         endfor
       endif
 
+      comment
+        Legacy: one product_on_sale flag suppresses Inquire for every sold-out size.
+      endcomment
+      assign product_on_sale = false
+      if product.selected_or_first_available_variant != null
+        assign v_for_sale = product.selected_or_first_available_variant
+        if v_for_sale.compare_at_price > v_for_sale.price
+          assign product_on_sale = true
+        endif
+      endif
+      if product_on_sale == false and product.compare_at_price > product.price
+        assign product_on_sale = true
+      endif
+      unless product_on_sale
+        for sale_variant in product.variants
+          if sale_variant.compare_at_price > sale_variant.price
+            assign product_on_sale = true
+            break
+          endif
+        endfor
+      endunless
+
       assign add_to_cart_button_classes = 'uppercase btn-dark product-form__submit box-border flex h-full w-full items-center justify-center border px-6 py-0 leading-none'
     -%}
 
@@ -41,6 +63,7 @@
       class='product-form'
       data-hide-errors='{{ gift_card_recipient_feature_active }}'
       data-section-id='{{ section.id }}'
+      data-product-on-sale='{% if product_on_sale %}true{% else %}false{% endif %}'
     >
       <div class='product-form__error-message-wrapper' role='alert' hidden>
         <span class='svg-wrapper'>
@@ -102,13 +125,7 @@
                   break
                 endif
               endfor
-              assign variant_on_sale = false
-              if product.selected_or_first_available_variant != null
-                assign v_for_sale = product.selected_or_first_available_variant
-                if v_for_sale.compare_at_price > v_for_sale.price
-                  assign variant_on_sale = true
-                endif
-              endif
+              assign variant_on_sale = product_on_sale
             -%}
             {%- if size_requires_selection -%}
               <button

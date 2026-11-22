@@ -32,6 +32,7 @@
     "pagination": {
       "label": "Impaginazione",
       "page": "Pagina {{ number }}",
+      "current_page": "Pagina {{ current }} di {{ total }}",
       "next": "Pagina successiva",
       "previous": "Pagina precedente"
     },

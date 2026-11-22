@@ -54,7 +54,8 @@
     {% endif %}
 
     <script>
-      // Immediate sandbox protection - must run before any other scripts
+      // Immediate sandbox protection - must run before any other scripts foo
+      // test
       (function () {
         const safeStorage = {
           getItem: () => null,
@@ -104,6 +105,7 @@
     <script src='{{ 'image-row-carousel.js' | asset_url }}' defer></script>
     <script src='{{ 'ugc-carousel.js' | asset_url }}' defer></script>
     <script src='{{ 'show-desc-mobile.js' | asset_url }}' defer></script>
+    <script src='{{ 'gray-room-preview.js' | asset_url }}' defer></script>
     <script src='{{ 'sandbox-fix.js' | asset_url }}'></script>
     <script src='{{ 'constants.js' | asset_url }}' defer='defer'></script>
     <script src='{{ 'pubsub.js' | asset_url }}' defer='defer'></script>
@@ -207,6 +209,12 @@
         }
       });
     </script>
+    {% comment %}
+      PageFly inserts this include on publish. Keep it in this file.
+      Uploading theme.liquid without it drops CSS and JS on every PageFly page.
+    {% endcomment %}
+
+    {% include 'pagefly-app-header' %}
   </head>
 
   <body>

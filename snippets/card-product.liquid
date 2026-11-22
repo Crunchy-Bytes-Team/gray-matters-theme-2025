@@ -300,8 +300,8 @@
                   | remove: 'PREO'
                   | strip
                 %}
-                {%- comment -%} Escludi la taglia 35, solo varianti disponibili; evita duplicati sul valore pulito {%- endcomment -%}
-                {% if v.available and value_clean != blank and value_clean != '35' %}
+                {%- comment -%} Solo varianti disponibili; evita duplicati sul valore pulito {%- endcomment -%}
+                {% if v.available and value_clean != blank %}
                   {% assign needle = '|' | append: value_clean | append: '|' %}
                   {% unless printed_values contains needle %}
                     {% if size_values != '' %}

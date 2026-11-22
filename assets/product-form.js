@@ -164,9 +164,14 @@ if (!customElements.get('product-form')) {
         if (!button || !variant) return;
 
         const sectionId = this.dataset.sectionId;
+        const productOnSale =
+          this.dataset.productOnSale === 'true' ||
+          this.dataset.grayRoomPreview === '1' ||
+          document.documentElement.dataset.grayRoomPreview === '1';
         const onSale =
-          variant.compare_at_price != null &&
-          variant.compare_at_price > variant.price;
+          productOnSale ||
+          (variant.compare_at_price != null &&
+            variant.compare_at_price > variant.price);
 
         button.removeAttribute('aria-disabled');
         button.classList.remove('loading');
@@ -175,12 +180,8 @@ if (!customElements.get('product-form')) {
           button.id = `ProductSubmitButton-${sectionId}`;
         }
 
-        let label = button.querySelector('span.text-15');
-        if (!label) {
-          label = document.createElement('span');
-          label.className = 'text-15';
-          button.prepend(label);
-        }
+        const label = this.ensureButtonLabel(button);
+        this.submitButtonText = label;
         label.classList.remove('hidden');
 
         if (variant.available) {
@@ -213,6 +214,30 @@ if (!customElements.get('product-form')) {
           button.removeAttribute('data-inquire-size');
         }
         label.textContent = window.variantStrings.inquire;
+      }
+
+      ensureButtonLabel(button) {
+        const isUtilitySpan = (span) =>
+          span.classList.contains('sold-out-message') ||
+          span.classList.contains('loading-spinner') ||
+          Boolean(span.closest('.loading__spinner'));
+
+        let label = button.querySelector('span.text-15');
+        if (!label) {
+          label = Array.from(button.querySelectorAll('span')).find(
+            (span) => !isUtilitySpan(span),
+          );
+        }
+        if (!label) {
+          label = document.createElement('span');
+          button.prepend(label);
+        }
+
+        button.querySelectorAll('span').forEach((span) => {
+          if (span !== label && !isUtilitySpan(span)) span.remove();
+        });
+
+        return label;
       }
 
       toggleSubmitButton(disable = true, text) {

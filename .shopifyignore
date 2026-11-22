@@ -1,2 +1,15 @@
 package.json
 package-lock.json
+
+# Owned by the theme editor: app embeds (PageFly, Langify, Smile, Clarity, Inbox) and theme settings.
+config/settings_data.json
+
+# Owned by PageFly: rewritten on every PageFly publish.
+templates/index.liquid
+templates/*.pf-*
+layout/theme.pagefly.liquid
+sections/pagefly-*
+sections/pf-*
+snippets/pagefly-*
+snippets/pf-*
+assets/pagefly-*

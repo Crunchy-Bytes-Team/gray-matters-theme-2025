@@ -104,6 +104,8 @@ class FacetFiltersForm extends HTMLElement {
       .forEach((element) => {
         element.classList.add('scroll-trigger--cancel');
       });
+
+    document.dispatchEvent(new CustomEvent('collection:products-autoload'));
   }
 
   static renderProductCount(html) {

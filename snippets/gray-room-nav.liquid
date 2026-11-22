@@ -4,9 +4,19 @@
   Acceso se lo shop metafield booleano gray_matters.gray_room_enabled è true.
   Lo scrive gray-matters-products-app (owner: Shop, type: boolean).
   Anteprima: ?gr=1. Shopify non inoltra i parametri custom a request.query_string,
-  quindi il parametro viene letto dal browser e il menu, già nel DOM, viene mostrato.
-  Voci: menu di navigazione con handle "archive".
-  Destinazione: collezione handle gray-room.
+  quindi il parametro viene letto dal browser (assets/gray-room-preview.js):
+  mostra questo menu e, in PDP, simula un prodotto Gray Room (no related,
+  solo pallino colore corrente, sold-out senza Inquire).
+
+  Voci di primo livello, in quest'ordine:
+  FAQ (/pages/faq-gray-room), Shop by style, Shop by size.
+  Shop by style e Shop by size arrivano dal menu Shopify "archive"
+  e aprono i propri figli (stili / taglie) come sottomenù.
+  Top picks e ogni altra voce del menu archive non vengono stampate.
+  Destinazione parent: collezione handle gray-room.
+  Su desktop il link è il titolo Archive Sale.
+  Su mobile quel titolo è solo il toggle dell'accordion, quindi prima di FAQ
+  c'è anche All, che punta alla stessa collezione.
 
   @param context {string} desktop | mobile
 {% endcomment %}
@@ -17,6 +27,7 @@
     assign gray_room_raw = shop.metafields.gray_matters.gray_room_enabled
   endif
   assign gray_room_flag = gray_room_raw | append: '' | downcase | strip
+
   assign gray_room_preview_only = true
   if gray_room_flag == 'true'
     assign gray_room_preview_only = false
@@ -26,20 +37,27 @@
 {% liquid
   assign gray_room_menu = linklists.archive
   assign gray_room_all_path = routes.collections_url | append: '/gray-room'
-  assign gray_room_has_links = false
-  if gray_room_menu != blank and gray_room_menu.links.size > 0
-    assign gray_room_has_links = true
+  assign gray_room_faq_page = pages['faq-gray-room']
+  if gray_room_faq_page != blank and gray_room_faq_page.url != blank
+    assign gray_room_faq_path = gray_room_faq_page.url
+  else
+    assign gray_room_faq_path = '/pages/faq-gray-room'
   endif
-  assign gray_room_menu_has_all = false
-  if gray_room_has_links
+  assign gray_room_has_style = false
+  assign gray_room_has_size = false
+  if gray_room_menu != blank and gray_room_menu.links.size > 0
     for gray_room_item in gray_room_menu.links
-      if gray_room_item.url contains 'gray-room'
-        assign gray_room_menu_has_all = true
+      assign gray_room_item_key = gray_room_item.title | downcase | strip | replace: '-', ' '
+      assign gray_room_item_handle = gray_room_item.handle | downcase | replace: '-', ' '
+      if gray_room_item_key contains 'shop by style' or gray_room_item_handle contains 'shop by style'
+        assign gray_room_style_link = gray_room_item
+        assign gray_room_has_style = true
+      elsif gray_room_item_key contains 'shop by size' or gray_room_item_handle contains 'shop by size'
+        assign gray_room_size_link = gray_room_item
+        assign gray_room_has_size = true
       endif
     endfor
   endif
-  assign gray_room_collection = collections['gray-room']
-  assign gray_room_all_label = gray_room_collection.title | default: 'All'
 %}
 
 {% if context == 'desktop' %}
@@ -53,125 +71,143 @@
     <a
       href='{{ gray_room_all_path }}'
       class='header-gray-room-link h-full inline-flex items-center pl-[13px] pr-[24px] py-[15px] leading-[16px] hover:opacity-70 hover:bg-gray-200 group-hover:bg-gray-200 transition-all duration-200 ease-out proxima-bold text-[11.5px] tracking-[0.8px] uppercase'
-      {% if gray_room_has_links %}
-        aria-haspopup='true'
-      {% endif %}
+      aria-haspopup='true'
     >
       Archive Sale
     </a>
-    {% if gray_room_has_links %}
-      <div class='absolute left-0 top-full opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto group-focus-within:opacity-100 group-focus-within:pointer-events-auto transition-opacity duration-200 ease-out z-50'>
-        <ul class='min-w-[200px] text-black py-1 bg-gray-200'>
-          {% unless gray_room_menu_has_all %}
-            <li>
-              <a
-                href='{{ gray_room_all_path }}'
-                class='block px-[15px] py-1 leading-[20px] proxima-reg text-[10.5px] tracking-[0.8px] font-light uppercase hover:opacity-70 transition-opacity text-dark-gray'
-              >
-                {{ gray_room_all_label | escape }}
-              </a>
-            </li>
-          {% endunless %}
-          {% for item in gray_room_menu.links %}
-            <li>
-              <a
-                href='{{ item.url }}'
-                class='block px-[15px] py-1 leading-[20px] proxima-reg text-[10.5px] tracking-[0.8px] font-light uppercase hover:opacity-70 transition-opacity text-dark-gray'
-              >
-                {{ item.title | escape }}
-              </a>
-              {% if item.links.size > 0 %}
-                <ul>
-                  {% for child in item.links %}
+    <div class='absolute left-0 top-full opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto group-focus-within:opacity-100 group-focus-within:pointer-events-auto transition-opacity duration-200 ease-out z-50'>
+      <ul class='min-w-[200px] text-black py-1 bg-gray-200'>
+        <li>
+          <a
+            href='{{ gray_room_faq_path }}'
+            class='block px-[15px] py-1 leading-[20px] proxima-reg text-[10.5px] tracking-[0.8px] font-light uppercase hover:opacity-70 transition-opacity text-dark-gray'
+          >
+            FAQ
+          </a>
+        </li>
+        {% for gray_room_slot in (1..2) %}
+          {% liquid
+            assign gray_room_branch_title = ''
+            if gray_room_slot == 1 and gray_room_has_style
+              assign gray_room_branch = gray_room_style_link
+              assign gray_room_branch_title = gray_room_branch.title
+            elsif gray_room_slot == 2 and gray_room_has_size
+              assign gray_room_branch = gray_room_size_link
+              assign gray_room_branch_title = gray_room_branch.title
+            endif
+          %}
+          {% if gray_room_branch_title == blank %}
+            {% continue %}
+          {% endif %}
+          <li class='header-gray-room-item'>
+            <a
+              href='{{ gray_room_branch.url }}'
+              class='block px-[15px] py-1 leading-[20px] proxima-reg text-[10.5px] tracking-[0.8px] font-light uppercase hover:opacity-70 transition-opacity text-dark-gray{% if gray_room_branch.links.size > 0 %} header-gray-room-branch{% endif %}'
+              {% if gray_room_branch.links.size > 0 %}
+                aria-haspopup='true'
+              {% endif %}
+            >
+              {{ gray_room_branch_title | escape }}
+            </a>
+            {% if gray_room_branch.links.size > 0 %}
+              <div class='header-gray-room-flyout'>
+                <ul class='min-w-[200px] text-black py-1 bg-gray-200'>
+                  {% for gray_room_child in gray_room_branch.links %}
                     <li>
                       <a
-                        href='{{ child.url }}'
-                        class='block pl-[28px] pr-[15px] py-1 leading-[20px] proxima-reg text-[10.5px] tracking-[0.8px] font-light hover:opacity-70 transition-opacity text-dark-gray'
+                        href='{{ gray_room_child.url }}'
+                        class='block px-[15px] py-1 leading-[20px] proxima-reg text-[10.5px] tracking-[0.8px] font-light uppercase hover:opacity-70 transition-opacity text-dark-gray'
                       >
-                        {{ child.title | escape }}
+                        {{ gray_room_child.title | escape }}
                       </a>
                     </li>
                   {% endfor %}
                 </ul>
-              {% endif %}
-            </li>
-          {% endfor %}
-        </ul>
-      </div>
-    {% endif %}
+              </div>
+            {% endif %}
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
   </div>
 {% elsif context == 'mobile' %}
-  {% if gray_room_has_links %}
-    <div
-      data-accordion-item
-      {% if gray_room_preview_only %}
-        data-gray-room-preview
-        hidden
-      {% endif %}
+  <div
+    data-accordion-item
+    {% if gray_room_preview_only %}
+      data-gray-room-preview
+      hidden
+    {% endif %}
+  >
+    <button
+      type='button'
+      class='mobile-menu__navtext mobile-menu__navtext--accent'
+      data-accordion-button
+      aria-controls='MobileMenuGrayRoom'
+      aria-expanded='false'
     >
-      <button
-        type='button'
-        class='mobile-menu__navtext mobile-menu__navtext--accent'
-        data-accordion-button
-        aria-controls='MobileMenuGrayRoom'
-        aria-expanded='false'
-      >
-        <span>Archive Sale</span>
-        <span class='mobile-menu__plus'>
-          <span aria-hidden='true' data-accordion-plus>+</span>
-          <span aria-hidden='true' class='hidden' data-accordion-minus>-</span>
-        </span>
-      </button>
-      <div id='MobileMenuGrayRoom' class='mobile-menu__panel hidden' data-accordion-panel>
-        <ul class='mobile-menu__list'>
-          {% unless gray_room_menu_has_all %}
-            <li>
-              <a href='{{ gray_room_all_path }}' class='mobile-menu__child mobile-menu__child--upper'>
-                {{ gray_room_all_label | escape }}
-              </a>
-            </li>
-          {% endunless %}
-          {% for item in gray_room_menu.links %}
-            <li>
-              <a href='{{ item.url }}' class='mobile-menu__child mobile-menu__child--upper'>
-                {{ item.title | escape }}
-              </a>
-              {% if item.links.size > 0 %}
+      <span>Archive Sale</span>
+      <span class='mobile-menu__plus'>
+        <span aria-hidden='true' data-accordion-plus>+</span>
+        <span aria-hidden='true' class='hidden' data-accordion-minus>-</span>
+      </span>
+    </button>
+    <div id='MobileMenuGrayRoom' class='mobile-menu__panel hidden' data-accordion-panel>
+      <ul class='mobile-menu__list'>
+        <li>
+          <a href='{{ gray_room_all_path }}' class='mobile-menu__child mobile-menu__child--upper'> All </a>
+        </li>
+        <li>
+          <a href='{{ gray_room_faq_path }}' class='mobile-menu__child mobile-menu__child--upper'> FAQ </a>
+        </li>
+        {% for gray_room_slot in (1..2) %}
+          {% liquid
+            assign gray_room_branch_title = ''
+            if gray_room_slot == 1 and gray_room_has_style
+              assign gray_room_branch = gray_room_style_link
+              assign gray_room_branch_title = gray_room_branch.title
+            elsif gray_room_slot == 2 and gray_room_has_size
+              assign gray_room_branch = gray_room_size_link
+              assign gray_room_branch_title = gray_room_branch.title
+            endif
+            assign gray_room_branch_id = 'MobileMenuGrayRoom-' | append: gray_room_slot
+          %}
+          {% if gray_room_branch_title == blank %}
+            {% continue %}
+          {% endif %}
+          <li>
+            {% if gray_room_branch.links.size > 0 %}
+              <button
+                type='button'
+                class='mobile-menu__child mobile-menu__child--upper mobile-menu__subtoggle'
+                data-accordion-button
+                aria-controls='{{ gray_room_branch_id }}'
+                aria-expanded='false'
+              >
+                <span>{{ gray_room_branch_title | escape }}</span>
+                <span class='mobile-menu__plus'>
+                  <span aria-hidden='true' data-accordion-plus>+</span>
+                  <span aria-hidden='true' class='hidden' data-accordion-minus>-</span>
+                </span>
+              </button>
+              <div id='{{ gray_room_branch_id }}' class='hidden' data-accordion-panel>
                 <ul class='mobile-menu__list'>
-                  {% for child in item.links %}
+                  {% for gray_room_child in gray_room_branch.links %}
                     <li>
-                      <a href='{{ child.url }}' class='mobile-menu__child mobile-menu__child--nested'>
-                        {{ child.title | escape }}
+                      <a href='{{ gray_room_child.url }}' class='mobile-menu__child mobile-menu__child--nested'>
+                        {{ gray_room_child.title | escape }}
                       </a>
                     </li>
                   {% endfor %}
                 </ul>
-              {% endif %}
-            </li>
-          {% endfor %}
-        </ul>
-      </div>
+              </div>
+            {% else %}
+              <a href='{{ gray_room_branch.url }}' class='mobile-menu__child mobile-menu__child--upper'>
+                {{ gray_room_branch_title | escape }}
+              </a>
+            {% endif %}
+          </li>
+        {% endfor %}
+      </ul>
     </div>
-  {% else %}
-    <div
-      data-accordion-item
-      {% if gray_room_preview_only %}
-        data-gray-room-preview
-        hidden
-      {% endif %}
-    >
-      <a href='{{ gray_room_all_path }}' class='mobile-menu__navtext mobile-menu__navtext--accent'>
-        <span>Archive Sale</span>
-      </a>
-    </div>
-  {% endif %}
-  <script>
-    (function () {
-      var search = window.location.search || '';
-      if (!/(?:^|[?&])gr=1(?:&|$)/.test(search)) return;
-      document.querySelectorAll('[data-gray-room-preview]').forEach(function (node) {
-        node.removeAttribute('hidden');
-      });
-    })();
-  </script>
+  </div>
 {% endif %}

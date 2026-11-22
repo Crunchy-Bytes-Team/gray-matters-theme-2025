@@ -334,10 +334,12 @@ if (!customElements.get('product-info')) {
         button.removeAttribute('aria-disabled');
         button.classList.remove('loading');
 
-        let label = button.querySelector('span.text-15');
+        let label = this.productForm?.ensureButtonLabel?.(button);
+        if (!label) {
+          label = button.querySelector('span');
+        }
         if (!label) {
           label = document.createElement('span');
-          label.className = 'text-15';
           button.prepend(label);
         }
 

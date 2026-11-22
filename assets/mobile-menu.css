@@ -189,8 +189,20 @@ nav.mobile-menu .mobile-menu__navtext--accent:hover {
   font-family: 'proxima-bold', sans-serif;
 }
 
-nav.mobile-menu .mobile-menu__child--nested {
-  padding-left: 24px;
+nav.mobile-menu button.mobile-menu__subtoggle {
+  position: relative;
+  width: 100%;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  text-align: left;
+  padding-right: 32px;
+}
+
+nav.mobile-menu button.mobile-menu__subtoggle .mobile-menu__plus {
+  top: 50%;
+  right: 17px;
+  margin-top: -1px;
 }
 
 /* Live plus: 2px bars, 14px arms, centered 24px from the drawer’s right edge */
@@ -219,6 +231,9 @@ nav.mobile-menu .mobile-menu__plus::before {
 
 nav.mobile-menu
   .mobile-menu__navtext[aria-expanded='true']
+  .mobile-menu__plus::before,
+nav.mobile-menu
+  .mobile-menu__subtoggle[aria-expanded='true']
   .mobile-menu__plus::before {
   display: none;
 }
@@ -257,6 +272,12 @@ nav.mobile-menu .mobile-menu__child {
 }
 
 nav.mobile-menu .mobile-menu__child--upper {
+  text-transform: uppercase;
+}
+
+nav.mobile-menu .mobile-menu__child.mobile-menu__child--nested {
+  padding: 5px 10px 5px 20px;
+  line-height: 16px;
   text-transform: uppercase;
 }
 

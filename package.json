@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "prepare": "husky install",
-    "dev": "shopify theme dev --store=gray-matters-online-store.myshopify.com --theme=187054457141 --allow-live",
+    "dev": "shopify theme dev --store=gray-matters-online-store.myshopify.com --theme=187054457141 --allow-live --nodelete",
     "devdev": "shopify theme dev --store=crunchy-dev-store.myshopify.com",
     "upload": "shopify theme share",
     "tailwind:build": "npx tailwindcss -i ./assets/app-tailwind.css -o ./assets/app.css",

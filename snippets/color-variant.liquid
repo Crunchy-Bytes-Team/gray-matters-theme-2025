@@ -1,25 +1,43 @@
 {% comment %}
-  Dynamic Color Variant Rendering
-  Extracts product variants from metafields and renders color pills
-{% endcomment %}
+  Pallini colore della scheda prodotto.
 
-{% comment %}
-  // Example content of the metafield `product.metafields.module.product_variants`
+  Il prodotto aperto è sempre il primo pallino, senza link. Non dipende da
+  module.product_variants: se quella lista non contiene la pagina corrente,
+  il pallino c'è lo stesso.
+
+  Gli altri pallini arrivano solo da module.product_variants. Una voce viene
+  saltata quando:
+  - il link è la pagina corrente
+  - lo swatch è lo stesso del prodotto aperto (stessa immagine, altro url)
+  - il prodotto è in bozza o non è pubblicato sull'Online Store
+
+  Liquid non ha product.status. all_products non restituisce i draft: il drop
+  è vuoto e published_at è blank. Con lo stesso segnale restano fuori anche
+  i prodotti attivi ma non pubblicati sul canale Online Store.
+
+  Gray Room / Archive Sale: solo il pallino del prodotto corrente.
+
+  product_variants è JSON, in una di queste forme:
   {
     "entries": [{
+      "handle": "egg-mules-bianco",
       "url": "https://www.graymattersnyc.com/products/egg-mules-bianco",
-      "gid": "gid://shopify/Product/4418476769385",
-      "product_id": 131
-    }, {
-      "url": "https://www.graymattersnyc.com/products/egg-mules-cera",
-      "gid": "gid://shopify/Product/4875640340585",
-      "product_id": 133
+      "image": "https://cdn.shopify.com/...",
+      "gid": "gid://shopify/Product/4418476769385"
     }]
   }
+  Lo store ha sia .value.entries sia .entries. Vanno tenuti entrambi.
 {% endcomment %}
 
-{% assign variants_metafield = product.metafields.module.product_variants %}
-{% assign variant_entries = blank %}
+{% liquid
+  assign variants_metafield = product.metafields.module.product_variants
+  assign variant_entries = blank
+  assign color_vendor_norm = product.vendor | downcase | strip
+  assign gray_room_current_only = false
+  if color_vendor_norm == 'gray room'
+    assign gray_room_current_only = true
+  endif
+%}
 
 {% if variants_metafield != blank %}
   {% if variants_metafield.value != blank and variants_metafield.value.entries != blank %}
@@ -29,75 +47,44 @@
   {% endif %}
 {% endif %}
 
-{% if variant_entries != blank %}
-  <div class='flex flex-nowrap w-max min-w-full'>
-    {% for entry in variant_entries %}
-      {% assign variant_handle = entry.handle | default: blank %}
-      {% if variant_handle == blank and entry.url != blank %}
-        {% assign variant_handle = entry.url | split: '/products/' | last %}
-        {% assign variant_handle = variant_handle | split: '?' | first | split: '#' | first | strip %}
-      {% endif %}
-      {% if variant_handle == blank %}
-        {% continue %}
-      {% endif %}
-
-      {% assign variant_image_url = entry.image | default: blank %}
-      {% if variant_image_url == blank %}
-        {% assign variant_product = all_products[variant_handle] %}
-        {% assign variant_image_raw = variant_product.metafields.module.product_color_img1.value %}
-        {% if variant_image_raw.url != blank %}
-          {% assign variant_image_url = variant_image_raw.url %}
-        {% else %}
-          {% assign variant_image_url = variant_image_raw %}
-        {% endif %}
-      {% endif %}
-
-      {% assign variant_relative_url = '/products/' | append: variant_handle %}
-      {% if variant_handle == product.handle %}
-        <div
-          class='color-variant-dot rounded-full overflow-hidden flex flex-col shrink-0 cursor-pointer mr-2'
-          aria-current='true'
-        >
-      {% else %}
-        <a
-          href='{{ variant_relative_url }}'
-          class='color-variant-dot rounded-full overflow-hidden flex flex-col shrink-0 mr-2'
-          aria-label='{{ variant_handle | replace: "-", " " | escape }}'
-        >
-      {% endif %}
-        {% if variant_image_url != blank %}
-          <div
-            class='w-full h-full bg-cover bg-center'
-            style='background-image: url({{ variant_image_url | escape }});'
-          ></div>
-        {% else %}
-          <div class='w-full h-full' style='background-color:#ffffff;'></div>
-        {% endif %}
-      {% if variant_handle == product.handle %}
-        </div>
-      {% else %}
-        </a>
-      {% endif %}
-    {% endfor %}
-  </div>
-{% elsif variants_metafield == blank %}
-{% assign border_class = 'cursor-pointer' %}
-{% assign margin_class = 'mr-2' %}
 {% assign blank_color_hex = '#ff00bb' %}
 {% assign default_color_hex = '#ffffff' %}
 
-{% comment %} Current product: image metafield `module.product_color_img1` {% endcomment %}
-{% assign current_color_image_raw = product.metafields.module.product_color_img1.value %}
+{% comment %}
+  Immagine del prodotto aperto. Se la lista ha una voce che punta qui e ha
+  uno swatch, si usa quello. Altrimenti module.product_color_img1.
+  Quella voce non viene ristampata come link.
+{% endcomment %}
 {% assign current_color_image_url = '' %}
-{% if current_color_image_raw != blank %}
-  {% if current_color_image_raw.url != blank %}
-    {% assign current_color_image_url = current_color_image_raw.url %}
-  {% else %}
-    {% assign current_color_image_url = current_color_image_raw %}
+{% if variant_entries != blank %}
+  {% for entry in variant_entries %}
+    {% assign self_handle = entry.handle | default: blank %}
+    {% if self_handle == blank and entry.url != blank %}
+      {% assign self_handle = entry.url | split: '/products/' | last %}
+      {% assign self_handle = self_handle | split: '?' | first | split: '#' | first | strip %}
+    {% endif %}
+    {% assign self_handle = self_handle | downcase %}
+    {% if self_handle == product.handle and entry.image != blank %}
+      {% assign current_color_image_url = entry.image %}
+      {% break %}
+    {% endif %}
+  {% endfor %}
+{% endif %}
+{% if current_color_image_url == blank %}
+  {% assign current_color_image_raw = product.metafields.module.product_color_img1.value %}
+  {% if current_color_image_raw != blank %}
+    {% if current_color_image_raw.url != blank %}
+      {% assign current_color_image_url = current_color_image_raw.url %}
+    {% else %}
+      {% assign current_color_image_url = current_color_image_raw %}
+    {% endif %}
   {% endif %}
 {% endif %}
 
-{% comment %} Current product: colors (sentinel `#ff00bb` = empty) {% endcomment %}
+{% comment %}
+  Colori di riserva del prodotto aperto. #ff00bb nel metafield significa
+  "vuoto", non un colore da disegnare.
+{% endcomment %}
 {% assign raw_primary = product.metafields.custom.primary_color.value
   | default: product.metafields.custom.primary_color
   | default: ''
@@ -125,9 +112,9 @@
 {% endif %}
 
 <div class='flex flex-nowrap w-max min-w-full'>
-  {% comment %} Render current product pill {% endcomment %}
   <div
-    class='color-variant-dot rounded-full overflow-hidden flex flex-col shrink-0 {{ border_class }} {{ margin_class }}'
+    class='color-variant-dot rounded-full overflow-hidden flex flex-col shrink-0 cursor-pointer mr-2'
+    aria-current='true'
   >
     {% if current_color_image_url != blank %}
       <div
@@ -146,93 +133,58 @@
     {% endif %}
   </div>
 
-  {% if variant_entries != blank %}
+  {% if variant_entries != blank and gray_room_current_only == false %}
     {% for entry in variant_entries %}
-      {% assign variant_handle = blank %}
-      {% assign variant_relative_url = '' %}
-      {% if entry.url != blank %}
+      {% assign variant_handle = entry.handle | default: blank %}
+      {% if variant_handle == blank and entry.url != blank %}
         {% assign variant_handle = entry.url | split: '/products/' | last %}
-        {% assign variant_handle = variant_handle | split: '?' | first %}
-        {% assign variant_handle = variant_handle | split: '#' | first %}
-        {% assign variant_handle = variant_handle | strip %}
+        {% assign variant_handle = variant_handle | split: '?' | first | split: '#' | first | strip %}
+      {% endif %}
+      {% assign variant_handle = variant_handle | downcase %}
+      {% if variant_handle == blank or variant_handle == product.handle %}
+        {% continue %}
+      {% endif %}
 
-        {% comment %} Convert absolute URL to relative URL {% endcomment %}
-        {% if variant_handle != blank %}
-          {% assign variant_relative_url = '/products/' | append: variant_handle %}
+      {% comment %}
+        Draft e non pubblicati sull'Online Store non sono in all_products.
+        published_at vuoto copre entrambi: Liquid non distingue lo status.
+      {% endcomment %}
+      {% assign variant_product = all_products[variant_handle] %}
+      {% if variant_product.published_at == blank %}
+        {% continue %}
+      {% endif %}
+
+      {% assign variant_image_url = entry.image | default: blank %}
+      {% if variant_image_url == blank %}
+        {% assign variant_image_raw = variant_product.metafields.module.product_color_img1.value %}
+        {% if variant_image_raw.url != blank %}
+          {% assign variant_image_url = variant_image_raw.url %}
+        {% else %}
+          {% assign variant_image_url = variant_image_raw %}
         {% endif %}
       {% endif %}
 
-      {% if variant_handle != blank and variant_relative_url != blank %}
-        {% comment %} Skip if this variant is the current product {% endcomment %}
-        {% if variant_handle == product.handle %}
-          {% continue %}
-        {% endif %}
-
-        {% assign variant_product = all_products[variant_handle] %}
-
-        {% comment %}
-          Liquid has no product.status (draft/active/archived). Skip variants that are
-          unpublished to the Online Store; draft products are also excluded via all_products.
-        {% endcomment %}
-        {% if variant_product != blank and variant_product.published_at != blank %}
-          {% assign variant_color_image_raw = variant_product.metafields.module.product_color_img1.value %}
-          {% assign variant_color_image_url = '' %}
-          {% if variant_color_image_raw != blank %}
-            {% if variant_color_image_raw.url != blank %}
-              {% assign variant_color_image_url = variant_color_image_raw.url %}
-            {% else %}
-              {% assign variant_color_image_url = variant_color_image_raw %}
-            {% endif %}
-          {% endif %}
-
-          {% assign v_raw_primary = variant_product.metafields.custom.primary_color.value
-            | default: variant_product.metafields.custom.primary_color
-            | default: ''
-            | strip
-          %}
-          {% assign v_raw_secondary = variant_product.metafields.custom.secondary_color.value
-            | default: variant_product.metafields.custom.secondary_color
-            | default: ''
-            | strip
-          %}
-          {% assign variant_primary_hex = '' %}
-          {% assign variant_secondary_hex = '' %}
-          {% if v_raw_primary != blank %}
-            {% assign v_raw_primary_lc = v_raw_primary | downcase %}
-            {% if v_raw_primary_lc != blank_cmp %}
-              {% assign variant_primary_hex = v_raw_primary %}
-            {% endif %}
-          {% endif %}
-          {% if v_raw_secondary != blank %}
-            {% assign v_raw_secondary_lc = v_raw_secondary | downcase %}
-            {% if v_raw_secondary_lc != blank_cmp %}
-              {% assign variant_secondary_hex = v_raw_secondary %}
-            {% endif %}
-          {% endif %}
-
-          <a
-            href='{{ variant_relative_url }}'
-            class='color-variant-dot rounded-full overflow-hidden flex flex-col shrink-0 mr-2'
-          >
-            {% if variant_color_image_url != blank %}
-              <div
-                class='w-full h-full bg-cover bg-center'
-                style='background-image: url({{ variant_color_image_url | escape }});'
-              ></div>
-            {% elsif variant_primary_hex != blank and variant_secondary_hex != blank %}
-              <div class='w-full h-1/2' style='background-color: {{ variant_primary_hex }};'></div>
-              <div class='w-full h-1/2' style='background-color: {{ variant_secondary_hex }};'></div>
-            {% elsif variant_primary_hex != blank %}
-              <div class='w-full h-full' style='background-color: {{ variant_primary_hex }};'></div>
-            {% elsif variant_secondary_hex != blank %}
-              <div class='w-full h-full' style='background-color: {{ variant_secondary_hex }};'></div>
-            {% else %}
-              <div class='w-full h-full' style='background-color: {{ default_color_hex }};'></div>
-            {% endif %}
-          </a>
-        {% endif %}
+      {% comment %} Stesso file del pallino corrente, appeso a un altro url. {% endcomment %}
+      {% assign current_image_key = current_color_image_url | split: '?' | first | downcase | replace: 'https:', '' | replace: 'http:', '' %}
+      {% assign variant_image_key = variant_image_url | split: '?' | first | downcase | replace: 'https:', '' | replace: 'http:', '' %}
+      {% if current_image_key != blank and variant_image_key == current_image_key %}
+        {% continue %}
       {% endif %}
+
+      <a
+        href='/products/{{ variant_handle }}'
+        class='color-variant-dot rounded-full overflow-hidden flex flex-col shrink-0 mr-2'
+        aria-label='{{ variant_handle | replace: "-", " " | escape }}'
+      >
+        {% if variant_image_url != blank %}
+          <div
+            class='w-full h-full bg-cover bg-center'
+            style='background-image: url({{ variant_image_url | escape }});'
+          ></div>
+        {% else %}
+          <div class='w-full h-full' style='background-color: {{ default_color_hex }};'></div>
+        {% endif %}
+      </a>
     {% endfor %}
   {% endif %}
 </div>
-{% endif %}

@@ -19,6 +19,27 @@
 {%- liquid
   assign product_form_id = 'product-form-' | append: section.id
   assign swatch_shape = swatch_shape | default: block.settings.swatch_shape | default: 'none'
+
+  comment
+    Legacy product-detail-section: one product_on_sale flag from
+    selected_or_first_available_variant, applied to every sold-out size.
+    Sold-out sizes on sale products show "Out of stock" (no Inquire).
+  endcomment
+  assign product_on_sale = false
+  assign sale_check_variant = product.selected_or_first_available_variant
+  if sale_check_variant != blank and sale_check_variant.compare_at_price > sale_check_variant.price
+    assign product_on_sale = true
+  elsif product.compare_at_price > product.price
+    assign product_on_sale = true
+  endif
+  unless product_on_sale
+    for sale_variant in product.variants
+      if sale_variant.compare_at_price > sale_variant.price
+        assign product_on_sale = true
+        break
+      endif
+    endfor
+  endunless
 -%}
 
 {%- for value in option.values -%}
@@ -40,15 +61,8 @@
     endif
 
     assign option_variant = value.variant
-    assign compare_at_price = product.compare_at_price
-    assign price = product.price
-    if option_variant
-      assign compare_at_price = option_variant.compare_at_price
-      assign price = option_variant.price
-    endif
-
-    assign option_on_sale = false
-    if compare_at_price > price
+    assign option_on_sale = product_on_sale
+    if option_variant != blank and option_variant.compare_at_price > option_variant.price
       assign option_on_sale = true
     endif
   -%}
@@ -64,6 +78,8 @@
   {%- capture input_dataset -%}
     data-product-url="{{ value.product_url }}"
     data-option-value-id="{{ value.id }}"
+    {% if option_disabled %}data-soldout-option{% endif %}
+    {% if option_disabled and option_on_sale %}data-no-inquire{% endif %}
   {%- endcapture -%}
 
   {%- capture label_unavailable -%}

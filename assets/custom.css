@@ -24,6 +24,44 @@ body {
   color: #ce71ed;
 }
 
+.header-gray-room-item {
+  position: relative;
+}
+
+.header-gray-room-branch {
+  position: relative;
+  padding-right: 26px;
+}
+
+.header-gray-room-branch::after {
+  content: '';
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  width: 4px;
+  height: 4px;
+  margin-top: -3px;
+  border-top: 1px solid currentColor;
+  border-right: 1px solid currentColor;
+  transform: rotate(45deg);
+}
+
+.header-gray-room-flyout {
+  position: absolute;
+  top: 0;
+  left: calc(100% - 1px);
+  z-index: 2;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 200ms ease-out;
+}
+
+.header-gray-room-item:hover > .header-gray-room-flyout,
+.header-gray-room-item:focus-within > .header-gray-room-flyout {
+  opacity: 1;
+  pointer-events: auto;
+}
+
 .proxima-xbold {
   font-family: 'proxima-xbold', sans-serif;
 }

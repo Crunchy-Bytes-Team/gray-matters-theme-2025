@@ -169,11 +169,9 @@
                   >
                     {{ product.description }}
                   </div>
-                  {% unless product.vendor == 'GRAY ROOM' %}
-                    <div class='color-variant w-full min-w-0 max-w-full overflow-x-auto overflow-y-hidden pt-4 pb-8'>
-                      {% render 'color-variant' %}
-                    </div>
-                  {% endunless %}
+                  <div class='color-variant w-full min-w-0 max-w-full overflow-x-auto overflow-y-hidden pt-4 pb-8'>
+                    {% render 'color-variant' %}
+                  </div>
                 </div>
 
                 {%- if cart.taxes_included or cart.duties_included or shop.shipping_policy.body != blank -%}
@@ -972,7 +970,10 @@
 </div>
 {%- assign vendor_norm = product.vendor | downcase | strip -%}
 {% if vendor_norm == 'gray matters' %}
-  <div class='relative-products-snippet flex flex-col bg-white w-full relative z-0 lg:z-50 px-0 lg:px-4 pb-6'>
+  <div
+    class='relative-products-snippet flex flex-col bg-white w-full relative z-0 lg:z-50 px-0 lg:px-4 pb-6'
+    data-gray-room-related
+  >
     {% render 'related-products' %}
   </div>
 {% endif %}

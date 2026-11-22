@@ -1,4 +1,9 @@
 <div class='section-{{ section.id }}-padding gradient color-{{ section.settings.color_scheme }}'>
+  {%- comment -%}
+    Ogni collezione resta a 50 prodotti per risposta Liquid. assets/gray-room-collection.js
+    concatena le pagine successive, così il listato non si tronca al tetto di pagina
+    né alla memoria di Liquid.
+  {%- endcomment -%}
   {%- paginate collection.products by 50 -%}
     {% comment %} Sort is the first tabbable element when filter type is vertical {% endcomment %}
     {%- if section.settings.enable_sorting and section.settings.filter_type == 'vertical' -%}
@@ -155,6 +160,13 @@
                 {%- assign skip_card_product_styles = true -%}
               {%- endfor -%}
             </ul>
+            <div
+              hidden
+              data-gray-room-collection-autoload
+              data-next-url='{{ paginate.next.url | default: '' | escape }}'
+              data-current-page='{{ paginate.current_page }}'
+              data-section-id='{{ section.id | escape }}'
+            ></div>
           </div>
         {%- endif -%}
       </div>
